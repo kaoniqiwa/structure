@@ -3,16 +3,45 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { ToastrModule } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
+
+import zh from '@angular/common/locales/zh';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { AppInterceptorServiceService } from './network/app-interceptor-service.service';
+
+registerLocaleData(zh, 'zh-CN');
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      timeOut: 1500,
+      extendedTimeOut: 1500,
+      closeButton: false,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      tapToDismiss: true,
+    }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptorServiceService,
+      multi: true,
+    },
+    CookieService,
+    DatePipe,
+  ],
+  bootstrap: [AppComponent],
+  exports: [],
 })
-export class AppModule { }
+export class AppModule {}
