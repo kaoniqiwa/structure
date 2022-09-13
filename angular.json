@@ -30,8 +30,7 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": ["crypto-js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -68,12 +67,18 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.ts"
+          },
           "configurations": {
             "production": {
               "browserTarget": "structure:build:production"
             },
             "development": {
-              "browserTarget": "structure:build:development"
+              "host": "127.0.0.1",
+              "browserTarget": "structure:build:development",
+              "port": 9527,
+              "open": false
             }
           },
           "defaultConfiguration": "development"

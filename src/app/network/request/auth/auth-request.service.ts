@@ -21,6 +21,7 @@ import { SessionStorageService } from 'src/app/tools/service/session-storage.ser
 import { RoutePath } from 'src/app/app-routing.path';
 import { UserUrl } from '../../url/users/user.url';
 import { HowellUrl } from 'src/app/models/howell-url.model';
+import CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',

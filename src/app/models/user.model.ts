@@ -1,7 +1,7 @@
 import { Exclude, Transform } from 'class-transformer';
-import { Gender } from 'src/app/enum/gender.enum';
-import { UserResourceType } from 'src/app/enum/user-resource-type.enum';
-import { UserState } from 'src/app/enum/user-state.enum';
+import { Gender } from '../enums/gender.enum';
+import { UserResourceType } from '../enums/user-resource-type.enum';
+import { UserState } from '../enums/user-state.enum';
 import { IModel } from './model.interface';
 import { Role } from './role.model';
 import { transformDateTime } from './transform.model';

@@ -1,11 +1,11 @@
 import { Transform } from 'class-transformer';
-import { PrivacyDataRole } from 'src/app/enum/role-privacy-data.enum';
-import { PictureDataRole } from 'src/app/enum/role-picture-data.enum';
-import { StaticDataRole } from 'src/app/enum/role-static-data.enum';
-import { UserDataRole } from '../../enum/role-user-data.enum';
 import { transformDateTime } from './transform.model';
 import { UserResource } from './user.model';
 import { IModel } from './model.interface';
+import { PictureDataRole } from '../enums/role-picture-data.enum';
+import { PrivacyDataRole } from '../enums/role-privacy-data.enum';
+import { StaticDataRole } from '../enums/role-static-data.enum';
+import { UserDataRole } from '../enums/role-user-data.enum';
 
 /** 角色信息 */
 export class Role implements IModel {
