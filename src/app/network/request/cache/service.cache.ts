@@ -1,6 +1,7 @@
-
+import { IData } from 'src/app/interfaces/data.interface';
+import { IService } from 'src/app/interfaces/service.interface';
 import { PagedList } from 'src/app/models/page-list.model';
-import { IParams } from '../../IParams.interface';
+import { IParams, PagedParams } from '../../IParams.interface';
 import { AppCache } from './app-cache';
 
 export interface IServiceCache {
