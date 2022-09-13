@@ -30,7 +30,8 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["crypto-js"]
           },
           "configurations": {
             "production": {
