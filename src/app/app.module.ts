@@ -12,6 +12,8 @@ import { CookieService } from 'ngx-cookie-service';
 import zh from '@angular/common/locales/zh';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { AppInterceptorServiceService } from './network/app-interceptor-service.service';
+import { ViewComponentsModule } from './views/views.module';
+import { MaterialModule } from './material.module';
 
 registerLocaleData(zh, 'zh-CN');
 
@@ -31,6 +33,8 @@ registerLocaleData(zh, 'zh-CN');
       progressAnimation: 'increasing',
       tapToDismiss: true,
     }),
+    ViewComponentsModule,
+    
   ],
   providers: [
     {
@@ -44,4 +48,4 @@ registerLocaleData(zh, 'zh-CN');
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule {}
+export class AppModule { }

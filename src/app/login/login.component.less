@@ -38,7 +38,7 @@
       .login-header {
         width: 70%;
         height: 100%;
-        background-image: url(/assets/images/login/login-panel-header.png);
+        background-image: url(/assets/img/login/login-panel-header.png);
         background-size: 100% 100%;
         background-repeat: no-repeat;
 
@@ -72,7 +72,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -36%);
-    background-image: url(/assets/images/login/login-panel.png);
+    background-image: url(/assets/img/login/login-panel.png);
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -89,10 +89,12 @@
       width: 69%;
       height: 2px;
       margin: 0 auto;
-      background-image: linear-gradient(to right,
-          rgba(0, 0, 0, 0),
-          #6997ff,
-          rgba(0, 0, 0, 0));
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        #6997ff,
+        rgba(0, 0, 0, 0)
+      );
     }
 
     .login-form {
@@ -137,7 +139,7 @@
           width: 100%;
           height: 100%;
           background: transparent;
-          background-image: url(/assets/images/login/login-btn.png);
+          background-image: url(/assets/img/login/login-btn.png);
           background-size: 100% 100%;
           background-position: center;
           background-repeat: no-repeat;
@@ -147,11 +149,11 @@
           transition: background-image 0.15s ease-in-out;
 
           &:hover {
-            background-image: url(/assets/images/login/login-btn-hover.png);
+            background-image: url(/assets/img/login/login-btn-hover.png);
           }
 
           &:active {
-            background-image: url(/assets/images/login/login-btn-active.png);
+            background-image: url(/assets/img/login/login-btn-active.png);
           }
         }
       }
@@ -161,7 +163,7 @@
         margin: -11px auto -10px;
         border: none;
 
-        &>div {
+        & > div {
           display: flex;
           align-items: center;
           position: relative;
@@ -175,16 +177,16 @@
             cursor: pointer;
 
             &:checked {
-              background-image: url(/assets/images/login/tick2.svg);
+              background-image: url(/assets/img/login/tick2.svg);
               background-size: 15px;
               background-repeat: no-repeat;
               background-position: center;
             }
           }
 
-          input+label {
+          input + label {
             cursor: pointer;
-            color: #5e6ebf
+            color: #5e6ebf;
           }
         }
       }

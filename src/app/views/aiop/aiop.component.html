@@ -1,0 +1,31 @@
+<div class="aiop">
+  <div class="aiop-header">
+    <mat-toolbar>
+      <app-account-info></app-account-info>
+      <div class="spacer">
+        <howell-header-navigation
+          (navigate)="onnavigate($event)"
+        ></howell-header-navigation>
+      </div>
+      <app-time></app-time>
+      <app-account-operation></app-account-operation>
+    </mat-toolbar>
+  </div>
+  <div class="aiop-body">
+    <ng-container *ngIf="path == NavigationPath.realtime">
+      <app-realtime></app-realtime>
+    </ng-container>
+    <ng-container *ngIf="path == NavigationPath.structured_data">
+      <app-structured-data></app-structured-data>
+    </ng-container>
+    <ng-container *ngIf="path == NavigationPath.alarm_events">
+      <app-alarm-events></app-alarm-events>
+    </ng-container>
+    <ng-container *ngIf="path == NavigationPath.deploy_list">
+      <app-deploy-list></app-deploy-list>
+    </ng-container>
+    <ng-container *ngIf="path == NavigationPath.device_list">
+      <app-device-list></app-device-list>
+    </ng-container>
+  </div>
+</div>

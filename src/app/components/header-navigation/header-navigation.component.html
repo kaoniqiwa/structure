@@ -1,0 +1,32 @@
+<div class="header-navigation">
+  <button
+    [class.selected]="path === NavigationPath.realtime"
+    (click)="onchanged(NavigationPath.realtime)"
+  >
+    <div>首页</div>
+  </button>
+  <button
+    [class.selected]="path === NavigationPath.structured_data"
+    (click)="onchanged(NavigationPath.structured_data)"
+  >
+    <div>结构化数据</div>
+  </button>
+  <button
+    [class.selected]="path === NavigationPath.alarm_events"
+    (click)="onchanged(NavigationPath.alarm_events)"
+  >
+    <div>报警事件</div>
+  </button>
+  <button
+    [class.selected]="path === NavigationPath.deploy_list"
+    (click)="onchanged(NavigationPath.deploy_list)"
+  >
+    <div>布防列表</div>
+  </button>
+  <button
+    [class.selected]="path === NavigationPath.device_list"
+    (click)="onchanged(NavigationPath.device_list)"
+  >
+    <div>设备列表</div>
+  </button>
+</div>

@@ -28,6 +28,7 @@ import { LocalStorageService } from '../tools/service/local-storage.service';
 import { SessionStorageService } from '../tools/service/session-storage.service';
 import { StoreService } from '../tools/service/store.service';
 
+import CryptoJS from 'crypto-js';
 /**
  *  LoginComponent 需要用到 form 指令，
  */

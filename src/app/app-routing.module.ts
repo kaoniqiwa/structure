@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { AuthorizationService } from './network/request/auth/auth-request.service';
 import { RoutePath } from './app-routing.path';
+import { AiopComponent } from './views/aiop/aiop.component';
 
 const routes: Routes = [
   {
@@ -17,10 +18,11 @@ const routes: Routes = [
     path: RoutePath.login,
     component: LoginComponent,
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'login',
-  // },
+  {
+    path: "aiop",
+    component: AiopComponent,
+    canActivate: [AuthorizationService]
+  },
 ];
 
 @NgModule({
@@ -33,4 +35,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
