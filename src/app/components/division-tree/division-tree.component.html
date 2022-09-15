@@ -1,0 +1,11 @@
+<div class="division-tree hw-tree">
+  <div class="search-wrapper" *ngIf="showSearchBar">
+    <howell-simple-search
+      placeHolder="名称"
+      (searchEvent)="searchEventHandler($event)"
+    ></howell-simple-search>
+  </div>
+  <div class="tree-container">
+    <howell-common-tree [dataSubject]="dataSubject"></howell-common-tree>
+  </div>
+</div>

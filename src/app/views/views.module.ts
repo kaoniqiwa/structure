@@ -17,6 +17,11 @@ import { StructuredDataComponent } from './structured-data/structured-data.compo
 import { AlarmEventsComponent } from './alarm-events/alarm-events.component';
 import { DeployListComponent } from './deploy-list/deploy-list.component';
 import { DeviceListComponent } from './device-list/device-list.component';
+import { DeviceStatusComponent } from './device-status/device-status.component';
+import { AngularResizeEventModule } from 'angular-resize-event';
+import { DeployMapComponent } from './deploy-map/deploy-map.component';
+import { AlarmComponent } from './alarm/alarm.component';
+import { DeployFaceComponent } from './deploy-face/deploy-face.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -27,12 +32,17 @@ const ViewComponents = [
   DeviceListComponent,
   DeployListComponent,
   AlarmEventsComponent,
+  DeviceStatusComponent,
+  DeployMapComponent,
+  AlarmComponent,
+  DeployFaceComponent,
   components
 ];
 
 @NgModule({
   declarations: ViewComponents,
   imports: [
+    AngularResizeEventModule,
     MaterialModule,
     CommonModule,
     FormsModule,
