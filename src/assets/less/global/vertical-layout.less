@@ -1,0 +1,63 @@
+/*
+  垂直布局,header和footer不能shrink
+*/
+.vertical-layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  padding-bottom: 0;
+  // min-width: 400px;
+  height: 100%;
+
+  .vertical-header {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .vertical-main {
+    flex-grow: 1;
+    overflow: auto;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    .table-header {
+      flex-shrink: 0;
+      table {
+        width: calc(100% - 8px);
+      }
+    }
+    .table-body {
+      flex-grow: 1;
+      overflow: auto;
+    }
+  }
+  .vertical-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    // border-top: 1px solid #ddd;
+    // padding: 0 20px;
+    box-sizing: border-box;
+    overflow: auto;
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+
+      .footer-info {
+        display: flex;
+        .info-item {
+          margin: 0 5px;
+          font-size: 14px;
+          // color: black;
+        }
+      }
+    }
+  }
+}

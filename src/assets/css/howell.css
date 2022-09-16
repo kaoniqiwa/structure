@@ -24,17 +24,9 @@ body {
   color: #99abb4;
   min-width: 800px;
   min-height: 600px;
-  font-family: "Source Han Sans CN Normal";
+
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Source Han Sans CN Normal";
-}
 
 h5 {
   line-height: 1;

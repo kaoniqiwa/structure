@@ -1,0 +1,49 @@
+.table-header-container {
+  flex-shrink: 0;
+}
+.table-body-container {
+  flex-grow: 1;
+  overflow: auto;
+}
+table {
+  color: #cfd7ff;
+
+  width: 100%;
+  thead {
+    background-color: #3f4a88;
+    tr {
+      height: 70px;
+    }
+    tr th {
+      padding: 5px;
+      font-weight: normal;
+      color: white;
+    }
+    tr th:first-child {
+      padding-left: 24px;
+    }
+  }
+  tbody {
+    tr {
+      cursor: pointer;
+    }
+    tr td {
+      padding: 5px;
+      span {
+        margin: 0 2.5px;
+        i:hover {
+          color: #fff;
+        }
+      }
+    }
+    tr td:first-child {
+      padding-left: 24px;
+    }
+    i {
+      color: #7586e0;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
