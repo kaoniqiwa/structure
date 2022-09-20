@@ -15,18 +15,17 @@ body {
   margin: 0;
   border: none;
   padding: 0;
+  font-family: "思源黑体 CN";
 }
 
 html,
 body {
   height: 100%;
-  background: #060b32;
+  background: #0c1127;
   color: #99abb4;
   min-width: 800px;
   min-height: 600px;
-
 }
-
 
 h5 {
   line-height: 1;
