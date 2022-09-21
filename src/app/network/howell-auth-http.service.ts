@@ -21,7 +21,7 @@ export class HowellAuthHttpService {
     private _http: HttpClient,
     private _authorizationService: AuthorizationService
   ) {}
-
+  //#region Base64
   public postBase64String(
     url: string,
     base64: string,
@@ -61,6 +61,16 @@ export class HowellAuthHttpService {
     });
   }
 
+  public getBase64String(url: string, params?: HttpParams): Observable<string> {
+    const myHeaders = this._authorizationService.generateHttpHeader('GET', url);
+    const httpOptions = {
+      headers: myHeaders,
+      params: params,
+    };
+    return this._http.get<string>(url, httpOptions);
+  }
+  //#endregion
+
   public getStream(url: string, params?: HttpParams): Observable<Blob> {
     const myHeaders = this._authorizationService.generateHttpHeader('GET', url);
     const head = new HttpHeaders({
@@ -85,15 +95,6 @@ export class HowellAuthHttpService {
       params: params,
     };
     return this._http.get<R>(url, httpOptions);
-  }
-
-  public getBase64String(url: string, params?: HttpParams): Observable<string> {
-    const myHeaders = this._authorizationService.generateHttpHeader('GET', url);
-    const httpOptions = {
-      headers: myHeaders,
-      params: params,
-    };
-    return this._http.get<string>(url, httpOptions);
   }
 
   public getCache<T = any, R = T>(url: string, params?: HttpParams) {
@@ -194,6 +195,16 @@ export class HowellAuthHttpService {
       headers: myHeaders,
     };
     return this._http.delete<R>(url, httpOptions);
+  }
+  public deleteReturnBasicType<T>(url: string): Observable<T> {
+    const myHeaders = this._authorizationService.generateHttpHeader(
+      'DELETE',
+      url
+    );
+    const httpOptions = {
+      headers: myHeaders,
+    };
+    return this._http.delete<T>(url, httpOptions);
   }
 
   public auth(

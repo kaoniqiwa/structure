@@ -7,4 +7,5 @@ export enum ResourceType {
   IoTSensor = 'IoTSensor',
   /**  Crossing：卡口 */
   Crossing = 'Crossing',
+  ResourceCollection = 'ResourceCollection',
 }

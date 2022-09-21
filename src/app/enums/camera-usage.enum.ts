@@ -1,5 +1,6 @@
 /**摄像机用途 */
 export enum CameraUsage {
+  Default = 0,
   /**容量检测 */
   Volume = 1,
   /**混合投放 */

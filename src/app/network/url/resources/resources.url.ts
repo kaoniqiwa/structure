@@ -50,6 +50,10 @@ class CamerasUrl extends AbstractUrl {
     super(`${base}/Cameras`);
   }
 
+  excel() {
+    return `${this.basic()}/Excels`;
+  }
+
   aiModels(cameraId: string) {
     return new CamerasAIModelsUrl(this.item(cameraId));
   }

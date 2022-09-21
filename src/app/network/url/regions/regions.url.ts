@@ -13,8 +13,18 @@ export class RegionsUrl extends AbstractUrl {
   static list() {
     return this.url.list();
   }
+  static node(id?: string) {
+    let url = id ? this.item(id) : this.basic();
+    return new RegionsNodesUrl(url);
+  }
   static resource(id: string) {
     return new RegionsResourcesUrl(this.item(id));
+  }
+}
+
+class RegionsNodesUrl extends AbstractUrl {
+  constructor(base: string) {
+    super(`${base}/Nodes`);
   }
 }
 

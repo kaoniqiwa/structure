@@ -8,4 +8,6 @@ export class VideoUrl implements IModel {
   Username?: string;
   /**	String	密码	O	*/
   Password?: string;
+  /**	String	网页Url地址	O */
+  WebUrl?: string;
 }

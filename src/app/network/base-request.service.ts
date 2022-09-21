@@ -35,11 +35,28 @@ export class BaseRequestService {
     let response = await this.http.postString(url, args).toPromise();
     return ServiceHelper.ResponseProcess(response, type);
   }
-
-  async delete<T>(url: string, type: ClassConstructor<T>) {
-    let response = await this.http.delete(url).toPromise();
-    return ServiceHelper.ResponseProcess(response, type);
+  async postReturnString(url: string, params?: IParams) {
+    let response = await this.http
+      .post<IParams, HowellResponse<string>>(url, params)
+      .toPromise();
+    return ServiceHelper.ResponseProcess(response, true);
   }
+  delete<T>(url: string): Promise<T>;
+  delete<T>(url: string, type: ClassConstructor<T>): Promise<T>;
+  delete<T>(url: string, basic: boolean): Promise<HowellResponse<T>>;
+
+  async delete<T>(url: string, type?: ClassConstructor<T> | boolean) {
+    if (type === undefined) {
+      return this.http.deleteReturnBasicType<T>(url);
+    } else if (typeof type === 'boolean') {
+      let response = await this.http.delete<T>(url).toPromise();
+      return ServiceHelper.ResponseProcess(response, type);
+    } else {
+      let response = await this.http.delete(url).toPromise();
+      return ServiceHelper.ResponseProcess(response, type);
+    }
+  }
+
   async postArray<T>(url: string, type: ClassConstructor<T>, params?: IParams) {
     let data: IParams | undefined;
     if (params) {

@@ -99,11 +99,15 @@ export class DurationParams {
     return params;
   }
 }
-export class PagedIntervalParams extends PagedParams {
+export class PagedDurationParams extends PagedParams {
   /**	DateTime	开始时间	M */
   @Transform(transformDateTime)
   BeginTime!: Date;
   /**	DateTime	结束时间	M */
   @Transform(transformDateTime)
   EndTime!: Date;
+}
+export class ImageParams {
+  /**	String	图片数据通过Base64编码后的字符串（图片像素在256*256-900w内，文件大小在128字节-4M内。图片类型限制为：png、jpg/jpeg、bmp）	M */
+  ImageData!: string;
 }
