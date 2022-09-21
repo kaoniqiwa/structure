@@ -10,7 +10,7 @@ export class AiopComponent implements OnInit {
   NavigationPath = NavigationPath;
 
   title: string = "";
-  path = NavigationPath.deploy_list;
+  path = NavigationPath.structured_data;
 
   constructor() { }
 
