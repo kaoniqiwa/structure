@@ -8,7 +8,7 @@ import { LocalStorageService } from 'src/app/tools/service/local-storage.service
   styleUrls: ['./account-info.component.less'],
 })
 export class AccountInfoComponent implements OnInit {
-  desc: string = '结构化管理平台';
+  desc: string = '';
   title: string = '';
 
   constructor(private _localStorageService: LocalStorageService) { }
