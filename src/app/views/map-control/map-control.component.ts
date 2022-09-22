@@ -14,22 +14,19 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ImageControlModel } from 'src/app/view-model/image-control.model';
-import { LocalStorageService } from 'src/app/common/service/local-storage.service';
-import { Camera } from 'src/app/network/model/camera.model';
-import { GarbageStation } from 'src/app/network/model/garbage-station.model';
-import { ChangeControlModel } from 'src/app/view-model/change-control.model';
-import { AMapBusiness, GarbageTimeFilter } from './business/amap.business';
-import { ListPanelBusiness } from './business/map-list-panel.business';
+import { ImageControlArrayConverter } from 'src/app/converters/image-control-array.converter';
+import { ImageControlModel } from 'src/app/models/image-control.model';
+import { RegionNode } from 'src/app/models/region-node.model';
+import { Camera } from 'src/app/models/resource/camera.resource';
+import { AMapBusiness } from './business/amap.business';
+import { MapControlBusiness } from './business/map-control.business';
 import { PointInfoPanelBusiness } from './business/point-info-panel.business';
-import { ImageControlArrayConverter } from '../../../converter/image-control-array.converter';
-import { Division } from 'src/app/network/model/division.model';
 declare var $: any;
 @Component({
   selector: 'app-map-control',
   templateUrl: './map-control.component.html',
   styleUrls: ['./map-control.component.less'],
-  providers: [AMapBusiness, ListPanelBusiness, PointInfoPanelBusiness],
+  providers: [AMapBusiness, PointInfoPanelBusiness, MapControlBusiness],
 })
 export class MapControlComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
@@ -39,24 +36,31 @@ export class MapControlComponent
   VideoPlay: EventEmitter<Camera> = new EventEmitter();
   @Output()
   patrol: EventEmitter<void> = new EventEmitter();
-  // 垃圾落地记录
-  @Output()
-  illegalDropClicked: EventEmitter<GarbageStation> = new EventEmitter();
-  // 混合投放记录
-  @Output()
-  mixedIntoClicked: EventEmitter<GarbageStation> = new EventEmitter();
-  // 小包垃圾滞留
-  @Output()
-  garbageCountClicked: EventEmitter<GarbageStation> = new EventEmitter();
-  // 垃圾滞留投放点
-  @Output()
-  garbageRetentionClicked: EventEmitter<GarbageStation> = new EventEmitter();
-  @Output()
-  garbageFullClicked: EventEmitter<GarbageStation> = new EventEmitter();
   @Input()
-  position?: EventEmitter<GarbageStation>;
+  position?: EventEmitter<RegionNode>;
 
   //#endregion
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private changeDetectorRef: ChangeDetectorRef,
+    public amap: AMapBusiness,
+    public info: PointInfoPanelBusiness,
+    private business: MapControlBusiness
+  ) {}
+
+  src?: SafeResourceUrl;
+
+  private get iframe(): HTMLIFrameElement | undefined {
+    if (this.element && this.element.nativeElement.contentWindow) {
+      let _iframe = this.element.nativeElement as HTMLIFrameElement;
+      if (_iframe.contentWindow) {
+        return _iframe;
+      }
+    }
+    return;
+  }
+
   //#region ViewChild
   @ViewChild('iframe')
   element?: ElementRef;
@@ -122,28 +126,8 @@ export class MapControlComponent
       }
     });
   }
-
-  src?: SafeResourceUrl;
-
-  private get iframe(): HTMLIFrameElement | undefined {
-    if (this.element && this.element.nativeElement.contentWindow) {
-      let _iframe = this.element.nativeElement as HTMLIFrameElement;
-      if (_iframe.contentWindow) {
-        return _iframe;
-      }
-    }
-    return;
-  }
-
-  constructor(
-    private sanitizer: DomSanitizer,
-    private changeDetectorRef: ChangeDetectorRef,
-    public amap: AMapBusiness,
-    public panel: ListPanelBusiness,
-    public info: PointInfoPanelBusiness
-  ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.position) {
+    if (changes['position']) {
       if (this.position) {
         this.position.subscribe((x) => {
           this.amap.pointSelect(x.Id);
@@ -167,42 +151,19 @@ export class MapControlComponent
   //#endregion
 
   ngOnInit(): void {
-    this.panel.init();
-
     let src = this.amap.getSrc();
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(src);
     this.amap.pointDoubleClicked.subscribe((x) => {
       this.onPointDoubleClicked(x);
-      this.info.station = undefined;
-    });
-    this.amap.pointCountChanged.subscribe((count) => {
-      this.pointCount = count;
+      this.info.node = undefined;
     });
     this.amap.mapClicked.subscribe(() => {
       this.onMapClicked();
-      this.info.station = undefined;
+      this.info.node = undefined;
     });
-    this.amap.menuEvents.stationInformationClicked.subscribe((x) => {
-      this.info.station = x;
+    this.amap.menuEvents.nodeInformationClicked.subscribe((x) => {
+      this.info.node = x;
       this.display.status = false;
-    });
-    this.amap.menuEvents.illegalDropClicked.subscribe((x) => {
-      this.illegalDropClicked.emit(x);
-    });
-    this.amap.menuEvents.mixedIntoClicked.subscribe((x) => {
-      this.mixedIntoClicked.emit(x);
-    });
-    this.amap.menuEvents.garbageCountClicked.subscribe((x) => {
-      this.garbageCountClicked.emit(x);
-    });
-
-    this.panel.itemSelected.subscribe((x) => {
-      if (x instanceof Division) {
-        this.amap.divisionSelect(x.Id);
-      } else if (x instanceof GarbageStation) {
-        this.amap.pointSelect(x.Id);
-      } else {
-      }
     });
   }
   ngOnDestroy(): void {
@@ -211,22 +172,7 @@ export class MapControlComponent
     }
   }
 
-  onLabelDisplay = (value: boolean) => {
-    if (!value) {
-      this.display.label.station.value = true;
-    }
-    this.amap.setLabelVisibility(value);
-  };
-  onLabelStationDisplay = (value: boolean) => {
-    this.amap.setPointVisibility(value);
-  };
-
-  display: MapControlDisplay = new MapControlDisplay({
-    current: this.onLabelDisplay,
-    station: this.onLabelStationDisplay,
-  });
-
-  pointCount = 0;
+  display: MapControlDisplay = new MapControlDisplay();
 
   images: ImageControlModel[] = [];
 
@@ -243,13 +189,13 @@ export class MapControlComponent
   //#endregion
 
   //#region map event regist
-  onPointDoubleClicked(station: GarbageStation) {
-    this.selected.station = station;
+  async onPointDoubleClicked(node: RegionNode) {
+    this.selected.node = node;
     this.display.status = false;
     this.display.videoList = true;
-    this.images = station.Cameras
-      ? this.imageConverter.Convert(station.Cameras)
-      : [];
+    let camera = await this.business.getCamera(node.ResourceId);
+    let image = this.imageConverter.itemConverter.Convert(camera);
+    this.images = [image];
     this.display.videoControl = this.images.length > 5;
     this.changeDetectorRef.detectChanges();
   }
@@ -259,11 +205,9 @@ export class MapControlComponent
   }
   //#endregion
 
-  onCameraClicked(image: ImageControlModel) {
-    if (this.selected.station) {
-      let camera = this.selected.station.Cameras?.find(
-        (x) => x.Id === image.id
-      );
+  async onCameraClicked(image: ImageControlModel) {
+    if (this.selected.node) {
+      let camera = await this.business.getCamera(this.selected.node.Id);
       this.VideoPlay.emit(camera);
     }
   }
@@ -272,91 +216,17 @@ export class MapControlComponent
     this.patrol.emit();
   }
   Button2Clicked() {}
-  Button3Clicked() {
-    this.display.label.current = !this.display.label.current;
-  }
-  Button4Clicked() {
-    this.display.label.station.value = !this.display.label.station.value;
-  }
-
-  onPointInfoPanelGarbageRetentionClickedEvent(station: GarbageStation) {
-    this.garbageRetentionClicked.emit(station);
-  }
-  onPointInfoPanelIllegalDropClickedEvent(station: GarbageStation) {
-    this.illegalDropClicked.emit(station);
-  }
-  onPointInfoPanelMixedIntoClickedEvent(station: GarbageStation) {
-    this.mixedIntoClicked.emit(station);
-  }
-  onPointInfoPanelStateClickedEvent(station: GarbageStation) {
-    this.garbageFullClicked.emit(station);
-  }
-
-  GarbageTimeFilter = GarbageTimeFilter;
-
-  GarbageTimeFilting(filter: GarbageTimeFilter) {
-    this.amap.labelFilter = filter;
-    this.amap.setLabelVisibility(false).then((x) => {
-      this.display.label.current = this.display.label.current;
-      this.amap.setLabelVisibility(true).then(() => {
-        this.display.label.station.value = this.display.label.station.value;
-      });
-    });
-  }
-
-  ButtonAllClicked() {
-    this.GarbageTimeFilting(GarbageTimeFilter.all);
-  }
-  Button30mClicked() {
-    this.GarbageTimeFilting(GarbageTimeFilter.m30);
-  }
-
-  Button1hClicked() {
-    this.GarbageTimeFilting(GarbageTimeFilter.h1);
-  }
-
-  Button2hClicked() {
-    this.GarbageTimeFilting(GarbageTimeFilter.h2);
-  }
+  Button3Clicked() {}
+  Button4Clicked() {}
 }
 
 class MapControlDisplay {
-  constructor(
-    private events: {
-      current: (state: boolean) => void;
-      station: (state: boolean) => void;
-    }
-  ) {}
+  constructor() {}
   status = true;
   videoList = false;
   videoControl = false;
-  label: MapControlLabelDisplay = new MapControlLabelDisplay(this.events);
-}
-
-class MapControlLabelDisplay {
-  constructor(
-    private events: {
-      current: (state: boolean) => void;
-      station: (state: boolean) => void;
-    }
-  ) {
-    this.station.onChange.subscribe((x) => {
-      events.station(x);
-    });
-  }
-
-  private _current: boolean = false;
-  public get current(): boolean {
-    return this._current;
-  }
-  public set current(v: boolean) {
-    this._current = v;
-    this.events.current(this._current);
-  }
-
-  station = new ChangeControlModel(true);
 }
 
 interface Selected {
-  station?: GarbageStation;
+  node?: RegionNode;
 }
