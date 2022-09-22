@@ -2,7 +2,7 @@ import { AbstractUrl } from '../abstract.url';
 import { BasicUrl } from '../basic.url';
 
 export class EventsUrl extends AbstractUrl {
-  private static url = new EventsUrl(`${BasicUrl.struct}/Resources`);
+  private static url = new EventsUrl(`${BasicUrl.struct}/Events`);
 
   static record() {
     return new RecordsUrl(this.url.basic());

@@ -22,6 +22,8 @@ import { AngularResizeEventModule } from 'angular-resize-event';
 import { AlarmComponent } from './alarm/alarm.component';
 import { DeployFaceComponent } from './deploy-face/deploy-face.component';
 import { MapControlComponents } from './map-control/map-control.module';
+import { Directives } from '../directives';
+import { Pipes } from '../pipes/pipe.module';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -37,6 +39,8 @@ const ViewComponents = [
   DeployFaceComponent,
   components,
   ...MapControlComponents,
+  ...Directives,
+  ...Pipes,
 ];
 
 @NgModule({

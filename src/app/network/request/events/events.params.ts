@@ -17,6 +17,9 @@ export class GetEventRecordsParams extends PagedDurationParams {
   ResourceTypes?: ResourceType[];
   /**	String	资源名称，支持LIKE	O */
   ResourceName?: string;
+
+  /**	Boolean	是否倒序时间排列	O */
+  Desc?: boolean;
 }
 
 export class GetFaceEventRecordsParams extends GetEventRecordsParams {

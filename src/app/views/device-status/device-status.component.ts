@@ -51,9 +51,9 @@ export class DeviceStatusComponent
         radius: '70%',
         progress: {
           show: true,
-          width: 7,
+          width: 3,
           itemStyle: {
-            borderWidth: 3,
+            borderWidth: 10,
             borderColor: '#3a93ff',
             color: '#3a93ff',
           },
@@ -63,7 +63,7 @@ export class DeviceStatusComponent
           lineStyle: {
             width: 5,
             opacity: 0.5,
-            color: [[1, '#4b5899']],
+            color: [[1, '#cfd7ff']],
           },
         },
         axisTick: {

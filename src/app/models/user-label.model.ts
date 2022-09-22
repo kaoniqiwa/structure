@@ -1,4 +1,4 @@
-import { UserLabelType } from 'src/app/enum/user-label-type.enum';
+import { UserLabelType } from '../enums/user-label-type.enum';
 import { IModel } from './model.interface';
 
 /** 用户自定义标签信息 */

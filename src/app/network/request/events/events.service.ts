@@ -64,7 +64,7 @@ class EventRecordFaceRequestService {
   private type: BaseTypeRequestService<FaceEventRecord>;
   list(params: GetFaceEventRecordsParams = new GetFaceEventRecordsParams()) {
     let url = EventsUrl.record().face().list();
-    return this.type.post(url, params);
+    return this.type.paged(url, params);
   }
 }
 class EventRecordVehicleRequestService {
@@ -76,7 +76,7 @@ class EventRecordVehicleRequestService {
     params: GetVehicleEventRecordsParams = new GetVehicleEventRecordsParams()
   ) {
     let url = EventsUrl.record().vehicle().list();
-    return this.type.post(url, params);
+    return this.type.paged(url, params);
   }
 }
 class EventRecordMuckCarRequestService {
@@ -88,6 +88,6 @@ class EventRecordMuckCarRequestService {
     params: GetMuckCarEventRecordsParams = new GetMuckCarEventRecordsParams()
   ) {
     let url = EventsUrl.record().muckCar().list();
-    return this.type.post(url, params);
+    return this.type.paged(url, params);
   }
 }

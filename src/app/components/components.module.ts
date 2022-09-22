@@ -8,6 +8,13 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { SimpleSearchComponent } from './simple-search/simple-search.component';
 import { TimeComponent } from './time/time.component';
 import { ImageControlComponent } from './image-control/image-control.component';
+import { WindowComponent } from './window-control/window.component';
+import { VideoWindowComponent } from './video-window/video-window.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { VideoSettingControlComponent } from './video-window/video-setting-control/video-setting-control.component';
+import { VideoPresetPointControlComponent } from './video-window/video-preset-point-control/video-preset-point-control.component';
+import { VideoPlaybackSettingControlComponent } from './video-window/video-playback-setting-control/video-playback-setting-control.component';
+import { TimeControlComponent } from './time-control/time-control.component';
 
 export const components = [
   AccountInfoComponent,
@@ -20,4 +27,11 @@ export const components = [
   PaginatorComponent,
   CommonTableComponent,
   ImageControlComponent,
+  WindowComponent,
+  VideoSettingControlComponent,
+  VideoPlaybackSettingControlComponent,
+  VideoPresetPointControlComponent,
+  VideoWindowComponent,
+  VideoPlayerComponent,
+  TimeControlComponent,
 ];

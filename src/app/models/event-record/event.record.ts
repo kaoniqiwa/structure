@@ -1,5 +1,5 @@
-import { EventType } from '@angular/router';
 import { Transform } from 'class-transformer';
+import { EventType } from 'src/app/enums/event-type.enum';
 import { ResourceType } from '../../enums/resource-type.enum';
 import { IModel } from '../model.interface';
 import { transformDateTime } from '../transform.model';

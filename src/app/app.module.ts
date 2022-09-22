@@ -34,7 +34,6 @@ registerLocaleData(zh, 'zh-CN');
       tapToDismiss: true,
     }),
     ViewComponentsModule,
-    
   ],
   providers: [
     {
@@ -48,4 +47,4 @@ registerLocaleData(zh, 'zh-CN');
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule { }
+export class AppModule {}

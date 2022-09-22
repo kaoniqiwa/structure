@@ -33,7 +33,7 @@ export class MapControlComponent
 {
   //#region Output
   @Output()
-  VideoPlay: EventEmitter<Camera> = new EventEmitter();
+  video: EventEmitter<Camera> = new EventEmitter();
   @Output()
   patrol: EventEmitter<void> = new EventEmitter();
   @Input()
@@ -65,67 +65,6 @@ export class MapControlComponent
   @ViewChild('iframe')
   element?: ElementRef;
 
-  //#region video_list_prev
-  prev?: ElementRef;
-  @ViewChild('video_list_prev')
-  set video_list_prev(element: ElementRef | undefined) {
-    this.prev = element;
-    if (this.prev) {
-      this.elementInit();
-      this.prev.nativeElement.onclick = () => {
-        $('.ul')[0].onwheel({ deltaY: -1 });
-      };
-    }
-  }
-  get video_list_prev(): ElementRef | undefined {
-    return this.prev;
-  }
-  //#endregion
-
-  //#region video_list_next
-  next?: ElementRef;
-  @ViewChild('video_list_next')
-  set video_list_next(element: ElementRef | undefined) {
-    this.next = element;
-    if (this.next) {
-      this.elementInit();
-      this.next.nativeElement.onclick = () => {
-        $('.ul')[0].onwheel({ deltaY: 1 });
-      };
-    }
-  }
-  get video_list_next(): ElementRef | undefined {
-    return this.next;
-  }
-  //#endregion
-  //#endregion
-
-  elementInit() {
-    $('.ul').each(function (index: number, element: HTMLElement) {
-      if (!element.onwheel) {
-        element.onwheel = function (event) {
-          const table = $(element).parents('.list');
-          const right = $(element).width() - table[0].offsetWidth;
-          if (table.scrollLeft() <= right && event.deltaY > 0) {
-            // 禁止事件默认行为（此处禁止鼠标滚轮行为关联到"屏幕滚动条上下移动"行为）
-            if (event.preventDefault) {
-              event.preventDefault();
-            }
-            const left = table.scrollLeft() + 50;
-            table.scrollLeft(left);
-          }
-          if (table.scrollLeft() >= 0 && event.deltaY < 0) {
-            // 禁止事件默认行为（此处禁止鼠标滚轮行为关联到"屏幕滚动条上下移动"行为）
-            if (event.preventDefault) {
-              event.preventDefault();
-            }
-            const left = table.scrollLeft() - 50;
-            table.scrollLeft(left);
-          }
-        };
-      }
-    });
-  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['position']) {
       if (this.position) {
@@ -191,26 +130,14 @@ export class MapControlComponent
   //#region map event regist
   async onPointDoubleClicked(node: RegionNode) {
     this.selected.node = node;
-    this.display.status = false;
-    this.display.videoList = true;
-    let camera = await this.business.getCamera(node.ResourceId);
-    let image = this.imageConverter.itemConverter.Convert(camera);
-    this.images = [image];
-    this.display.videoControl = this.images.length > 5;
-    this.changeDetectorRef.detectChanges();
+    let camera = await this.business.getCamera(this.selected.node.Id);
+    this.video.emit(camera);
   }
   onMapClicked() {
     this.display.status = true;
     this.display.videoList = false;
   }
   //#endregion
-
-  async onCameraClicked(image: ImageControlModel) {
-    if (this.selected.node) {
-      let camera = await this.business.getCamera(this.selected.node.Id);
-      this.VideoPlay.emit(camera);
-    }
-  }
 
   Button1Clicked() {
     this.patrol.emit();
