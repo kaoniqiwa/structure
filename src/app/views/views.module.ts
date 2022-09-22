@@ -19,7 +19,6 @@ import { DeployListComponent } from './deploy-list/deploy-list.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
 import { AngularResizeEventModule } from 'angular-resize-event';
-import { DeployMapComponent } from './deploy-map/deploy-map.component';
 import { AlarmComponent } from './alarm/alarm.component';
 import { DeployFaceComponent } from './deploy-face/deploy-face.component';
 import { MapControlComponents } from './map-control/map-control.module';
@@ -34,7 +33,6 @@ const ViewComponents = [
   DeployListComponent,
   AlarmEventsComponent,
   DeviceStatusComponent,
-  DeployMapComponent,
   AlarmComponent,
   DeployFaceComponent,
   components,

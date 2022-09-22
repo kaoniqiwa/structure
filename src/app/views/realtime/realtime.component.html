@@ -1,18 +1,16 @@
 <div class="realtime">
-  <div class="realtime__item realtime__item--tree">
+  <!-- 
+    <div class="realtime__item realtime__item--tree">
     <div class="realtime__wrapper" style="padding: 20px">
-      <howell-region-tree></howell-region-tree>
+    
     </div>
   </div>
   <div class="realtime__item realtime__item--map">
-    <div class="realtime__wrapper" style="padding: 2px">
-      <!-- <howell-deploy-map></howell-deploy-map> -->
-      <app-map-control></app-map-control>
-    </div>
+    <div class="realtime__wrapper" style="padding: 2px"></div>
   </div>
   <div class="realtime__item">
     <div class="realtime__wrapper">
-      <howell-device-status></howell-device-status>
+     
     </div>
   </div>
   <div class="realtime__item realtime__item--table">
@@ -23,6 +21,48 @@
   <div class="realtime__item">
     <div class="realtime__wrapper">
       <howell-deploy-face></howell-deploy-face>
+    </div>
+  </div> -->
+
+  <div class="left">
+    <div class="realtime__wrapper" style="height: 620px; margin-bottom: 10px">
+      <div class="realtime__item" style="padding: 20px">
+        <howell-region-tree></howell-region-tree>
+      </div>
+    </div>
+
+    <div class="realtime__wrapper" style="height: 235px">
+      <div class="realtime__item">
+        <howell-device-status></howell-device-status>
+      </div>
+    </div>
+  </div>
+  <div class="right" style="margin-left: 10px">
+    <div class="realtime__wrapper" style="height: 620px; margin-bottom: 10px">
+      <div class="realtime__item" style="padding: 20px">
+        <!-- <app-map-control></app-map-control> -->
+      </div>
+    </div>
+    <div style="height: 235px">
+      <div
+        class="realtime__wrapper"
+        style="
+          width: calc(100% - 405px - 10px);
+          height: 100%;
+          float: left;
+          margin-right: 10px;
+        "
+      >
+        <div class="realtime__item" style="padding: 10px">
+          <howell-alarm></howell-alarm>
+        </div>
+      </div>
+      <div
+        class="realtime__wrapper"
+        style="width: 405px; height: 100%; float: left"
+      >
+        <div class="realtime__item" style="padding: 10px"></div>
+      </div>
     </div>
   </div>
 </div>

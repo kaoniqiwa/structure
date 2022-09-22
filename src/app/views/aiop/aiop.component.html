@@ -1,16 +1,14 @@
 <div class="aiop">
   <div class="aiop-header">
-    <mat-toolbar>
-      <app-account-info></app-account-info>
-      <div class="spacer">
-        <howell-header-navigation
-          [path]="path"
-          (navigate)="onnavigate($event)"
-        ></howell-header-navigation>
-      </div>
+    <app-account-info></app-account-info>
+    <howell-header-navigation
+      [path]="path"
+      (navigate)="onnavigate($event)"
+    ></howell-header-navigation>
+    <div class="group">
       <app-time></app-time>
       <app-account-operation></app-account-operation>
-    </mat-toolbar>
+    </div>
   </div>
   <div class="aiop-body">
     <ng-container *ngIf="path == NavigationPath.realtime">
