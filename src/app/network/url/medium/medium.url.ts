@@ -1,8 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class MediumUrl extends AbstractUrl {
-  private static url = new MediumUrl(`${api_aiop_service_url}/Medium`);
+  private static url = new MediumUrl(`${BasicUrl.aiop}/Medium`);
 
   static basic() {
     return this.url.basic();

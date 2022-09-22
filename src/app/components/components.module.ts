@@ -7,6 +7,7 @@ import { HeaderNavigationComponent } from './header-navigation/header-navigation
 import { PaginatorComponent } from './paginator/paginator.component';
 import { SimpleSearchComponent } from './simple-search/simple-search.component';
 import { TimeComponent } from './time/time.component';
+import { ImageControlComponent } from './image-control/image-control.component';
 
 export const components = [
   AccountInfoComponent,
@@ -18,4 +19,5 @@ export const components = [
   SimpleSearchComponent,
   PaginatorComponent,
   CommonTableComponent,
+  ImageControlComponent,
 ];

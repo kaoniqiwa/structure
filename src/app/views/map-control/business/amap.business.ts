@@ -24,25 +24,6 @@ export class AMapBusiness {
   private mapClient?: CesiumMapClient;
   private mapController?: CesiumDataController.Controller;
 
-  labelVisibility = false;
-
-  // 当显示垃圾落地时长的时候，是否显示其他厢房
-  private stationVisibilityByLabel = true;
-  get StationVisibilityByLabel() {
-    return this.stationVisibilityByLabel;
-  }
-  set StationVisibilityByLabel(val: boolean) {
-    //if (this.stationVisibilityByLabel === val) return;
-    this.stationVisibilityByLabel = val;
-    if (this.mapClient) {
-      this.source.all.forEach((x) => {
-        this.mapClient!.Point.SetVisibility(x.Id, val);
-      });
-    }
-  }
-
-  pointCountChanged: EventEmitter<number> = new EventEmitter();
-
   pointDoubleClicked: EventEmitter<RegionNode> = new EventEmitter();
 
   mapClicked: EventEmitter<void> = new EventEmitter();
@@ -50,7 +31,6 @@ export class AMapBusiness {
   private source: AMapDataSource = {
     all: [],
     drop: [],
-    labels: {},
     points: {},
   };
 
@@ -172,9 +152,9 @@ export class AMapBusiness {
     }
   }
 
-  pointSelect(stationId: string) {
+  pointSelect(nodeId: string) {
     if (this.mapClient) {
-      let point = this.source.points[stationId];
+      let point = this.source.points[nodeId];
       this.mapClient.Viewer.MoveTo(point.position);
     }
   }
@@ -213,31 +193,9 @@ export class AMapBusiness {
     this.mapClient.Point.Status(arrayStatus);
   }
 
-  labelFilter = GarbageTimeFilter.all;
-  GarbageTimeFiltering(filter: GarbageTimeFilter, time?: number) {
-    if (time === undefined || time <= 0) return false;
-    return time >= filter;
-  }
-
-  setPointVisibility(value: boolean) {
-    this.source.all.forEach((x) => {
-      if (!value) {
-        if (this.source.labels[x.Id]) {
-          this.mapClient!.Point.SetVisibility(x.Id, true);
-        } else {
-          this.mapClient!.Point.SetVisibility(x.Id, value);
-        }
-      } else {
-        this.mapClient!.Point.SetVisibility(x.Id, value);
-      }
-    });
-  }
-
   menuEvents = {
-    illegalDropClicked: new EventEmitter(),
-    mixedIntoClicked: new EventEmitter(),
-    garbageCountClicked: new EventEmitter(),
-    stationInformationClicked: new EventEmitter(),
+    nodeRecordClicked: new EventEmitter(),
+    nodeInformationClicked: new EventEmitter(),
   };
 
   setContentMenu() {
@@ -255,7 +213,7 @@ export class AMapBusiness {
           );
           this.source.all.push(node);
         }
-        this.menuEvents.garbageCountClicked.emit(node);
+        this.menuEvents.nodeRecordClicked.emit(node);
       },
       2
     );
@@ -278,7 +236,7 @@ export class AMapBusiness {
           );
           this.source.all.push(node);
         }
-        this.menuEvents.stationInformationClicked.emit(node);
+        this.menuEvents.nodeInformationClicked.emit(node);
       },
       3
     );
@@ -305,15 +263,5 @@ export class AMapBusiness {
 interface AMapDataSource {
   all: RegionNode[];
   drop: RegionNode[];
-  labels: Global.Dictionary<CesiumDataController.LabelOptions>;
   points: Global.Dictionary<CesiumDataController.Point>;
-}
-
-export enum GarbageTimeFilter {
-  all = 0,
-  m30 = 30 - 1,
-  h1 = 60 - 1,
-  h2 = 120 - 1,
-  h3 = 180 - 1,
-  h4 = 240 - 1,
 }
