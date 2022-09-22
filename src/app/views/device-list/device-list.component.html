@@ -11,6 +11,10 @@
       <howell-simple-search></howell-simple-search>
     </div>
   </div>
-  <div class="vertical-main"></div>
+  <div class="vertical-main">
+    <common-table [dataSubject]="dataSubject" [columnModel]="columnModel" [displayedColumns]="displayedColumns"
+      [selectStrategy]="selectStrategy" [tableOperates]="tableOperates" (selectTableRow)="selectTableRow($event)"
+      (selectTableCell)="selectTableCell($event)"></common-table>
+  </div>
   <div class="vertical-footer"></div>
 </div>

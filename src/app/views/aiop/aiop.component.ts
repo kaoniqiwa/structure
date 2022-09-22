@@ -4,20 +4,18 @@ import { NavigationPath } from 'src/app/components/header-navigation/navigarion-
 @Component({
   selector: 'app-aiop',
   templateUrl: './aiop.component.html',
-  styleUrls: ['./aiop.component.less']
+  styleUrls: ['./aiop.component.less'],
 })
 export class AiopComponent implements OnInit {
   NavigationPath = NavigationPath;
 
-  title: string = "";
-  path = NavigationPath.structured_data;
+  title: string = '';
+  path = NavigationPath.realtime;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   onnavigate(path: NavigationPath) {
     this.path = path;
   }
-
 }
