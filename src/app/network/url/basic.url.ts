@@ -8,7 +8,7 @@
 
 export class BasicUrl {
   static get api() {
-    return `/api/${this.basic}`;
+    return `/api${this.basic}`;
   }
   static get aiop() {
     return `${this.api}/aiop_service`;
