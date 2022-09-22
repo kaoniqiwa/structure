@@ -1,8 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class EventsUrl extends AbstractUrl {
-  private static url = new EventsUrl(`${api_aiop_service_url}/Resources`);
+  private static url = new EventsUrl(`${BasicUrl.struct}/Resources`);
 
   static record() {
     return new RecordsUrl(this.url.basic());

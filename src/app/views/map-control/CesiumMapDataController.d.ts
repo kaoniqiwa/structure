@@ -90,6 +90,8 @@ declare namespace CesiumDataController {
     DumpingCamera = 'dumpingCamera', //垃圾倾倒检测
     GarbageClassificationCamera = 'garbageClassificationCamera', //垃圾分类
     NucleicAcid = 'acid', //核酸
+    LargeWaste = 'largewaste', //大件垃圾
+    Face = 'face',
   }
 
   enum ShapeType {

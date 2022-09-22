@@ -1,5 +1,5 @@
 import { SmsProtocolType } from 'src/app/enums/sms-protocol-type.enum';
-import { basic_sms_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class SmsUrl {
   static authcodes(phoneNo: string, protocolType?: SmsProtocolType) {
@@ -7,6 +7,6 @@ export class SmsUrl {
     if (protocolType) {
       type = `&ProtocolType=${protocolType}`;
     }
-    return `${basic_sms_url}/AuthCodes?PhoneNo=${phoneNo}${type}`;
+    return `${BasicUrl.sms}/AuthCodes?PhoneNo=${phoneNo}${type}`;
   }
 }

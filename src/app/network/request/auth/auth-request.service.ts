@@ -174,7 +174,6 @@ export class AuthorizationService implements CanActivate {
     this._cookieService.set('passWord', passWord, options);
 
     this._localStorageService.user = user;
-    this._store.password = passWord;
   }
 
   loginByUrl(url: string): Promise<AxiosResponse<any> | User | null> {

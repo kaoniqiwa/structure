@@ -59,7 +59,7 @@ class RegionsNodesRequestService {
     let url = RegionsUrl.node(regionId).basic();
     return this.type.post(url, node);
   }
-  get(regionId: string, nodeId: string) {
+  get(regionId: string, nodeId: string): Promise<RegionNode> {
     let url = RegionsUrl.node(regionId).item(nodeId);
     return this.type.get(url);
   }
@@ -74,5 +74,9 @@ class RegionsNodesRequestService {
   list(params: GetRegionNodesParams = new GetRegionNodesParams()) {
     let url = RegionsUrl.node().list();
     return this.type.paged(url, params);
+  }
+  async all() {
+    let paged = await this.list();
+    return paged.Data;
   }
 }

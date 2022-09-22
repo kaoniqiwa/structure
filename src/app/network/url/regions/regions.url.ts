@@ -1,8 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class RegionsUrl extends AbstractUrl {
-  private static url = new RegionsUrl(`${api_aiop_service_url}/Regions`);
+  private static url = new RegionsUrl(`${BasicUrl.struct}/Regions`);
 
   static basic() {
     return this.url.basic();

@@ -36,6 +36,10 @@ export class ResourceRequestSerivce {
   list(params: GetCamerasParams = new GetCamerasParams()) {
     return this.type.paged(ResourcesUrl.camera().list(), params);
   }
+  async all() {
+    let paged = await this.list();
+    return paged.Data;
+  }
   private _excel?: ResourceCamerasExcelRequestService;
   public get excel(): ResourceCamerasExcelRequestService {
     if (!this._excel) {

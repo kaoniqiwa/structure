@@ -1,8 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class SRServersUrl extends AbstractUrl {
-  private static url = new SRServersUrl(`${api_aiop_service_url}/Resources`);
+  private static url = new SRServersUrl(`${BasicUrl.struct}/SRServers`);
 
   static basic() {
     return this.url.basic();

@@ -1,8 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class CommandsUrl extends AbstractUrl {
-  private static url = new CommandsUrl(`${api_aiop_service_url}/Commands`);
+  private static url = new CommandsUrl(`${BasicUrl.struct}/Commands`);
 
   static resource() {
     return new ResourcesUrl(this.url.basic());

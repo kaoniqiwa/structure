@@ -5,7 +5,7 @@ import { interval, Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class StoreService {
-  password?: string;
+  regionId!: string;
   constructor() {}
 
   interval = new EventEmitter();

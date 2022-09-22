@@ -256,6 +256,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this._cookieService.set('passWord', passWord, options);
 
     this._localStorageService.user = user;
-    this._storeService.password = passWord;
   }
 }
