@@ -39,17 +39,14 @@ export class RegionTreeConverter extends CommonTreeConverter {
     node.RawData = item;
     return node;
   }
-  private _fromRegionNode(
-    item: RegionNode,
-    parentId: string | null = null
-  ): CommonNestNode<RegionNode> {
+  private _fromRegionNode(item: RegionNode): CommonNestNode<RegionNode> {
     const node = new CommonNestNode();
     node.Id = item.Id;
     node.Name = item.Name;
-    node.ParentId = parentId;
+    node.ParentId = item.RegionId;
     node.ChildrenLoaded = true;
     node.ParentNode = null;
-    node.IconClass = parentId ? 'howell-icon-map5' : 'howell-icon-earth';
+    node.IconClass = item.RegionId ? 'howell-icon-map5' : 'howell-icon-earth';
     node.RawData = item;
     return node;
   }

@@ -62,6 +62,8 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
 
     let res = await this._business.init(this._condition);
     this.dataSubject.next(res);
+
+    this.tree?.expandAll();
   }
 
   async searchEventHandler(condition: string) {
@@ -82,12 +84,7 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
     if (res && res.length) {
       this._toastrService.success('操作成功');
       this.dataSubject.next(res);
-      if (condition != '') {
-        this.tree?.expandAll();
-      } else {
-        this.tree?.reset();
-        this.tree?.collapseAll();
-      }
+      this.tree?.expandAll();
     } else {
       this._toastrService.warning('无匹配结果');
     }
