@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { IModel } from 'src/app/models/model.interface';
@@ -24,6 +24,8 @@ export class AlarmComponent
 {
   @Input()
   business: IBusiness<IModel, AlarmModel[]>;
+  @Output()
+  loaded: EventEmitter<AlarmModel[]> = new EventEmitter();
   constructor(business: AlarmBusiness) {
     this.business = business;
   }
@@ -36,5 +38,6 @@ export class AlarmComponent
 
   async loadData() {
     this.datas = await this.business.load(new Date());
+    this.loaded.emit(this.datas);
   }
 }
