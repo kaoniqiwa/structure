@@ -12,7 +12,7 @@
   </div>
   <div class="aiop-body">
     <ng-container *ngIf="path == NavigationPath.realtime">
-      <app-realtime></app-realtime>
+      <app-realtime (video)="realtime.onvideo($event)"></app-realtime>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.structured_data">
       <app-structured-data></app-structured-data>
@@ -28,3 +28,10 @@
     </ng-container>
   </div>
 </div>
+<app-video-window
+  [model]="video.model"
+  [window]="video"
+  [title]="video.title"
+  (download)="video.ondownload($event)"
+>
+</app-video-window>

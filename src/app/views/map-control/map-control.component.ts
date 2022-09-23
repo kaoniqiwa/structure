@@ -130,7 +130,7 @@ export class MapControlComponent
   //#region map event regist
   async onPointDoubleClicked(node: RegionNode) {
     this.selected.node = node;
-    let camera = await this.business.getCamera(this.selected.node.Id);
+    let camera = await this.business.getCamera(this.selected.node.ResourceId);
     this.video.emit(camera);
   }
   onMapClicked() {

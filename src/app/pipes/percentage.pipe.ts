@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-@Pipe({ name: 'percentage', pure: false })
+@Pipe({ name: 'percentage_pipe', pure: false })
 export class PercentagePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
