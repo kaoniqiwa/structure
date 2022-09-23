@@ -17,6 +17,7 @@
 .datetimepicker.dropdown-menu {
   background-color: #0c1729;
   color: #cfd7ff;
+  padding: 10px;
 }
 
 .datetimepicker table tr td.day:hover,

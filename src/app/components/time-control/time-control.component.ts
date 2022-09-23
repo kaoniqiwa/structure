@@ -22,6 +22,11 @@ declare let $: any;
 export class TimeControlComponent implements OnInit, AfterViewInit {
   @Input()
   time: TimeModel = new TimeModel();
+  @Input()
+  max?: TimeModel;
+  @Input()
+  min?: TimeModel;
+
   @Output()
   onchange: EventEmitter<TimeModel> = new EventEmitter();
 

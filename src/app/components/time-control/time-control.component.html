@@ -6,12 +6,11 @@
     matInput
     #hour
     type="number"
-    type="number"
     max="23"
     min="0"
     step="1"
     maxlength="2"
-    minlength="1"
+    minlength="2"
     [ngModel]="time.hour | custom_date_item"
     (ngModelChange)="time.hour = $event"
   />
@@ -20,7 +19,6 @@
     class="time-control time minute"
     matInput
     #minute
-    type="number"
     type="number"
     max="59"
     min="0"
