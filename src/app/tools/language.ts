@@ -23,4 +23,18 @@ export class Language {
         return '';
     }
   }
+
+  static EventType(type: EventType) {
+    switch (type) {
+      case EventType.Face:
+        return '人脸布控';
+      case EventType.Vehicle:
+        return '车辆布控';
+      case EventType.MuckCar:
+        return '渣土车出现';
+
+      default:
+        return '';
+    }
+  }
 }

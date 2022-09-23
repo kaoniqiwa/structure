@@ -31,9 +31,9 @@
       <tbody>
         <tr *ngFor="let item of datas">
           <td>{{ item.name }}</td>
-          <td>{{ item.type }}</td>
+          <td><label></label> {{ item.type | event_type_pipe }}</td>
           <td>{{ item.nodeName }}</td>
-          <td>{{ item.time }}</td>
+          <td>{{ item.time | date_time_pipe }}</td>
           <td>
             <span> <i class="howell-icon-picture"></i></span>
             <span> <i class="howell-icon-videodownload"></i></span>
