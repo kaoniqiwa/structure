@@ -16,8 +16,11 @@ var WSPlayerState = {
 }
 function WSPlayerProxy (iframeId) {
 
+
   var iframe = function () {
-    return document.getElementById(iframeId)
+    if (typeof iframeId == "string")
+      return document.getElementById(iframeId)
+    return iframeId
   }
   function postMessage (data) {
     let message = JSON.stringify(data);

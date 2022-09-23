@@ -2,11 +2,11 @@
   <div class="table-header-container">
     <table>
       <colgroup>
+        <col style="width: 25%" />
+        <col style="width: 20%" />
+        <col style="width: 20%" />
+        <col style="width: 25%" />
         <col style="width: 10%" />
-        <col style="width: 10%" />
-        <col style="width: 10%" />
-        <col style="width: 15%" />
-        <col style="width: 5%" />
       </colgroup>
       <thead>
         <tr>
@@ -15,6 +15,7 @@
           <th>布控名称</th>
           <th>时间</th>
           <th>操作</th>
+          <th></th>
         </tr>
       </thead>
     </table>
@@ -22,16 +23,16 @@
   <div class="table-body-container">
     <table>
       <colgroup>
+        <col style="width: 25%" />
+        <col style="width: 20%" />
+        <col style="width: 20%" />
+        <col style="width: 25%" />
         <col style="width: 10%" />
-        <col style="width: 10%" />
-        <col style="width: 10%" />
-        <col style="width: 15%" />
-        <col style="width: 5%" />
       </colgroup>
       <tbody>
         <tr *ngFor="let item of datas">
           <td>{{ item.name }}</td>
-          <td><label></label> {{ item.type | event_type_pipe }}</td>
+          <td>{{ item.type | event_type_pipe }}</td>
           <td>{{ item.nodeName }}</td>
           <td>{{ item.time | date_time_pipe }}</td>
           <td>
