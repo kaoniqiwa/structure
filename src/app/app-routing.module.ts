@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { AuthorizationService } from './network/request/auth/auth-request.service';
 import { RoutePath } from './app-routing.path';
-import { AiopComponent } from './views/aiop/aiop.component';
+import { IndexComponent } from './views/index/index.component';
 
 const routes: Routes = [
   {
@@ -19,9 +19,9 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: "aiop",
-    component: AiopComponent,
-    canActivate: [AuthorizationService]
+    path: RoutePath.index,
+    component: IndexComponent,
+    canActivate: [AuthorizationService],
   },
 ];
 
@@ -35,4 +35,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

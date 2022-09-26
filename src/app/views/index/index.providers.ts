@@ -1,9 +1,9 @@
-import { AIOPRealtimeBusiness } from './business/aiop-realtime.business';
+import { IndexRealtimeBusiness } from './business/index-realtime.business';
 import { VideoControlWindowBusiness } from './business/windows/video-control-window.business';
 import { WindwoProviders } from './business/windows/window.providers';
 
-export const AIOPProviders = [
-  AIOPRealtimeBusiness,
+export const IndexProviders = [
+  IndexRealtimeBusiness,
   VideoControlWindowBusiness,
   ...WindwoProviders,
 ];

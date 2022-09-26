@@ -171,7 +171,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           // 测试
           if (result.Role && result.Role.length > 0) {
             if (result.Role[0].StaticData == StaticDataRole.enabled) {
-              this._router.navigateByUrl(RoutePath.aiop);
+              this._router.navigateByUrl(RoutePath.index);
               return;
             }
           }

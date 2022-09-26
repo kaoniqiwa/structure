@@ -9,7 +9,6 @@ import * as echarts from 'echarts';
 import Adsame from 'src/assets/echart-theme/adsame.json';
 import 'echarts/theme/shine.js';
 import 'echarts/theme/vintage.js';
-import { AiopComponent } from './aiop/aiop.component';
 import { components } from '../components/components.module';
 import { MaterialModule } from '../material.module';
 import { RealtimeComponent } from './realtime/realtime.component';
@@ -24,11 +23,12 @@ import { DeployFaceComponent } from './deploy-face/deploy-face.component';
 import { MapControlComponents } from './map-control/map-control.module';
 import { Directives } from '../directives';
 import { Pipes } from '../pipes/pipe.module';
+import { IndexComponent } from './index/index.component';
 
 echarts.registerTheme('adsame', Adsame);
 
 const ViewComponents = [
-  AiopComponent,
+  IndexComponent,
   RealtimeComponent,
   StructuredDataComponent,
   DeviceListComponent,

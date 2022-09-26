@@ -1,5 +1,5 @@
 export enum RoutePath {
   login = 'login',
-  aiop = 'aiop',
+  index = 'index',
   structure = 'structure',
 }

@@ -3,7 +3,7 @@ import { Camera } from 'src/app/models/resource/camera.resource';
 import { VideoControlWindowBusiness } from './windows/video-control-window.business';
 
 @Injectable()
-export class AIOPRealtimeBusiness {
+export class IndexRealtimeBusiness {
   constructor(private video: VideoControlWindowBusiness) {}
   onvideo(camera: Camera) {
     console.log(camera);
