@@ -1,39 +1,37 @@
-<div class="structured-data vertical-layout">
-  <div class="vertical-header">
-    <div class="left-wrapper">
-      <div class="hw-second-title">结构化数据</div>
-      <div class="tab-labels">
-        <div
-          class="tab"
-          [ngClass]="{
-            active: path === StructuredDataPath.face
-          }"
-          (click)="navigation(StructuredDataPath.face)"
-        >
-          人脸
-        </div>
-        <div
-          class="tab"
-          [ngClass]="{
-            active: path === StructuredDataPath.body
-          }"
-          (click)="navigation(StructuredDataPath.body)"
-        >
-          人体
-        </div>
-        <div
-          class="tab"
-          [ngClass]="{
-            active: path === StructuredDataPath.vehicle
-          }"
-          (click)="navigation(StructuredDataPath.vehicle)"
-        >
-          车辆
-        </div>
+<div class="structured-data">
+  <div class="structured-data-head">
+    <div class="hw-second-title">结构化数据</div>
+    <div class="tab-labels">
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === StructuredDataPath.face
+        }"
+        (click)="navigation(StructuredDataPath.face)"
+      >
+        人脸
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === StructuredDataPath.body
+        }"
+        (click)="navigation(StructuredDataPath.body)"
+      >
+        人体
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === StructuredDataPath.vehicle
+        }"
+        (click)="navigation(StructuredDataPath.vehicle)"
+      >
+        车辆
       </div>
     </div>
   </div>
-  <div class="vertical-main">
+  <div class="structured-data-content">
     <!-- <div class="horizontal-layout">
       <div class="horizontal-left">
         <div class="search-bar">

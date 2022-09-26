@@ -1,0 +1,57 @@
+<div class="structured-data-face-query">
+  <div class="structured-data-face-query-tabs">
+    <div
+      class="structured-data-face-query-tabs-picture"
+      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.picture }"
+      (click)="ontabchanged(StructuredDataFaceQueryTab.picture)"
+    >
+      图片搜索
+    </div>
+    <div
+      class="structured-data-face-query-tabs-params"
+      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.params }"
+      (click)="ontabchanged(StructuredDataFaceQueryTab.params)"
+    >
+      要素搜索
+    </div>
+  </div>
+  <div class="structured-data-face-query-content">
+    <div class="form-item">
+      <div class="form-item-title tree">摄像机</div>
+      <div><input type="text" /></div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-title">开始时间</div>
+      <div>
+        <input
+          type="text"
+          DateTimePicker
+          [format]="'yyyy年MM月dd日 HH:mm'"
+          [startView]="DateTimePickerView.month"
+          [minView]="DateTimePickerView.month"
+          [date]="duration.begin"
+          (change)="changebegin($event)"
+          class=""
+        />
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-title">结束时间</div>
+      <div>
+        <input
+          type="text"
+          DateTimePicker
+          [format]="'yyyy年MM月dd日 HH:mm'"
+          [startView]="DateTimePickerView.month"
+          [minView]="DateTimePickerView.month"
+          [date]="duration.end"
+          (change)="changeend($event)"
+          class=""
+        />
+      </div>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

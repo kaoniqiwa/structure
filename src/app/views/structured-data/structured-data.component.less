@@ -1,49 +1,18 @@
 .structured-data {
-  padding: 0 20px;
+  width: 100%;
+  height: 100%;
 
-  .vertical-header {
-    .left-wrapper {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-    }
+  padding: 20px;
+  padding-top: 0;
+  box-sizing: border-box;
+
+  &-head {
+    display: flex;
+    align-items: center;
   }
 
-  .vertical-main {
-    margin-top: 5px;
-    height: 100%;
+  &-content {
+    height: calc(100% - 60px);
   }
 
-  .horizontal-left {
-    padding: 0;
-
-    .search-bar {
-      width: 100%;
-      display: flex;
-
-      .search-btn {
-        // background-color: red;
-        font-size: 18px;
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 50px;
-        color: #7f94ff;
-
-        &:hover {
-          color: white;
-        }
-
-        &.active {
-          color: #cfd7ff;
-        }
-      }
-    }
-
-    .search-container {
-      flex-grow: 1;
-      // background: lavender;
-    }
-  }
 }
