@@ -21,6 +21,8 @@ export class WindowComponent implements OnInit {
 
   @Input()
   CloseButton = true;
+  @Input()
+  title: string = '';
 
   private _style: any = {
     width: '80%',

@@ -14,7 +14,7 @@ export class IndexVideoPlayerWindow extends WindowViewModel {
   autoplay: boolean = false;
   time?: Date;
   style = {
-    width: '80%',
-    height: 'calc(80% + 40px)',
+    width: '60%',
+    height: '60%',
   };
 }

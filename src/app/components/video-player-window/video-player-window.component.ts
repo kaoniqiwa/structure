@@ -40,10 +40,6 @@ export class VideoPlayerWindowComponent
   time?: Date;
   @Input()
   autoplay: boolean = false;
-  @Input()
-  title: string = '';
-  @Input()
-  model: WindowViewModel = new WindowViewModel();
 
   constructor(business: VideoPlayerWindowBusiness) {
     super();

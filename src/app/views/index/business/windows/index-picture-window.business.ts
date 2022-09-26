@@ -1,15 +1,16 @@
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
+import { ImageResult } from 'src/app/models/image-result.model';
 
 export class IndexPictureWindow extends WindowViewModel {
   constructor() {
     super();
   }
 
-  url: string = '';
-  isError: boolean = false;
+  image?: ImageResult;
+
   title: string = '';
   style = {
-    width: '80%',
-    height: 'calc(80% + 40px)',
+    width: '60%',
+    height: '60%',
   };
 }

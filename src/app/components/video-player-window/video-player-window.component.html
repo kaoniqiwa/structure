@@ -1,6 +1,9 @@
-<app-window [Model]="model" [title]="title" [style]="style" [title]="title">
+<app-window [Model]="Model" [title]="title" [style]="style" [title]="title">
   <ng-container *ngIf="Model.show">
     <div class="video-player-window">
+      <div class="video-player-window-title">
+        {{ title }}
+      </div>
       <div class="video-player-window-operation">
         <div
           *ngIf="mode === PlayMode.vod"

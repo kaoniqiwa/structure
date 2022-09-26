@@ -39,7 +39,7 @@ export class Medium {
       image.src = img;
       image.onerror = () => {
         resolve({
-          url: '/assets/images/image-error.png',
+          url: '/assets/img/timg-pic.jpg',
           error: true,
         });
       };

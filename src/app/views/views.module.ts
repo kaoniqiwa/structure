@@ -24,6 +24,7 @@ import { MapControlComponents } from './map-control/map-control.module';
 import { Directives } from '../directives';
 import { Pipes } from '../pipes/pipe.module';
 import { IndexComponent } from './index/index.component';
+import { WindowComponents } from './windows/windows.module';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -38,6 +39,7 @@ const ViewComponents = [
   AlarmComponent,
   DeployFaceComponent,
   components,
+  ...WindowComponents,
   ...MapControlComponents,
   ...Directives,
   ...Pipes,

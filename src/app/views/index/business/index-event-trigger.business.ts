@@ -45,9 +45,7 @@ class RealTimeTrigger {
   }
   async onpicture(model: PictureArgs) {
     this.window.picture.title = model.title;
-    let result = await Medium.image(model.id);
-    this.window.picture.url = result.url;
-    this.window.picture.isError = result.error;
+    this.window.picture.image = await Medium.image(model.id);
 
     this.window.picture.show = true;
   }

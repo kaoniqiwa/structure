@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.close-winow:hover {
+  color: red;
+}
+
 .custom-form-wrap {
   background-image: url("/assets/img/window-background.png");
 }

@@ -41,7 +41,7 @@
 </app-video-window>
 <howell-video-player-window
   *ngIf="window.video.show"
-  [model]="window.video"
+  [Model]="window.video"
   [style]="window.video.style"
   [autoplay]="window.video.autoplay"
   [cameraId]="window.video.cameraId"
@@ -49,3 +49,12 @@
   [mode]="window.video.mode"
   [time]="window.video.time"
 ></howell-video-player-window>
+
+<app-picture-window
+  *ngIf="window.picture.show"
+  [Model]="window.picture"
+  [style]="window.picture.style"
+  [title]="window.picture.title"
+  [picture]="window.picture.image"
+>
+</app-picture-window>
