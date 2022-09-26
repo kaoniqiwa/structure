@@ -16,6 +16,7 @@ import { VideoPresetPointControlComponent } from './video-window/video-preset-po
 import { VideoPlaybackSettingControlComponent } from './video-window/video-playback-setting-control/video-playback-setting-control.component';
 import { TimeControlComponent } from './time-control/time-control.component';
 import { VideoPlayerWindowComponent } from './video-player-window/video-player-window.component';
+import { ToastWindowComponent } from './toast-window/toast-window.component';
 
 export const components = [
   AccountInfoComponent,
@@ -36,4 +37,5 @@ export const components = [
   VideoPlayerComponent,
   VideoPlayerWindowComponent,
   TimeControlComponent,
+  ToastWindowComponent,
 ];

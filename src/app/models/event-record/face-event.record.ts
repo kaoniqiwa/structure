@@ -1,3 +1,4 @@
+import { Gender } from 'src/app/enums/gender.enum';
 import { IModel } from '../model.interface';
 import { EventRecord } from './event.record';
 
@@ -32,7 +33,7 @@ export class FaceEventData implements IModel {
   /**	String	证件号码	O	*/
   CertificateNumber?: string;
   /**	String	性别：common.human_gender	O	*/
-  RegisterGender?: string;
+  RegisterGender?: Gender;
 
   /**	String	性别名称	O	*/
   RegisterGenderName?: string;

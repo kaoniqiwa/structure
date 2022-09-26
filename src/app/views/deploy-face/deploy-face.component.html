@@ -1,12 +1,22 @@
-<!-- <div class="deploy-face">
-  <div class="left-wrapper">
-    <img src="assets/img/mm.png" alt="" />
+<div class="deploy-face" *ngIf="model">
+  <div class="left-wrapper box-wrapper" (click)="showToast = !showToast">
+    <img [src]="model.imageUrl" alt="" />
   </div>
-  <div class="right-wrapper">
-    <div style="font-size: 20px; color: white">人脸布控</div>
-    <div>人脸布控名称</div>
-    <div>女</div>
-    <div>青年</div>
-    <div>08-03 16:18:25</div>
+  <div class="right-wrapper vertical-layout">
+    <div class="vertical-header right-header">
+      {{ model.title }}
+    </div>
+    <div class="vertical-main right-main">
+      <div *ngFor="let t of model.content">
+        {{ t }}
+      </div>
+    </div>
+    <div class="vertical-footer right-footer">
+      {{ model.eventTime | date: "MM-dd HH:mm:ss" }}
+    </div>
   </div>
-</div> -->
+</div>
+
+<toast-window *ngIf="showToast">
+  <ng-container>sdfsdfsdf</ng-container>
+</toast-window>

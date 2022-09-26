@@ -29,7 +29,7 @@ export class RegionTreeBusiness {
     // 拉取所有区域
     let params = new GetRegionsParams();
     params.Name = condition;
-    
+
     let regionRes = await this._listRegion(params);
     this._regions = regionRes.Data;
     let nodes = this._converter.iterateToNestNode(regionRes.Data);
@@ -60,7 +60,7 @@ export class RegionTreeBusiness {
 
     let allNodes = Array.from(this.nestedNodeMap.values());
 
-    console.log(allNodes);
+    // console.log(allNodes);
     this._nodes = allNodes;
 
     let res = this._converter.buildNestTree(allNodes);

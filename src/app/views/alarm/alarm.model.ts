@@ -5,6 +5,6 @@ export class AlarmModel<T = any> {
   name: string = '';
   type!: EventType;
   time: Date = new Date();
-  data?: T;
+  data!: T;
   nodeName: string = '';
 }

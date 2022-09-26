@@ -1,41 +1,32 @@
 <div class="realtime">
   <div class="left">
-    <!-- <<<<<<< Updated upstream
-
-
-   
-=======
-    <div class="realtime__wrapper--tree">
-      <div class="realtime__item--tree">
->>>>>>> Stashed changes -->
-
     <div
-      class="realtime__wrapper"
+      class="box-wrapper"
       style="height: calc((100% - 10px) / 3 * 2); margin-bottom: 10px"
     >
-      <div class="realtime__item" style="padding: 20px">
+      <div class="box-item" style="padding: 20px">
         <howell-region-tree></howell-region-tree>
       </div>
     </div>
 
-    <div class="realtime__wrapper" style="height: calc((100% - 10px) / 3)">
-      <div class="realtime__item">
+    <div class="box-wrapper" style="height: calc((100% - 10px) / 3)">
+      <div class="box-item">
         <howell-device-status></howell-device-status>
       </div>
     </div>
   </div>
   <div class="right" style="margin-left: 10px">
     <div
-      class="realtime__wrapper"
+      class="box-wrapper"
       style="height: calc((100% - 10px) / 3 * 2); margin-bottom: 10px"
     >
-      <div class="realtime__item" style="padding: 20px">
-        <app-map-control (video)="onvideo($event)"></app-map-control>
+      <div class="box-item" style="padding: 20px">
+        <!-- <app-map-control (video)="onvideo($event)"></app-map-control> -->
       </div>
     </div>
     <div style="height: calc((100% - 10px) / 3)">
       <div
-        class="realtime__wrapper"
+        class="box-wrapper"
         style="
           width: calc(100% - 405px - 10px);
           height: 100%;
@@ -43,18 +34,18 @@
           margin-right: 10px;
         "
       >
-        <div class="realtime__item" style="padding: 10px">
+        <div class="box-item" style="padding: 10px">
           <howell-alarm
             (picture)="onpicture($event)"
             (playback)="onplayback($event)"
+            (loaded)="alarmLoaded($event)"
           ></howell-alarm>
         </div>
       </div>
-      <div
-        class="realtime__wrapper"
-        style="width: 405px; height: 100%; float: left"
-      >
-        <div class="realtime__item" style="padding: 10px"></div>
+      <div class="box-wrapper" style="width: 405px; height: 100%; float: left">
+        <div class="box-item" style="padding: 10px">
+          <howell-deploy-face></howell-deploy-face>
+        </div>
       </div>
     </div>
   </div>

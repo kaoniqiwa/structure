@@ -15,7 +15,7 @@ export class IndexComponent implements OnInit {
   NavigationPath = NavigationPath;
 
   title: string = '';
-  path = NavigationPath.structured_data;
+  path = NavigationPath.realtime;
 
   constructor(
     public video: VideoControlWindowBusiness,
