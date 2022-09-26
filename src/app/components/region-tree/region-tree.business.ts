@@ -26,17 +26,14 @@ export class RegionTreeBusiness {
   async init(condition: string = '') {
     this.nestedNodeMap.clear();
 
+    // 拉取所有区域
     let params = new GetRegionsParams();
     params.Name = condition;
-
-    let tmp = await this._listRegion(params);
-
-    this._regions = tmp.Data;
-
-    let nodes = this._converter.iterateToNestNode(tmp.Data);
-
+    
+    let regionRes = await this._listRegion(params);
+    this._regions = regionRes.Data;
+    let nodes = this._converter.iterateToNestNode(regionRes.Data);
     this._registerArray(nodes);
-
     for (let node of nodes) {
       if (node.ParentId) {
         if (!this.nestedNodeMap.has(node.ParentId)) {
@@ -45,14 +42,12 @@ export class RegionTreeBusiness {
       }
     }
 
+    // 拉取所有区域节点
     params = new GetRegionNodesParams();
     params.Name = condition;
-
-    let tmp2 = await this._listRegionNode(params);
-    console.log(tmp2);
-
-    this._regionNodes = tmp2.Data;
-    let nodes2 = this._converter.iterateToNestNode(tmp2.Data);
+    let regionNodeRes = await this._listRegionNode(params);
+    this._regionNodes = regionNodeRes.Data;
+    let nodes2 = this._converter.iterateToNestNode(regionNodeRes.Data);
     this._registerArray(nodes2);
 
     for (let node of nodes2) {

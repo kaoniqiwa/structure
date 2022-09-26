@@ -46,7 +46,7 @@ export class RegionTreeConverter extends CommonTreeConverter {
     node.ParentId = item.RegionId;
     node.ChildrenLoaded = true;
     node.ParentNode = null;
-    node.IconClass = item.RegionId ? 'howell-icon-map5' : 'howell-icon-earth';
+    node.IconClass = 'howell-icon-camera';
     node.RawData = item;
     return node;
   }
