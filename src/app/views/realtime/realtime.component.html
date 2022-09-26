@@ -60,7 +60,10 @@
         "
       >
         <div class="realtime__item" style="padding: 10px">
-          <howell-alarm></howell-alarm>
+          <howell-alarm
+            (picture)="onpicture($event)"
+            (playback)="onplayback($event)"
+          ></howell-alarm>
         </div>
       </div>
       <div

@@ -20,6 +20,7 @@ export class AlarmItemConverter implements IConverter<EventRecord, AlarmModel> {
     model.name = source.ResourceName ?? '';
     model.type = source.EventType;
     model.time = source.EventTime;
+    model.data = source;
 
     if (source instanceof FaceEventRecord) {
       model.nodeName = source.Data.PersonName ?? '';

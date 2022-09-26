@@ -12,7 +12,11 @@
   </div>
   <div class="aiop-body">
     <ng-container *ngIf="path == NavigationPath.realtime">
-      <app-realtime (video)="realtime.onvideo($event)"></app-realtime>
+      <app-realtime
+        (video)="trigger.realtime.onvideo($event)"
+        (picture)="trigger.realtime.onpicture($event)"
+        (playback)="trigger.realtime.onplayback($event)"
+      ></app-realtime>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.structured_data">
       <app-structured-data></app-structured-data>
@@ -35,3 +39,13 @@
   (download)="video.ondownload($event)"
 >
 </app-video-window>
+<howell-video-player-window
+  *ngIf="window.video.show"
+  [model]="window.video"
+  [style]="window.video.style"
+  [autoplay]="window.video.autoplay"
+  [cameraId]="window.video.cameraId"
+  [title]="window.video.title"
+  [mode]="window.video.mode"
+  [time]="window.video.time"
+></howell-video-player-window>

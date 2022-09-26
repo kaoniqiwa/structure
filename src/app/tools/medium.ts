@@ -1,3 +1,4 @@
+import { ImageResult } from '../models/image-result.model';
 import { MediumUrl } from '../network/url/medium/medium.url';
 
 export class Medium {
@@ -28,6 +29,25 @@ export class Medium {
       };
       image.onload = () => {
         resolve(img);
+      };
+    });
+  }
+  static image(url?: string): Promise<ImageResult> {
+    return new Promise((resolve) => {
+      let img = url ? Medium.data(url) : '';
+      var image = new Image();
+      image.src = img;
+      image.onerror = () => {
+        resolve({
+          url: '/assets/images/image-error.png',
+          error: true,
+        });
+      };
+      image.onload = () => {
+        resolve({
+          url: img,
+          error: false,
+        });
       };
     });
   }

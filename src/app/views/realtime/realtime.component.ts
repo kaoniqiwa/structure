@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { RegionNode } from 'src/app/models/region-node.model';
+import { PictureArgs } from 'src/app/models/args/picture.args';
+import { VideoArgs } from 'src/app/models/args/video.args';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { AlarmModel } from '../alarm/alarm.model';
 import { RealTimeBusiness } from './realtime.business';
@@ -14,6 +15,11 @@ export class RealtimeComponent implements OnInit {
   @Output()
   video: EventEmitter<Camera> = new EventEmitter();
 
+  @Output()
+  picture: EventEmitter<PictureArgs> = new EventEmitter();
+  @Output()
+  playback: EventEmitter<VideoArgs> = new EventEmitter();
+
   constructor(private _business: RealTimeBusiness) {}
 
   ngOnInit(): void {}
@@ -23,5 +29,11 @@ export class RealtimeComponent implements OnInit {
   }
   onAlarmLoaded(data: AlarmModel[]) {
     console.log(data);
+  }
+  onpicture(args: PictureArgs) {
+    this.picture.emit(args);
+  }
+  onplayback(args: VideoArgs) {
+    this.playback.emit(args);
   }
 }

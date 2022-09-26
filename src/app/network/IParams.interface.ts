@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import { TimeUnit } from '../enums/time-unit.enum';
+import { Duration } from '../models/duration.model';
 import { transformDateTime } from '../models/transform.model';
 
 export interface IParams {}
@@ -16,6 +17,13 @@ export class DurationParams {
   /**	DateTime	结束时间	M */
   @Transform(transformDateTime)
   EndTime!: Date;
+
+  static from(duration: Duration) {
+    let params = new DurationParams();
+    params.BeginTime = duration.begin;
+    params.EndTime = duration.end;
+    return params;
+  }
 
   static TimeUnit(unit: TimeUnit, date: Date, firstDay = 1) {
     switch (unit) {

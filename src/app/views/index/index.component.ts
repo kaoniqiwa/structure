@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationPath } from 'src/app/components/header-navigation/navigarion-path.enum';
 import { IndexProviders } from './index.providers';
-import { IndexRealtimeBusiness } from './business/index-realtime.business';
 import { VideoControlWindowBusiness } from './business/windows/video-control-window.business';
+import { IndexWindowBusiness } from './business/windows/index-window.business';
+import { IndexEventTriggerBusiness } from './business/index-event-trigger.business';
 
 @Component({
-  selector: 'app-aiop',
+  selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less'],
   providers: IndexProviders,
@@ -18,7 +19,8 @@ export class IndexComponent implements OnInit {
 
   constructor(
     public video: VideoControlWindowBusiness,
-    public realtime: IndexRealtimeBusiness
+    public window: IndexWindowBusiness,
+    public trigger: IndexEventTriggerBusiness
   ) {}
 
   ngOnInit(): void {}

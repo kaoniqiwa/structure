@@ -36,8 +36,12 @@
           <td>{{ item.nodeName }}</td>
           <td>{{ item.time | date_time_pipe }}</td>
           <td>
-            <span> <i class="howell-icon-picture"></i></span>
-            <span> <i class="howell-icon-videodownload"></i></span>
+            <span (click)="onpicture(item)">
+              <i class="howell-icon-picture"></i
+            ></span>
+            <span (click)="onplayback(item)">
+              <i class="howell-icon-videodownload"></i
+            ></span>
           </td>
         </tr>
       </tbody>
