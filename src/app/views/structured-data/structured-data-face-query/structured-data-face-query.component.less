@@ -58,18 +58,27 @@
     padding: 10px;
 
     .form-item {
+      width: 100%;
       display: flex;
       justify-content: start;
       align-items: center;
       height: 34px;
       margin: 10px 0;
 
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
       &-title {
         text-align: justify;
         color: #cfd7ff;
-        width: 84px;
+        width: 74px;
         vertical-align: middle;
-        padding: 0 10px;
+        padding-right: 10px;
 
         &::after,
         &::before {
@@ -78,15 +87,35 @@
           content: "";
         }
 
-
-        &.tree {
-          letter-spacing: 3px;
+        &.like {
+          width: 84px;
         }
       }
 
-      input {
-        color: white;
+      &-input {
+        width: calc(100% - 74px);
+
+        &.like {
+          width: calc(100% - 84px);
+        }
+
+
+        input {
+          color: white;
+        }
       }
+
+      &.picture {
+        height: 360px;
+        border: 1px solid #5e6ebf
+      }
+
+      button {
+        width: 100%;
+      }
+
     }
+
+
   }
 }
