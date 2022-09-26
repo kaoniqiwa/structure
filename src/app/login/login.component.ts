@@ -176,7 +176,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             }
           }
 
-          this._router.navigateByUrl(RoutePath.structure);
+          this._router.navigateByUrl(RoutePath.index);
         }
       } catch (e: any) {
         if (this._isAxiosError(e)) {
