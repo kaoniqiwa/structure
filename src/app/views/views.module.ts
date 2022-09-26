@@ -25,13 +25,14 @@ import { Directives } from '../directives';
 import { Pipes } from '../pipes/pipe.module';
 import { IndexComponent } from './index/index.component';
 import { WindowComponents } from './windows/windows.module';
+import { StructuredDataComponents } from './structured-data/structured-data.module';
 
 echarts.registerTheme('adsame', Adsame);
 
 const ViewComponents = [
   IndexComponent,
   RealtimeComponent,
-  StructuredDataComponent,
+  ...StructuredDataComponents,
   DeviceListComponent,
   DeployListComponent,
   AlarmEventsComponent,
