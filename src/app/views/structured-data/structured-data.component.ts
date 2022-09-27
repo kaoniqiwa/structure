@@ -8,7 +8,7 @@ import { StructuredDataPath } from './structured-data.model';
 })
 export class StructuredDataComponent implements OnInit {
   @Input()
-  path: StructuredDataPath = StructuredDataPath.face;
+  path: StructuredDataPath = StructuredDataPath.body;
   constructor() {}
   StructuredDataPath = StructuredDataPath;
   ngOnInit(): void {}

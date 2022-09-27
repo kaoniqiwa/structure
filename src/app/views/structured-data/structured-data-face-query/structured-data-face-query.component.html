@@ -17,12 +17,12 @@
   </div>
   <div class="structured-data-face-query-content">
     <div class="form-item">
-      <div class="form-item-title tree">摄像机</div>
-      <div><input type="text" /></div>
+      <div class="form-item-title">摄像机</div>
+      <div class="form-item-input"><input type="text" /></div>
     </div>
     <div class="form-item">
       <div class="form-item-title">开始时间</div>
-      <div>
+      <div class="form-item-input">
         <input
           type="text"
           DateTimePicker
@@ -37,7 +37,7 @@
     </div>
     <div class="form-item">
       <div class="form-item-title">结束时间</div>
-      <div>
+      <div class="form-item-input">
         <input
           type="text"
           DateTimePicker
@@ -50,8 +50,35 @@
         />
       </div>
     </div>
-    <div></div>
-    <div></div>
-    <div></div>
+    <div *ngIf="tab === StructuredDataFaceQueryTab.picture">
+      <div class="form-item picture"></div>
+      <div class="form-item">
+        <div class="form-item-title like">相似度(%)</div>
+        <div class="form-item-input like">
+          <input type="number" />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="tab === StructuredDataFaceQueryTab.params">
+      <div class="form-item">
+        <div class="form-item-title">性别</div>
+        <div class="form-item-input"><input type="text" /></div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-title">年龄段</div>
+        <div class="form-item-input"><input type="text" /></div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-title">眼镜</div>
+        <div class="form-item-input"><input type="text" /></div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-title">关联车牌</div>
+        <div class="form-item-input"><input type="text" /></div>
+      </div>
+    </div>
+    <div class="form-item">
+      <button>检索</button>
+    </div>
   </div>
 </div>
