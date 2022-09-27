@@ -23,6 +23,7 @@ export class DeployInfoComponent implements OnInit {
   showToast = false;
   subject = new Subject<AlarmModel<EventRecord> | null>();
   model: DeployInfoModel | null = null;
+  eventRecord: EventRecord | null = null;
 
   constructor(private _business: DeployInfoBusiness) {
     this.subject.subscribe((data) => this._init(data));
@@ -33,8 +34,12 @@ export class DeployInfoComponent implements OnInit {
   private async _init(args: AlarmModel<EventRecord> | null) {
     console.log(args);
     if (args) {
+      this.eventRecord = args.data;
       this.model = await this._business.init(args.data);
-      console.log(this.model);
+      // console.log(this.model);
     }
+  }
+  closeEvent(flag: boolean) {
+    this.showToast = false;
   }
 }

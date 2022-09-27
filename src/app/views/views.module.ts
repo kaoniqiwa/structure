@@ -26,7 +26,7 @@ import { Pipes } from '../pipes/pipe.module';
 import { IndexComponent } from './index/index.component';
 import { WindowComponents } from './windows/windows.module';
 import { StructuredDataComponents } from './structured-data/structured-data.module';
-import { DeployDetailComponent } from './deploy-detail/deploy-detail.component';
+import { FaceDeployDetailComponent } from './face-deploy-detail/face-deploy-detail.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -40,7 +40,7 @@ const ViewComponents = [
   DeviceStatusComponent,
   AlarmComponent,
   DeployInfoComponent,
-  DeployDetailComponent,
+  FaceDeployDetailComponent,
   components,
   ...WindowComponents,
   ...MapControlComponents,

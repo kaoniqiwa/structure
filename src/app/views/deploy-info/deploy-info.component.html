@@ -17,6 +17,9 @@
   </div>
 </div>
 
-<toast-window *ngIf="showToast">
-  <div class="deploy-detail">sdfsdfsdf</div>
+<toast-window *ngIf="showToast" (closeEvent)="closeEvent($event)">
+  <app-face-deploy-detail
+    [eventRecord]="eventRecord"
+    (closeEvent)="closeEvent($event)"
+  ></app-face-deploy-detail>
 </toast-window>
