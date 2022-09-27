@@ -18,7 +18,28 @@
   <div class="structured-data-face-query-content">
     <div class="form-item">
       <div class="form-item-title">摄像机</div>
-      <div class="form-item-input"><input type="text" /></div>
+      <div class="form-item-input">
+        <mat-chip-list
+          #chipList
+          aria-label="Fruit selection"
+          [aria-orientation]="'horizontal'"
+          (click)="onchiplistclicked($event)"
+        >
+          <span *ngIf="!nodes || nodes.length == 0">请选择</span>
+          <mat-chip *ngFor="let item of nodes" (removed)="remove(item)">
+            {{ item.Name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-list>
+
+        <div class="tree" *ngIf="expand">
+          <howell-region-tree
+            (selectTreeNode)="onCameraSelected($event)"
+          ></howell-region-tree>
+        </div>
+      </div>
     </div>
     <div class="form-item">
       <div class="form-item-title">开始时间</div>
@@ -51,11 +72,31 @@
       </div>
     </div>
     <div *ngIf="tab === StructuredDataFaceQueryTab.picture">
-      <div class="form-item picture"></div>
+      <div
+        class="form-item picture"
+        (click)="onupload()"
+        [ngStyle]="{
+          backgroundImage: img
+        }"
+      >
+        <div *ngIf="!img">点击上传图片</div>
+        <input
+          type="file"
+          (change)="fileChange()"
+          accept="*.png|*.jpg|*.jpeg|*.bmp"
+          #file
+          style="display: none"
+        />
+      </div>
       <div class="form-item">
         <div class="form-item-title like">相似度(%)</div>
         <div class="form-item-input like">
-          <input type="number" />
+          <input
+            type="number"
+            (touchSpinChange)="touchSpinChange($event)"
+            appTouchSpin
+            value="50"
+          />
         </div>
       </div>
     </div>
@@ -78,7 +119,7 @@
       </div>
     </div>
     <div class="form-item">
-      <button>检索</button>
+      <button style="width: 100%">检索</button>
     </div>
   </div>
 </div>

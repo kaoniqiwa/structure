@@ -107,15 +107,33 @@
 
       &.picture {
         height: 360px;
-        border: 1px solid #5e6ebf
+        border: 1px solid #5e6ebf;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: rgba(71, 84, 148, 0.4);
+          ;
+        }
       }
 
-      button {
-        width: 100%;
-      }
+
 
     }
 
+    .hidden {
+      display: none;
+    }
 
   }
+}
+
+.tree {
+  position: absolute;
+  background-color: #0e1027;
+  border: 1px solid #5e6ebf;
 }
