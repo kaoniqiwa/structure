@@ -9,7 +9,7 @@ import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { AlarmModel } from '../alarm/alarm.model';
-import { DeployFaceComponent } from '../deploy-face/deploy-face.component';
+import { DeployInfoComponent } from '../deploy-info/deploy-info.component';
 import { RealTimeBusiness } from './realtime.business';
 
 @Component({
@@ -28,7 +28,7 @@ export class RealtimeComponent implements OnInit {
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
   alarmModels: AlarmModel[] = [];
-  @ViewChild(DeployFaceComponent) deployFace!: DeployFaceComponent;
+  @ViewChild(DeployInfoComponent) deployFace!: DeployInfoComponent;
 
   constructor(private _business: RealTimeBusiness) {}
 

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { DeployFaceConverter } from 'src/app/converters/deploy-face.converter';
+import { DeployInfoConverter } from 'src/app/converters/deploy-info.converter';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 
 @Injectable()
-export class DeployFaceBusiness {
-  constructor(private _converter: DeployFaceConverter) {}
+export class DeployInfoBusiness {
+  constructor(private _converter: DeployInfoConverter) {}
 
   async init(data: EventRecord) {
     let res = await this._converter.Convert(data);

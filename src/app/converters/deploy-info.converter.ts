@@ -11,18 +11,18 @@ import { MuckCarEventRecord } from '../models/event-record/muck-car-event.record
 import { VehicleEventRecord } from '../models/event-record/vehicle-event.record';
 import { Language } from '../tools/language';
 import { Medium } from '../tools/medium';
-import { DeployFaceModel } from '../views/deploy-face/deploy-face.model';
+import { DeployInfoModel } from '../views/deploy-info/deploy-info.model';
 
-type DeployFaceSource = EventRecord;
+type DeployInfoSource = EventRecord;
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeployFaceConverter
-  implements IPromiseConverter<DeployFaceSource, DeployFaceModel>
+export class DeployInfoConverter
+  implements IPromiseConverter<DeployInfoSource, DeployInfoModel>
 {
   constructor() {}
-  Convert(source: DeployFaceSource, ...res: any[]): Promise<DeployFaceModel> {
+  Convert(source: DeployInfoSource, ...res: any[]): Promise<DeployInfoModel> {
     if (source instanceof FaceEventRecord) {
       return this._fromFaceEventRecord(source);
     } else if (source instanceof VehicleEventRecord) {
@@ -32,7 +32,7 @@ export class DeployFaceConverter
   }
 
   private async _fromFaceEventRecord(item: FaceEventRecord) {
-    let model = new DeployFaceModel();
+    let model = new DeployInfoModel();
     model.imageUrl = (await Medium.image(item.ImageUrl)).url;
     model.title = item.EventDescription ?? '';
     model.content = [];

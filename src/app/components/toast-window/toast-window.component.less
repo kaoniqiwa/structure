@@ -5,25 +5,23 @@
   width: 100%;
   height: 100%;
   z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.hw-popped-container {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  overflow: hidden;
-  position: relative;
-  // display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  .hw-popped-wrapper {
-    margin-top: -10%;
-    position: relative;
-    background: #0c1127;
-    box-shadow: 0 0 10px rgb(105, 173, 255);
-    border: 2px solid #5e6ebf;
-    box-sizing: border-box;
-    overflow: auto;
+.toast-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0c1127;
+  box-shadow: 0 0 10px rgb(105, 173, 255);
+  border: 2px solid #5e6ebf;
+  box-sizing: border-box;
+  padding: 20px;
+  .closeImg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
   }
 }

@@ -19,13 +19,14 @@ import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
 import { AngularResizeEventModule } from 'angular-resize-event';
 import { AlarmComponent } from './alarm/alarm.component';
-import { DeployFaceComponent } from './deploy-face/deploy-face.component';
+import { DeployInfoComponent } from './deploy-info/deploy-info.component';
 import { MapControlComponents } from './map-control/map-control.module';
 import { Directives } from '../directives';
 import { Pipes } from '../pipes/pipe.module';
 import { IndexComponent } from './index/index.component';
 import { WindowComponents } from './windows/windows.module';
 import { StructuredDataComponents } from './structured-data/structured-data.module';
+import { DeployDetailComponent } from './deploy-detail/deploy-detail.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -38,7 +39,8 @@ const ViewComponents = [
   AlarmEventsComponent,
   DeviceStatusComponent,
   AlarmComponent,
-  DeployFaceComponent,
+  DeployInfoComponent,
+  DeployDetailComponent,
   components,
   ...WindowComponents,
   ...MapControlComponents,

@@ -1,0 +1,56 @@
+.popped-content {
+  position: relative;
+
+  .closeImg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+}
+
+.inner-popped {
+  padding: 20px 40px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.popped-main {
+  flex-grow: 1;
+  overflow: auto;
+  font-size: 14px;
+  // border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.popped-footer {
+  padding-top: 10px;
+  flex-shrink: 0;
+  flex-basis: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  .popped-footer-item {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .popped-content {
+    width: 90%;
+  }
+}

@@ -1,5 +1,7 @@
-<div class="hw-popped-container">
-  <div class="hw-popped-wrapper">
-    <ng-content></ng-content>
+<div class="toast-content">
+  <div class="closeImg" (click)="close()" *ngIf="showClose">
+    <!-- <img src="assets/img/close.png" alt="" /> -->
+    <i class="howell-icon-Close"></i>
   </div>
+  <ng-content></ng-content>
 </div>
