@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateTimePickerView } from 'src/app/directives/date-time-picker.directive';
+import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
 import { Duration } from 'src/app/models/duration.model';
 import { DateTimeTool } from 'src/app/tools/datetime.tool';
 

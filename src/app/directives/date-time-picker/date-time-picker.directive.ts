@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { DateTimeTool } from '../tools/datetime.tool';
+import { DateTimeTool } from '../../tools/datetime.tool';
 
 declare let $: any;
 

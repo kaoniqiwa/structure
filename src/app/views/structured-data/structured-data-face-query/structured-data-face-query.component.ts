@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
-import { DateTimePickerView } from 'src/app/directives/date-time-picker.directive';
+import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
 import { Duration } from 'src/app/models/duration.model';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';

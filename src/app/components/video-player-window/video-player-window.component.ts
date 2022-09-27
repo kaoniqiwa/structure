@@ -11,7 +11,7 @@ import {
   TimeModel,
 } from 'src/app/components/time-control/time-control.model';
 import { WindowComponent } from 'src/app/components/window-control/window.component';
-import { DateTimePickerView } from 'src/app/directives/date-time-picker.directive';
+import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { IModel } from 'src/app/models/model.interface';
