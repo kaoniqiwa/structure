@@ -19,6 +19,8 @@ import { VideoPlayerWindowComponent } from './video-player-window/video-player-w
 import { ToastWindowComponent } from './toast-window/toast-window.component';
 import { FaceDetailComponent } from './face-detail/face-detail.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { BodyDetailComponent } from './body-detail/body-detail.component';
+import { EventRecordCardComponent } from './event-record-card/event-record-card.component';
 
 export const components = [
   AccountInfoComponent,
@@ -42,4 +44,6 @@ export const components = [
   ToastWindowComponent,
   FaceDetailComponent,
   VehicleDetailComponent,
+  BodyDetailComponent,
+  EventRecordCardComponent,
 ];
