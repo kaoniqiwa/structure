@@ -17,6 +17,8 @@ import { VideoPlaybackSettingControlComponent } from './video-window/video-playb
 import { TimeControlComponent } from './time-control/time-control.component';
 import { VideoPlayerWindowComponent } from './video-player-window/video-player-window.component';
 import { ToastWindowComponent } from './toast-window/toast-window.component';
+import { FaceDetailComponent } from './face-detail/face-detail.component';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 
 export const components = [
   AccountInfoComponent,
@@ -38,4 +40,6 @@ export const components = [
   VideoPlayerWindowComponent,
   TimeControlComponent,
   ToastWindowComponent,
+  FaceDetailComponent,
+  VehicleDetailComponent,
 ];

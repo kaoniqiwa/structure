@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 
 @Component({
-  selector: 'app-face-deploy-detail',
-  templateUrl: './face-deploy-detail.component.html',
-  styleUrls: ['./face-deploy-detail.component.less'],
+  selector: 'app-face-detail',
+  templateUrl: './face-detail.component.html',
+  styleUrls: ['./face-detail.component.less'],
 })
-export class FaceDeployDetailComponent implements OnInit {
+export class FaceDetailComponent implements OnInit {
   @Input()
   eventRecord: EventRecord | null = null;
 
