@@ -57,4 +57,8 @@ export class AlarmComponent
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
   }
+
+  onitemclicked(item: AlarmModel) {
+    this.loaded.emit([item]);
+  }
 }

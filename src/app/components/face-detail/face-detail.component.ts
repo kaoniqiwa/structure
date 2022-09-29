@@ -8,7 +8,7 @@ import { EventRecord } from 'src/app/models/event-record/event.record';
 })
 export class FaceDetailComponent implements OnInit {
   @Input()
-  eventRecord: EventRecord | null = null;
+  eventRecord?: EventRecord | null = null;
 
   @Output() closeEvent = new EventEmitter<boolean>();
   constructor() {}

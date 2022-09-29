@@ -8,6 +8,7 @@
     <div class="structured-data-face-result-list">
       <div
         class="structured-data-face-result-list-item"
+        (click)="onselected(item)"
         *ngFor="let item of datas"
       >
         <app-structured-data-item [model]="item"> </app-structured-data-item>
@@ -32,3 +33,7 @@
     </div>
   </div>
 </div>
+<app-window [Model]="window" [style]="style">
+  <app-face-detail [eventRecord]="selected" (closeEvent)="onclosewindow()">
+  </app-face-detail>
+</app-window>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { WindowViewModel } from 'src/app/components/window-control/window.model';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Page } from 'src/app/models/page-list.model';
 import { StructuredDataBodyQueryModel } from '../structured-data-body-query/structured-data-body-query.model';
+import { StructuredDataItemModel } from '../structured-data-item/structured-data-item.model';
 import { StructuredDataBodyBusiness } from './structured-data-body.business';
 
 @Component({
@@ -14,7 +17,13 @@ export class StructuredDataBodyComponent implements OnInit {
   constructor(private business: StructuredDataBodyBusiness) {}
   page?: Page;
   query?: StructuredDataBodyQueryModel;
-  datas: any[] = [];
+  datas: StructuredDataItemModel[] = [];
+  selected?: EventRecord;
+  window: WindowViewModel = new WindowViewModel();
+  style = {
+    width: 'calc(815px + 40px)',
+    height: 'calc(465px + 40px)',
+  };
   ngOnInit(): void {}
   pageEvent(page: PageEvent) {
     if (!this.page) {
@@ -35,5 +44,12 @@ export class StructuredDataBodyComponent implements OnInit {
       console.log(paged.Data);
       this.datas = paged.Data;
     }
+  }
+  onselected(item: StructuredDataItemModel) {
+    this.selected = item.data;
+    this.window.show = true;
+  }
+  onclosewindow() {
+    this.window.show = false;
   }
 }
