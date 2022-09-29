@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { IConverter, IPromiseConverter } from './converter.interface';
 
 export interface IBusiness<IModel, IViewModel> {
-  Converter:
+  Converter?:
     | IConverter<IModel, IViewModel>
     | IPromiseConverter<IModel, IViewModel>;
 

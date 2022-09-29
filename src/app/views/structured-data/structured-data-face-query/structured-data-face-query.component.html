@@ -2,15 +2,15 @@
   <div class="structured-data-face-query-tabs">
     <div
       class="structured-data-face-query-tabs-picture"
-      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.picture }"
-      (click)="ontabchanged(StructuredDataFaceQueryTab.picture)"
+      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.image }"
+      (click)="ontabchanged(StructuredDataFaceQueryTab.image)"
     >
       图片搜索
     </div>
     <div
       class="structured-data-face-query-tabs-params"
-      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.params }"
-      (click)="ontabchanged(StructuredDataFaceQueryTab.params)"
+      [ngClass]="{ selected: tab === StructuredDataFaceQueryTab.attribute }"
+      (click)="ontabchanged(StructuredDataFaceQueryTab.attribute)"
     >
       要素搜索
     </div>
@@ -18,7 +18,7 @@
   <div class="structured-data-face-query-content">
     <div class="form-item">
       <div class="form-item-title">摄像机</div>
-      <div class="form-item-input">
+      <div class="form-item-input node">
         <mat-chip-list
           #chipList
           aria-label="Fruit selection"
@@ -36,7 +36,7 @@
 
         <div class="tree" *ngIf="expand">
           <howell-region-tree
-            (selectTreeNode)="onCameraSelected($event)"
+            (selectTreeNode)="onNodeSelected($event)"
           ></howell-region-tree>
         </div>
       </div>
@@ -50,7 +50,7 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.begin"
+          [date]="model.duration.begin"
           (change)="changebegin($event)"
           class=""
         />
@@ -65,21 +65,21 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.end"
+          [date]="model.duration.end"
           (change)="changeend($event)"
           class=""
         />
       </div>
     </div>
-    <div *ngIf="tab === StructuredDataFaceQueryTab.picture">
+    <div *ngIf="tab === StructuredDataFaceQueryTab.image && model.image">
       <div
         class="form-item picture"
         (click)="onupload()"
         [ngStyle]="{
-          backgroundImage: img
+          backgroundImage: 'url(' + model.image.image + ')'
         }"
       >
-        <div *ngIf="!img">点击上传图片</div>
+        <div *ngIf="!model.image.image">点击上传图片</div>
         <input
           type="file"
           (change)="fileChange()"
@@ -95,31 +95,61 @@
             type="number"
             (touchSpinChange)="touchSpinChange($event)"
             appTouchSpin
-            value="50"
+            [(ngModel)]="model.image.similarity"
           />
         </div>
       </div>
     </div>
-    <div *ngIf="tab === StructuredDataFaceQueryTab.params">
+    <div
+      *ngIf="
+        tab === StructuredDataFaceQueryTab.attribute && this.model.attribute
+      "
+    >
       <div class="form-item">
         <div class="form-item-title">性别</div>
-        <div class="form-item-input"><input type="text" /></div>
+        <div class="form-item-input">
+          <select [(ngModel)]="model.attribute.Gender">
+            <option [value]="item.Value" *ngFor="let item of genders">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="form-item">
         <div class="form-item-title">年龄段</div>
-        <div class="form-item-input"><input type="text" /></div>
+        <div class="form-item-input">
+          <select [(ngModel)]="model.attribute.AgeGroup">
+            <option [value]="item.Value" *ngFor="let item of ages">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="form-item">
         <div class="form-item-title">眼镜</div>
-        <div class="form-item-input"><input type="text" /></div>
+        <div class="form-item-input">
+          <select [(ngModel)]="model.attribute.Glass">
+            <option [value]="item.Value" *ngFor="let item of glasses">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="form-item">
         <div class="form-item-title">关联车牌</div>
-        <div class="form-item-input"><input type="text" /></div>
+        <div class="form-item-input">
+          <input
+            type="text"
+            [(ngModel)]="this.model.attribute.PlateNo"
+            placeHolder="请输入…"
+          />
+        </div>
       </div>
     </div>
     <div class="form-item">
-      <button style="width: 100%">检索</button>
+      <button class="hw-blue-btn" (click)="onquery()" style="width: 100%">
+        检索
+      </button>
     </div>
   </div>
 </div>

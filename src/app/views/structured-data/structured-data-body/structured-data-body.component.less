@@ -14,5 +14,41 @@
     width: calc(100% - 400px);
     border: solid 1px #7a8de6;
     margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+
+
+    &-head {
+      height: 50px;
+    }
+
+    &-list {
+      height: calc(100% - 100px);
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+      margin: 0 -5px;
+
+      &-item {
+        height: calc(100% / 3 - 10px);
+        width: calc(100% / 4 - 10px);
+        margin: 5px;
+      }
+    }
+
+    &-foot {
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .count-title {
+        color: #cfd7ff
+      }
+
+      .count {
+        color: white;
+      }
+    }
   }
 }

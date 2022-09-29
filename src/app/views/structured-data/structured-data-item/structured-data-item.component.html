@@ -1,5 +1,20 @@
 <div class="structured-data-item">
-  <div style="width: 355px; height: 220px">
-    <app-event-record-card></app-event-record-card>
+  <div class="structured-data-item-wrapper vertical-layout">
+    <div class="vertical-main">
+      <img [src]="model.images[0]" alt="" />
+    </div>
+    <div class="structured-data-item-footer">
+      <div><i [class]="model.datas[0].icon"></i>{{ model.datas[0].name }}</div>
+      <div><i [class]="model.datas[1].icon"></i>{{ model.datas[1].name }}</div>
+    </div>
+  </div>
+  <div class="structured-data-item-wrapper vertical-layout">
+    <div class="vertical-main">
+      <img [src]="model.images[1]" alt="" />
+    </div>
+    <div class="structured-data-item-footer">
+      <div><i [class]="model.datas[2].icon"></i>{{ model.datas[2].name }}</div>
+      <div><i [class]="model.datas[3].icon"></i>{{ model.datas[3].name }}</div>
+    </div>
   </div>
 </div>

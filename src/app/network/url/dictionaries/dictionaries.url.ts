@@ -1,10 +1,8 @@
 import { AbstractUrl } from '../abstract.url';
-import { api_aiop_service_url } from '../basic.url';
+import { BasicUrl } from '../basic.url';
 
 export class DictionariesUrl extends AbstractUrl {
-  private static url = new DictionariesUrl(
-    `${api_aiop_service_url}/Dictionaries`
-  );
+  private static url = new DictionariesUrl(`${BasicUrl.aiop}/Dictionaries`);
 
   static people(name: string) {
     return `${this.url.basic()}/Peoples/${name}`;

@@ -84,7 +84,7 @@ class AIVehiclesUrl extends AbstractUrl {
 
 class AIBodiesUrl extends AbstractUrl {
   constructor(base: string) {
-    super(`${base}/Vehicles`);
+    super(`${base}/Bodies`);
   }
 
   modeling() {

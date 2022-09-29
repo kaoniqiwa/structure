@@ -1,11 +1,41 @@
 <div class="structured-data-vehicle">
   <div class="structured-data-vehicle-query">
-    <app-structured-data-vehicle-query> </app-structured-data-vehicle-query>
+    <app-structured-data-vehicle-query (query)="onquery($event)">
+    </app-structured-data-vehicle-query>
   </div>
   <div class="structured-data-vehicle-result">
-    <app-structured-data-item
-      style="height: calc(100% / 3); width: calc(100% / 4)"
-    >
-    </app-structured-data-item>
+    <div class="structured-data-vehicle-result-head hw-simple-title">
+      搜索结果
+    </div>
+    <div class="structured-data-vehicle-result-list">
+      <div
+        class="structured-data-vehicle-result-list-item"
+        (click)="onselected(item)"
+        *ngFor="let item of datas"
+      >
+        <app-structured-data-item [model]="item"> </app-structured-data-item>
+      </div>
+    </div>
+    <div class="structured-data-vehicle-result-foot" *ngIf="page">
+      <div>
+        <span class="count-title">总数量：</span
+        ><span class="count">{{ page.TotalRecordCount }}</span>
+      </div>
+      <div>
+        <app-paginator
+          [length]="page.TotalRecordCount"
+          [pageSize]="page.PageSize"
+          [pagerCount]="5"
+          [pageIndex]="page.PageIndex - 1"
+          [showFirstLastButtons]="true"
+          (page)="pageEvent($event)"
+        >
+        </app-paginator>
+      </div>
+    </div>
   </div>
 </div>
+<app-window [Model]="window" [style]="style">
+  <app-vehicle-detail [eventRecord]="selected" (closeEvent)="onclosewindow()">
+  </app-vehicle-detail>
+</app-window>

@@ -35,3 +35,19 @@ export function transformTime(params: TransformFnParams) {
     return '';
   }
 }
+
+export function transformParams(params: TransformFnParams) {
+  if (params.type === TransformationType.CLASS_TO_PLAIN) {
+    switch (params.value) {
+      case 'unknown':
+        return undefined;
+      case 'yes':
+        return true;
+      case 'no':
+        return false;
+      default:
+        return params.value;
+    }
+  }
+  return params.value;
+}

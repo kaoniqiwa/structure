@@ -1,6 +1,9 @@
+import { Transform } from 'class-transformer';
 import { DeployReason } from 'src/app/enums/deploy-reason.enum';
+import { Gender } from 'src/app/enums/gender.enum';
 import { OrderType } from 'src/app/enums/order-type.enum';
 import { DeployDetails } from 'src/app/models/deploy-details.model';
+import { transformParams } from 'src/app/models/transform.model';
 import {
   DurationParams,
   ImageParams,
@@ -15,14 +18,18 @@ export class GetFaceRecordsByAttributeParams extends PagedDurationParams {
   /**	String	姓名	O */
   Name?: string;
   /**	String	性别，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Gender?: string;
   /**	String	年龄段，参见：2.3.12.1	O */
+  @Transform(transformParams)
   AgeGroup?: string;
   /**	String	证件号码	O */
   CertificateNumber?: string;
   /**	Boolean	是否戴眼镜，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Glass?: boolean;
   /**	Boolean	是否微笑，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Smile?: boolean;
   /**	String	人脸人体关联id（若该值有内容，可以作为查询条件，进行人体的属性检索，查询出对应的人体记录）	O */
   LinkBodyId?: string;
@@ -65,10 +72,12 @@ export class CreateFaceDeployControlParams extends DurationParams {
   /**	String	姓名	O */
   Name?: string;
   /**	String	性别，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Gender?: string;
   /**	Date	出生日期	O */
   BornTime?: Date;
   /**	Int32	证件类型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   CertificateType?: number;
   /**	String	证件号码	O */
   CertificateNumber?: string;
@@ -89,10 +98,12 @@ export class SetFaceDeployControlParams extends DurationParams {
   /**	String	姓名	O */
   Name?: string;
   /**	String	性别，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Gender?: string;
   /**	Date	出生日期	O */
   BornTime?: Date;
   /**	Int32	证件类型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   CertificateType?: number;
   /**	String	证件号码	O */
   CertificateNumber?: string;
@@ -122,16 +133,22 @@ export class GetVehicleRecordsByAttributeParams extends PagedDurationParams {
   /**	String	车牌号（必须为精确车牌号）	O */
   PlateNo?: string;
   /**	String	车牌颜色，参见：2.3.12.2	O */
+  @Transform(transformParams)
   PlateColor?: string;
   /**	String	车牌类型，参见：2.3.12.2	O */
+  @Transform(transformParams)
   PlateType?: string;
   /**	String	车牌状态，参见：2.3.12.2	O */
+  @Transform(transformParams)
   PlateState?: string;
   /**	String	车辆类型，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleType?: string;
   /**	String	车辆颜色，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleColor?: string;
   /**	String	车辆颜色深浅，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleColorDepth?: string;
   /**	String		车速，是一个范围值，例如40到80km/h，传入 40,80	O */
   VehicleSpeed?: string;
@@ -200,6 +217,7 @@ export class CreateVehicleDeployControlParams extends DurationParams {
   /**	String	车牌号（支持模糊查询）：A233J5	M */
   PlateNo!: string;
   /**	String	车牌颜色，参见：2.3.12.2	M */
+  @Transform(transformParams)
   PlateColor!: string;
   /**	Int32	布控原因（1-被盗车，2-被抢车，3-嫌疑车）	M */
   Reason!: DeployReason;
@@ -208,8 +226,10 @@ export class CreateVehicleDeployControlParams extends DurationParams {
   /**	String	车辆品牌	O */
   VehicleLogo?: string;
   /**	String	车辆类型，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleType?: string;
   /**	String	车辆颜色，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleColor?: string;
 }
 export class SetVehicleDeployControlParams extends DurationParams {
@@ -224,6 +244,7 @@ export class SetVehicleDeployControlParams extends DurationParams {
   /**	String	车牌号（支持模糊查询）：A233J5	M */
   PlateNo!: string;
   /**	String	车牌颜色，参见：2.3.12.2	M */
+  @Transform(transformParams)
   PlateColor!: string;
   /**	Int32	布控原因（1-被盗车，2-被抢车，3-嫌疑车）	M */
   Reason!: DeployReason;
@@ -232,8 +253,10 @@ export class SetVehicleDeployControlParams extends DurationParams {
   /**	String	车辆品牌	O */
   VehicleLogo?: string;
   /**	String	车辆类型，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleType?: string;
   /**	String	车辆颜色，参见：2.3.12.2	O */
+  @Transform(transformParams)
   VehicleColor?: string;
 }
 export class GetVehicleDeployControlTasksParams extends PagedParams {}
@@ -249,34 +272,49 @@ export class GetBodyRecordsByAttributeParams extends PagedDurationParams {
   /**	String	排序(desc-降序，asc-升序)	O */
   Order?: string;
   /**	String	年龄段，参见：2.3.12.1	O */
+  @Transform(transformParams)
   AgeGroup?: string;
   /**	Boolean	是否背包，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Bag?: boolean;
   /**	String	骑车类型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   CyclingType?: string;
   /**	String	骑车人数，参见：2.3.12.1	O */
+  @Transform(transformParams)
   CyclingPersonNumber?: string;
   /**	String	性别，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Gender?: string;
   /**	Boolean	是否戴眼镜，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Glass?: boolean;
   /**	String	发型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   HairStyle?: string;
   /**	Boolean	是否戴帽子，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Hat?: boolean;
   /**	String	上衣类型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   JacketType?: string;
   /**	String	下衣类型，参见：2.3.12.1	O */
+  @Transform(transformParams)
   TrousersType?: string;
   /**	String	上衣颜色，参见：2.3.12.1	O */
+  @Transform(transformParams)
   JacketColor?: string;
   /**	String	下衣颜色，参见：2.3.12.1	O */
+  @Transform(transformParams)
   TrousersColor?: string;
   /**	Boolean	是否骑车，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Ride?: boolean;
   /**	Boolean	是否戴口罩，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Mask?: boolean;
   /**	Boolean	是否拎东西，参见：2.3.12.1	O */
+  @Transform(transformParams)
   Things?: boolean;
   /**	String	人脸人体关联id	O */
   LinkFaceId?: string;

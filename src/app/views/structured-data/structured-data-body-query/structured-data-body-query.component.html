@@ -5,7 +5,28 @@
   <div class="structured-data-body-query-content">
     <div class="form-item">
       <div class="form-item-title">摄像机</div>
-      <div class="form-item-input"><input type="text" /></div>
+      <div class="form-item-input node">
+        <mat-chip-list
+          #chipList
+          aria-label="Fruit selection"
+          [aria-orientation]="'horizontal'"
+          (click)="onchiplistclicked($event)"
+        >
+          <span *ngIf="!nodes || nodes.length == 0">请选择</span>
+          <mat-chip *ngFor="let item of nodes" (removed)="remove(item)">
+            {{ item.Name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-list>
+
+        <div class="tree" *ngIf="expand">
+          <howell-region-tree
+            (selectTreeNode)="onNodeSelected($event)"
+          ></howell-region-tree>
+        </div>
+      </div>
     </div>
     <div class="form-item">
       <div class="form-item-title">开始时间</div>
@@ -16,7 +37,7 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.begin"
+          [date]="model.duration.begin"
           (change)="changebegin($event)"
           class=""
         />
@@ -31,93 +52,160 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.end"
+          [date]="model.duration.end"
           (change)="changeend($event)"
           class=""
         />
       </div>
     </div>
-    <div class="form-item picture"></div>
+    <div
+      class="form-item picture"
+      (click)="onupload()"
+      [ngStyle]="{
+        backgroundImage: 'url(' + image + ')'
+      }"
+    >
+      <div *ngIf="!image">点击上传图片</div>
+      <input
+        type="file"
+        (change)="fileChange()"
+        accept="*.png|*.jpg|*.jpeg|*.bmp"
+        #file
+        style="display: none"
+      />
+    </div>
     <div class="form-item">
-      <button>选择照片</button>
+      <button class="hw-blue-btn">选择照片</button>
     </div>
     <div class="form-group">
       <div class="form-item short">
         <div class="form-item-title">性别</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Gender">
+            <option [value]="item.Value" *ngFor="let item of genders">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">发型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.HairStyle">
+            <option [value]="item.Value" *ngFor="let item of hairs">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">年龄段</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.AgeGroup">
+            <option [value]="item.Value" *ngFor="let item of ages">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">上衣类型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.JacketType">
+            <option [value]="item.Value" *ngFor="let item of jacketTypes">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">眼镜</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Glass">
+            <option [value]="item.Value" *ngFor="let item of glasses">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">上衣颜色</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.JacketColor">
+            <option [value]="item.Value" *ngFor="let item of jacketColors">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">背包</div>
         <div class="form-item-input">
-          <input type="number" />
-        </div>
-      </div>
-      <div class="form-item short">
-        <div class="form-item-title">上衣类型</div>
-        <div class="form-item-input">
-          <input type="number" />
-        </div>
-      </div>
-      <div class="form-item short">
-        <div class="form-item-title">戴帽子</div>
-        <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Bag">
+            <option [value]="item.Value" *ngFor="let item of bags">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">下衣类型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.TrousersType">
+            <option [value]="item.Value" *ngFor="let item of trousersTypes">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-item short">
+        <div class="form-item-title">戴帽子</div>
+        <div class="form-item-input">
+          <select [(ngModel)]="model.Hat">
+            <option [value]="item.Value" *ngFor="let item of hats">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-item short">
+        <div class="form-item-title">下衣颜色</div>
+        <div class="form-item-input">
+          <select [(ngModel)]="model.TrousersColor">
+            <option [value]="item.Value" *ngFor="let item of trousersColors">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">戴口罩</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Mask">
+            <option [value]="item.Value" *ngFor="let item of masks">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">骑车</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Ride">
+            <option [value]="item.Value" *ngFor="let item of rides">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">拎东西</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.Things">
+            <option [value]="item.Value" *ngFor="let item of things">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
@@ -129,6 +217,6 @@
     </div>
   </div>
   <div class="structured-data-body-query-foot">
-    <button>检索</button>
+    <button (click)="onquery()" class="hw-blue-btn">检索</button>
   </div>
 </div>

@@ -48,4 +48,7 @@ export class Language {
         return '';
     }
   }
+  static YesOrNo(yes: Boolean) {
+    return yes ? '是' : '否';
+  }
 }

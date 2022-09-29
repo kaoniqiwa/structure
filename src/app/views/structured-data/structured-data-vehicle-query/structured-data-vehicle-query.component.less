@@ -60,6 +60,10 @@
       &-input {
         width: calc(100% - 74px);
 
+        &.node {
+          position: relative;
+        }
+
         &.like {
           width: calc(100% - 94px);
         }
@@ -72,10 +76,26 @@
 
       &.picture {
         height: 270px;
-        border: 1px solid #5e6ebf
+        border: 1px solid #5e6ebf;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: contain;
+
+        &:hover {
+          background-color: rgba(71, 84, 148, 0.4);
+          ;
+        }
       }
 
-      button {
+      select {
+        min-width: auto;
+      }
+
+      .hw-blue-btn {
         width: 100%;
       }
 
@@ -102,6 +122,18 @@
     &>* {
       width: 100%;
     }
+
+    .hidden {
+      display: none;
+    }
   }
 
+}
+
+.tree {
+  position: absolute;
+  background-color: #0e1027;
+  border: 1px solid #5e6ebf;
+  width: 100%;
+  z-index: 1;
 }

@@ -5,7 +5,28 @@
   <div class="structured-data-vehicle-query-content">
     <div class="form-item">
       <div class="form-item-title">摄像机</div>
-      <div class="form-item-input"><input type="text" /></div>
+      <div class="form-item-input node">
+        <mat-chip-list
+          #chipList
+          aria-label="Fruit selection"
+          [aria-orientation]="'horizontal'"
+          (click)="onchiplistclicked($event)"
+        >
+          <span *ngIf="!nodes || nodes.length == 0">请选择</span>
+          <mat-chip *ngFor="let item of nodes" (removed)="remove(item)">
+            {{ item.Name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-list>
+
+        <div class="tree" *ngIf="expand">
+          <howell-region-tree
+            (selectTreeNode)="onNodeSelected($event)"
+          ></howell-region-tree>
+        </div>
+      </div>
     </div>
     <div class="form-item">
       <div class="form-item-title">开始时间</div>
@@ -16,7 +37,7 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.begin"
+          [date]="model.duration.begin"
           (change)="changebegin($event)"
           class=""
         />
@@ -31,39 +52,70 @@
           [format]="'yyyy年MM月dd日 HH:mm'"
           [startView]="DateTimePickerView.month"
           [minView]="DateTimePickerView.month"
-          [date]="duration.end"
+          [date]="model.duration.end"
           (change)="changeend($event)"
           class=""
         />
       </div>
     </div>
-    <div class="form-item picture"></div>
+    <div
+      class="form-item picture"
+      (click)="onupload()"
+      [ngStyle]="{
+        backgroundImage: 'url(' + image + ')'
+      }"
+    >
+      <div *ngIf="!image">点击上传图片</div>
+      <input
+        type="file"
+        (change)="fileChange()"
+        accept="*.png|*.jpg|*.jpeg|*.bmp"
+        #file
+        style="display: none"
+      />
+    </div>
     <div class="form-item">
-      <button>选择照片</button>
+      <button class="hw-blue-btn">选择照片</button>
     </div>
     <div class="form-group">
       <div class="form-item short">
         <div class="form-item-title">车牌号码</div>
         <div class="form-item-input">
-          <input type="number" />
+          <input
+            type="text"
+            [(ngModel)]="model.PlateNo"
+            placeHolder="请输入…"
+          />
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">车辆类型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.VehicleType">
+            <option [value]="item.Value" *ngFor="let item of vehicleTypes">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">车牌颜色</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.PlateColor">
+            <option [value]="item.Value" *ngFor="let item of plateColors">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">车牌类型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.PlateType">
+            <option [value]="item.Value" *ngFor="let item of plateTypes">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
@@ -75,19 +127,34 @@
       <div class="form-item short">
         <div class="form-item-title">车牌状态</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.PlateState">
+            <option [value]="item.Value" *ngFor="let item of plateStates">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">车身颜色</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.VehicleColor">
+            <option [value]="item.Value" *ngFor="let item of vehicleColors">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
         <div class="form-item-title">颜色深浅</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.VehicleColorDepth">
+            <option
+              [value]="item.Value"
+              *ngFor="let item of vehicleColorDepths"
+            >
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-item short">
@@ -105,6 +172,6 @@
     </div>
   </div>
   <div class="structured-data-vehicle-query-foot">
-    <button>检索</button>
+    <button (click)="onquery()" class="hw-blue-btn">检索</button>
   </div>
 </div>

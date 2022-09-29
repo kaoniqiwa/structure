@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { VehicleRecord } from 'src/app/models/vehicle-record.model';
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -8,7 +9,7 @@ import { EventRecord } from 'src/app/models/event-record/event.record';
 })
 export class VehicleDetailComponent implements OnInit {
   @Input()
-  eventRecord: EventRecord | null = null;
+  eventRecord?: VehicleRecord | null = null;
 
   @Output() closeEvent = new EventEmitter<boolean>();
   constructor() {}

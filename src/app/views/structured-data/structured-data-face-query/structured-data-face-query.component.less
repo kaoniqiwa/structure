@@ -95,6 +95,10 @@
       &-input {
         width: calc(100% - 74px);
 
+        &.node {
+          position: relative;
+        }
+
         &.like {
           width: calc(100% - 84px);
         }
@@ -114,6 +118,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        background-size: contain;
 
         &:hover {
           background-color: rgba(71, 84, 148, 0.4);
@@ -136,4 +141,6 @@
   position: absolute;
   background-color: #0e1027;
   border: 1px solid #5e6ebf;
+  width: 100%;
+  z-index: 1;
 }

@@ -1,11 +1,34 @@
 <div class="structured-data-body">
   <div class="structured-data-body-query">
-    <app-structured-data-body-query> </app-structured-data-body-query>
+    <app-structured-data-body-query (query)="onquery($event)">
+    </app-structured-data-body-query>
   </div>
   <div class="structured-data-body-result">
-    <app-structured-data-item
-      style="height: calc(100% / 3); width: calc(100% / 4)"
-    >
-    </app-structured-data-item>
+    <div class="structured-data-body-result-head hw-simple-title">搜索结果</div>
+    <div class="structured-data-body-result-list">
+      <div
+        class="structured-data-body-result-list-item"
+        *ngFor="let item of datas"
+      >
+        <app-structured-data-item [model]="item"> </app-structured-data-item>
+      </div>
+    </div>
+    <div class="structured-data-body-result-foot" *ngIf="page">
+      <div>
+        <span class="count-title">总数量：</span
+        ><span class="count">{{ page.TotalRecordCount }}</span>
+      </div>
+      <div>
+        <app-paginator
+          [length]="page.TotalRecordCount"
+          [pageSize]="page.PageSize"
+          [pagerCount]="5"
+          [pageIndex]="page.PageIndex - 1"
+          [showFirstLastButtons]="true"
+          (page)="pageEvent($event)"
+        >
+        </app-paginator>
+      </div>
+    </div>
   </div>
 </div>
