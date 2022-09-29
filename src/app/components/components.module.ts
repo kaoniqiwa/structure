@@ -21,6 +21,7 @@ import { FaceDetailComponent } from './face-detail/face-detail.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { BodyDetailComponent } from './body-detail/body-detail.component';
 import { EventRecordCardComponent } from './event-record-card/event-record-card.component';
+import { PictureDetailComponent } from './picture-detail/picture-detail.component';
 
 export const components = [
   AccountInfoComponent,
@@ -46,4 +47,5 @@ export const components = [
   VehicleDetailComponent,
   BodyDetailComponent,
   EventRecordCardComponent,
+  PictureDetailComponent,
 ];

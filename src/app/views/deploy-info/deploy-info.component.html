@@ -1,6 +1,6 @@
 <div class="deploy-info" *ngIf="model" (click)="showToast = !showToast">
   <div class="left-wrapper box-wrapper">
-    <img [src]="model.imageUrl" alt="" />
+    <div class="img-container"></div>
   </div>
   <div class="right-wrapper vertical-layout">
     <div class="vertical-header right-header">
@@ -25,5 +25,7 @@
 
   <!-- <app-vehicle-detail (closeEvent)="closeEvent($event)"></app-vehicle-detail> -->
 
-  <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail>
+  <!-- <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail> -->
+
+  <app-picture-detail (closeEvent)="closeEvent($event)"></app-picture-detail>
 </toast-window>
