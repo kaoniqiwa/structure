@@ -26,6 +26,7 @@ export class DeployInfoConverter
     if (source instanceof FaceEventRecord) {
       return this._fromFaceEventRecord(source);
     } else if (source instanceof VehicleEventRecord) {
+      return this._fromVehicleEventRecord(source);
     } else if (source instanceof MuckCarEventRecord) {
     }
     throw new Error('Error');
@@ -39,6 +40,29 @@ export class DeployInfoConverter
     item.Data.PersonName && model.content.push(item.Data.PersonName);
     item.Data.RegisterGender &&
       model.content.push(Language.GenderType(item.Data.RegisterGender));
+    model.eventTime = item.EventTime;
+
+    return model;
+  }
+  private async _fromVehicleEventRecord(item: VehicleEventRecord) {
+    let model = new DeployInfoModel();
+    model.imageUrl = (await Medium.image(item.ImageUrl)).url;
+    model.title = item.EventDescription ?? '';
+    model.content = [];
+    item.Data.CrossingName && model.content.push(item.Data.CrossingName);
+    item.Data.PlateNo && model.content.push(item.Data.PlateNo);
+    item.Data.TaskName && model.content.push(item.Data.TaskName);
+
+    model.eventTime = item.EventTime;
+
+    return model;
+  }
+  private async _fromMuckCarEventRecord(item: MuckCarEventRecord) {
+    let model = new DeployInfoModel();
+    model.imageUrl = (await Medium.image(item.ImageUrl)).url;
+    model.title = item.EventDescription ?? '';
+    model.content = [];
+
     model.eventTime = item.EventTime;
 
     return model;

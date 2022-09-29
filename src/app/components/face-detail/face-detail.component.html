@@ -1,14 +1,14 @@
-<div class="face-detail vertical-layout">
+<div class="face-detail vertical-layout" *ngIf="model">
   <div class="vertical-header face-detail-header">
     <div class="hw-simple-title">人脸布控报警</div>
   </div>
   <div class="vertical-main face-detail-main">
     <div class="left-wrapper">
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.imageUrl" alt="" />
       </div>
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.backgroundImageUrl" alt="" />
       </div>
     </div>
     <div class="right-wrapper">
@@ -17,31 +17,29 @@
           <i class="howell-icon-Face"></i>
           报警名称
         </div>
-        <div class="content">我的布控</div>
+        <div class="content">{{ model.taskName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-Face"></i>性别</div>
-        <div class="content">女</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-Face"></i>年龄段</div>
-        <div class="content">青年</div>
+        <div class="content">{{ model.registerGender }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-Face"></i>人员姓名</div>
-        <div class="content">张小红</div>
+        <div class="content">{{ model.personName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-Face"></i>证件号码</div>
-        <div class="content">321101919</div>
+        <div class="content">{{ model.certificateNumber }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-Face"></i>抓拍相机</div>
-        <div class="content">摄像机1</div>
+        <div class="content">{{ model.resourceName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-Face"></i>抓拍时间</div>
-        <div class="content">2022-01-01 10:21:34</div>
+        <div class="content">
+          {{ model.eventTime | date: "yyyy-MM-dd HH:mm:ss" }}
+        </div>
       </div>
     </div>
   </div>

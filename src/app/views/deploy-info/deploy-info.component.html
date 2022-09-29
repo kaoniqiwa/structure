@@ -1,31 +1,55 @@
-<div class="deploy-info" *ngIf="model" (click)="showToast = !showToast">
-  <div class="left-wrapper box-wrapper">
-    <div class="img-container"></div>
-  </div>
-  <div class="right-wrapper vertical-layout">
-    <div class="vertical-header right-header">
-      {{ model.title }}
+<div class="deploy-info">
+  <div
+    class="deploy-content"
+    *ngIf="model; else elseBlock"
+    (click)="showToast = !showToast"
+  >
+    <div class="left-wrapper box-wrapper">
+      <div
+        class="img-container"
+        [style.backgroundImage]="'url(' + model.imageUrl + ')'"
+      ></div>
     </div>
-    <div class="vertical-main right-main">
-      <div *ngFor="let t of model.content">
-        {{ t }}
+    <div class="right-wrapper vertical-layout">
+      <div class="vertical-header right-header">
+        {{ model.title }}
+      </div>
+      <div class="vertical-main right-main">
+        <div *ngFor="let t of model.content">
+          {{ t }}
+        </div>
+      </div>
+      <div class="vertical-footer right-footer">
+        {{ model.eventTime | date: "MM-dd HH:mm:ss" }}
       </div>
     </div>
-    <div class="vertical-footer right-footer">
-      {{ model.eventTime | date: "MM-dd HH:mm:ss" }}
-    </div>
   </div>
+  <ng-template #elseBlock><div class="deploy-none">暂无数据</div></ng-template>
 </div>
 
-<toast-window *ngIf="showToast" (closeEvent)="closeEvent($event)">
-  <!-- <app-face-detail
+<toast-window
+  *ngIf="showToast && eventRecord"
+  (closeEvent)="closeEvent($event)"
+>
+  <app-face-detail
+    *ngIf="eventRecord.EventType == EventType.Face"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
-  ></app-face-detail> -->
+  ></app-face-detail>
 
-  <!-- <app-vehicle-detail (closeEvent)="closeEvent($event)"></app-vehicle-detail> -->
+  <app-vehicle-detail
+    *ngIf="eventRecord.EventType == EventType.Vehicle"
+    [eventRecord]="eventRecord"
+    (closeEvent)="closeEvent($event)"
+  ></app-vehicle-detail>
+
+  <app-muckcar-detail
+    *ngIf="eventRecord.EventType == EventType.MuckCar"
+    [eventRecord]="eventRecord"
+    (closeEvent)="closeEvent($event)"
+  ></app-muckcar-detail>
 
   <!-- <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail> -->
 
-  <app-picture-detail (closeEvent)="closeEvent($event)"></app-picture-detail>
+  <!-- <app-picture-detail (closeEvent)="closeEvent($event)"></app-picture-detail> -->
 </toast-window>
