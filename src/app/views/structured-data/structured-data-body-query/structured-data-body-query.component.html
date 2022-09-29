@@ -75,7 +75,7 @@
       />
     </div>
     <div class="form-item">
-      <button class="hw-blue-btn">选择照片</button>
+      <button class="hw-blue-btn" (click)="onimagechoose()">选择照片</button>
     </div>
     <div class="form-group">
       <div class="form-item short">
@@ -211,7 +211,11 @@
       <div class="form-item short">
         <div class="form-item-title">骑车类型</div>
         <div class="form-item-input">
-          <input type="number" />
+          <select [(ngModel)]="model.CyclingType">
+            <option [value]="item.Value" *ngFor="let item of cyclingTypes">
+              {{ item.Name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -220,3 +224,15 @@
     <button (click)="onquery()" class="hw-blue-btn">检索</button>
   </div>
 </div>
+
+<app-window
+  *ngIf="window.model.show"
+  [Model]="window.model"
+  [style]="window.style"
+>
+  <app-picture-detail
+    (closeEvent)="onwindowclose()"
+    [models]="models"
+    [image]="image"
+  ></app-picture-detail>
+</app-window>

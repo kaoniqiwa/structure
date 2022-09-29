@@ -24,18 +24,7 @@ class StructuredDataBodyQueryItemConverter
     ...res: any[]
   ): StructuredDataBodyQueryModel {
     let model = new StructuredDataBodyQueryModel();
-    model.AgeGroup = source.AgeGroup;
-    model.Bag = source.Bag;
-    model.CyclingType = source.CyclingType;
-    model.Gender = source.Gender;
-    model.Glass = source.Glass;
-    model.HairStyle = source.HairStyle;
-    model.Hat = source.Hat;
-    model.JacketColor = source.JacketColor;
-    model.JacketType = source.JacketType;
-    model.Mask = source.Mask;
-    model.Ride = source.Ride;
-    model.Things = source.Things;
+    Object.assign(model, source);
     return model;
   }
 }

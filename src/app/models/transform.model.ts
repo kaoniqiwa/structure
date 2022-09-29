@@ -51,3 +51,16 @@ export function transformParams(params: TransformFnParams) {
   }
   return params.value;
 }
+export function transformKeyValue(params: TransformFnParams) {
+  if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    switch (params.value) {
+      case 'yes':
+        return true;
+      case 'no':
+        return false;
+      default:
+        return params.value;
+    }
+  }
+  return params.value;
+}

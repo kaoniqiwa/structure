@@ -71,4 +71,7 @@ export class StructuredDataBodyQueryBusiness
   jacketColor() {
     return this.dictionary.people.JacketColor();
   }
+  cyclingType() {
+    return this.dictionary.people.CyclingType();
+  }
 }

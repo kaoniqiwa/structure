@@ -5,7 +5,9 @@
       style="height: calc((100% - 10px) - 248px); margin-bottom: 10px"
     >
       <div class="box-item" style="padding: 20px">
-        <howell-region-tree></howell-region-tree>
+        <howell-region-tree
+          (selectTreeNode)="onNodeSelected($event)"
+        ></howell-region-tree>
       </div>
     </div>
 
@@ -21,7 +23,10 @@
       style="height: calc((100% - 10px) - 248px); margin-bottom: 10px"
     >
       <div class="box-item" style="padding: 20px">
-        <app-map-control (video)="onvideo($event)"></app-map-control>
+        <app-map-control
+          (video)="onvideo($event)"
+          [position]="position"
+        ></app-map-control>
       </div>
     </div>
     <div style="height: 248px">

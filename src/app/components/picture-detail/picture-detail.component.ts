@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { StructuredDataBodyQueryModel } from 'src/app/views/structured-data/structured-data-body-query/structured-data-body-query.model';
 
 @Component({
   selector: 'app-picture-detail',
@@ -8,13 +9,19 @@ import { EventRecord } from 'src/app/models/event-record/event.record';
 })
 export class PictureDetailComponent implements OnInit {
   @Input()
-  eventRecord: EventRecord | null = null;
+  models?: StructuredDataBodyQueryModel[];
+  @Input()
+  image?: string;
 
   @Output() closeEvent = new EventEmitter<boolean>();
   constructor() {}
 
+  selected!: StructuredDataBodyQueryModel;
+
   ngOnInit(): void {
-    console.log(this.eventRecord);
+    if (this.models && this.models.length > 0) {
+      this.selected = this.models[0];
+    }
   }
   close() {
     this.closeEvent.emit(false);

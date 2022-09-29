@@ -152,10 +152,12 @@ export class AMapBusiness {
     }
   }
 
-  pointSelect(nodeId: string) {
+  pointSelect(nodeId: string, regionId?: string) {
     if (this.mapClient) {
       let point = this.source.points[nodeId];
-      this.mapClient.Viewer.MoveTo(point.position);
+      if (point) {
+        this.mapClient.Viewer.MoveTo(point.position);
+      }
     }
   }
 

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
+import { WindowViewModel } from 'src/app/components/window-control/window.model';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
 import { Duration } from 'src/app/models/duration.model';
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
@@ -36,6 +37,9 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   file?: ElementRef;
   expand = false;
   image?: string;
+  window: WindowModel = new WindowModel();
+
+  models?: StructuredDataBodyQueryModel[];
   nodes: RegionNode[] = [];
 
   ages: KeyValueItem[] = [];
@@ -47,6 +51,7 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   trousersTypes: KeyValueItem[] = [];
   jacketColors: KeyValueItem[] = [];
   trousersColors: KeyValueItem[] = [];
+  cyclingTypes: KeyValueItem[] = [];
   hats: KeyValueItem<string, boolean>[] = [];
   rides: KeyValueItem<string, boolean>[] = [];
   masks: KeyValueItem<string, boolean>[] = [];
@@ -114,6 +119,10 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
     if (this.things && this.things.length > 0) {
       this.model.Things = this.things[0].Value;
     }
+    this.cyclingTypes = await this.business.cyclingType();
+    if (this.cyclingTypes && this.cyclingTypes.length > 0) {
+      this.model.CyclingType = this.cyclingTypes[0].Value;
+    }
   }
 
   changebegin(date: Date) {
@@ -158,6 +167,8 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
 
   //#region update
   onupload() {
+    this.models = undefined;
+    this.image = undefined;
     if (this.file) {
       this.file.nativeElement.click();
     }
@@ -185,9 +196,9 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
 
   async onimage() {
     if (this.image) {
-      let models = await this.business.load(this.image);
-      if (models && models.length > 0) {
-        this.model = Object.assign(this.model, models[0]);
+      this.models = await this.business.load(this.image);
+      if (this.models && this.models.length == 1) {
+        this.model = Object.assign(this.model, this.models[0]);
       }
     }
   }
@@ -202,4 +213,20 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
     // }
     this.query.emit(model);
   }
+  onimagechoose() {
+    if (this.image && this.models) {
+      this.window.model.show = true;
+    }
+  }
+  onwindowclose() {
+    this.window.model.show = false;
+  }
+}
+
+class WindowModel {
+  model: WindowViewModel = new WindowViewModel();
+  style = {
+    width: 'calc(1200px + 40px)',
+    height: 'calc(525px + 40px)',
+  };
 }

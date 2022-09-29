@@ -4,6 +4,7 @@ import { IndexProviders } from './index.providers';
 import { VideoControlWindowBusiness } from './business/windows/video-control-window.business';
 import { IndexWindowBusiness } from './business/windows/index-window.business';
 import { IndexEventTriggerBusiness } from './business/index-event-trigger.business';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -20,8 +21,11 @@ export class IndexComponent implements OnInit {
   constructor(
     public video: VideoControlWindowBusiness,
     public window: IndexWindowBusiness,
-    public trigger: IndexEventTriggerBusiness
-  ) {}
+    public trigger: IndexEventTriggerBusiness,
+    title: Title
+  ) {
+    title.setTitle('结构化管理平台');
+  }
 
   ngOnInit(): void {}
   onnavigate(path: NavigationPath) {

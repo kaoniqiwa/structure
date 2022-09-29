@@ -5,8 +5,10 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { AlarmModel } from '../alarm/alarm.model';
 import { DeployInfoComponent } from '../deploy-info/deploy-info.component';
@@ -27,10 +29,12 @@ export class RealtimeComponent implements OnInit {
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
+  constructor(private _business: RealTimeBusiness) {}
+
+  position: EventEmitter<RegionNode> = new EventEmitter();
+
   alarmModels: AlarmModel[] = [];
   @ViewChild(DeployInfoComponent) deployFace!: DeployInfoComponent;
-
-  constructor(private _business: RealTimeBusiness) {}
 
   ngOnInit(): void {}
 
@@ -50,5 +54,16 @@ export class RealtimeComponent implements OnInit {
     console.log('alarmLoaded', args);
 
     this.deployFace.subject.next(args.length ? args[0] : null);
+  }
+  onNodeSelected(nodes: CommonFlatNode[]) {
+    if (nodes) {
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        if (node.RawData instanceof RegionNode) {
+          this.position.emit(node.RawData);
+          return;
+        }
+      }
+    }
   }
 }

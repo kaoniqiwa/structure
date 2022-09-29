@@ -19,6 +19,7 @@ import { base64encode, utf16to8 } from 'src/app/tools/base64';
 import { LocalStorageService } from 'src/app/tools/service/local-storage.service';
 import { wait } from 'src/app/tools/tools';
 import { VideoModel } from './video.model';
+import config from 'src/assets/configs/config.json';
 
 @Component({
   selector: 'app-video-player',
@@ -35,7 +36,7 @@ export class VideoPlayerComponent
   model?: VideoModel;
 
   @Input()
-  webUrl: string = '/video/wsplayer/wsplayer.html';
+  webUrl: string = config.videoUrl;
 
   @Input()
   name: string = '';
@@ -101,6 +102,7 @@ export class VideoPlayerComponent
 
   load() {
     if (!this.loaded) {
+      this.initWebUrl();
       if (this.model) {
         this.url = this.model.toString();
       }
@@ -111,6 +113,10 @@ export class VideoPlayerComponent
         this.loaded = true;
       }
     }
+  }
+
+  initWebUrl() {
+    this.webUrl = this.webUrl.replace('127.0.0.1', location.hostname);
   }
 
   onLoad(event: Event) {

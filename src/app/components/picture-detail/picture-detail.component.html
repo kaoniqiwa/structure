@@ -3,71 +3,79 @@
     <div class="hw-simple-title">选择照片</div>
   </div>
   <div class="vertical-main picture-detail-main">
-    <div class="left-wrapper"></div>
+    <div
+      class="left-wrapper"
+      [ngStyle]="{
+        backgroundImage: 'url(' + image + ')'
+      }"
+    ></div>
     <div class="right-wrapper">
       <div class="hw-simple-title" style="flex-basis: 100%; height: 50px">
-        选择对象2
+        <select [(ngModel)]="selected">
+          <option *ngFor="let item of models; let i = index" [ngValue]="item">
+            对象{{ i + 1 }}
+          </option>
+        </select>
       </div>
-
       <div class="right-item">
         <div class="title">
           <i class="howell-icon-car-stay"></i>
           性别
         </div>
-        <div class="content">女</div>
+        <div class="content">{{ selected.GenderName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>发型</div>
-        <div class="content">长发</div>
+        <div class="content">{{ selected.HairStyleName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>年龄段</div>
-        <div class="content">青年</div>
+        <div class="content">{{ selected.AgeGroupName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>上衣类型</div>
-        <div class="content">连体裙</div>
+        <div class="content">{{ selected.JacketTypeName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴眼镜</div>
-        <div class="content">否</div>
+        <div class="content">{{ selected.GlassName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>上衣颜色</div>
-        <div class="content">黑色</div>
+        <div class="content">{{ selected.JacketColorName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否背包</div>
-        <div class="content">否</div>
+        <div class="content">{{ selected.BagName ?? "未知" }}</div>
       </div>
 
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>下衣类型</div>
-        <div class="content">否</div>
+        <div class="content">{{ selected.TrousersTypeName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴帽子</div>
-        <div class="content">黑色</div>
+        <div class="content">{{ selected.HatName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>下衣颜色</div>
-        <div class="content">是</div>
+        <div class="content">{{ selected.TrousersColorName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴口罩</div>
-        <div class="content">无</div>
+        <div class="content">{{ selected.MaskName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否骑车</div>
-        <div class="content">是</div>
+        <div class="content">{{ selected.RideName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否拎东西</div>
-        <div class="content">是</div>
+        <div class="content">{{ selected.ThingsName ?? "未知" }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>骑车类型</div>
-        <div class="content">是</div>
+        <div class="content">{{ selected.CyclingTypeName ?? "未知" }}</div>
       </div>
     </div>
   </div>

@@ -52,8 +52,10 @@ class DictionaryPeoplesRequestSerivce {
     if (this.dictionary[key]) {
       return this.dictionary[key];
     }
-    let result = await this.type.getArray(DictionariesUrl.people(key));
-    this.dictionary[key] = result;
+    try {
+      let result = await this.type.getArray(DictionariesUrl.people(key));
+      this.dictionary[key] = result;
+    } catch (error) {}
     return this.dictionary[key];
   }
 
@@ -110,6 +112,9 @@ class DictionaryPeoplesRequestSerivce {
   }
   TargetSize() {
     return this.cache(PeoplesName.TargetSize);
+  }
+  CyclingType() {
+    return this.cache(PeoplesName.CyclingType);
   }
 }
 
