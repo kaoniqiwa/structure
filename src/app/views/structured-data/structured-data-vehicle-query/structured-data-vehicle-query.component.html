@@ -75,7 +75,7 @@
       />
     </div>
     <div class="form-item">
-      <button class="hw-blue-btn">选择照片</button>
+      <button class="hw-blue-btn" (click)="onimagechoose()">选择照片</button>
     </div>
     <div class="form-group">
       <div class="form-item short">
@@ -175,3 +175,16 @@
     <button (click)="onquery()" class="hw-blue-btn">检索</button>
   </div>
 </div>
+
+<app-window
+  *ngIf="window.model.show"
+  [Model]="window.model"
+  [style]="window.style"
+>
+  <app-structured-data-vehicle-query-picture
+    (closeEvent)="onwindowclose($event)"
+    [models]="models"
+    [selected]="model"
+    [picture]="image"
+  ></app-structured-data-vehicle-query-picture>
+</app-window>
