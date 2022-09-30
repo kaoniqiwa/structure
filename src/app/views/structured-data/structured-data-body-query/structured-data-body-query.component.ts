@@ -197,8 +197,20 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   async onimage() {
     if (this.image) {
       this.models = await this.business.load(this.image);
-      if (this.models && this.models.length == 1) {
-        this.model = Object.assign(this.model, this.models[0]);
+
+      let str = JSON.stringify(this.models[0]);
+      let test = JSON.parse(str) as StructuredDataBodyQueryModel;
+      test.BodyRect = {
+        X: 0.5,
+        Y: 0.1,
+        Width: 0.2,
+        Height: 0.5,
+      };
+      test.Gender = 'female';
+      test.GenderName = '女';
+      this.models.push(test);
+      if (this.models && this.models.length > 0) {
+        this.model = this.models[0];
       }
     }
   }
@@ -207,10 +219,6 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
     let plain = classToPlain(this.model);
     let model = plainToClass(StructuredDataBodyQueryModel, plain);
     model.cameraIds = this.nodes.map((x) => x.ResourceId);
-    // if (model.image) {
-    //   let index = model.image.indexOf(',') + 1;
-    //   model.image = model.image.substring(index);
-    // }
     this.query.emit(model);
   }
   onimagechoose() {
@@ -218,8 +226,9 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
       this.window.model.show = true;
     }
   }
-  onwindowclose() {
+  onwindowclose(selected: StructuredDataBodyQueryModel) {
     this.window.model.show = false;
+    this.model = selected;
   }
 }
 
