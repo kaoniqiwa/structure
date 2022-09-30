@@ -8,6 +8,7 @@ import {
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { AlarmModel } from '../alarm/alarm.model';
@@ -50,10 +51,11 @@ export class RealtimeComponent implements OnInit {
   onplayback(args: VideoArgs) {
     this.playback.emit(args);
   }
-  alarmLoaded(args: AlarmModel[]) {
-    console.log('alarmLoaded', args);
+  alarmLoaded(args: AlarmModel<EventRecord>[]) {
+    // console.log('alarmLoaded', args);
 
-    this.deployFace.subject.next(args.length ? args[0] : null);
+    // args = [];
+    this.deployFace.subject.next(args[0]?.data);
   }
   onNodeSelected(nodes: CommonFlatNode[]) {
     if (nodes) {

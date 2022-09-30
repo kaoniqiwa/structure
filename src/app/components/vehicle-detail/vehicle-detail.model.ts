@@ -1,3 +1,10 @@
+import {
+  Transform,
+  TransformationType,
+  TransformFnParams,
+} from 'class-transformer';
+import { VehicleRecord } from 'src/app/models/vehicle-record.model';
+
 export class VehicleDetailModel {
   plateNo!: string;
   vehicleColor!: string;

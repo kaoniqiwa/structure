@@ -1,14 +1,14 @@
-<div class="muckcar-detail vertical-layout">
+<div class="muckcar-detail vertical-layout" *ngIf="model">
   <div class="vertical-header muckcar-detail-header">
-    <div class="hw-simple-title">车辆布控报警</div>
+    <div class="hw-simple-title">渣土车布控报警</div>
   </div>
   <div class="vertical-main muckcar-detail-main">
     <div class="left-wrapper">
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.imageUrl" alt="" />
       </div>
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.backgroundImageUrl" alt="" />
       </div>
     </div>
     <div class="right-wrapper">
@@ -17,59 +17,15 @@
           <i class="howell-icon-car-stay"></i>
           车牌号码
         </div>
-        <div class="content">女</div>
+        <div class="content">{{ model.plateNo }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>车身颜色</div>
-        <div class="content">长发</div>
+        <div class="content">{{ model.vehicleColor }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>车牌颜色</div>
-        <div class="content">青年</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>颜色深浅</div>
-        <div class="content">连体裙</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车牌类型</div>
-        <div class="content">否</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车辆类型</div>
-        <div class="content">黑色</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车牌尾号</div>
-        <div class="content">否</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车辆主品牌</div>
-        <div class="content">否</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车牌省份</div>
-        <div class="content">否</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车牌子品牌</div>
-        <div class="content">黑色</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车牌状态</div>
-        <div class="content">是</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>车辆速度</div>
-        <div class="content">无</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>安全带</div>
-        <div class="content">是</div>
-      </div>
-      <div class="right-item">
-        <div class="title"><i class="howell-icon-car-stay"></i>打电话</div>
-        <div class="content">是</div>
+        <div class="content">{{ model.plateColor }}</div>
       </div>
     </div>
   </div>

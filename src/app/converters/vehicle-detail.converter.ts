@@ -28,8 +28,9 @@ export class VehicleDetailConverter
     model.imageUrl = (await Medium.image(item.ImageUrl)).url;
     model.backgroundImageUrl = (await Medium.image(item.ImageUrl)).url;
     model.plateNo = item.Data.PlateNo ?? '';
-    model.vehicleColor = item.Data.VehicleColor ?? '';
-    model.vehicleColorDepth = item.Data.VehicleColorDepth ?? '';
+    model.plateColor = item.Data.PlateColor ?? '';
+    model.vehicleColor = item.Data.VehicleColorName ?? '';
+    model.vehicleColorDepth = item.Data.VehicleColorDepthName ?? '';
     model.plateType = item.Data.PlateType ?? '';
     model.plateTypeName = item.Data.PlateTypeName ?? '';
     model.plateNoSuffix = item.Data.PlateNo
