@@ -25,14 +25,7 @@ class StructuredDataVehicleQueryItemConverter
     ...res: any[]
   ): StructuredDataVehicleQueryModel {
     let model = new StructuredDataVehicleQueryModel();
-    model.PlateColor = source.PlateColor;
-    model.PlateNo = source.PlateNo;
-    model.PlateType = source.PlateType;
-    // model.PlateState
-    model.VehicleColor = source.VehicleColor;
-    model.VehicleColorDepth = source.VehicleColorDepth;
-    // model.VehicleSpeed
-    model.VehicleType = source.VehicleType;
+    Object.assign(model, source);
     return model;
   }
 }

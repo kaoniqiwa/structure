@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
+import { WindowViewModel } from 'src/app/components/window-control/window.model';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
 import { Duration } from 'src/app/models/duration.model';
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
@@ -29,6 +30,7 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
   constructor(private business: StructuredDataVehicleQueryBusiness) {}
 
   DateTimePickerView = DateTimePickerView;
+  models?: StructuredDataVehicleQueryModel[];
   model: StructuredDataVehicleQueryModel =
     new StructuredDataVehicleQueryModel();
   handle: any;
@@ -36,6 +38,8 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
   file?: ElementRef;
   expand = false;
   image?: string;
+  window: WindowModel = new WindowModel();
+
   nodes: RegionNode[] = [];
 
   plateColors: KeyValueItem[] = [];
@@ -148,9 +152,9 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
   //#endregion
   async onimage() {
     if (this.image) {
-      let models = await this.business.load(this.image);
-      if (models && models.length > 0) {
-        this.model = Object.assign(this.model, models[0]);
+      this.models = await this.business.load(this.image);
+      if (this.models && this.models.length > 0) {
+        this.model = this.models[0];
       }
     }
   }
@@ -160,4 +164,20 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
     model.cameraIds = this.nodes.map((x) => x.ResourceId);
     this.query.emit(model);
   }
+  onimagechoose() {
+    if (this.image && this.models) {
+      this.window.model.show = true;
+    }
+  }
+  onwindowclose(selected: StructuredDataVehicleQueryModel) {
+    this.window.model.show = false;
+    this.model = selected;
+  }
+}
+class WindowModel {
+  model: WindowViewModel = new WindowViewModel();
+  style = {
+    width: 'calc(1200px + 40px)',
+    height: 'calc(525px + 40px)',
+  };
 }

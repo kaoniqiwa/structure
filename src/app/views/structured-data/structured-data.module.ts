@@ -4,6 +4,7 @@ import { StructuredDataBodyComponent } from './structured-data-body/structured-d
 import { StructuredDataFaceQueryComponent } from './structured-data-face-query/structured-data-face-query.component';
 import { StructuredDataFaceComponent } from './structured-data-face/structured-data-face.component';
 import { StructuredDataItemComponent } from './structured-data-item/structured-data-item.component';
+import { StructuredDataVehicleQueryPictureComponent } from './structured-data-vehicle-query-picture/structured-data-vehicle-query-picture';
 import { StructuredDataVehicleQueryComponent } from './structured-data-vehicle-query/structured-data-vehicle-query.component';
 import { StructuredDataVehicleComponent } from './structured-data-vehicle/structured-data-vehicle.component';
 import { StructuredDataComponent } from './structured-data.component';
@@ -17,5 +18,6 @@ export const StructuredDataComponents = [
   StructuredDataFaceQueryComponent,
   StructuredDataVehicleComponent,
   StructuredDataVehicleQueryComponent,
+  StructuredDataVehicleQueryPictureComponent,
   StructuredDataItemComponent,
 ];
