@@ -230,9 +230,10 @@
   [Model]="window.model"
   [style]="window.style"
 >
-  <app-picture-detail
-    (closeEvent)="onwindowclose()"
+  <app-structured-data-body-query-picture
+    (closeEvent)="onwindowclose($event)"
     [models]="models"
-    [image]="image"
-  ></app-picture-detail>
+    [selected]="model"
+    [picture]="image"
+  ></app-structured-data-body-query-picture>
 </app-window>

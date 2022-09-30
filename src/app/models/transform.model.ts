@@ -48,12 +48,18 @@ export function transformParams(params: TransformFnParams) {
       default:
         return params.value;
     }
+  } else if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    switch (params.value) {
+    }
+  } else {
+    return params.value;
   }
-  return params.value;
 }
 export function transformKeyValue(params: TransformFnParams) {
   if (params.type === TransformationType.PLAIN_TO_CLASS) {
     switch (params.value) {
+      case 'unknown':
+        return undefined;
       case 'yes':
         return true;
       case 'no':

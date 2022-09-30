@@ -1,3 +1,4 @@
+import { StructuredDataBodyQueryPictureComponent } from './structured-data-body-query-picture/structured-data-body-query-picture';
 import { StructuredDataBodyQueryComponent } from './structured-data-body-query/structured-data-body-query.component';
 import { StructuredDataBodyComponent } from './structured-data-body/structured-data-body.component';
 import { StructuredDataFaceQueryComponent } from './structured-data-face-query/structured-data-face-query.component';
@@ -11,6 +12,7 @@ export const StructuredDataComponents = [
   StructuredDataComponent,
   StructuredDataBodyComponent,
   StructuredDataBodyQueryComponent,
+  StructuredDataBodyQueryPictureComponent,
   StructuredDataFaceComponent,
   StructuredDataFaceQueryComponent,
   StructuredDataVehicleComponent,

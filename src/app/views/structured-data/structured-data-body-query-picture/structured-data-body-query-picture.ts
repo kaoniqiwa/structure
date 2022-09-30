@@ -8,16 +8,17 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { EventRecord } from 'src/app/models/event-record/event.record';
 import { wait } from 'src/app/tools/tools';
 import { StructuredDataBodyQueryModel } from 'src/app/views/structured-data/structured-data-body-query/structured-data-body-query.model';
 
 @Component({
-  selector: 'app-picture-detail',
-  templateUrl: './picture-detail.component.html',
-  styleUrls: ['./picture-detail.component.less'],
+  selector: 'app-structured-data-body-query-picture',
+  templateUrl: './structured-data-body-query-picture.html',
+  styleUrls: ['./structured-data-body-query-picture.less'],
 })
-export class PictureDetailComponent implements OnInit, AfterViewInit {
+export class StructuredDataBodyQueryPictureComponent
+  implements OnInit, AfterViewInit
+{
   @Input()
   models?: StructuredDataBodyQueryModel[];
   @Input()
