@@ -31,7 +31,7 @@
   *ngIf="showToast && eventRecord"
   (closeEvent)="closeEvent($event)"
 >
-  <app-face-detail
+  <!-- <app-face-detail
     *ngIf="eventRecord.EventType == EventType.Face"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
@@ -47,10 +47,9 @@
     *ngIf="eventRecord.EventType == EventType.MuckCar"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
-  ></app-muckcar-detail>
-  <!-- <app-muckcar-detail></app-muckcar-detail> -->
+  ></app-muckcar-detail> -->
 
-  <!-- <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail> -->
+  <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail>
 
   <!-- <app-picture-detail (closeEvent)="closeEvent($event)"></app-picture-detail> -->
 </toast-window>

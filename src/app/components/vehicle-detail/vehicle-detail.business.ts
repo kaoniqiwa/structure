@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VehicleDetailConverter } from 'src/app/converters/vehicle-detail.converter';
+import { VehicleDetailConverter } from 'src/app/components/vehicle-detail/vehicle-detail.converter';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 
 @Injectable()

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MuckcarDetailModel } from '../components/muckcar-detail/muckcar-detail.model';
-import { IPromiseConverter } from '../interfaces/converter.interface';
-import { EventRecord } from '../models/event-record/event.record';
-import { FaceEventRecord } from '../models/event-record/face-event.record';
-import { MuckCarEventRecord } from '../models/event-record/muck-car-event.record';
-import { Language } from '../tools/language';
-import { Medium } from '../tools/medium';
+import { MuckcarDetailModel } from './muckcar-detail.model';
+import { IPromiseConverter } from '../../interfaces/converter.interface';
+import { EventRecord } from '../../models/event-record/event.record';
+import { FaceEventRecord } from '../../models/event-record/face-event.record';
+import { MuckCarEventRecord } from '../../models/event-record/muck-car-event.record';
+import { Language } from '../../tools/language';
+import { Medium } from '../../tools/medium';
 
 type MuckcarDetailSource = EventRecord;
 
@@ -31,9 +31,9 @@ export class MuckcarDetailConverter
     model.backgroundImageUrl = (
       await Medium.image(item.Data.BackgroundImageUrl)
     ).url;
-    model.plateNo = item.Data.PlateNo;
-    model.plateColor = item.Data.PlateColor;
-    model.vehicleColor = item.Data.VehicleColor;
+    model.plateNo = item.Data.PlateNo ?? '';
+    model.plateColor = item.Data.PlateColor ?? '';
+    model.vehicleColor = item.Data.VehicleColor ?? '';
     return model;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DeployInfoConverter } from 'src/app/converters/deploy-info.converter';
+import { DeployInfoConverter } from 'src/app/views/deploy-info/deploy-info.converter';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { VehicleDetailModel } from '../components/vehicle-detail/vehicle-detail.model';
-import { IPromiseConverter } from '../interfaces/converter.interface';
-import { EventRecord } from '../models/event-record/event.record';
-import { VehicleEventRecord } from '../models/event-record/vehicle-event.record';
-import { Medium } from '../tools/medium';
+import { VehicleDetailModel } from './vehicle-detail.model';
+import { IPromiseConverter } from '../../interfaces/converter.interface';
+import { EventRecord } from '../../models/event-record/event.record';
+import { VehicleEventRecord } from '../../models/event-record/vehicle-event.record';
+import { Medium } from '../../tools/medium';
 
 type VehicleDetailSource = EventRecord;
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MuckcarDetailConverter } from 'src/app/converters/muckcar-detail.converter';
+import { MuckcarDetailConverter } from 'src/app/components/muckcar-detail/muckcar-detail.converter';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 
 @Injectable()

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FaceDetailModel } from '../components/face-detail/face-detail.model';
-import { IPromiseConverter } from '../interfaces/converter.interface';
-import { EventRecord } from '../models/event-record/event.record';
-import { FaceEventRecord } from '../models/event-record/face-event.record';
-import { Language } from '../tools/language';
-import { Medium } from '../tools/medium';
+import { FaceDetailModel } from './face-detail.model';
+import { IPromiseConverter } from '../../interfaces/converter.interface';
+import { EventRecord } from '../../models/event-record/event.record';
+import { FaceEventRecord } from '../../models/event-record/face-event.record';
+import { Language } from '../../tools/language';
+import { Medium } from '../../tools/medium';
 
 type FaceDetailSource = EventRecord;
 
