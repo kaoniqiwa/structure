@@ -7,7 +7,7 @@ import { Language } from '../../tools/language';
 import { Medium } from '../../tools/medium';
 import { BodyDetailModel } from './body-detail.model';
 
-type BodyDetailSource = EventRecord;
+type BodyDetailSource = BodyRecord;
 
 @Injectable({
   providedIn: 'root',
@@ -24,18 +24,22 @@ export class BodyDetailConverter
   }
   private async _fromBodyRecord(item: BodyRecord) {
     let model = new BodyDetailModel();
-    // model.imageUrl = (await Medium.image(item.ImageUrl)).url;
-    // model.backgroundImageUrl = (
-    //   await Medium.image(item.Data.BackgroundImageUrl)
-    // ).url;
-    // model.taskName = item.Data.TaskName ?? '';
-    // model.personName = item.Data.PersonName ?? '';
-    // model.certificateNumber = item.Data.CertificateNumber ?? '';
-    // model.resourceName = item.ResourceName ?? '';
-    // model.eventTime = item.EventTime;
-    // if (item.Data.RegisterGender) {
-    //   model.registerGender = Language.GenderType(item.Data.RegisterGender);
-    // }
+    model.genderName = item.GenderName ?? '未知';
+    model.hairStyleName = item.HairStyleName ?? '未知';
+    model.ageGroupName = item.AgeGroupName ?? '未知';
+    model.jacketTypeName = item.JacketTypeName ?? '未知';
+    model.glassName = item.GlassName ?? '未知';
+    model.jacketColorName = item.JacketColorName ?? '未知';
+    model.bagName = item.BagName ?? '未知';
+    model.trousersTypeName = item.TrousersTypeName ?? '未知';
+    model.hatName = item.HatName ?? '未知';
+    model.trousersColorName = item.TrousersColorName ?? '未知';
+    model.maskName = item.MaskName ?? '未知';
+    model.rideName = item.RideName ?? '未知';
+    model.thingsName = item.ThingsName ?? '未知';
+    model.cyclingTypeName = item.CyclingTypeName ?? '未知';
+    model.imageUrl = (await Medium.image(item.TargetPictureUrl)).url;
+    model.backgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
 
     return model;
   }

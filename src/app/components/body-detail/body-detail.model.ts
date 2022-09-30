@@ -15,4 +15,7 @@ export class BodyDetailModel {
   rideName!: string;
   thingsName!: string;
   cyclingTypeName!: string;
+
+  imageUrl!: string;
+  backgroundImageUrl!: string;
 }

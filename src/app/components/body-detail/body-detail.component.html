@@ -5,10 +5,10 @@
   <div class="vertical-main body-detail-main">
     <div class="left-wrapper">
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.imageUrl" alt="" />
       </div>
       <div class="left-item">
-        <img src="assets/img/timg-pic.jpg" alt="" />
+        <img [src]="model.backgroundImageUrl" alt="" />
       </div>
     </div>
     <div class="right-wrapper">
@@ -17,60 +17,60 @@
           <i class="howell-icon-car-stay"></i>
           性别
         </div>
-        <div class="content">女</div>
+        <div class="content">{{ model.genderName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>发型</div>
-        <div class="content">长发</div>
+        <div class="content">{{ model.hairStyleName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>年龄段</div>
-        <div class="content">青年</div>
+        <div class="content">{{ model.ageGroupName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>上衣类型</div>
-        <div class="content">连体裙</div>
+        <div class="content">{{ model.jacketTypeName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴眼镜</div>
-        <div class="content">否</div>
+        <div class="content">{{ model.glassName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>上衣颜色</div>
-        <div class="content">黑色</div>
+        <div class="content">{{ model.jacketColorName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否背包</div>
-        <div class="content">否</div>
+        <div class="content">{{ model.bagName }}</div>
       </div>
 
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>下衣类型</div>
-        <div class="content">否</div>
+        <div class="content">{{ model.trousersTypeName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴帽子</div>
-        <div class="content">黑色</div>
+        <div class="content">{{ model.hatName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>下衣颜色</div>
-        <div class="content">是</div>
+        <div class="content">{{ model.trousersColorName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否戴口罩</div>
-        <div class="content">无</div>
+        <div class="content">{{ model.maskName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否骑车</div>
-        <div class="content">是</div>
+        <div class="content">{{ model.rideName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>是否拎东西</div>
-        <div class="content">是</div>
+        <div class="content">{{ model.thingsName }}</div>
       </div>
       <div class="right-item">
         <div class="title"><i class="howell-icon-car-stay"></i>骑车类型</div>
-        <div class="content">是</div>
+        <div class="content">{{ model.cyclingTypeName }}</div>
       </div>
     </div>
   </div>
