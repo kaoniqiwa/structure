@@ -13,7 +13,7 @@ import { components } from '../components/components.module';
 import { MaterialModule } from '../material.module';
 import { RealtimeComponent } from './realtime/realtime.component';
 import { StructuredDataComponent } from './structured-data/structured-data.component';
-import { AlarmEventsComponent } from './alarm-events/alarm-events.component';
+import { EventRecordComponent } from './event-record/event-record.component';
 import { DeployListComponent } from './deploy-list/deploy-list.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
@@ -35,7 +35,7 @@ const ViewComponents = [
   ...StructuredDataComponents,
   DeviceListComponent,
   DeployListComponent,
-  AlarmEventsComponent,
+  EventRecordComponent,
   DeviceStatusComponent,
   AlarmComponent,
   DeployInfoComponent,
