@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { EventRecordType } from './event-record.model';
 
 @Component({
   selector: 'app-event-record',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-record.component.less'],
 })
 export class EventRecordComponent implements OnInit {
+  @Input()
+  path: EventRecordType = EventRecordType.face;
   constructor() {}
-
+  EventRecordType = EventRecordType;
   ngOnInit(): void {}
+  navigation(path: EventRecordType) {
+    this.path = path;
+  }
 }

@@ -1,1 +1,40 @@
-<p>event-record works!</p>
+<div class="event-record">
+  <div class="event-record-head">
+    <div class="hw-second-title">结构化数据</div>
+    <div class="tab-labels">
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === EventRecordType.face
+        }"
+        (click)="navigation(EventRecordType.face)"
+      >
+        人脸
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === EventRecordType.vehicle
+        }"
+        (click)="navigation(EventRecordType.vehicle)"
+      >
+        车辆
+      </div>
+
+      <div
+        class="tab"
+        [ngClass]="{
+          active: path === EventRecordType.muckCar
+        }"
+        (click)="navigation(EventRecordType.muckCar)"
+      >
+        渣土车
+      </div>
+    </div>
+  </div>
+  <div class="event-record-content">
+    <ng-container *ngIf="path === EventRecordType.face"> </ng-container>
+    <ng-container *ngIf="path === EventRecordType.muckCar"> </ng-container>
+    <ng-container *ngIf="path === EventRecordType.vehicle"> </ng-container>
+  </div>
+</div>
