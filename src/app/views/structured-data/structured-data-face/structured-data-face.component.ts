@@ -29,8 +29,8 @@ export class StructuredDataFaceComponent
   }
   query?: StructuredDataFaceQueryModel;
   style = {
-    width: 'calc(645px + 40px)',
-    height: 'calc(460px + 40px)',
+    width: 'auto',
+    height: 'auto',
   };
   ngOnInit(): void {}
 

@@ -23,8 +23,8 @@ export class StructuredDataBodyComponent
   }
   query?: StructuredDataBodyQueryModel;
   style = {
-    width: 'calc(815px + 40px)',
-    height: 'calc(465px + 40px)',
+    width: 'auto',
+    height: 'auto',
   };
   ngOnInit(): void {}
 

@@ -35,9 +35,9 @@
     *ngIf="eventRecord.EventType == EventType.Face"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
-  ></app-face-detail>
+  ></app-face-detail> -->
 
-  <app-vehicle-detail
+  <!-- <app-vehicle-detail
     *ngIf="eventRecord.EventType == EventType.Vehicle"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
@@ -49,7 +49,8 @@
     (closeEvent)="closeEvent($event)"
   ></app-muckcar-detail> -->
 
-  <app-body-detail (closeEvent)="closeEvent($event)"></app-body-detail>
-
-  <!-- <app-picture-detail (closeEvent)="closeEvent($event)"></app-picture-detail> -->
+  <app-common-detail
+    [dataSource]="eventRecord"
+    (closeEvent)="closeEvent($event)"
+  ></app-common-detail>
 </toast-window>

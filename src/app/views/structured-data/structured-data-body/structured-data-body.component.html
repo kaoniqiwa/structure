@@ -47,10 +47,10 @@
   </div>
 </div>
 <app-window [Model]="window" [style]="style" *ngIf="window.show">
-  <app-body-detail
+
+  <app-common-detail
     *ngIf="!!selected"
-    [bodyRecord]="selected.data"
+    [dataSource]="selected.data"
     (closeEvent)="onclosewindow()"
-  >
-  </app-body-detail>
+  ></app-common-detail>
 </app-window>

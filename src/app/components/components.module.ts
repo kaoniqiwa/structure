@@ -23,6 +23,7 @@ import { BodyDetailComponent } from './body-detail/body-detail.component';
 import { EventRecordCardComponent } from './event-record-card/event-record-card.component';
 import { PictureDetailComponent } from './picture-detail/picture-detail.component';
 import { MuckcarDetailComponent } from './muckcar-detail/muckcar-detail.component';
+import { CommonDetailComponent } from './common-detail/common-detail.component';
 
 export const components = [
   AccountInfoComponent,
@@ -50,4 +51,5 @@ export const components = [
   EventRecordCardComponent,
   PictureDetailComponent,
   MuckcarDetailComponent,
+  CommonDetailComponent,
 ];

@@ -1,0 +1,35 @@
+<div
+  class="common-detail vertical-layout"
+  *ngIf="model"
+  [style.width.px]="model.ContainerWidth"
+  [style.height.px]="model.ContainerHeight"
+>
+  <div class="common-detail-header vertical-header">
+    <div class="hw-simple-title">{{ model.Title }}</div>
+  </div>
+  <div class="common-detail-main vertical-main">
+    <div class="left-wrapper" [style.width.px]="model.LeftWidth">
+      <div
+        class="left-item"
+        [style.backgroundImage]="'url(' + model.ImageUrl + ')'"
+      ></div>
+      <div
+        class="left-item"
+        [style.backgroundImage]="'url(' + model.BackgroundImageUrl + ')'"
+      ></div>
+    </div>
+    <div class="right-wrapper" [class]="model.LinePerRecord">
+      <ng-container *ngFor="let record of model.Records">
+        <div class="right-item">
+          <div class="title">
+            <i [class]="record.Icon"></i>{{ record.PropertyDes }}
+          </div>
+          <div class="content">{{ record.PropertyValue }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="common-detail-footer vertical-footer">
+    <button class="hw-blue-btn" (click)="close()">确定</button>
+  </div>
+</div>

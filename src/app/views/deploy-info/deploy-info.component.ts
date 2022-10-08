@@ -35,7 +35,7 @@ export class DeployInfoComponent implements OnInit {
   ngOnInit(): void {}
 
   private async _init(args?: EventRecord) {
-    console.log(args);
+    // console.log(args);
     if (args) {
       this.eventRecord = args;
       this.model = await this._business.init(args);
