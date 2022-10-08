@@ -5,13 +5,26 @@
   </div>
   <div class="structured-data-face-result">
     <div class="structured-data-face-result-head hw-simple-title">搜索结果</div>
-    <div class="structured-data-face-result-list">
+    <div
+      class="structured-data-face-result-none"
+      *ngIf="!datas || datas.length <= 0"
+    >
+      <div>无记录</div>
+    </div>
+    <div
+      class="structured-data-face-result-list"
+      *ngIf="datas && datas.length > 0"
+    >
       <div
         class="structured-data-face-result-list-item"
-        (click)="onselected(item)"
         *ngFor="let item of datas"
       >
-        <app-structured-data-item [model]="item"> </app-structured-data-item>
+        <app-structured-data-item
+          (imageClick)="onImageClicked($event)"
+          (click)="onselected(item)"
+          [model]="item"
+        >
+        </app-structured-data-item>
       </div>
     </div>
     <div class="structured-data-face-result-foot" *ngIf="page">
@@ -33,7 +46,11 @@
     </div>
   </div>
 </div>
-<app-window [Model]="window" [style]="style">
-  <app-face-detail [eventRecord]="selected" (closeEvent)="onclosewindow()">
+<app-window [Model]="window" [style]="style" *ngIf="window.show">
+  <app-face-detail
+    *ngIf="!!selected"
+    [eventRecord]="selected.data"
+    (closeEvent)="onclosewindow()"
+  >
   </app-face-detail>
 </app-window>

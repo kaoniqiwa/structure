@@ -1,7 +1,7 @@
-<div class="structured-data-item">
+<div class="structured-data-item" (click)="onclick($event)">
   <div class="structured-data-item-wrapper vertical-layout">
     <div class="vertical-main">
-      <img [src]="model.images[0]" alt="" />
+      <img [src]="model.images[0]" alt="" (click)="onimage($event, 0)" />
     </div>
     <div class="structured-data-item-footer">
       <div><i [class]="model.datas[0].icon"></i>{{ model.datas[0].name }}</div>
@@ -10,7 +10,7 @@
   </div>
   <div class="structured-data-item-wrapper vertical-layout">
     <div class="vertical-main">
-      <img [src]="model.images[1]" alt="" />
+      <img [src]="model.images[1]" alt="" (click)="onimage($event, 1)" />
     </div>
     <div class="structured-data-item-footer">
       <div><i [class]="model.datas[2].icon"></i>{{ model.datas[2].name }}</div>

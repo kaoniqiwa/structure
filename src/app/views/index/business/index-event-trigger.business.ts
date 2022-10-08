@@ -12,8 +12,10 @@ import { VideoControlWindowBusiness } from './windows/video-control-window.busin
 export class IndexEventTriggerBusiness {
   constructor(window: IndexWindowBusiness, video: VideoControlWindowBusiness) {
     this.realtime = new RealTimeTrigger(window, video);
+    this.structured = new StructuredDataTrigger(window);
   }
   realtime: RealTimeTrigger;
+  structured: StructuredDataTrigger;
 }
 
 class RealTimeTrigger {
@@ -46,6 +48,18 @@ class RealTimeTrigger {
   async onpicture(model: PictureArgs) {
     this.window.picture.title = model.title;
     this.window.picture.image = await Medium.image(model.id);
+
+    this.window.picture.show = true;
+  }
+}
+class StructuredDataTrigger {
+  constructor(private window: IndexWindowBusiness) {}
+  onimage(args: PictureArgs) {
+    this.window.picture.title = args.title;
+    this.window.picture.image = {
+      url: args.url ?? '',
+      error: false,
+    };
 
     this.window.picture.show = true;
   }

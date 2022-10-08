@@ -13,3 +13,8 @@ export class StructuredDataItemIconModel {
   icon: string = '';
   name: string = '';
 }
+
+export class StructuredDataItemImageArgs {
+  model?: StructuredDataItemModel;
+  index?: number;
+}

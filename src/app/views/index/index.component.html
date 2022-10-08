@@ -19,7 +19,9 @@
       ></app-realtime>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.structured_data">
-      <app-structured-data></app-structured-data>
+      <app-structured-data
+        (image)="trigger.structured.onimage($event)"
+      ></app-structured-data>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.alarm_events">
       <app-alarm-events></app-alarm-events>

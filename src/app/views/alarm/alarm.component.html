@@ -36,10 +36,10 @@
           <td>{{ item.nodeName }}</td>
           <td>{{ item.time | date_time_pipe }}</td>
           <td>
-            <span (click)="onpicture(item)">
+            <span (click)="onpicture($event, item)">
               <i class="howell-icon-picture"></i
             ></span>
-            <span (click)="onplayback(item)">
+            <span (click)="onplayback($event, item)">
               <i class="howell-icon-videodownload"></i
             ></span>
           </td>

@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Page } from 'src/app/models/page-list.model';
+import { StructuredDataAbstractComponent } from '../structured-data-abstract.component';
 import { StructuredDataBodyQueryModel } from '../structured-data-body-query/structured-data-body-query.model';
 import { StructuredDataItemModel } from '../structured-data-item/structured-data-item.model';
 import { StructuredDataBodyBusiness } from './structured-data-body.business';
@@ -13,25 +14,20 @@ import { StructuredDataBodyBusiness } from './structured-data-body.business';
   styleUrls: ['./structured-data-body.component.less'],
   providers: [StructuredDataBodyBusiness],
 })
-export class StructuredDataBodyComponent implements OnInit {
-  constructor(private business: StructuredDataBodyBusiness) {}
-  page?: Page;
+export class StructuredDataBodyComponent
+  extends StructuredDataAbstractComponent<StructuredDataItemModel>
+  implements OnInit
+{
+  constructor(private business: StructuredDataBodyBusiness) {
+    super();
+  }
   query?: StructuredDataBodyQueryModel;
-  datas: StructuredDataItemModel[] = [];
-  selected?: EventRecord;
-  window: WindowViewModel = new WindowViewModel();
   style = {
     width: 'calc(815px + 40px)',
     height: 'calc(465px + 40px)',
   };
   ngOnInit(): void {}
-  pageEvent(page: PageEvent) {
-    if (!this.page) {
-      this.page = new Page();
-    }
-    this.page.PageIndex = page.pageIndex + 1;
-    this.loadData(this.page.PageIndex);
-  }
+
   onquery(query: StructuredDataBodyQueryModel) {
     console.log(query);
     this.query = query;
@@ -44,12 +40,5 @@ export class StructuredDataBodyComponent implements OnInit {
       console.log(paged.Data);
       this.datas = paged.Data;
     }
-  }
-  onselected(item: StructuredDataItemModel) {
-    this.selected = item.data;
-    this.window.show = true;
-  }
-  onclosewindow() {
-    this.window.show = false;
   }
 }

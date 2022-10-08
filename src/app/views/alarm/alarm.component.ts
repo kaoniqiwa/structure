@@ -49,13 +49,15 @@ export class AlarmComponent
     this.datas = await this.business.load(new Date());
     this.loaded.emit(this.datas);
   }
-  onpicture(item: AlarmModel) {
+  onpicture(e: Event, item: AlarmModel) {
     let args = PictureArgsConverter.Convert(item.data);
     this.picture.emit(args);
+    e.stopPropagation();
   }
-  onplayback(item: AlarmModel) {
+  onplayback(e: Event, item: AlarmModel) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
+    e.stopPropagation();
   }
 
   onitemclicked(item: AlarmModel) {

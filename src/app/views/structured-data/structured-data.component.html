@@ -43,13 +43,19 @@
       <div class="horizontal-right">33</div>
     </div> -->
     <ng-container *ngIf="path === StructuredDataPath.face">
-      <app-structured-data-face></app-structured-data-face>
+      <app-structured-data-face
+        (image)="onimage($event)"
+      ></app-structured-data-face>
     </ng-container>
     <ng-container *ngIf="path === StructuredDataPath.body">
-      <app-structured-data-body></app-structured-data-body>
+      <app-structured-data-body
+        (image)="onimage($event)"
+      ></app-structured-data-body>
     </ng-container>
     <ng-container *ngIf="path === StructuredDataPath.vehicle">
-      <app-structured-data-vehicle></app-structured-data-vehicle>
+      <app-structured-data-vehicle
+        (image)="onimage($event)"
+      ></app-structured-data-vehicle>
     </ng-container>
   </div>
 </div>

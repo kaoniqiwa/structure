@@ -4,7 +4,7 @@ import { MediumUrl } from '../network/url/medium/medium.url';
 export class Medium {
   constructor() {}
 
-  static default = '/assets/img/timg-pic.jpg';
+  static default = '/assets/img/timg-pic.png';
 
   static binary() {
     return MediumUrl.picture().binary();
@@ -25,7 +25,7 @@ export class Medium {
       var image = new Image();
       image.src = img;
       image.onerror = () => {
-        resolve('/assets/img/timg-pic.jpg');
+        resolve('/assets/img/timg-pic.png');
       };
       image.onload = () => {
         resolve(img);
@@ -39,7 +39,7 @@ export class Medium {
       image.src = img;
       image.onerror = () => {
         resolve({
-          url: '/assets/img/timg-pic.jpg',
+          url: '/assets/img/timg-pic.png',
           error: true,
         });
       };
