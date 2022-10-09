@@ -292,12 +292,12 @@ export class CommonDetailConverter {
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '是否拎东西',
-        PropertyValue: item.ThingsName ? '是' : '否',
+        PropertyValue: item.ThingsName ?? '未知',
       },
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '骑车类型',
-        PropertyValue: item.CyclingTypeName ? '是' : '否',
+        PropertyValue: item.CyclingTypeName ?? '未知',
       },
     ];
 
@@ -335,12 +335,12 @@ export class CommonDetailConverter {
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '是否戴眼镜',
-        PropertyValue: item.GlassName ? '是' : '否',
+        PropertyValue: item.GlassName ?? '未知',
       },
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '是否微笑',
-        PropertyValue: item.Smile ? '是' : '否',
+        PropertyValue: item.SmileName ?? '未知',
       },
 
       {
@@ -368,45 +368,8 @@ export class CommonDetailConverter {
     model.Records = [
       {
         Icon: 'howell-icon-Face',
-        PropertyDes: '摄像机名称',
-        PropertyValue: item.CameraName ?? '未知',
-      },
-
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '卡口名称',
-        PropertyValue: item.CrossingName ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
         PropertyDes: '车牌号码',
         PropertyValue: item.PlateNo ?? '未知',
-      },
-
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '车牌颜色',
-        PropertyValue: item.PlateColorName ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '车牌类型',
-        PropertyValue: item.PlateTypeName ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '车牌尾号',
-        PropertyValue: item.PlateTail ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '归属地',
-        PropertyValue: item.PlateBelong ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '车牌状态',
-        PropertyValue: item.PlateStateName ?? '未知',
       },
       {
         Icon: 'howell-icon-Face',
@@ -415,14 +378,42 @@ export class CommonDetailConverter {
       },
       {
         Icon: 'howell-icon-Face',
+        PropertyDes: '车牌颜色',
+        PropertyValue: item.PlateColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '颜色深浅',
+        PropertyValue: item.VehicleColorDepthName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌类型',
+        PropertyValue: item.PlateTypeName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
         PropertyDes: '车辆类型',
         PropertyValue: item.VehicleTypeName ?? '未知',
+      },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌尾号',
+        PropertyValue: item.PlateTail ?? '未知',
       },
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '车辆主品牌',
         PropertyValue: item.VehicleLogoName ?? '未知',
       },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌省份',
+        PropertyValue: item.PlateProvince ?? '未知',
+      },
+
       {
         Icon: 'howell-icon-Face',
         PropertyDes: '车辆子品牌',
@@ -430,36 +421,24 @@ export class CommonDetailConverter {
       },
       {
         Icon: 'howell-icon-Face',
-        PropertyDes: '车速',
+        PropertyDes: '车牌状态',
+        PropertyValue: item.PlateStateName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车辆速度',
         PropertyValue: item.VehicleSpeed?.toString() ?? '未知',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '副驾驶是否有人',
-        PropertyValue: item.Copilot ? '是' : '否',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '主驾驶员是否系安全',
-        PropertyValue: item.PilotSafebelt ? '是' : '否',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '副驾驶员是否系安全带',
-        PropertyValue: item.VicePilotSafebelt ? '是' : '否',
-      },
-      {
-        Icon: 'howell-icon-Face',
-        PropertyDes: '是否打电话',
-        PropertyValue: item.UsePhone ? '是' : '否',
       },
 
       {
         Icon: 'howell-icon-Face',
-        PropertyDes: '抓拍时间',
-        PropertyValue: item.CaptureTime
-          ? formatDate(item.CaptureTime, 'yyyy-MM-dd HH:mm:ss', 'en')
-          : '未知',
+        PropertyDes: '是否系安全带',
+        PropertyValue: item.PilotSafebeltName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '是否打电话',
+        PropertyValue: item.UsePhoneName ?? '未知',
       },
     ];
 
