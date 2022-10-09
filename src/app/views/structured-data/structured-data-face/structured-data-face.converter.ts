@@ -38,8 +38,8 @@ class StructuredDataFaceItemConverter
   ): Promise<StructuredDataItemModel<FaceRecord>> {
     let model = new StructuredDataItemModel<FaceRecord>();
     model.data = source;
-    let img1 = await Medium.img(source.FacePictureUrl);
-    let img2 = await Medium.img(source.BackgroundUrl);
+    let img1 = Medium.img(source.FacePictureUrl);
+    let img2 = Medium.img(source.BackgroundUrl);
     model.images = [img1, img2];
 
     model.datas = [

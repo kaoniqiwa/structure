@@ -13,10 +13,10 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   datas: TModel[] = [];
   selected?: TModel;
   window: WindowViewModel = new WindowViewModel();
-  onImageClicked(item: StructuredDataItemImageArgs) {
+  async onImageClicked(item: StructuredDataItemImageArgs) {
     if (item.model && item.index != undefined) {
       let args = new PictureArgs();
-      args.url = item.model.images[item.index];
+      args.url = await item.model.images[item.index];
       if (item.model.data) {
         args.id = item.model.data.Id;
         args.title = item.model.data.ResourceName ?? '';

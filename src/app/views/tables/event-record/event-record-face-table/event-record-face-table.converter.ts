@@ -39,7 +39,8 @@ class EventRecordFaceTableItemConverter
     model.eventName = source.Data.TaskName ?? '';
     model.personName = source.Data.PersonName ?? '';
     model.time = source.EventTime;
-    model.imageSrc = Medium.jpg(source.ImageUrl);
+    model.imageUrl = Medium.img(source.ImageUrl);
+    model.backgroundImageUrl = Medium.img(source.Data.BackgroundImageUrl);
     return model;
   }
 }

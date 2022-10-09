@@ -23,9 +23,19 @@
       </colgroup>
       <tbody>
         <tr *ngFor="let item of datas" (click)="onitemclicked(item)">
-          <td>
+          <td class="img-list">
             <div
-              [ngStyle]="{ backgroundImage: 'url(' + item.imageSrc + ')' }"
+              class="img"
+              [ngStyle]="{
+                backgroundImage: 'url(' + (item.imageUrl | async) + ')'
+              }"
+            ></div>
+            <div
+              class="img"
+              [ngStyle]="{
+                backgroundImage:
+                  'url(' + (item.backgroundImageUrl | async) + ')'
+              }"
             ></div>
           </td>
           <td>{{ item.eventName }}</td>
@@ -37,7 +47,7 @@
               <i class="howell-icon-picture"></i
             ></span>
             <span (click)="onplayback($event, item)">
-              <i class="howell-icon-videodownload"></i
+              <i class="howell-icon-video-playback1"></i
             ></span>
           </td>
         </tr>

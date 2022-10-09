@@ -40,6 +40,7 @@
 
       thead {
         background-color: transparent;
+
       }
     }
 
@@ -47,6 +48,22 @@
   }
 
   .table-body-container {
+
+    td.img-list {
+      display: flex;
+      justify-content: start;
+
+      .img {
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+        width: 68px;
+        margin-right: 10px;
+      }
+    }
+
+
     tr:hover {
       background-color: rgba(58, 147, 255, 0.4);
     }

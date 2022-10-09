@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
+import { PictureArgs } from 'src/app/models/args/picture.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Page } from 'src/app/models/page-list.model';
 import { StructuredDataAbstractComponent } from '../structured-data-abstract.component';
@@ -46,5 +47,10 @@ export class StructuredDataFaceComponent
       console.log(paged.Data);
       this.datas = paged.Data;
     }
+  }
+  async onmagnify(src: string) {
+    let args = new PictureArgs();
+    args.url = await src;
+    this.image.emit(args);
   }
 }

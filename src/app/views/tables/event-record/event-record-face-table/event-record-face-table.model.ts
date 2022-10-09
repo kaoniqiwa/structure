@@ -10,7 +10,8 @@ export class EventRecordFaceTableModel<T = any> {
   cameraName: string = '-';
   time: Date = new Date();
   personName: string = '-';
-  imageSrc: string = '';
+  imageUrl!: Promise<string>;
+  backgroundImageUrl!: Promise<string>;
 }
 export class EventRecordFaceTableArgs {
   page?: Page;

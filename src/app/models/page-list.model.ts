@@ -3,15 +3,15 @@ import { IModel } from './model.interface';
 /** Page (分页信息)	*/
 export class Page implements IModel {
   /**	Int32	页码 1.2.3 …..	M	*/
-  PageIndex!: number;
+  PageIndex: number = 1;
   /**	Int32	分页大小	M	*/
-  PageSize!: number;
+  PageSize: number = 10;
   /**	Int32	总页数	M	*/
-  PageCount!: number;
+  PageCount: number = 0;
   /**	Int32	当前页的记录数目	M	*/
-  RecordCount!: number;
+  RecordCount: number = 0;
   /**	Int32	总记录数目	M	*/
-  TotalRecordCount!: number;
+  TotalRecordCount: number = 0;
 }
 /** PagedList<T> (分页数据)	*/
 export class PagedList<T> implements IModel {

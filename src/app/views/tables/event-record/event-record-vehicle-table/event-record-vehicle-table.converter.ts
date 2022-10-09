@@ -42,7 +42,8 @@ class EventRecordVehicleTableItemConverter
     model.eventName = source.Data.TaskName ?? '';
     model.plateNo = source.Data.PlateNo ?? '';
     model.time = source.EventTime;
-    model.imageSrc = Medium.jpg(source.ImageUrl);
+    model.imageUrl = Medium.img(source.ImageUrl);
+    model.plateImageUrl = Medium.img(source.Data.PlateImageUrl);
     return model;
   }
 }

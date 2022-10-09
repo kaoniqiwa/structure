@@ -4,7 +4,7 @@ export class StructuredDataItemModel<T = any> {
       this.datas.push(new StructuredDataItemIconModel());
     }
   }
-  images: string[] = [];
+  images: Promise<string>[] = [];
   datas: StructuredDataItemIconModel[] = [];
   data?: T;
 }

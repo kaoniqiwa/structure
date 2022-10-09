@@ -38,8 +38,8 @@ class StructuredDataBodyItemConverter
   ): Promise<StructuredDataItemModel<BodyRecord>> {
     let model = new StructuredDataItemModel<BodyRecord>();
     model.data = source;
-    let img1 = await Medium.img(source.TargetPictureUrl);
-    let img2 = await Medium.img(source.BackgroundUrl);
+    let img1 = Medium.img(source.TargetPictureUrl);
+    let img2 = Medium.img(source.BackgroundUrl);
     model.images = [img1, img2];
 
     model.datas = [

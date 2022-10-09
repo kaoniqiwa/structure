@@ -8,7 +8,8 @@ export class EventRecordVehicleTableModel<T = any> {
   cameraName: string = '-';
   time: Date = new Date();
   plateNo: string = '-';
-  imageSrc: string = '';
+  imageUrl!: Promise<string>;
+  plateImageUrl!: Promise<string>;
 }
 export class EventRecordVehicleTableArgs {
   page?: Page;

@@ -8,7 +8,8 @@ export class EventRecordMuckCarTableModel<T = any> {
   cameraName: string = '-';
   time: Date = new Date();
   plateNo: string = '-';
-  imageSrc: string = '';
+  imageUrl!: Promise<string>;
+  backgroundImageUrl!: Promise<string>;
 }
 export class EventRecordMuckCarTableArgs {
   page?: Page;

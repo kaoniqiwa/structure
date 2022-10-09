@@ -42,7 +42,8 @@ class EventRecordMuckCarTableItemConverter
     model.eventName = source.Data.CrossingName ?? '';
     model.plateNo = source.Data.PlateNo ?? '';
     model.time = source.EventTime;
-    model.imageSrc = Medium.jpg(source.ImageUrl);
+    model.imageUrl = Medium.img(source.Data.ThumbnailUrl);
+    model.backgroundImageUrl = Medium.img(source.Data.BackgroundImageUrl);
     return model;
   }
 }

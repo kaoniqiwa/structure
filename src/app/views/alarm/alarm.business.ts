@@ -21,8 +21,7 @@ export class AlarmBusiness implements IBusiness<EventRecord[], AlarmModel[]> {
   Converter!: IConverter<EventRecord[], AlarmModel[]>;
   loading?: EventEmitter<void> | undefined;
   async load(date: Date): Promise<AlarmModel[]> {
-    date.setMonth(7);
-    let duration = DurationParams.allMonth(date);
+    let duration = DurationParams.allDay(date);
     let models: AlarmModel[] = [
       ...(await this.face.load(duration)),
       ...(await this.vehicle.load(duration)),

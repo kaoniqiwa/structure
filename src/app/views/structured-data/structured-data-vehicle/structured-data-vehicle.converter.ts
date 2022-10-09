@@ -42,8 +42,8 @@ export class StructuredDataVehicleItemConverter
   ): Promise<StructuredDataItemModel<VehicleRecord>> {
     let model = new StructuredDataItemModel<VehicleRecord>();
     model.data = source;
-    let img1 = await Medium.img(source.PlatePictureUrl);
-    let img2 = await Medium.img(source.BackgroundUrl);
+    let img1 = Medium.img(source.PlatePictureUrl);
+    let img2 = Medium.img(source.BackgroundUrl);
     model.images = [img1, img2];
 
     model.datas = [

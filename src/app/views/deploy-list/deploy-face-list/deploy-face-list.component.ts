@@ -15,7 +15,7 @@ export class DeployFaceListComponent implements OnInit, AfterViewInit {
 
   args = new DeployFaceTableArgs();
   load: EventEmitter<DeployFaceTableArgs> = new EventEmitter();
-  page?: Page;
+  page: Page = new Page();
   DateTimePickerView = DateTimePickerView;
 
   ngOnInit(): void {
