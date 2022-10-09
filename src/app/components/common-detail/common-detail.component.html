@@ -11,12 +11,14 @@
     <div class="left-wrapper" [style.width.px]="model.LeftWidth">
       <div
         class="left-item"
-        [style.backgroundImage]="'url(' + model.ImageUrl + ')'"
+        [style.backgroundImage]="'url(' + (model.ImageUrl | async) + ')'"
         (click)="magnify(model.ImageUrl)"
       ></div>
       <div
         class="left-item"
-        [style.backgroundImage]="'url(' + model.BackgroundImageUrl + ')'"
+        [style.backgroundImage]="
+          'url(' + (model.BackgroundImageUrl | async) + ')'
+        "
         (click)="magnify(model.BackgroundImageUrl)"
       ></div>
     </div>

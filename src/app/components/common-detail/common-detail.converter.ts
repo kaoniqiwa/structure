@@ -192,18 +192,18 @@ export class CommonDetailConverter {
     ).url;
     model.Records = [
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌号码',
         PropertyValue: item.Data.PlateNo ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '车身颜色',
         PropertyValue: item.Data.VehicleColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '车牌颜色',
         PropertyValue: item.Data.PlateColor ?? '未知',
       },
@@ -229,73 +229,73 @@ export class CommonDetailConverter {
     model.BackgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
     model.Records = [
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-sex',
         PropertyDes: '性别',
         PropertyValue: item.GenderName ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-hairstyle',
         PropertyDes: '发型',
         PropertyValue: item.HairStyleName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-birthday',
         PropertyDes: '年龄段',
         PropertyValue: item.AgeGroupName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-jacket',
         PropertyDes: '上衣类型',
         PropertyValue: item.JacketTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-sunglasses',
         PropertyDes: '是否戴眼镜',
         PropertyValue: item.GlassName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '上衣颜色',
         PropertyValue: item.JacketColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-bag',
         PropertyDes: '是否背包',
         PropertyValue: item.BagName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-trousers',
         PropertyDes: '下衣类型',
         PropertyValue: item.TrousersTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-hat',
         PropertyDes: '是否戴帽子',
         PropertyValue: item.HatName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '下衣颜色',
         PropertyValue: item.TrousersColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-mask',
         PropertyDes: '是否戴口罩',
         PropertyValue: item.MaskName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-bicycle',
         PropertyDes: '是否骑车',
         PropertyValue: item.RideName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-carrying',
         PropertyDes: '是否拎东西',
         PropertyValue: item.ThingsName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-bicycle',
         PropertyDes: '骑车类型',
         PropertyValue: item.CyclingTypeName ?? '未知',
       },
@@ -363,80 +363,83 @@ export class CommonDetailConverter {
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 
-    model.ImageUrl = (await Medium.image(item.PlatePictureUrl)).url;
-    model.BackgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
+    // model.ImageUrl = 'assets/img/sample-face.png';
+    // model.BackgroundImageUrl = 'assets/img/sample-face.png';
+
+    model.ImageUrl = Medium.img(item.PlatePictureUrl);
+    model.BackgroundImageUrl = Medium.img(item.BackgroundUrl);
     model.Records = [
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌号码',
         PropertyValue: item.PlateNo ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '车身颜色',
         PropertyValue: item.VehicleColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '车牌颜色',
         PropertyValue: item.PlateColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '颜色深浅',
         PropertyValue: item.VehicleColorDepthName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌类型',
         PropertyValue: item.PlateTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车辆类型',
         PropertyValue: item.VehicleTypeName ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌尾号',
         PropertyValue: item.PlateTail ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车辆主品牌',
         PropertyValue: item.VehicleLogoName ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车牌省份',
         PropertyValue: item.PlateProvince ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车辆子品牌',
         PropertyValue: item.VehicleSubLogoName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车牌状态',
         PropertyValue: item.PlateStateName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-speed',
         PropertyDes: '车辆速度',
         PropertyValue: item.VehicleSpeed?.toString() ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-user-admin',
         PropertyDes: '是否系安全带',
         PropertyValue: item.PilotSafebeltName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-phone',
         PropertyDes: '是否打电话',
         PropertyValue: item.UsePhoneName ?? '未知',
       },

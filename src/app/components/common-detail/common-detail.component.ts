@@ -16,7 +16,7 @@ export class CommonDetailComponent implements OnInit {
   @Output() closeEvent = new EventEmitter<boolean>();
   @Output() magnifyEvent = new EventEmitter<string>();
 
-  model?: CommonDetailModel;
+  model!: CommonDetailModel;
 
   constructor(private _business: CommonDetailBusiness) {}
 

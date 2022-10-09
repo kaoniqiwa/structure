@@ -2,8 +2,8 @@ import { LinePerRecord } from 'src/app/enums/line-per-record.enum';
 
 export class CommonDetailModel {
   Title!: string;
-  ImageUrl!: string;
-  BackgroundImageUrl!: string;
+  ImageUrl!: any;
+  BackgroundImageUrl!: any;
   ContainerWidth!: number;
   ContainerHeight!: number;
   LeftWidth!: number;
