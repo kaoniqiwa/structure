@@ -53,17 +53,15 @@ export class CommonDetailConverter {
     ).url;
     model.Records = [
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-alarm3',
         PropertyDes: '报警名称',
         PropertyValue: item.Data.TaskName ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-sex',
         PropertyDes: '性别',
-        PropertyValue: item.Data.RegisterGender
-          ? Language.GenderType(item.Data.RegisterGender)
-          : '未知',
+        PropertyValue: item.Data.RegisterGenderName ?? '未知',
       },
       {
         Icon: 'howell-icon-Face',
@@ -71,17 +69,17 @@ export class CommonDetailConverter {
         PropertyValue: item.Data.PersonName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-idcard',
         PropertyDes: '证件号码',
         PropertyValue: item.Data.CertificateNumber ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-camera',
         PropertyDes: '抓拍相机',
         PropertyValue: item.ResourceName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-time',
         PropertyDes: '抓拍时间',
         PropertyValue:
           formatDate(item.EventTime, 'yyyy-MM-dd HH:mm:ss', 'en') ?? '未知',
@@ -103,7 +101,7 @@ export class CommonDetailConverter {
     model.BackgroundImageUrl = (await Medium.image(item.ImageUrl)).url;
     model.Records = [
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌号码',
         PropertyValue: item.Data.PlateNo ?? '未知',
       },
@@ -114,64 +112,64 @@ export class CommonDetailConverter {
         PropertyValue: item.Data.VehicleColorName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '车牌颜色',
         PropertyValue: item.Data.PlateColor ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-color',
         PropertyDes: '颜色深浅',
         PropertyValue: item.Data.VehicleColorDepthName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌类型',
         PropertyValue: item.Data.PlateType ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车辆类型',
         PropertyValue: item.Data.VehicleLogoName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌尾号',
         PropertyValue: item.Data.PlateTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车辆主品牌',
         PropertyValue: item.Data.PlateTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车牌省份',
         PropertyValue: item.Data.PlateNo ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2',
         PropertyDes: '车牌子品牌',
         PropertyValue: item.Data.VehicleSubLogoName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-car2e',
         PropertyDes: '车牌状态',
         PropertyValue: item.Data.PlateTypeName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-speed',
         PropertyDes: '车辆速度',
         PropertyValue: item.Data.VehicleSpeed?.toString() ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-user-admi',
         PropertyDes: '安全带',
-        PropertyValue: item.Data.PilotSafebelt ? '是' : '否',
+        PropertyValue: item.Data.PilotSafebeltName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-phone',
         PropertyDes: '打电话',
-        PropertyValue: item.Data.UsePhone ? '是' : '否',
+        PropertyValue: item.Data.UsePhoneName ?? '未知',
       },
     ];
 
@@ -225,8 +223,8 @@ export class CommonDetailConverter {
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 
-    model.ImageUrl = (await Medium.image(item.TargetPictureUrl)).url;
-    model.BackgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
+    model.ImageUrl = Medium.img(item.TargetPictureUrl);
+    model.BackgroundImageUrl = Medium.img(item.BackgroundUrl);
     model.Records = [
       {
         Icon: 'howell-icon-sex',
@@ -312,8 +310,9 @@ export class CommonDetailConverter {
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.One;
 
-    model.ImageUrl = (await Medium.image(item.FacePictureUrl)).url;
-    model.BackgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
+    model.ImageUrl = Medium.img(item.FacePictureUrl);
+
+    model.BackgroundImageUrl = Medium.img(item.BackgroundUrl);
     model.Records = [
       {
         Icon: 'howell-icon-Face',
@@ -322,18 +321,18 @@ export class CommonDetailConverter {
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-sex',
         PropertyDes: '性别',
         PropertyValue: item.GenderName ?? '未知',
       },
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-birthday',
         PropertyDes: '年龄段',
         PropertyValue: item.AgeGroupName ?? '未知',
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-sunglasses',
         PropertyDes: '是否戴眼镜',
         PropertyValue: item.GlassName ?? '未知',
       },
@@ -344,7 +343,7 @@ export class CommonDetailConverter {
       },
 
       {
-        Icon: 'howell-icon-Face',
+        Icon: 'howell-icon-time',
         PropertyDes: '抓拍时间',
         PropertyValue: item.CaptureTime
           ? formatDate(item.CaptureTime, 'yyyy-MM-dd HH:mm:ss', 'en')
@@ -362,9 +361,6 @@ export class CommonDetailConverter {
     model.ContainerHeight = 550;
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
-
-    // model.ImageUrl = 'assets/img/sample-face.png';
-    // model.BackgroundImageUrl = 'assets/img/sample-face.png';
 
     model.ImageUrl = Medium.img(item.PlatePictureUrl);
     model.BackgroundImageUrl = Medium.img(item.BackgroundUrl);
