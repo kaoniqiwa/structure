@@ -1,0 +1,26 @@
+<div class="event-record-face">
+  <div class="event-record-face-head"></div>
+  <div class="event-record-face-content">
+    <app-event-record-face-table
+      [load]="load"
+      (loaded)="onloaded($event)"
+    ></app-event-record-face-table>
+  </div>
+  <div class="event-record-face-foot" *ngIf="page">
+    <div>
+      <span class="count-title">总数量：</span
+      ><span class="count">{{ page.TotalRecordCount }}</span>
+    </div>
+    <div>
+      <app-paginator
+        [length]="page.TotalRecordCount"
+        [pageSize]="page.PageSize"
+        [pagerCount]="5"
+        [pageIndex]="page.PageIndex - 1"
+        [showFirstLastButtons]="true"
+        (page)="pageEvent($event)"
+      >
+      </app-paginator>
+    </div>
+  </div>
+</div>

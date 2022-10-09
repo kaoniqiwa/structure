@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PictureArgsConverter } from 'src/app/converters/args/picture-args.converter';
 import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
-import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { IModel } from 'src/app/models/model.interface';
 import { AlarmBusiness } from './alarm.business';
 import { AlarmModel } from './alarm.model';
@@ -31,7 +30,7 @@ export class AlarmComponent
   @Output()
   loaded: EventEmitter<AlarmModel[]> = new EventEmitter();
   @Output()
-  picture: EventEmitter<PictureArgs> = new EventEmitter();
+  picture: EventEmitter<EventRecord> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
@@ -50,8 +49,7 @@ export class AlarmComponent
     this.loaded.emit(this.datas);
   }
   onpicture(e: Event, item: AlarmModel) {
-    let args = PictureArgsConverter.Convert(item.data);
-    this.picture.emit(args);
+    this.picture.emit(item.data);
     e.stopPropagation();
   }
   onplayback(e: Event, item: AlarmModel) {

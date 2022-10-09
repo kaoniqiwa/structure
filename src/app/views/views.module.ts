@@ -12,8 +12,6 @@ import 'echarts/theme/vintage.js';
 import { components } from '../components/components.module';
 import { MaterialModule } from '../material.module';
 import { RealtimeComponent } from './realtime/realtime.component';
-import { StructuredDataComponent } from './structured-data/structured-data.component';
-import { EventRecordComponent } from './event-record/event-record.component';
 import { DeployListComponent } from './deploy-list/deploy-list.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
@@ -26,6 +24,8 @@ import { Pipes } from '../pipes/pipe.module';
 import { IndexComponent } from './index/index.component';
 import { WindowComponents } from './windows/windows.module';
 import { StructuredDataComponents } from './structured-data/structured-data.module';
+import { EventRecordComponents } from './event-record/event-record.module';
+import { TableComponents } from './tables/tables.module';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -35,11 +35,12 @@ const ViewComponents = [
   ...StructuredDataComponents,
   DeviceListComponent,
   DeployListComponent,
-  EventRecordComponent,
+  ...EventRecordComponents,
   DeviceStatusComponent,
   AlarmComponent,
   DeployInfoComponent,
   components,
+  ...TableComponents,
   ...WindowComponents,
   ...MapControlComponents,
   ...Directives,

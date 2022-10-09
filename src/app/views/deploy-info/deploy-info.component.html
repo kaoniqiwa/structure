@@ -1,4 +1,4 @@
-<div class="deploy-info">
+<div class="deploy-info" (click)="onclicked()">
   <div
     class="deploy-content"
     *ngIf="model; else elseBlock"
@@ -27,17 +27,24 @@
   <ng-template #elseBlock><div class="deploy-none">暂无数据</div></ng-template>
 </div>
 
-<toast-window
+<!-- <toast-window
   *ngIf="showToast && eventRecord"
   (closeEvent)="closeEvent($event)"
 >
-  <!-- <app-face-detail
+
+
+  <app-common-detail
+    [dataSource]="eventRecord"
+    (closeEvent)="closeEvent($event)"
+  ></app-common-detail>
+</toast-window> -->
+<!-- <app-face-detail
     *ngIf="eventRecord.EventType == EventType.Face"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
   ></app-face-detail> -->
 
-  <!-- <app-vehicle-detail
+<!-- <app-vehicle-detail
     *ngIf="eventRecord.EventType == EventType.Vehicle"
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
@@ -48,9 +55,3 @@
     [eventRecord]="eventRecord"
     (closeEvent)="closeEvent($event)"
   ></app-muckcar-detail> -->
-
-  <app-common-detail
-    [dataSource]="eventRecord"
-    (closeEvent)="closeEvent($event)"
-  ></app-common-detail>
-</toast-window>

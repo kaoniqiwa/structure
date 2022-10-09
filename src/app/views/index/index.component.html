@@ -14,7 +14,7 @@
     <ng-container *ngIf="path == NavigationPath.realtime">
       <app-realtime
         (video)="trigger.realtime.onvideo($event)"
-        (picture)="trigger.realtime.onpicture($event)"
+        (details)="trigger.realtime.ondetails($event)"
         (playback)="trigger.realtime.onplayback($event)"
       ></app-realtime>
     </ng-container>
@@ -60,3 +60,14 @@
   [picture]="window.picture.image"
 >
 </app-picture-window>
+<app-window
+  *ngIf="window.details.show"
+  [Model]="window.details"
+  [style]="window.details.style"
+  [title]="window.details.title"
+>
+  <app-common-detail
+    [dataSource]="window.details.record"
+    (closeEvent)="window.details.onclose($event)"
+  ></app-common-detail>
+</app-window>

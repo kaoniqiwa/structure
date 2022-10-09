@@ -3,6 +3,7 @@ import { PlayMode } from 'src/app/components/video-player/video.model';
 import { VideoControlConverter } from 'src/app/converters/video-control.converter';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { Medium } from 'src/app/tools/medium';
 import { IndexWindowBusiness } from './windows/index-window.business';
@@ -30,12 +31,9 @@ class RealTimeTrigger {
     this.video.load(camera);
     this.video.show = true;
   }
-  onpreview(args: VideoArgs) {
-    this.window.video.mode = PlayMode.live;
-    this.window.video.cameraId = args.cameraId;
-    this.window.video.title = args.title;
-    this.window.video.autoplay = true;
-    this.window.video.show = true;
+  ondetails(args: EventRecord) {
+    this.window.details.record = args;
+    this.window.details.show = true;
   }
   onplayback(args: VideoArgs) {
     this.window.video.mode = PlayMode.vod;

@@ -26,7 +26,7 @@ export class RealtimeComponent implements OnInit {
   video: EventEmitter<Camera> = new EventEmitter();
 
   @Output()
-  picture: EventEmitter<PictureArgs> = new EventEmitter();
+  details: EventEmitter<EventRecord> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
@@ -45,8 +45,8 @@ export class RealtimeComponent implements OnInit {
   onAlarmLoaded(data: AlarmModel[]) {
     console.log(data);
   }
-  onpicture(args: PictureArgs) {
-    this.picture.emit(args);
+  ondetails(args: EventRecord) {
+    this.details.emit(args);
   }
   onplayback(args: VideoArgs) {
     this.playback.emit(args);

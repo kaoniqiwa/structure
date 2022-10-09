@@ -41,7 +41,7 @@
       >
         <div class="box-item" style="padding: 10px">
           <howell-alarm
-            (picture)="onpicture($event)"
+            (picture)="ondetails($event)"
             (playback)="onplayback($event)"
             (loaded)="alarmLoaded($event)"
           ></howell-alarm>
@@ -49,7 +49,9 @@
       </div>
       <div class="box-wrapper" style="width: 405px; height: 100%; float: left">
         <div class="box-item">
-          <howell-deploy-info></howell-deploy-info>
+          <howell-deploy-info
+            (infoClick)="ondetails($event)"
+          ></howell-deploy-info>
         </div>
       </div>
     </div>

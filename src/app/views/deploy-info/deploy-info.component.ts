@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -21,6 +23,9 @@ import { DeployInfoModel } from './deploy-info.model';
   providers: [DeployInfoBusiness],
 })
 export class DeployInfoComponent implements OnInit {
+  @Output()
+  infoClick: EventEmitter<EventRecord> = new EventEmitter();
+
   EventType = EventType;
 
   showToast = false;
@@ -44,5 +49,8 @@ export class DeployInfoComponent implements OnInit {
   }
   closeEvent(flag: boolean) {
     this.showToast = false;
+  }
+  onclicked() {
+    this.infoClick.emit(this.eventRecord);
   }
 }
