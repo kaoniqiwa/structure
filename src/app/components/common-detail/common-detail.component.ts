@@ -14,6 +14,7 @@ export class CommonDetailComponent implements OnInit {
   @Input() dataSource?: IModel;
 
   @Output() closeEvent = new EventEmitter<boolean>();
+  @Output() magnifyEvent = new EventEmitter<string>();
 
   model?: CommonDetailModel;
 
@@ -29,5 +30,9 @@ export class CommonDetailComponent implements OnInit {
 
   close() {
     this.closeEvent.emit(false);
+  }
+
+  magnify(url: string) {
+    this.magnifyEvent.emit(url);
   }
 }

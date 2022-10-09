@@ -6,10 +6,7 @@ import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Page } from 'src/app/models/page-list.model';
 import { VehicleRecord } from 'src/app/models/vehicle-record.model';
 import { StructuredDataAbstractComponent } from '../structured-data-abstract.component';
-import {
-  StructuredDataItemImageArgs,
-  StructuredDataItemModel,
-} from '../structured-data-item/structured-data-item.model';
+import { StructuredDataItemModel } from '../structured-data-item/structured-data-item.model';
 import { StructuredDataVehicleQueryModel } from '../structured-data-vehicle-query/structured-data-vehicle-query.model';
 import { StructuredDataVehicleBusiness } from './structured-data-vehicle.business';
 
@@ -28,8 +25,8 @@ export class StructuredDataVehicleComponent
   }
   query?: StructuredDataVehicleQueryModel;
   style = {
-    width: 'calc(815px + 40px)',
-    height: 'calc(465px + 40px)',
+    width: 'auto',
+    height: 'auto',
   };
   ngOnInit(): void {}
 

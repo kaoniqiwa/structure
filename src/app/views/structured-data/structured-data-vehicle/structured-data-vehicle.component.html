@@ -49,10 +49,16 @@
   </div>
 </div>
 <app-window [Model]="window" [style]="style" *ngIf="window.show">
-  <app-vehicle-detail
+  <!-- <app-vehicle-detail
     *ngIf="!!selected"
     [eventRecord]="selected.data"
     (closeEvent)="onclosewindow()"
   >
-  </app-vehicle-detail>
+  </app-vehicle-detail> -->
+
+  <app-common-detail
+    *ngIf="!!selected"
+    [dataSource]="selected.data"
+    (closeEvent)="onclosewindow()"
+  ></app-common-detail>
 </app-window>

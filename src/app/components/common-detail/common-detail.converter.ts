@@ -14,6 +14,8 @@ import { formatDate } from '@angular/common';
 import { VehicleEventRecord } from 'src/app/models/event-record/vehicle-event.record';
 import { BodyRecord } from 'src/app/models/body-record.model';
 import { FaceRecord } from 'src/app/models/face-record.model';
+import { MuckCarEventRecord } from 'src/app/models/event-record/muck-car-event.record';
+import { VehicleRecord } from 'src/app/models/vehicle-record.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +26,14 @@ export class CommonDetailConverter {
       return this._fromFaceEventRecord(source);
     } else if (source instanceof VehicleEventRecord) {
       return this._fromVehicleEventRecord(source);
+    } else if (source instanceof MuckCarEventRecord) {
+      return this._fromMuckCarEventRecord(source);
     } else if (source instanceof BodyRecord) {
       return this._fromBodyRecord(source);
     } else if (source instanceof FaceRecord) {
       return this._fromFaceRecord(source);
+    } else if (source instanceof VehicleRecord) {
+      return this._fromVehicleRecord(source);
     }
     throw new Error('Error');
   }
@@ -172,6 +178,45 @@ export class CommonDetailConverter {
     return model;
   }
 
+  private async _fromMuckCarEventRecord(item: MuckCarEventRecord) {
+    let model = new CommonDetailModel();
+    model.Title = '渣土车布控报警';
+    model.ContainerWidth = 655;
+    model.ContainerHeight = 470;
+    model.LeftWidth = 180;
+    model.LinePerRecord = LinePerRecord.One;
+
+    model.ImageUrl = (await Medium.image(item.Data.ThumbnailUrl)).url;
+    model.BackgroundImageUrl = (
+      await Medium.image(item.Data.BackgroundImageUrl)
+    ).url;
+    model.Records = [
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌号码',
+        PropertyValue: item.Data.PlateNo ?? '未知',
+      },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车身颜色',
+        PropertyValue: item.Data.VehicleColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌颜色',
+        PropertyValue: item.Data.PlateColor ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '卡口名称',
+        PropertyValue: item.Data.CrossingName ?? '未知',
+      },
+    ];
+
+    return model;
+  }
+
   private async _fromBodyRecord(item: BodyRecord) {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
@@ -296,6 +341,117 @@ export class CommonDetailConverter {
         Icon: 'howell-icon-Face',
         PropertyDes: '是否微笑',
         PropertyValue: item.Smile ? '是' : '否',
+      },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '抓拍时间',
+        PropertyValue: item.CaptureTime
+          ? formatDate(item.CaptureTime, 'yyyy-MM-dd HH:mm:ss', 'en')
+          : '未知',
+      },
+    ];
+
+    return model;
+  }
+
+  private async _fromVehicleRecord(item: VehicleRecord) {
+    let model = new CommonDetailModel();
+    model.Title = '详细信息';
+    model.ContainerWidth = 820;
+    model.ContainerHeight = 550;
+    model.LeftWidth = 180;
+    model.LinePerRecord = LinePerRecord.Two;
+
+    model.ImageUrl = (await Medium.image(item.PlatePictureUrl)).url;
+    model.BackgroundImageUrl = (await Medium.image(item.BackgroundUrl)).url;
+    model.Records = [
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '摄像机名称',
+        PropertyValue: item.CameraName ?? '未知',
+      },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '卡口名称',
+        PropertyValue: item.CrossingName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌号码',
+        PropertyValue: item.PlateNo ?? '未知',
+      },
+
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌颜色',
+        PropertyValue: item.PlateColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌类型',
+        PropertyValue: item.PlateTypeName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌尾号',
+        PropertyValue: item.PlateTail ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '归属地',
+        PropertyValue: item.PlateBelong ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车牌状态',
+        PropertyValue: item.PlateStateName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车身颜色',
+        PropertyValue: item.VehicleColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车辆类型',
+        PropertyValue: item.VehicleTypeName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车辆主品牌',
+        PropertyValue: item.VehicleLogoName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车辆子品牌',
+        PropertyValue: item.VehicleSubLogoName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '车速',
+        PropertyValue: item.VehicleSpeed?.toString() ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '副驾驶是否有人',
+        PropertyValue: item.Copilot ? '是' : '否',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '主驾驶员是否系安全',
+        PropertyValue: item.PilotSafebelt ? '是' : '否',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '副驾驶员是否系安全带',
+        PropertyValue: item.VicePilotSafebelt ? '是' : '否',
+      },
+      {
+        Icon: 'howell-icon-Face',
+        PropertyDes: '是否打电话',
+        PropertyValue: item.UsePhone ? '是' : '否',
       },
 
       {

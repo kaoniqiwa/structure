@@ -12,10 +12,12 @@
       <div
         class="left-item"
         [style.backgroundImage]="'url(' + model.ImageUrl + ')'"
+        (click)="magnify(model.ImageUrl)"
       ></div>
       <div
         class="left-item"
         [style.backgroundImage]="'url(' + model.BackgroundImageUrl + ')'"
+        (click)="magnify(model.BackgroundImageUrl)"
       ></div>
     </div>
     <div class="right-wrapper" [class]="model.LinePerRecord">
