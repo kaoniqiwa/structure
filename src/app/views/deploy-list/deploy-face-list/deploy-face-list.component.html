@@ -1,0 +1,25 @@
+<div class="deploy-face">
+  <div class="deploy-face-content">
+    <app-deploy-face-table
+      [load]="load"
+      (loaded)="onloaded($event)"
+    ></app-deploy-face-table>
+  </div>
+  <div class="deploy-face-foot" *ngIf="page">
+    <div>
+      <span class="count-title">总数量：</span
+      ><span class="count">{{ page.TotalRecordCount }}</span>
+    </div>
+    <div>
+      <app-paginator
+        [length]="page.TotalRecordCount"
+        [pageSize]="page.PageSize"
+        [pagerCount]="5"
+        [pageIndex]="page.PageIndex - 1"
+        [showFirstLastButtons]="true"
+        (page)="pageEvent($event)"
+      >
+      </app-paginator>
+    </div>
+  </div>
+</div>

@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventRecord } from 'src/app/models/event-record/event.record';
-import { MuckcarDetailBusiness } from './muckcar-detail.business';
-import { MuckcarDetailModel } from './muckcar-detail.model';
+import { MuckCarDetailBusiness } from './muckcar-detail.business';
+import { MuckCarDetailModel } from './muckcar-detail.model';
 
 @Component({
   selector: 'app-muckcar-detail',
   templateUrl: './muckcar-detail.component.html',
   styleUrls: ['./muckcar-detail.component.less'],
-  providers: [MuckcarDetailBusiness],
+  providers: [MuckCarDetailBusiness],
 })
-export class MuckcarDetailComponent implements OnInit {
+export class MuckCarDetailComponent implements OnInit {
   @Input()
   eventRecord?: EventRecord | null = null;
 
   @Output() closeEvent = new EventEmitter<boolean>();
-  constructor(private _business: MuckcarDetailBusiness) {}
+  constructor(private _business: MuckCarDetailBusiness) {}
 
-  model?: MuckcarDetailModel;
+  model?: MuckCarDetailModel;
 
   async ngOnInit() {
     if (this.eventRecord) {

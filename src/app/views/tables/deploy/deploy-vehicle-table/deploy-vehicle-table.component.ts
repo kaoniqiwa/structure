@@ -15,49 +15,45 @@ import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { IModel } from 'src/app/models/model.interface';
 import { PagedList } from 'src/app/models/page-list.model';
-import { EventRecordVehicleTableBusiness } from './event-record-vehicle-table.business';
+import { DeployVehicleTableBusiness } from './deploy-vehicle-table.business';
 import {
-  EventRecordVehicleTableArgs,
-  EventRecordVehicleTableModel,
-} from './event-record-vehicle-table.model';
+  DeployVehicleTableModel,
+  DeployVehicleTableArgs,
+} from './deploy-vehicle-table.model';
 
 @Component({
-  selector: 'app-event-record-vehicle-table',
-  templateUrl: './event-record-vehicle-table.component.html',
-  styleUrls: [
-    '../../table.less',
-    './event-record-vehicle-table.component.less',
-  ],
-  providers: [EventRecordVehicleTableBusiness],
+  selector: 'app-deploy-vehicle-table',
+  templateUrl: './deploy-vehicle-table.component.html',
+  styleUrls: ['../../table.less', './deploy-vehicle-table.component.less'],
+  providers: [DeployVehicleTableBusiness],
 })
-export class EventRecordVehicleTableComponent
+export class DeployVehicleTableComponent
   implements
-    IComponent<IModel, PagedList<EventRecordVehicleTableModel>>,
+    IComponent<IModel, PagedList<DeployVehicleTableModel>>,
     OnInit,
     OnChanges
 {
   @Input()
-  business: IBusiness<IModel, PagedList<EventRecordVehicleTableModel>>;
+  business: IBusiness<IModel, PagedList<DeployVehicleTableModel>>;
   @Input()
-  load?: EventEmitter<EventRecordVehicleTableArgs>;
+  load?: EventEmitter<DeployVehicleTableArgs>;
 
   @Output()
-  loaded: EventEmitter<PagedList<EventRecordVehicleTableModel>> =
-    new EventEmitter();
+  loaded: EventEmitter<PagedList<DeployVehicleTableModel>> = new EventEmitter();
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
-  constructor(business: EventRecordVehicleTableBusiness) {
+  constructor(business: DeployVehicleTableBusiness) {
     this.business = business;
   }
 
-  datas: EventRecordVehicleTableModel[] = [];
+  datas: DeployVehicleTableModel[] = [];
   widths = ['20%', '16%', '16%', '16%', '16%', '16%'];
   ngOnInit(): void {
     if (!this.load) {
-      this.loadData(new EventRecordVehicleTableArgs());
+      this.loadData(new DeployVehicleTableArgs());
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -69,25 +65,23 @@ export class EventRecordVehicleTableComponent
       }
     }
   }
-  async loadData(args: EventRecordVehicleTableArgs) {
+  async loadData(args: DeployVehicleTableArgs) {
     let paged = await this.business.load(
-      args.duration,
       args.page ? args.page.PageIndex : 1,
-      args.page?.PageSize,
-      args.name
+      args.page?.PageSize
     );
     this.datas = paged.Data;
     this.loaded.emit(paged);
   }
-  onpicture(e: Event, item: EventRecordVehicleTableModel) {
+  onpicture(e: Event, item: DeployVehicleTableModel) {
     let args = PictureArgsConverter.Convert(item.data);
     this.picture.emit(args);
     e.stopPropagation();
   }
-  onplayback(e: Event, item: EventRecordVehicleTableModel) {
+  onplayback(e: Event, item: DeployVehicleTableModel) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
     e.stopPropagation();
   }
-  onitemclicked(item: EventRecordVehicleTableModel) {}
+  onitemclicked(item: DeployVehicleTableModel) {}
 }

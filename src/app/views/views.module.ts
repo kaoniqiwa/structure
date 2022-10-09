@@ -26,6 +26,7 @@ import { WindowComponents } from './windows/windows.module';
 import { StructuredDataComponents } from './structured-data/structured-data.module';
 import { EventRecordComponents } from './event-record/event-record.module';
 import { TableComponents } from './tables/tables.module';
+import { DeployListComponents } from './deploy-list/depoly-list.module';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -34,7 +35,7 @@ const ViewComponents = [
   RealtimeComponent,
   ...StructuredDataComponents,
   DeviceListComponent,
-  DeployListComponent,
+  ...DeployListComponents,
   ...EventRecordComponents,
   DeviceStatusComponent,
   AlarmComponent,

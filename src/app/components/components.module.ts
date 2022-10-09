@@ -22,7 +22,7 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.componen
 import { BodyDetailComponent } from './body-detail/body-detail.component';
 import { EventRecordCardComponent } from './event-record-card/event-record-card.component';
 import { PictureDetailComponent } from './picture-detail/picture-detail.component';
-import { MuckcarDetailComponent } from './muckcar-detail/muckcar-detail.component';
+import { MuckCarDetailComponent } from './muckcar-detail/muckcar-detail.component';
 import { CommonDetailComponent } from './common-detail/common-detail.component';
 
 export const components = [
@@ -50,6 +50,6 @@ export const components = [
   BodyDetailComponent,
   EventRecordCardComponent,
   PictureDetailComponent,
-  MuckcarDetailComponent,
+  MuckCarDetailComponent,
   CommonDetailComponent,
 ];

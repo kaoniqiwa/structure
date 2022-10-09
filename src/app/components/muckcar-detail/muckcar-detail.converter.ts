@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MuckcarDetailModel } from './muckcar-detail.model';
+import { MuckCarDetailModel } from './muckcar-detail.model';
 import { IPromiseConverter } from '../../interfaces/converter.interface';
 import { EventRecord } from '../../models/event-record/event.record';
 import { FaceEventRecord } from '../../models/event-record/face-event.record';
@@ -7,26 +7,26 @@ import { MuckCarEventRecord } from '../../models/event-record/muck-car-event.rec
 import { Language } from '../../tools/language';
 import { Medium } from '../../tools/medium';
 
-type MuckcarDetailSource = EventRecord;
+type MuckCarDetailSource = EventRecord;
 
 @Injectable({
   providedIn: 'root',
 })
-export class MuckcarDetailConverter
-  implements IPromiseConverter<MuckcarDetailSource, MuckcarDetailModel>
+export class MuckCarDetailConverter
+  implements IPromiseConverter<MuckCarDetailSource, MuckCarDetailModel>
 {
   Convert(
-    source: MuckcarDetailSource,
+    source: MuckCarDetailSource,
     ...res: any[]
-  ): Promise<MuckcarDetailModel> {
+  ): Promise<MuckCarDetailModel> {
     if (source instanceof MuckCarEventRecord) {
-      return this._fromMuckcarEventRecord(source);
+      return this._fromMuckCarEventRecord(source);
     }
 
     throw new Error('Error');
   }
-  private async _fromMuckcarEventRecord(item: MuckCarEventRecord) {
-    let model = new MuckcarDetailModel();
+  private async _fromMuckCarEventRecord(item: MuckCarEventRecord) {
+    let model = new MuckCarDetailModel();
     model.imageUrl = (await Medium.image(item.ImageUrl)).url;
     model.backgroundImageUrl = (
       await Medium.image(item.Data.BackgroundImageUrl)

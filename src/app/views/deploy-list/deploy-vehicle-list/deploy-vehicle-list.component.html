@@ -1,0 +1,25 @@
+<div class="deploy-vehicle">
+  <div class="deploy-vehicle-content">
+    <app-deploy-vehicle-table
+      [load]="load"
+      (loaded)="onloaded($event)"
+    ></app-deploy-vehicle-table>
+  </div>
+  <div class="deploy-vehicle-foot" *ngIf="page">
+    <div>
+      <span class="count-title">总数量：</span
+      ><span class="count">{{ page.TotalRecordCount }}</span>
+    </div>
+    <div>
+      <app-paginator
+        [length]="page.TotalRecordCount"
+        [pageSize]="page.PageSize"
+        [pagerCount]="5"
+        [pageIndex]="page.PageIndex - 1"
+        [showFirstLastButtons]="true"
+        (page)="pageEvent($event)"
+      >
+      </app-paginator>
+    </div>
+  </div>
+</div>

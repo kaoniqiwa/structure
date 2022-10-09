@@ -5,27 +5,27 @@
       <div
         class="tab"
         [ngClass]="{
-          active: path === StructuredDataPath.face
+          active: path === DeployType.face
         }"
-        (click)="navigation(StructuredDataPath.face)"
+        (click)="navigation(DeployType.face)"
       >
         人脸
       </div>
       <div
         class="tab"
         [ngClass]="{
-          active: path === StructuredDataPath.body
+          active: path === DeployType.body
         }"
-        (click)="navigation(StructuredDataPath.body)"
+        (click)="navigation(DeployType.body)"
       >
         人体
       </div>
       <div
         class="tab"
         [ngClass]="{
-          active: path === StructuredDataPath.vehicle
+          active: path === DeployType.vehicle
         }"
-        (click)="navigation(StructuredDataPath.vehicle)"
+        (click)="navigation(DeployType.vehicle)"
       >
         车辆
       </div>
@@ -42,17 +42,17 @@
       </div>
       <div class="horizontal-right">33</div>
     </div> -->
-    <ng-container *ngIf="path === StructuredDataPath.face">
+    <ng-container *ngIf="path === DeployType.face">
       <app-structured-data-face
         (image)="onimage($event)"
       ></app-structured-data-face>
     </ng-container>
-    <ng-container *ngIf="path === StructuredDataPath.body">
+    <ng-container *ngIf="path === DeployType.body">
       <app-structured-data-body
         (image)="onimage($event)"
       ></app-structured-data-body>
     </ng-container>
-    <ng-container *ngIf="path === StructuredDataPath.vehicle">
+    <ng-container *ngIf="path === DeployType.vehicle">
       <app-structured-data-vehicle
         (image)="onimage($event)"
       ></app-structured-data-vehicle>

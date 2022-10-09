@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { transformParams } from 'src/app/models/transform.model';
 
-export class MuckcarDetailModel {
+export class MuckCarDetailModel {
   plateNo!: string;
   vehicleColor!: string;
   plateColor!: string;

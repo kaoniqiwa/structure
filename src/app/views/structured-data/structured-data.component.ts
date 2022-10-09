@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DeployType } from 'src/app/enums/deploy-type.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
-import { StructuredDataPath } from './structured-data.model';
 
 @Component({
   selector: 'app-structured-data',
@@ -9,14 +9,14 @@ import { StructuredDataPath } from './structured-data.model';
 })
 export class StructuredDataComponent implements OnInit {
   @Input()
-  path: StructuredDataPath = StructuredDataPath.face;
+  path: DeployType = DeployType.face;
   @Output()
   image: EventEmitter<PictureArgs> = new EventEmitter();
   constructor() {}
-  StructuredDataPath = StructuredDataPath;
+  DeployType = DeployType;
   ngOnInit(): void {}
 
-  navigation(path: StructuredDataPath) {
+  navigation(path: DeployType) {
     this.path = path;
   }
   onimage(src: PictureArgs) {

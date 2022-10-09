@@ -1,0 +1,26 @@
+.deploy-face {
+  height: 100%;
+  width: 100%;
+
+  @foot-height: 48px;
+
+
+  &-content {
+    height: calc(100% - @foot-height);
+  }
+
+  &-foot {
+    height: @foot-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .count-title {
+      color: #cfd7ff
+    }
+
+    .count {
+      color: white
+    }
+  }
+}
