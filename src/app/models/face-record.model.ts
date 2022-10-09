@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IModel } from './model.interface';
 import { Rectangle } from './rectangle.modl';
-import { transformDateTime } from './transform.model';
+import { transformDateTime, transformRecordName } from './transform.model';
 
 /** FaceRecord (人脸记录) */
 export class FaceRecord implements IModel {
@@ -12,14 +12,17 @@ export class FaceRecord implements IModel {
   /**	String	性别，参见：2.3.12.1	O	*/
   Gender?: string;
   /**	String	性别说明	O	*/
+  @Transform(transformRecordName)
   GenderName?: string;
   /**	Boolean	是否戴眼镜，参见：2.3.12.1	O	*/
   Glass?: boolean;
   /**	String	是否戴眼镜说明	O	*/
+  @Transform(transformRecordName)
   GlassName?: string;
   /**	String	年龄段，参见：2.3.12.1	O	*/
   AgeGroup?: string;
   /**	String	年龄段说明	O	*/
+  @Transform(transformRecordName)
   AgeGroupName?: string;
   /**	String	人脸图片url	O	*/
   FacePictureUrl?: string;
@@ -28,12 +31,14 @@ export class FaceRecord implements IModel {
   /**	Boolean	是否微笑，参见：2.3.12.1	O	*/
   Smile?: boolean;
   /**	String	是否微笑说明	O	*/
+  @Transform(transformRecordName)
   SmileName?: string;
   /**	String	证件号码	O	*/
   CertificateNumber?: string;
   /**	String	摄像机ID	O	*/
   CameraId?: string;
   /**	String	摄像机名称	O	*/
+  @Transform(transformRecordName)
   CameraName?: string;
   /**	String	人脸人体关联id。如需查询该人脸相关的人体信息	O	*/
   LinkBodyId?: string;

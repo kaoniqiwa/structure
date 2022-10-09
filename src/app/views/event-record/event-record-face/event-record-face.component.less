@@ -8,7 +8,29 @@
   &-head {
     height: @head-height;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
+    padding: 5px;
+
+    &-filter {
+      display: flex;
+      justify-content: start;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &-title {
+          color: white;
+          font-size: 16px;
+          white-space: nowrap;
+        }
+      }
+    }
   }
 
   &-content {
@@ -17,5 +39,16 @@
 
   &-foot {
     height: @foot-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .count-title {
+      color: #cfd7ff
+    }
+
+    .count {
+      color: white
+    }
   }
 }

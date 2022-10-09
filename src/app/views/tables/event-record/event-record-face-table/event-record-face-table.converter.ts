@@ -1,6 +1,7 @@
 import { IConverter } from 'src/app/interfaces/converter.interface';
 import { FaceEventRecord } from 'src/app/models/event-record/face-event.record';
 import { PagedList } from 'src/app/models/page-list.model';
+import { Medium } from 'src/app/tools/medium';
 import { EventRecordFaceTableModel } from './event-record-face-table.model';
 
 export class EventRecordFaceTableConverter
@@ -38,6 +39,7 @@ class EventRecordFaceTableItemConverter
     model.eventName = source.Data.TaskName ?? '';
     model.personName = source.Data.PersonName ?? '';
     model.time = source.EventTime;
+    model.imageSrc = Medium.jpg(source.ImageUrl);
     return model;
   }
 }

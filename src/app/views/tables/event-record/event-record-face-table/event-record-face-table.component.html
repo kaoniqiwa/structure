@@ -1,4 +1,4 @@
-<div class="table">
+<div class="hw-table">
   <div class="table-header-container">
     <table>
       <colgroup>
@@ -8,11 +8,10 @@
         <tr>
           <th>图片</th>
           <th>事件名称</th>
-          <th>车牌号</th>
           <th>摄像机名称</th>
+          <th>人员姓名</th>
           <th>上报时间</th>
           <th>操作</th>
-          <th></th>
         </tr>
       </thead>
     </table>
@@ -24,7 +23,11 @@
       </colgroup>
       <tbody>
         <tr *ngFor="let item of datas" (click)="onitemclicked(item)">
-          <td></td>
+          <td>
+            <div
+              [ngStyle]="{ backgroundImage: 'url(' + item.imageSrc + ')' }"
+            ></div>
+          </td>
           <td>{{ item.eventName }}</td>
           <td>{{ item.cameraName }}</td>
           <td>{{ item.personName }}</td>

@@ -1,0 +1,54 @@
+.event-record-face {
+  height: 100%;
+  width: 100%;
+
+  @head-height: 50px;
+  @foot-height: 50px;
+
+  &-head {
+    height: @head-height;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+
+    &-filter {
+      display: flex;
+      justify-content: start;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &-title {
+          color: white;
+          font-size: 16px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  &-content {
+    height: calc(100% - @head-height - @foot-height);
+  }
+
+  &-foot {
+    height: @foot-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .count-title {
+      color: #cfd7ff
+    }
+
+    .count {
+      color: white
+    }
+  }
+}

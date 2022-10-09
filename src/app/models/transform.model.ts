@@ -70,3 +70,15 @@ export function transformKeyValue(params: TransformFnParams) {
   }
   return params.value;
 }
+export function transformRecordName(params: TransformFnParams) {
+  if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    switch (params.value) {
+      case undefined:
+      case 'unknown':
+        return '未知';
+      default:
+        return params.value;
+    }
+  }
+  return params.value;
+}
