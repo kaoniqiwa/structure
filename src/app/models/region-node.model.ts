@@ -4,6 +4,7 @@ import { OrderType } from '../enums/order-type.enum';
 import { RegionNodeType } from '../enums/region-node-type.enum';
 import { ResourceType } from '../enums/resource-type.enum';
 import { IModel } from './model.interface';
+import { Camera } from './resource/camera.resource';
 import { transformDateTime } from './transform.model';
 
 /** RegionNode (区域节点)	*/
@@ -34,4 +35,7 @@ export class RegionNode implements IModel {
   UpdateTime?: Date;
   /**	Int32	在线状态0-正常，1-离线	O */
   OnlineStatus?: OnlineStatus;
+}
+export class CameraRegionNode extends RegionNode {
+  Camera!: Camera;
 }

@@ -7,10 +7,12 @@
   </div>
   <div class="tree-container">
     <howell-common-tree
+      [showButtonIcon]="showButtonIcon"
       [dataSubject]="dataSubject"
       [holdStatus]="holdStatus"
       [defaultIds]="defaultIds"
       (selectTreeNode)="selectTreeNodeHandler($event)"
+      (buttonIconClickEvent)="buttonIconClick($event)"
     ></howell-common-tree>
   </div>
 </div>

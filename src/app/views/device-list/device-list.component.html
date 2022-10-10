@@ -1,20 +1,15 @@
 <div class="device-list vertical-layout">
   <div class="vertical-header">
     <div class="left-wrapper">
-      <div class="title">设备列表</div>
+      <div class="title">配置设置</div>
       <div class="tab-labels">
-        <div class="tab active">监控点</div>
-        <div class="tab">卡口</div>
+        <div class="tab active">地图布控</div>
+        <div class="tab">区域管理</div>
+        <div class="tab">监控点管理</div>
       </div>
-    </div>
-    <div class="right-wrapper">
-      <howell-simple-search></howell-simple-search>
     </div>
   </div>
   <div class="vertical-main">
-    <common-table [dataSubject]="dataSubject" [columnModel]="columnModel" [displayedColumns]="displayedColumns"
-      [selectStrategy]="selectStrategy" [tableOperates]="tableOperates" (selectTableRow)="selectTableRow($event)"
-      (selectTableCell)="selectTableCell($event)"></common-table>
+    <howell-deploy-map></howell-deploy-map>
   </div>
-  <div class="vertical-footer"></div>
 </div>

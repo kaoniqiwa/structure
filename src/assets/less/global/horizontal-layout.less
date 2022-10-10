@@ -5,20 +5,37 @@
   height: 100%;
   color: white;
   position: relative;
-  background: rgba(36, 72, 165, 0.05);
-  border: 1px #5c6ebf solid;
+
   .horizontal-left {
+    width: 27%;
+    max-width: 320px;
+    min-width: 275px;
     box-sizing: border-box;
     overflow: hidden;
 
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(6, 13, 55, 0.7);
     padding: 20px;
     margin-right: 20px;
     flex-shrink: 0;
+    border: 1px solid #5c6ebf;
+    .hw-normal-btn-group {
+      margin: 10px 0;
+    }
   }
 
   .horizontal-right {
     flex-grow: 1;
+    background: rgba(6, 13, 55, 0.7);
+    border: 1px solid #5c6ebf;
+
     padding: 20px;
-    padding-right: 0;
+    // padding-right: 0;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    width: 0;
   }
 }

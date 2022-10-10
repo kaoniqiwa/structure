@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RegionTreeConverter } from 'src/app/converter/region-tree.converter';
+import { RegionTreeConverter } from 'src/app/components/region-tree/region-tree.converter';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import {
@@ -32,7 +32,7 @@ export class RegionTreeBusiness {
 
     let regionRes = await this._listRegion(params);
     this._regions = regionRes.Data;
-    let nodes = this._converter.iterateToNestNode(regionRes.Data);
+    let nodes = await this._converter.iterateToNestNode(regionRes.Data);
     this._registerArray(nodes);
     for (let node of nodes) {
       if (node.ParentId) {
@@ -46,8 +46,10 @@ export class RegionTreeBusiness {
     params = new GetRegionNodesParams();
     params.Name = condition;
     let regionNodeRes = await this._listRegionNode(params);
+
+    console.log(regionNodeRes);
     this._regionNodes = regionNodeRes.Data;
-    let nodes2 = this._converter.iterateToNestNode(regionNodeRes.Data);
+    let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
     this._registerArray(nodes2);
 
     for (let node of nodes2) {
@@ -99,7 +101,7 @@ export class RegionTreeBusiness {
   private async _getAncestors(node: CommonNestNode) {
     if (node.ParentId && !this.nestedNodeMap.has(node.ParentId)) {
       let region = await this._regionRequest.get(node.ParentId);
-      let parentNode = this._converter.Convert(region);
+      let parentNode = await this._converter.Convert(region);
       this._registerArray([parentNode]);
       // 一定要await
       await this._getAncestors(parentNode);

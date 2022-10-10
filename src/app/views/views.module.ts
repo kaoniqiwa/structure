@@ -27,6 +27,7 @@ import { StructuredDataComponents } from './structured-data/structured-data.modu
 import { EventRecordComponents } from './event-record/event-record.module';
 import { TableComponents } from './tables/tables.module';
 import { DeployListComponents } from './deploy-list/depoly-list.module';
+import { DeployMapComponent } from './deploy-map/deploy-map.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -40,6 +41,7 @@ const ViewComponents = [
   DeviceStatusComponent,
   AlarmComponent,
   DeployInfoComponent,
+  DeployMapComponent,
   components,
   ...TableComponents,
   ...WindowComponents,

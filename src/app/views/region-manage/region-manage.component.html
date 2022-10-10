@@ -1,0 +1,89 @@
+<div class="region-manage hw-horizontal-layout">
+  <ng-container *ngIf="showDialog">
+    <howell-confirm-dialog (dialogMsgEvent)="dialogMsgEvent($event)">
+    </howell-confirm-dialog>
+  </ng-container>
+  <div class="horizontal-left">
+    <div class="hw-simple-title">安保区域</div>
+    <div class="hw-normal-btn-group">
+      <button
+        class="hw-green-btn"
+        (click)="addBtnClick()"
+        [disabled]="!enableAddBtn"
+      >
+        <i class="howell-icon-plus"></i>
+        添加
+      </button>
+      <button
+        class="hw-red-btn"
+        (click)="deleteBtnClick()"
+        [disabled]="!enableDelBtn"
+      >
+        <i class="howell-icon-delete-bin"></i>
+        删除
+      </button>
+      <button
+        class="hw-blue-btn"
+        (click)="editBtnClick()"
+        [disabled]="!enableEditBtn"
+      >
+        <i class="howell-icon-move2"></i>
+        编辑
+      </button>
+    </div>
+
+    <div class="tree-container">
+      <howell-region-tree
+        #tree
+        (selectTreeNode)="selectTreeNode($event)"
+      ></howell-region-tree>
+    </div>
+  </div>
+
+  <div class="horizontal-right" style="padding-right: 0">
+    <div class="hw-simple-title">{{ title }}</div>
+
+    <form class="hw-form vertical bold-scrollbar" [formGroup]="myForm">
+      <div class="hw-form-group">
+        <div class="title">
+          <span class="hw-form-label"> 名称 </span>
+          <span class="hw-form-icon" *ngIf="state == FormState.add">*</span>
+        </div>
+        <div class="content">
+          <input
+            type="text"
+            class="hw-form-control hw-form-input"
+            formControlName="Name"
+          />
+        </div>
+      </div>
+
+      <div class="hw-form-group">
+        <div class="title">
+          <span class="hw-form-label"> 描述 </span>
+        </div>
+        <div class="content">
+          <textarea
+            class="hw-form-control hw-form-textarea"
+            formControlName="Description"
+          ></textarea>
+        </div>
+      </div>
+
+      <div
+        class="hw-form-group"
+        [style.display]="state == FormState.none ? 'none' : ''"
+      >
+        <div class="hw-middle-btn-group">
+          <button class="hw-green-m-btn" type="button" (click)="onSubmit()">
+            <i class="howell-icon-Check"></i>
+          </button>
+
+          <button class="hw-gray-m-btn" type="button" (click)="onReset()">
+            <i class="howell-icon-Close"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

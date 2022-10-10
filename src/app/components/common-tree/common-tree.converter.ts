@@ -1,5 +1,5 @@
-import { CommonNestNode } from '../components/common-tree/common-nest-node.model';
-import { CommonTreeModel } from '../components/common-tree/common-tree.model';
+import { CommonNestNode } from './common-nest-node.model';
+import { CommonTreeModel } from './common-tree.model';
 
 export abstract class CommonTreeConverter {
   abstract Convert(source: CommonTreeModel, ...res: any[]): CommonNestNode;

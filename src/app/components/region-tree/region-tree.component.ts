@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { RegionTreeSource } from 'src/app/converter/region-tree.converter';
+import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { CommonFlatNode } from '../common-tree/common-flat-node.model';
 import { CommonTree } from '../common-tree/common-tree';
 import { CommonTreeComponent } from '../common-tree/common-tree.component';
@@ -24,6 +24,8 @@ import { RegionTreeBusiness } from './region-tree.business';
 export class RegionTreeComponent extends CommonTree implements OnInit {
   private _condition: string = '';
   private _excludeGuards: string[] = [];
+
+  @Input() showButtonIcon = false;
 
   @Input() holdStatus = true;
 
@@ -43,6 +45,8 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
   @Output() selectTreeNode: EventEmitter<CommonFlatNode[]> = new EventEmitter<
     CommonFlatNode[]
   >();
+
+  @Output() buttonIconClickEvent = new EventEmitter<CommonFlatNode>();
 
   @ViewChild(CommonTreeComponent) override tree?: CommonTreeComponent;
 
@@ -89,6 +93,10 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
       this._toastrService.warning('无匹配结果');
     }
   }
+  buttonIconClick(node: CommonFlatNode) {
+    this.buttonIconClickEvent.emit(node);
+  }
+
   setDefault() {
     if (this.dataSubject.value.length)
       this.defaultIds = [this.dataSubject.value[0].Id];

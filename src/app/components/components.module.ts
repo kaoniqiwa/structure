@@ -24,6 +24,8 @@ import { EventRecordCardComponent } from './event-record-card/event-record-card.
 import { PictureDetailComponent } from './picture-detail/picture-detail.component';
 import { MuckCarDetailComponent } from './muckcar-detail/muckcar-detail.component';
 import { CommonDetailComponent } from './common-detail/common-detail.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { CoordinateManageComponent } from './coordinate-manage/coordinate-manage.component';
 
 export const components = [
   AccountInfoComponent,
@@ -52,4 +54,6 @@ export const components = [
   PictureDetailComponent,
   MuckCarDetailComponent,
   CommonDetailComponent,
+  ConfirmDialogComponent,
+  CoordinateManageComponent,
 ];
