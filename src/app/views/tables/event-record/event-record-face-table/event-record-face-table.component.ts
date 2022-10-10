@@ -13,10 +13,9 @@ import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
-import { Duration } from 'src/app/models/duration.model';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { IModel } from 'src/app/models/model.interface';
-import { Page, PagedList } from 'src/app/models/page-list.model';
-import { DateTimeTool } from 'src/app/tools/datetime.tool';
+import { PagedList } from 'src/app/models/page-list.model';
 import { EventRecordFaceTableBusiness } from './event-record-face-table.business';
 import {
   EventRecordFaceTableArgs,
@@ -47,6 +46,8 @@ export class EventRecordFaceTableComponent
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  details: EventEmitter<EventRecord> = new EventEmitter();
 
   constructor(business: EventRecordFaceTableBusiness) {
     this.business = business;
@@ -69,18 +70,17 @@ export class EventRecordFaceTableComponent
     }
   }
   async loadData(args: EventRecordFaceTableArgs) {
-    let paged = await this.business.load(
-      args.duration,
-      args.page ? args.page.PageIndex : 1,
-      args.page?.PageSize,
-      args.name
-    );
+    let paged = await this.business.load(args);
     this.datas = paged.Data;
     this.loaded.emit(paged);
   }
   onpicture(e: Event, item: EventRecordFaceTableModel) {
     let args = PictureArgsConverter.Convert(item.data);
     this.picture.emit(args);
+    e.stopPropagation();
+  }
+  ondetails(e: Event, item: EventRecordFaceTableModel) {
+    this.details.emit(item.data);
     e.stopPropagation();
   }
   onplayback(e: Event, item: EventRecordFaceTableModel) {

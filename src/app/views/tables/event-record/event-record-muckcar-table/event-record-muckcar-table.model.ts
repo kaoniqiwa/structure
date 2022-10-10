@@ -12,7 +12,8 @@ export class EventRecordMuckCarTableModel<T = any> {
   backgroundImageUrl!: Promise<string>;
 }
 export class EventRecordMuckCarTableArgs {
-  page?: Page;
+  page: Page = new Page();
   name?: string;
   duration!: Duration;
+  cameraIds?: string[];
 }

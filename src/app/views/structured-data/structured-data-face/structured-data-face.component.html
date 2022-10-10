@@ -54,16 +54,21 @@
   >
   </app-face-detail> -->
 
-  <div class="window-head">
+  <!-- <div class="window-head">
     <div><i class="howell-icon-video-playback1"></i></div>
-  </div>
+  </div> -->
   <app-common-detail
     *ngIf="!!selected"
     [dataSource]="selected.data"
+    [config]="{
+      btnPlayback: true
+    }"
+    (playback)="onplayback($event)"
     (closeEvent)="onclosewindow()"
     (magnifyEvent)="onmagnify($event)"
+    (deploy)="ondeploy($event)"
   ></app-common-detail>
-  <div class="window-foot">
+  <!-- <div class="window-foot">
     <div class="hw-blue-btn">布控</div>
-  </div>
+  </div> -->
 </app-window>

@@ -34,6 +34,16 @@
     </div>
   </div>
   <div class="common-detail-footer vertical-footer">
-    <button class="hw-blue-btn" (click)="close()">确定</button>
+    <button
+      *ngIf="config.btnPlayback"
+      class="hw-cyan-btn"
+      (click)="onplayback()"
+    >
+      回放
+    </button>
+    <button *ngIf="config.btnDeploy" class="hw-cyan-btn" (click)="ondeploy()">
+      布控
+    </button>
+    <button class="hw-blue-btn" (click)="close()">关闭</button>
   </div>
 </div>

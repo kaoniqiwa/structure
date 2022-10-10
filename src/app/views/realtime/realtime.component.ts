@@ -68,4 +68,7 @@ export class RealtimeComponent implements OnInit {
       }
     }
   }
+  onButtonIconClicked(e: CommonFlatNode) {
+    console.log(e);
+  }
 }

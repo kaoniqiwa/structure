@@ -8,8 +8,8 @@
         <tr>
           <th>图片</th>
           <th>事件名称</th>
-          <th>摄像机名称</th>
           <th>人员姓名</th>
+          <th>摄像机名称</th>
           <th>上报时间</th>
           <th>操作</th>
         </tr>
@@ -39,11 +39,11 @@
             ></div>
           </td>
           <td>{{ item.eventName }}</td>
-          <td>{{ item.cameraName }}</td>
           <td>{{ item.personName }}</td>
+          <td>{{ item.cameraName }}</td>
           <td>{{ item.time | date_time_pipe }}</td>
           <td>
-            <span (click)="onpicture($event, item)">
+            <span (click)="ondetails($event, item)">
               <i class="howell-icon-picture"></i
             ></span>
             <span (click)="onplayback($event, item)">

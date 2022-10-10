@@ -1,8 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { PlayMode } from 'src/app/components/video-player/video.model';
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
+import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
 import { PictureArgs } from 'src/app/models/args/picture.args';
+import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { FaceRecord } from 'src/app/models/face-record.model';
 import { Page } from 'src/app/models/page-list.model';
 import { StructuredDataAbstractComponent } from '../structured-data-abstract.component';
 import { StructuredDataFaceQueryModel } from '../structured-data-face-query/structured-data-face-query.model';
@@ -25,6 +29,11 @@ export class StructuredDataFaceComponent
   extends StructuredDataAbstractComponent<StructuredDataItemModel>
   implements OnInit
 {
+  @Output()
+  playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  picture: EventEmitter<EventRecord> = new EventEmitter();
+
   constructor(private business: StructuredDataFaceBusiness) {
     super();
   }
@@ -52,5 +61,19 @@ export class StructuredDataFaceComponent
     let args = new PictureArgs();
     args.url = await src;
     this.image.emit(args);
+  }
+  onplayback(item: any) {
+    let record = item as FaceRecord;
+    let args = new VideoArgs();
+    args.autoplay = true;
+    args.cameraId = record.CameraId ?? '';
+    args.data = record;
+    args.mode = PlayMode.vod;
+    args.time = record.CaptureTime;
+    args.title = record.CameraName ?? '';
+    this.playback.emit(args);
+  }
+  ondeploy(item: any) {
+    this.business.load;
   }
 }

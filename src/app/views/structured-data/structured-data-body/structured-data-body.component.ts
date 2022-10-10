@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { PlayMode } from 'src/app/components/video-player/video.model';
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
+import { VideoArgs } from 'src/app/models/args/video.args';
+import { BodyRecord } from 'src/app/models/body-record.model';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 import { Page } from 'src/app/models/page-list.model';
 import { StructuredDataAbstractComponent } from '../structured-data-abstract.component';
@@ -18,6 +21,8 @@ export class StructuredDataBodyComponent
   extends StructuredDataAbstractComponent<StructuredDataItemModel>
   implements OnInit
 {
+  @Output()
+  playback: EventEmitter<VideoArgs> = new EventEmitter();
   constructor(private business: StructuredDataBodyBusiness) {
     super();
   }
@@ -40,5 +45,16 @@ export class StructuredDataBodyComponent
       console.log(paged.Data);
       this.datas = paged.Data;
     }
+  }
+  onplayback(item: any) {
+    let record = item as BodyRecord;
+    let args = new VideoArgs();
+    args.autoplay = true;
+    args.cameraId = record.CameraId ?? '';
+    args.data = record;
+    args.mode = PlayMode.vod;
+    args.time = record.CaptureTime;
+    args.title = record.CameraName ?? '';
+    this.playback.emit(args);
   }
 }

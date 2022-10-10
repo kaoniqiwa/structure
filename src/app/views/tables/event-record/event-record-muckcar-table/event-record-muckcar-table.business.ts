@@ -6,7 +6,10 @@ import { PagedList } from 'src/app/models/page-list.model';
 import { GetMuckCarEventRecordsParams } from 'src/app/network/request/events/events.params';
 import { EventRequestSerivce } from 'src/app/network/request/events/events.service';
 import { EventRecordMuckCarTableConverter } from './event-record-muckcar-table.converter';
-import { EventRecordMuckCarTableModel } from './event-record-muckcar-table.model';
+import {
+  EventRecordMuckCarTableArgs,
+  EventRecordMuckCarTableModel,
+} from './event-record-muckcar-table.model';
 
 @Injectable()
 export class EventRecordMuckCarTableBusiness
@@ -20,12 +23,15 @@ export class EventRecordMuckCarTableBusiness
   Converter = new EventRecordMuckCarTableConverter();
   loading?: EventEmitter<void> | undefined;
   async load(
-    duration: Duration,
-    index: number,
-    size: number = 10,
-    name?: string
+    args: EventRecordMuckCarTableArgs
   ): Promise<PagedList<EventRecordMuckCarTableModel>> {
-    let data = await this.getData(duration, index, size, name);
+    let data = await this.getData(
+      args.duration,
+      args.page.PageIndex,
+      args.page.PageSize,
+      args.cameraIds,
+      args.name
+    );
     let model = this.Converter.Convert(data);
     return model;
   }
@@ -33,6 +39,7 @@ export class EventRecordMuckCarTableBusiness
     duration: Duration,
     index: number,
     size: number,
+    cameraIds?: string[],
     name?: string
   ): Promise<PagedList<MuckCarEventRecord>> {
     let params = new GetMuckCarEventRecordsParams();
@@ -41,6 +48,7 @@ export class EventRecordMuckCarTableBusiness
     params.PageIndex = index;
     params.PageSize = size;
     params.ResourceName = name;
+    params.ResourceIds = cameraIds;
     return this.service.record.muckCar.list(params);
   }
 }

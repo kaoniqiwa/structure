@@ -2,7 +2,7 @@
   <div class="structured-data-item-wrapper vertical-layout">
     <div class="vertical-main">
       <img
-        [src]="model.images[0] | async"
+        [src]="model.images.length > 0 ? (model.images[0] | async) : ''"
         alt=""
         (click)="onimage($event, 0)"
       />

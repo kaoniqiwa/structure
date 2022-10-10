@@ -45,16 +45,19 @@
     <ng-container *ngIf="path === DeployType.face">
       <app-structured-data-face
         (image)="onimage($event)"
+        (playback)="onplayback($event)"
       ></app-structured-data-face>
     </ng-container>
     <ng-container *ngIf="path === DeployType.body">
       <app-structured-data-body
         (image)="onimage($event)"
+        (playback)="onplayback($event)"
       ></app-structured-data-body>
     </ng-container>
     <ng-container *ngIf="path === DeployType.vehicle">
       <app-structured-data-vehicle
         (image)="onimage($event)"
+        (playback)="onplayback($event)"
       ></app-structured-data-vehicle>
     </ng-container>
   </div>

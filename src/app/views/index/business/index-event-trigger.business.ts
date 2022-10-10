@@ -14,9 +14,11 @@ export class IndexEventTriggerBusiness {
   constructor(window: IndexWindowBusiness, video: VideoControlWindowBusiness) {
     this.realtime = new RealTimeTrigger(window, video);
     this.structured = new StructuredDataTrigger(window);
+    this.record = new EventRecordTrigger(window);
   }
   realtime: RealTimeTrigger;
   structured: StructuredDataTrigger;
+  record: EventRecordTrigger;
 }
 
 class RealTimeTrigger {
@@ -60,6 +62,29 @@ class StructuredDataTrigger {
     };
 
     this.window.picture.show = true;
+  }
+  onplayback(args: VideoArgs) {
+    this.window.video.mode = PlayMode.vod;
+    this.window.video.cameraId = args.cameraId;
+    this.window.video.title = args.title;
+    this.window.video.autoplay = args.autoplay;
+    this.window.video.time = args.time;
+    this.window.video.show = true;
+  }
+}
+class EventRecordTrigger {
+  constructor(private window: IndexWindowBusiness) {}
+  ondetails(args: EventRecord) {
+    this.window.details.record = args;
+    this.window.details.show = true;
+  }
+  onplayback(args: VideoArgs) {
+    this.window.video.mode = PlayMode.vod;
+    this.window.video.cameraId = args.cameraId;
+    this.window.video.title = args.title;
+    this.window.video.autoplay = args.autoplay;
+    this.window.video.time = args.time;
+    this.window.video.show = true;
   }
 }
 // class RecordTrigger {

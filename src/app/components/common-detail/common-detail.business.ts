@@ -7,8 +7,8 @@ import { CommonDetailConverter } from './common-detail.converter';
 export class CommonDetailBusiness {
   constructor(private _converter: CommonDetailConverter) {}
 
-  async init(data: IModel) {
-    let res = await this._converter.Convert(data);
+  init(data: IModel) {
+    let res = this._converter.Convert(data);
     return res;
   }
 }

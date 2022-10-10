@@ -21,7 +21,7 @@ import { VehicleRecord } from 'src/app/models/vehicle-record.model';
   providedIn: 'root',
 })
 export class CommonDetailConverter {
-  Convert(source: IModel, ...res: any[]): Promise<CommonDetailModel> {
+  Convert(source: IModel, ...res: any[]): CommonDetailModel {
     if (source instanceof FaceEventRecord) {
       return this._fromFaceEventRecord(source);
     } else if (source instanceof VehicleEventRecord) {
@@ -37,7 +37,7 @@ export class CommonDetailConverter {
     }
     throw new Error('Error');
   }
-  private async _fromFaceEventRecord(item: FaceEventRecord) {
+  private _fromFaceEventRecord(item: FaceEventRecord) {
     let model = new CommonDetailModel();
     model.Title = '人脸布控报警';
     model.ContainerWidth = 655;
@@ -47,10 +47,8 @@ export class CommonDetailConverter {
     // model.ImageUrl = 'assets/img/sample-face.png';
     // model.BackgroundImageUrl = 'assets/img/sample-face.png';
 
-    model.ImageUrl = (await Medium.image(item.ImageUrl)).url;
-    model.BackgroundImageUrl = (
-      await Medium.image(item.Data.BackgroundImageUrl)
-    ).url;
+    model.ImageUrl = Medium.img(item.ImageUrl);
+    model.BackgroundImageUrl = Medium.img(item.Data.BackgroundImageUrl);
     model.Records = [
       {
         Icon: 'howell-icon-alarm3',
@@ -74,7 +72,7 @@ export class CommonDetailConverter {
         PropertyValue: item.Data.CertificateNumber ?? '未知',
       },
       {
-        Icon: 'howell-icon-camera',
+        Icon: 'howell-icon-video',
         PropertyDes: '抓拍相机',
         PropertyValue: item.ResourceName ?? '未知',
       },
@@ -89,7 +87,7 @@ export class CommonDetailConverter {
     return model;
   }
 
-  private async _fromVehicleEventRecord(item: VehicleEventRecord) {
+  private _fromVehicleEventRecord(item: VehicleEventRecord) {
     let model = new CommonDetailModel();
     model.Title = '车辆布控报警';
     model.ContainerWidth = 820;
@@ -97,8 +95,8 @@ export class CommonDetailConverter {
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 
-    model.ImageUrl = (await Medium.image(item.ImageUrl)).url;
-    model.BackgroundImageUrl = (await Medium.image(item.ImageUrl)).url;
+    model.ImageUrl = Medium.img(item.ImageUrl);
+    model.BackgroundImageUrl = Medium.img(item.ImageUrl);
     model.Records = [
       {
         Icon: 'howell-icon-license_plate',
@@ -176,7 +174,7 @@ export class CommonDetailConverter {
     return model;
   }
 
-  private async _fromMuckCarEventRecord(item: MuckCarEventRecord) {
+  private _fromMuckCarEventRecord(item: MuckCarEventRecord) {
     let model = new CommonDetailModel();
     model.Title = '渣土车布控报警';
     model.ContainerWidth = 655;
@@ -184,10 +182,8 @@ export class CommonDetailConverter {
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.One;
 
-    model.ImageUrl = (await Medium.image(item.Data.ThumbnailUrl)).url;
-    model.BackgroundImageUrl = (
-      await Medium.image(item.Data.BackgroundImageUrl)
-    ).url;
+    model.ImageUrl = Medium.img(item.Data.ThumbnailUrl);
+    model.BackgroundImageUrl = Medium.img(item.Data.BackgroundImageUrl);
     model.Records = [
       {
         Icon: 'howell-icon-license_plate',
@@ -215,7 +211,7 @@ export class CommonDetailConverter {
     return model;
   }
 
-  private async _fromBodyRecord(item: BodyRecord) {
+  private _fromBodyRecord(item: BodyRecord) {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
     model.ContainerWidth = 820;
@@ -302,7 +298,7 @@ export class CommonDetailConverter {
     return model;
   }
 
-  private async _fromFaceRecord(item: FaceRecord) {
+  private _fromFaceRecord(item: FaceRecord) {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
     model.ContainerWidth = 655;
@@ -354,7 +350,7 @@ export class CommonDetailConverter {
     return model;
   }
 
-  private async _fromVehicleRecord(item: VehicleRecord) {
+  private _fromVehicleRecord(item: VehicleRecord) {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
     model.ContainerWidth = 820;

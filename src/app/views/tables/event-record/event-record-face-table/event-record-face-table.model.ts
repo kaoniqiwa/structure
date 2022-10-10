@@ -14,7 +14,8 @@ export class EventRecordFaceTableModel<T = any> {
   backgroundImageUrl!: Promise<string>;
 }
 export class EventRecordFaceTableArgs {
-  page?: Page;
+  page: Page = new Page();
   name?: string;
   duration!: Duration;
+  cameraIds?: string[];
 }

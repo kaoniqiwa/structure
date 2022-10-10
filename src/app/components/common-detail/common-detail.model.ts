@@ -16,3 +16,7 @@ export class CommonDetailRecord {
   PropertyDes!: string;
   PropertyValue!: string;
 }
+export class CommonDetailConfig {
+  btnPlayback?: boolean = false;
+  btnDeploy?: boolean = false;
+}

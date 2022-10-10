@@ -1,10 +1,8 @@
-<div class="event-record-vehicle">
-  <div class="event-record-vehicle-head">
-    <div class="event-record-vehicle-head-filter">
-      <div class="event-record-vehicle-head-filter-item date">
-        <div class="event-record-vehicle-head-filter-item-title">
-          开始时间：
-        </div>
+<div class="event-record-item">
+  <div class="event-record-item-head">
+    <div class="event-record-item-head-filter">
+      <div class="event-record-item-head-filter-item date">
+        <div class="event-record-item-head-filter-item-title">开始时间：</div>
         <input
           type="text"
           DateTimePicker
@@ -16,10 +14,8 @@
           class=""
         />
       </div>
-      <div class="event-record-vehicle-head-filter-item date">
-        <div class="event-record-vehicle-head-filter-item-title">
-          结束时间：
-        </div>
+      <div class="event-record-item-head-filter-item date">
+        <div class="event-record-item-head-filter-item-title">结束时间：</div>
 
         <input
           type="text"
@@ -32,18 +28,46 @@
           class=""
         />
       </div>
+      <div class="event-record-item-head-filter-item">
+        <div class="event-record-item-head-filter-item-title">摄像机：</div>
+
+        <div class="event-record-item-head-filter-item-node">
+          <mat-chip-list
+            #chipList
+            aria-label="Fruit selection"
+            [aria-orientation]="'horizontal'"
+            (click)="onchiplistclicked($event)"
+          >
+            <span *ngIf="!nodes || nodes.length == 0">请选择</span>
+            <mat-chip *ngFor="let item of nodes" (removed)="remove(item)">
+              {{ item.Name }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-list>
+
+          <div class="tree" *ngIf="expand">
+            <howell-region-tree
+              (selectTreeNode)="onNodeSelected($event)"
+            ></howell-region-tree>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="event-record-vehicle-head-search">
+    <div class="event-record-item-head-search">
       <button class="hw-blue-btn" (click)="onsearch()">搜索</button>
     </div>
   </div>
-  <div class="event-record-vehicle-content">
+  <div class="event-record-item-content">
     <app-event-record-vehicle-table
       [load]="load"
       (loaded)="onloaded($event)"
+      (details)="ondetails($event)"
+      (playback)="onplayback($event)"
     ></app-event-record-vehicle-table>
   </div>
-  <div class="event-record-vehicle-foot" *ngIf="page">
+  <div class="event-record-item-foot" *ngIf="page">
     <div>
       <span class="count-title">总数量：</span
       ><span class="count">{{ page.TotalRecordCount }}</span>

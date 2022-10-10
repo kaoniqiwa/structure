@@ -59,6 +59,10 @@
   <app-common-detail
     *ngIf="!!selected"
     [dataSource]="selected.data"
+    [config]="{
+      btnPlayback: true
+    }"
+    (playback)="onplayback($event)"
     (closeEvent)="onclosewindow()"
   ></app-common-detail>
 </app-window>

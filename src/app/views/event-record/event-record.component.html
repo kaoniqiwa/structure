@@ -1,46 +1,62 @@
 <div class="event-record">
   <div class="event-record-head">
-    <div class="hw-second-title">报警事件</div>
-    <div class="tab-labels">
-      <div
-        class="tab"
-        [ngClass]="{
-          active: path === EventRecordType.face
-        }"
-        (click)="navigation(EventRecordType.face)"
-      >
-        人脸
-      </div>
-      <div
-        class="tab"
-        [ngClass]="{
-          active: path === EventRecordType.vehicle
-        }"
-        (click)="navigation(EventRecordType.vehicle)"
-      >
-        车辆
-      </div>
+    <div class="event-record-head-left">
+      <div class="hw-second-title">报警事件</div>
+      <div class="tab-labels">
+        <div
+          class="tab"
+          [ngClass]="{
+            active: path === EventRecordType.face
+          }"
+          (click)="navigation(EventRecordType.face)"
+        >
+          人脸
+        </div>
+        <div
+          class="tab"
+          [ngClass]="{
+            active: path === EventRecordType.vehicle
+          }"
+          (click)="navigation(EventRecordType.vehicle)"
+        >
+          车辆
+        </div>
 
-      <div
-        class="tab"
-        [ngClass]="{
-          active: path === EventRecordType.muckcar
-        }"
-        (click)="navigation(EventRecordType.muckcar)"
-      >
-        渣土车
+        <div
+          class="tab"
+          [ngClass]="{
+            active: path === EventRecordType.muckcar
+          }"
+          (click)="navigation(EventRecordType.muckcar)"
+        >
+          渣土车
+        </div>
       </div>
+    </div>
+    <div class="filter">
+      <!-- <button class="hw-cyan-btn" style="width: 72px">
+        <i class="mdi mdi-filter-outline"></i>
+      </button> -->
     </div>
   </div>
   <div class="event-record-content">
     <ng-container *ngIf="path === EventRecordType.face">
-      <app-event-record-face></app-event-record-face>
+      <app-event-record-face
+        (details)="ondetails($event)"
+        (playback)="onplayback($event)"
+      ></app-event-record-face>
     </ng-container>
     <ng-container *ngIf="path === EventRecordType.vehicle">
-      <app-event-record-vehicle></app-event-record-vehicle>
+      <app-event-record-vehicle
+        (details)="ondetails($event)"
+        (playback)="onplayback($event)"
+      ></app-event-record-vehicle>
     </ng-container>
     <ng-container *ngIf="path === EventRecordType.muckcar">
-      <app-event-record-muckcar></app-event-record-muckcar>
+      <app-event-record-muckcar
+        (details)="ondetails($event)"
+        (playback)="onplayback($event)"
+      ></app-event-record-muckcar>
     </ng-container>
   </div>
 </div>

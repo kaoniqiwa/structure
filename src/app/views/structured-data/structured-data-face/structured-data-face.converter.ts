@@ -52,7 +52,7 @@ class StructuredDataFaceItemConverter
         name: source.AgeGroupName ?? '',
       },
       {
-        icon: 'howell-icon-camera',
+        icon: 'howell-icon-video',
         name: source.CameraName ?? '',
       },
       {

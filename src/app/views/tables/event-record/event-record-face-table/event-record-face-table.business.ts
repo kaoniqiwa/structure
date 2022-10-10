@@ -10,7 +10,10 @@ import { PagedList } from 'src/app/models/page-list.model';
 import { GetFaceEventRecordsParams } from 'src/app/network/request/events/events.params';
 import { EventRequestSerivce } from 'src/app/network/request/events/events.service';
 import { EventRecordFaceTableConverter } from './event-record-face-table.converter';
-import { EventRecordFaceTableModel } from './event-record-face-table.model';
+import {
+  EventRecordFaceTableArgs,
+  EventRecordFaceTableModel,
+} from './event-record-face-table.model';
 
 @Injectable()
 export class EventRecordFaceTableBusiness
@@ -21,12 +24,15 @@ export class EventRecordFaceTableBusiness
   Converter = new EventRecordFaceTableConverter();
   loading?: EventEmitter<void> | undefined;
   async load(
-    duration: Duration,
-    index: number,
-    size: number = 10,
-    name?: string
+    args: EventRecordFaceTableArgs
   ): Promise<PagedList<EventRecordFaceTableModel>> {
-    let data = await this.getData(duration, index, size, name);
+    let data = await this.getData(
+      args.duration,
+      args.page.PageIndex,
+      args.page.PageSize,
+      args.cameraIds,
+      args.name
+    );
     let model = this.Converter.Convert(data);
     return model;
   }
@@ -34,6 +40,7 @@ export class EventRecordFaceTableBusiness
     duration: Duration,
     index: number,
     size: number,
+    cameraIds?: string[],
     name?: string
   ): Promise<PagedList<FaceEventRecord>> {
     let params = new GetFaceEventRecordsParams();
@@ -42,6 +49,7 @@ export class EventRecordFaceTableBusiness
     params.PageIndex = index;
     params.PageSize = size;
     params.ResourceName = name;
+    params.ResourceIds = cameraIds;
     return this.service.record.face.list(params);
   }
 }

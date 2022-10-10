@@ -51,6 +51,8 @@ export class DeployInfoComponent implements OnInit {
     this.showToast = false;
   }
   onclicked() {
-    this.infoClick.emit(this.eventRecord);
+    if (this.eventRecord) {
+      this.infoClick.emit(this.eventRecord);
+    }
   }
 }

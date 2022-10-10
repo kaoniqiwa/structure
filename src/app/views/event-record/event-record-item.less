@@ -1,4 +1,4 @@
-.event-record-vehicle {
+.event-record-item {
   height: 100%;
   width: 100%;
 
@@ -28,6 +28,11 @@
           font-size: 16px;
           white-space: nowrap;
         }
+
+        &-node {
+          position: relative;
+          width: 250px;
+        }
       }
     }
   }
@@ -50,4 +55,12 @@
       color: white
     }
   }
+}
+
+.tree {
+  position: absolute;
+  background-color: #0e1027;
+  border: 1px solid #5e6ebf;
+  width: 100%;
+  z-index: 1;
 }

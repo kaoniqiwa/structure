@@ -13,6 +13,7 @@ import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { EventRecord } from 'src/app/models/event-record/event.record';
 import { IModel } from 'src/app/models/model.interface';
 import { PagedList } from 'src/app/models/page-list.model';
 import { EventRecordVehicleTableBusiness } from './event-record-vehicle-table.business';
@@ -48,6 +49,8 @@ export class EventRecordVehicleTableComponent
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  details: EventEmitter<EventRecord> = new EventEmitter();
 
   constructor(business: EventRecordVehicleTableBusiness) {
     this.business = business;
@@ -70,12 +73,7 @@ export class EventRecordVehicleTableComponent
     }
   }
   async loadData(args: EventRecordVehicleTableArgs) {
-    let paged = await this.business.load(
-      args.duration,
-      args.page ? args.page.PageIndex : 1,
-      args.page?.PageSize,
-      args.name
-    );
+    let paged = await this.business.load(args);
     this.datas = paged.Data;
     this.loaded.emit(paged);
   }
@@ -87,6 +85,10 @@ export class EventRecordVehicleTableComponent
   onplayback(e: Event, item: EventRecordVehicleTableModel) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
+    e.stopPropagation();
+  }
+  ondetails(e: Event, item: EventRecordVehicleTableModel) {
+    this.details.emit(item.data);
     e.stopPropagation();
   }
   onitemclicked(item: EventRecordVehicleTableModel) {}

@@ -56,7 +56,7 @@ export class StructuredDataVehicleItemConverter
         name: source.VehicleColorName ?? '',
       },
       {
-        icon: 'howell-icon-camera',
+        icon: 'howell-icon-video',
         name: source.CameraName ?? '',
       },
       {

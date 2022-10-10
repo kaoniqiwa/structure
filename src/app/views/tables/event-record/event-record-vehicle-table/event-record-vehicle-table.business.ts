@@ -11,7 +11,10 @@ import { PagedList } from 'src/app/models/page-list.model';
 import { GetVehicleEventRecordsParams } from 'src/app/network/request/events/events.params';
 import { EventRequestSerivce } from 'src/app/network/request/events/events.service';
 import { EventRecordVehicleTableConverter } from './event-record-vehicle-table.converter';
-import { EventRecordVehicleTableModel } from './event-record-vehicle-table.model';
+import {
+  EventRecordVehicleTableArgs,
+  EventRecordVehicleTableModel,
+} from './event-record-vehicle-table.model';
 
 @Injectable()
 export class EventRecordVehicleTableBusiness
@@ -25,12 +28,15 @@ export class EventRecordVehicleTableBusiness
   Converter = new EventRecordVehicleTableConverter();
   loading?: EventEmitter<void> | undefined;
   async load(
-    duration: Duration,
-    index: number,
-    size: number = 10,
-    name?: string
+    args: EventRecordVehicleTableArgs
   ): Promise<PagedList<EventRecordVehicleTableModel>> {
-    let data = await this.getData(duration, index, size, name);
+    let data = await this.getData(
+      args.duration,
+      args.page.PageIndex,
+      args.page.PageSize,
+      args.cameraIds,
+      args.name
+    );
     let model = this.Converter.Convert(data);
     return model;
   }
@@ -38,6 +44,7 @@ export class EventRecordVehicleTableBusiness
     duration: Duration,
     index: number,
     size: number,
+    cameraIds?: string[],
     name?: string
   ): Promise<PagedList<VehicleEventRecord>> {
     let params = new GetVehicleEventRecordsParams();
@@ -46,6 +53,7 @@ export class EventRecordVehicleTableBusiness
     params.PageIndex = index;
     params.PageSize = size;
     params.ResourceName = name;
+    params.ResourceIds = cameraIds;
     return this.service.record.vehicle.list(params);
   }
 }

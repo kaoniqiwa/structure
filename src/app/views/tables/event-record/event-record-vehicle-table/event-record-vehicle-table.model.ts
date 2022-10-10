@@ -12,7 +12,8 @@ export class EventRecordVehicleTableModel<T = any> {
   plateImageUrl!: Promise<string>;
 }
 export class EventRecordVehicleTableArgs {
-  page?: Page;
+  page: Page = new Page();
   name?: string;
   duration!: Duration;
+  cameraIds?: string[];
 }
