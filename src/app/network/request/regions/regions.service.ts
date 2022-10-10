@@ -55,16 +55,16 @@ class RegionsNodesRequestService {
     let url = RegionsUrl.node(regionId).basic();
     return this.type.getArray(url);
   }
-  create(regionId: string, node: RegionNode) {
-    let url = RegionsUrl.node(regionId).basic();
+  create(node: RegionNode) {
+    let url = RegionsUrl.node(node.RegionId).basic();
     return this.type.post(url, node);
   }
   get(regionId: string, nodeId: string): Promise<RegionNode> {
     let url = RegionsUrl.node(regionId).item(nodeId);
     return this.type.get(url);
   }
-  set(regionId: string, node: RegionNode) {
-    let url = RegionsUrl.node(regionId).item(node.Id);
+  set(node: RegionNode) {
+    let url = RegionsUrl.node(node.RegionId).item(node.Id);
     return this.type.put(url, node);
   }
   delete(regionId: string, nodeId: string) {
