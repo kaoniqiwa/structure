@@ -1,0 +1,38 @@
+<div class="deploy-form">
+  <div class="hw-simple-title">创建布控对象</div>
+  <div class="deploy-form-content">
+    <div class="deploy-form-content-img">
+      <img [src]="params.ImageData" alt="" />
+    </div>
+    <div class="deploy-form-content-list">
+      <div class="deploy-form-content-list-item">
+        <div>姓名：</div>
+        <div><input type="text" [(ngModel)]="params.Name" /></div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div>性别：</div>
+        <div>
+          <select [(ngModel)]="params.Gender">
+            <option [value]="item.Value" *ngFor="let item of genders">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div>证件类型：</div>
+        <div>
+          <select [(ngModel)]="params.CertificateType">
+            <option [value]="item.Value" *ngFor="let item of certificateTypes">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deploy-form-foot">
+    <button class="hw-green-btn">确定</button>
+    <button class="hw-blue-btn">取消</button>
+  </div>
+</div>

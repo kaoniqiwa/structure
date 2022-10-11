@@ -73,7 +73,4 @@ export class StructuredDataFaceComponent
     args.title = record.CameraName ?? '';
     this.playback.emit(args);
   }
-  ondeploy(item: any) {
-    this.business.load;
-  }
 }

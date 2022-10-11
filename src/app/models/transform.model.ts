@@ -75,6 +75,7 @@ export function transformRecordName(params: TransformFnParams) {
     switch (params.value) {
       case undefined:
       case 'unknown':
+      case '':
         return '未知';
       default:
         return params.value;

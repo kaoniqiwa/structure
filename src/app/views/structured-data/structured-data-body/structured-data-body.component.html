@@ -46,7 +46,11 @@
     </div>
   </div>
 </div>
-<app-window [Model]="window" [style]="style" *ngIf="window.show">
+<app-window
+  [Model]="window.details"
+  [style]="style"
+  *ngIf="window.details.show"
+>
   <app-common-detail
     *ngIf="!!selected"
     [dataSource]="selected.data"

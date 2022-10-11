@@ -91,7 +91,7 @@ export class CommonDetailConverter {
     let model = new CommonDetailModel();
     model.Title = '车辆布控报警';
     model.ContainerWidth = 820;
-    model.ContainerHeight = 550;
+    model.ContainerHeight = 470;
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 
@@ -112,7 +112,7 @@ export class CommonDetailConverter {
       {
         Icon: 'howell-icon-color',
         PropertyDes: '车牌颜色',
-        PropertyValue: item.Data.PlateColor ?? '未知',
+        PropertyValue: item.Data.PlateColorName ?? '未知',
       },
       {
         Icon: 'howell-icon-color',
@@ -122,7 +122,7 @@ export class CommonDetailConverter {
       {
         Icon: 'howell-icon-license_plate',
         PropertyDes: '车牌类型',
-        PropertyValue: item.Data.PlateType ?? '未知',
+        PropertyValue: item.Data.PlateTypeName ?? '未知',
       },
       {
         Icon: 'howell-icon-car2',
@@ -215,7 +215,7 @@ export class CommonDetailConverter {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
     model.ContainerWidth = 820;
-    model.ContainerHeight = 550;
+    model.ContainerHeight = 470;
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 
@@ -337,7 +337,11 @@ export class CommonDetailConverter {
         PropertyDes: '是否微笑',
         PropertyValue: item.SmileName ?? '未知',
       },
-
+      {
+        Icon: 'howell-icon-video',
+        PropertyDes: '抓拍摄像机',
+        PropertyValue: item.CameraName ?? '未知',
+      },
       {
         Icon: 'howell-icon-time',
         PropertyDes: '抓拍时间',
@@ -354,7 +358,7 @@ export class CommonDetailConverter {
     let model = new CommonDetailModel();
     model.Title = '详细信息';
     model.ContainerWidth = 820;
-    model.ContainerHeight = 550;
+    model.ContainerHeight = 460;
     model.LeftWidth = 180;
     model.LinePerRecord = LinePerRecord.Two;
 

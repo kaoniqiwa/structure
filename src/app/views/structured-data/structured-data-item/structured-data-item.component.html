@@ -1,11 +1,18 @@
 <div class="structured-data-item" (click)="onclick($event)">
   <div class="structured-data-item-wrapper vertical-layout">
     <div class="vertical-main">
-      <img
+      <!-- <img
         [src]="model.images.length > 0 ? (model.images[0] | async) : ''"
         alt=""
         (click)="onimage($event, 0)"
-      />
+      /> -->
+      <div
+        class="img"
+        [ngStyle]="{
+          backgroundImage: 'url(' + (model.images[0] | async) + ')'
+        }"
+        (click)="onimage($event, 0)"
+      ></div>
     </div>
     <div class="structured-data-item-footer">
       <div><i [class]="model.datas[0].icon"></i>{{ model.datas[0].name }}</div>
@@ -14,11 +21,13 @@
   </div>
   <div class="structured-data-item-wrapper vertical-layout">
     <div class="vertical-main">
-      <img
-        [src]="model.images[1] | async"
-        alt=""
+      <div
+        class="img"
+        [ngStyle]="{
+          backgroundImage: 'url(' + (model.images[1] | async) + ')'
+        }"
         (click)="onimage($event, 1)"
-      />
+      ></div>
     </div>
     <div class="structured-data-item-footer">
       <div><i [class]="model.datas[2].icon"></i>{{ model.datas[2].name }}</div>

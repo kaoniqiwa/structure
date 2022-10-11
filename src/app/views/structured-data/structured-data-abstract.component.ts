@@ -12,7 +12,10 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   page?: Page;
   datas: TModel[] = [];
   selected?: TModel;
-  window: WindowViewModel = new WindowViewModel();
+  window = {
+    details: new WindowViewModel(),
+    deploy: new WindowViewModel(),
+  };
   async onImageClicked(item: StructuredDataItemImageArgs) {
     if (item.model && item.index != undefined) {
       let args = new PictureArgs();
@@ -36,9 +39,13 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   }
   onselected(item: TModel) {
     this.selected = item;
-    this.window.show = true;
+    this.window.details.show = true;
   }
   onclosewindow() {
-    this.window.show = false;
+    this.window.details.show = false;
+  }
+
+  ondeploy(item: any) {
+    this.window.deploy.show = true;
   }
 }

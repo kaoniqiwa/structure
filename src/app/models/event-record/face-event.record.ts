@@ -1,7 +1,8 @@
-import { Gender } from 'src/app/enums/gender.enum';
+import { Transform, Type } from 'class-transformer';
 import { IModel } from '../model.interface';
+import { transformRecordName } from '../transform.model';
 import { EventRecord } from './event.record';
-
+import 'reflect-metadata';
 /** FaceEventData (人脸事件数据) */
 export class FaceEventData implements IModel {
   /**	String	布控任务名称	O	*/
@@ -29,13 +30,15 @@ export class FaceEventData implements IModel {
   CertificateType?: number;
 
   /**	String	证件类型名称	O	*/
+  @Transform(transformRecordName)
   CertificateTypeName?: string;
   /**	String	证件号码	O	*/
   CertificateNumber?: string;
   /**	String	性别：common.human_gender	O	*/
-  RegisterGender?: Gender;
+  RegisterGender?: string;
 
   /**	String	性别名称	O	*/
+  @Transform(transformRecordName)
   RegisterGenderName?: string;
 }
 
@@ -43,5 +46,6 @@ export class FaceEventData implements IModel {
  */
 export class FaceEventRecord extends EventRecord implements IModel {
   /**	FaceEventData	人脸事件内容	M	*/
+  @Type(() => FaceEventData)
   Data!: FaceEventData;
 }
