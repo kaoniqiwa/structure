@@ -5,21 +5,28 @@
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-  justify-content: space-between;
 
   .hw-form-group {
     margin-bottom: 15px;
-
+    // flex-wrap: wrap;
     display: flex;
-    // flex-direction: column;
-    flex-basis: 49%;
-    > .title {
-      margin-bottom: 5px;
+    flex-basis: 100%;
+
+    .title {
+      flex-basis: 10%;
       margin-right: 5px;
+      text-align: right;
+    }
+    .content {
+      flex-grow: 1;
     }
   }
   &.vertical .hw-form-group {
-    flex-basis: 60%;
+    flex-direction: column;
+
+    .title {
+      text-align: left;
+    }
   }
 }
 

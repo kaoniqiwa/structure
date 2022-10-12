@@ -1,0 +1,37 @@
+<div class="device-list vertical-layout">
+  <div class="vertical-header">
+    <div class="left-wrapper">
+      <div class="title">配置设置</div>
+      <div class="tab-labels">
+        <div
+          class="tab"
+          [class.active]="path == 'depoly_map'"
+          (click)="path = 'depoly_map'"
+        >
+          地图布控
+        </div>
+        <div
+          class="tab"
+          [class.active]="path == 'region_manage'"
+          (click)="path = 'region_manage'"
+        >
+          区域管理
+        </div>
+        <div
+          class="tab"
+          [class.active]="path == 'region_node_manage'"
+          (click)="path = 'region_node_manage'"
+        >
+          监控点管理
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="vertical-main">
+    <deploy-map *ngIf="path == 'depoly_map'"></deploy-map>
+    <region-manage *ngIf="path == 'region_manage'"></region-manage>
+    <region-node-manage
+      *ngIf="path == 'region_node_manage'"
+    ></region-node-manage>
+  </div>
+</div>

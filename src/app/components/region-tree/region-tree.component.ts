@@ -10,6 +10,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
+import { Deduplication } from 'src/app/tools/deduplication';
 import { CommonFlatNode } from '../common-tree/common-flat-node.model';
 import { CommonTree } from '../common-tree/common-tree';
 import { CommonTreeComponent } from '../common-tree/common-tree.component';
@@ -23,7 +24,12 @@ import { RegionTreeBusiness } from './region-tree.business';
 })
 export class RegionTreeComponent extends CommonTree implements OnInit {
   private _condition: string = '';
+  private _searchGuards: string[] = ['街道', '路居委会'];
+
   private _excludeGuards: string[] = [];
+
+  @Input()
+  showRegionNode = false;
 
   @Input() showButtonIcon = false;
 
@@ -55,6 +61,9 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
     private _toastrService: ToastrService
   ) {
     super();
+    this._excludeGuards = Deduplication.generateExcludeArray(
+      this._searchGuards
+    );
   }
 
   ngOnInit(): void {
@@ -63,6 +72,7 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
 
   private async _init() {
     this._nestedNodeMap = this._business.nestedNodeMap;
+    this._business.showRegionNode = this.showRegionNode;
 
     let res = await this._business.init(this._condition);
     this.dataSubject.next(res);

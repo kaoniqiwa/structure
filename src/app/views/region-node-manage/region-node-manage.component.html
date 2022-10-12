@@ -1,0 +1,117 @@
+<div class="garbage-station-manage horizontal-layout">
+  <!-- <ng-container *ngIf="showOperate">
+    <toast-window>
+      <howell-garbage-station-operate
+        [state]="state"
+        [stationId]="stationId"
+        [divisionId]="divisionId"
+        (closeEvent)="closeForm($event)"
+      ></howell-garbage-station-operate>
+    </toast-window>
+  </ng-container>
+  <ng-container *ngIf="showConfirm">
+    <howell-confirm-dialog
+      (dialogMsgEvent)="dialogMsgEvent($event)"
+      [dialogModel]="dialogModel"
+    >
+    </howell-confirm-dialog>
+  </ng-container> -->
+
+  <toast-window
+    *ngIf="showOperate"
+    (closeEvent)="closeEvent($event)"
+    [showClose]="true"
+  >
+    <region-node-operate
+      [regionId]="regionId"
+      [state]="state"
+      (closeEvent)="closeEvent($event)"
+    ></region-node-operate>
+  </toast-window>
+
+  <div class="horizontal-left">
+    <div class="hw-simple-title" style="margin-bottom: 10px">区域列表</div>
+    <div class="tree-container">
+      <howell-region-tree
+        #tree
+        (selectTreeNode)="selectTreeNode($event)"
+      ></howell-region-tree>
+    </div>
+  </div>
+  <div class="horizontal-right">
+    <div class="vertical-layout">
+      <div class="vertical-header">
+        <div class="hw-simple-title">监控点列表</div>
+        <div class="operate-bar wrap">
+          <div class="hw-normal-btn-group">
+            <button
+              class="hw-btn hw-green-btn"
+              [disabled]="!enableAddBtn"
+              (click)="addBtnClick()"
+            >
+              <i class="howell-icon-plus"></i>
+              添加
+            </button>
+            <button
+              class="hw-btn hw-red-btn"
+              [disabled]="!enableDelBtn"
+              (click)="deleteBtnClick()"
+            >
+              <i class="howell-icon-delete-bin"></i>
+              删除
+            </button>
+          </div>
+
+          <div class="search-wrapper">
+            <howell-simple-search
+              placeHolder="监控点名称"
+              (searchEvent)="searchEvent($event)"
+            ></howell-simple-search>
+          </div>
+        </div>
+      </div>
+
+      <div class="vertical-main">
+        <common-table
+          [dataSubject]="dataSubject"
+          [columnModel]="columnModel"
+          [displayedColumns]="displayedColumns"
+          [selectStrategy]="selectStrategy"
+          [tableOperates]="tableOperates"
+          (selectTableRow)="selectTableRow($event)"
+        ></common-table>
+      </div>
+
+      <div class="vertical-footer">
+        <div class="left-wrapper">
+          <div class="footer-item">
+            <app-table-select (tableSelect)="tableSelect($event)">
+            </app-table-select>
+          </div>
+        </div>
+        <div class="right-wrapper">
+          <div class="footer-item">
+            <div class="footer-info">
+              <div class="info-item">已选择: {{ selectedRows.length }}</div>
+              <div class="info-item">
+                当前数量: {{ page && page.RecordCount }}
+              </div>
+              <div class="info-item">
+                总数量: {{ page && page.TotalRecordCount }}
+              </div>
+            </div>
+            <app-paginator
+              *ngIf="page"
+              [length]="page.TotalRecordCount"
+              [pageSize]="page.PageSize"
+              [pagerCount]="pagerCount"
+              [pageIndex]="pageIndex - 1"
+              (page)="pageEvent($event)"
+            >
+            </app-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

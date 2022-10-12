@@ -3,6 +3,7 @@ import { CameraUsage } from '../enums/camera-usage.enum';
 import { EventType } from '../enums/event-type.enum';
 import { Gender } from '../enums/gender.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
+import { RegionNodeType } from '../enums/region-node-type.enum';
 
 export class Language {
   static Week(day: number, format: string = '周') {
@@ -50,5 +51,15 @@ export class Language {
   }
   static YesOrNo(yes: Boolean) {
     return yes ? '是' : '否';
+  }
+  static RegionNodeType(type: RegionNodeType) {
+    switch (type) {
+      case RegionNodeType.face:
+        return '人脸、人体相机';
+      case RegionNodeType.vehicle:
+        return '车辆卡口相机';
+      default:
+        return '';
+    }
   }
 }

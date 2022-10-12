@@ -12,6 +12,7 @@ import { CommonNestNode } from '../common-tree/common-nest-node.model';
 @Injectable()
 export class RegionTreeBusiness {
   public nestedNodeMap = new Map<string, CommonNestNode<Region>>();
+  public showRegionNode = false;
 
   private _nodes: CommonNestNode[] = [];
 
@@ -42,20 +43,22 @@ export class RegionTreeBusiness {
       }
     }
 
-    // 拉取所有区域节点
-    params = new GetRegionNodesParams();
-    params.Name = condition;
-    let regionNodeRes = await this._listRegionNode(params);
+    if (this.showRegionNode) {
+      // 拉取所有区域节点
+      let params = new GetRegionNodesParams();
+      params.Name = condition;
+      let regionNodeRes = await this._listRegionNode(params);
 
-    console.log(regionNodeRes);
-    this._regionNodes = regionNodeRes.Data;
-    let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
-    this._registerArray(nodes2);
+      console.log(regionNodeRes);
+      this._regionNodes = regionNodeRes.Data;
+      let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
+      this._registerArray(nodes2);
 
-    for (let node of nodes2) {
-      if (node.ParentId) {
-        if (!this.nestedNodeMap.has(node.ParentId)) {
-          await this._getAncestors(node);
+      for (let node of nodes2) {
+        if (node.ParentId) {
+          if (!this.nestedNodeMap.has(node.ParentId)) {
+            await this._getAncestors(node);
+          }
         }
       }
     }

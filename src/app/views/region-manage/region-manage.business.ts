@@ -13,8 +13,6 @@ export class RegionManageBusiness {
     region.ParentId = parentId;
     region.Name = model.Name;
     region.Description = model.Description;
-    region.IsLeaf = false;
-    region.RegionType = 2;
     region.CreateTime = new Date();
     region.UpdateTime = new Date();
     let res = await this._regionRequest.create(region);

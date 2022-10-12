@@ -13,7 +13,7 @@ import { components } from '../components/components.module';
 import { MaterialModule } from '../material.module';
 import { RealtimeComponent } from './realtime/realtime.component';
 import { DeployListComponent } from './deploy-list/deploy-list.component';
-import { DeviceListComponent } from './device-list/device-list.component';
+import { ConfigSettingComponent } from './config-setting/config-setting.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
 import { AngularResizeEventModule } from 'angular-resize-event';
 import { AlarmComponent } from './alarm/alarm.component';
@@ -28,6 +28,9 @@ import { EventRecordComponents } from './event-record/event-record.module';
 import { TableComponents } from './tables/tables.module';
 import { DeployListComponents } from './deploy-list/depoly-list.module';
 import { DeployMapComponent } from './deploy-map/deploy-map.component';
+import { RegionManageComponent } from './region-manage/region-manage.component';
+import { RegionNodeManageComponent } from './region-node-manage/region-node-manage.component';
+import { RegionNodeOperateComponent } from './region-node-operate/region-node-operate.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -35,13 +38,16 @@ const ViewComponents = [
   IndexComponent,
   RealtimeComponent,
   ...StructuredDataComponents,
-  DeviceListComponent,
+  ConfigSettingComponent,
   ...DeployListComponents,
   ...EventRecordComponents,
   DeviceStatusComponent,
   AlarmComponent,
   DeployInfoComponent,
   DeployMapComponent,
+  RegionManageComponent,
+  RegionNodeManageComponent,
+  RegionNodeOperateComponent,
   components,
   ...TableComponents,
   ...WindowComponents,

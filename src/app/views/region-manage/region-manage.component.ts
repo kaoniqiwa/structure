@@ -13,7 +13,7 @@ import { RegionManageBusiness } from './region-manage.business';
 import { RegionManageModel } from './region-manage.model';
 
 @Component({
-  selector: 'howell-region-manage',
+  selector: 'region-manage',
   templateUrl: './region-manage.component.html',
   styleUrls: ['./region-manage.component.less'],
   providers: [RegionManageBusiness],
@@ -99,7 +99,7 @@ export class RegionManageComponent implements OnInit {
   // 点击树节点
   selectTreeNode(nodes: CommonFlatNode[]) {
     this._currentNode = nodes[0];
-    // console.log('外部结果', nodes)
+    console.log('外部结果', nodes);
     this.state = FormState.none;
     this._updateForm();
   }

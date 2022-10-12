@@ -23,7 +23,7 @@ import { CoordinateTransform } from 'src/app/tools/coordinateTransform';
 import { DeployMapBusiness } from './deploy-map.business';
 
 @Component({
-  selector: 'howell-deploy-map',
+  selector: 'deploy-map',
   templateUrl: './deploy-map.component.html',
   styleUrls: ['./deploy-map.component.less'],
   providers: [DeployMapBusiness],
