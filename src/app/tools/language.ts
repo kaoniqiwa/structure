@@ -1,6 +1,8 @@
 import { formatDate } from '@angular/common';
 import { EventType } from '../enums/event-type.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
+import { RegionNodeType } from '../enums/region-node-type.enum';
+import { ResourceType } from '../enums/resource-type.enum';
 import { VehicleReason } from '../enums/vehicle-reason.enum';
 
 export class Language {

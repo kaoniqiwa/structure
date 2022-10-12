@@ -28,6 +28,11 @@ import { EventRecordComponents } from './event-record/event-record.module';
 import { TableComponents } from './tables/tables.module';
 import { DeployListComponents } from './deploy-list/depoly-list.module';
 import { DeployMapComponent } from './deploy-map/deploy-map.component';
+import { RegionNodeManageComponent } from './region-node-manage/region-node-manage.component';
+import { RegionNodeOperateComponent } from './region-node-operate/region-node-operate.component';
+import { RegionManageComponent } from './region-manage/region-manage.component';
+import { DeployFormFaceComponent } from './deploy-form-face/deploy-form-face.component';
+import { DeployFormVehicleComponent } from './deploy-form-vehicle/deploy-form-vehicle.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -42,6 +47,11 @@ const ViewComponents = [
   AlarmComponent,
   DeployInfoComponent,
   DeployMapComponent,
+  DeployFormFaceComponent,
+  RegionNodeOperateComponent,
+  RegionNodeManageComponent,
+  RegionManageComponent,
+  DeployFormVehicleComponent,
   components,
   ...TableComponents,
   ...WindowComponents,
