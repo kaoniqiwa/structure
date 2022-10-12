@@ -41,7 +41,7 @@ export class RegionNodeManageBusiness {
     return this._regionRequest.node.list(params);
   }
 
-  // delete(id: string) {
-  //   return this._garbageStationRequest.delete(id);
-  // }
+  delete(regionId: string, regionNodeId: string) {
+    return this._regionRequest.node.delete(regionId, regionNodeId);
+  }
 }

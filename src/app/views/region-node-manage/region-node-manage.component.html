@@ -9,14 +9,14 @@
       ></howell-garbage-station-operate>
     </toast-window>
   </ng-container>
+  -->
   <ng-container *ngIf="showConfirm">
     <howell-confirm-dialog
       (dialogMsgEvent)="dialogMsgEvent($event)"
       [dialogModel]="dialogModel"
     >
     </howell-confirm-dialog>
-  </ng-container> -->
-
+  </ng-container>
   <toast-window
     *ngIf="showOperate"
     (closeEvent)="closeEvent($event)"
@@ -24,6 +24,7 @@
   >
     <region-node-operate
       [regionId]="regionId"
+      [regionNodeId]="regionNodeId"
       [state]="state"
       (closeEvent)="closeEvent($event)"
     ></region-node-operate>

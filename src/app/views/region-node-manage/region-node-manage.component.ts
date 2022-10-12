@@ -62,7 +62,7 @@ export class RegionNodeManageComponent implements OnInit {
 
   // 表单
   state = FormState.none;
-  stationId = '';
+  regionNodeId = '';
   regionId = '';
 
   @ViewChild(CommonTableComponent) table?: CommonTableComponent;
@@ -93,7 +93,7 @@ export class RegionNodeManageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // let res = await this._business.listStations();
+    // let res = await this._business.listRegionNode();
     // console.log(res);
     // this.page = res.Page;
     // this.dataSubject.next(res.Data);
@@ -180,14 +180,14 @@ export class RegionNodeManageComponent implements OnInit {
   }
 
   private async _deleteRows(rows: RegionNodeManageModel[]) {
-    // this.table?.deleteRows(rows);
-    // for (let i = 0; i < rows.length; i++) {
-    //   let id = rows[i].Id;
-    //   await this._business.delete(id);
-    //   this._toastrService.success('删除成功');
-    // }
-    // this.pageIndex = 1;
-    // this._init();
+    this.table?.deleteRows(rows);
+    for (let i = 0; i < rows.length; i++) {
+      let id = rows[i].Id;
+      await this._business.delete(this.regionId, id);
+      this._toastrService.success('删除成功');
+    }
+    this.pageIndex = 1;
+    this._init();
   }
 
   private async _updateTable() {
@@ -207,8 +207,9 @@ export class RegionNodeManageComponent implements OnInit {
     }
   }
   private _clickEditBtn(row: RegionNodeManageModel) {
+    // console.log(row);
     this.showOperate = true;
     this.state = FormState.edit;
-    this.stationId = row.Id;
+    this.regionNodeId = row.Id;
   }
 }
