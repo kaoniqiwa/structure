@@ -3,6 +3,9 @@
     <app-deploy-vehicle-table
       [load]="load"
       (loaded)="onloaded($event)"
+      (picture)="onpicture($event)"
+      (details)="ondetails($event)"
+      (playback)="onplayback($event)"
     ></app-deploy-vehicle-table>
   </div>
   <div class="deploy-vehicle-foot" *ngIf="page">

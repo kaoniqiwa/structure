@@ -10,15 +10,15 @@
       ></div>
     </div>
     <div class="right-wrapper">
-      <div class="item">
+      <div class="item" (click)="onstatus()">
         <span class="label">全部设备数量</span>
         <span class="count sky-blue-text2">{{ model.all }}</span>
       </div>
-      <div class="item">
+      <div class="item" (click)="onstatus(OnlineStatus.online)">
         <span class="label">在线设备数量</span>
-        <span class="count orange-text">{{ model.online }}</span>
+        <span class="count green-text">{{ model.online }}</span>
       </div>
-      <div class="item">
+      <div class="item" (click)="onstatus(OnlineStatus.offline)">
         <span class="label">离线设备数量</span>
         <span class="count powder-red-text">{{ model.offline }}</span>
       </div>

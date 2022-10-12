@@ -48,4 +48,7 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   ondeploy(item: any) {
     this.window.deploy.show = true;
   }
+  ondeployclose() {
+    this.window.deploy.show = false;
+  }
 }

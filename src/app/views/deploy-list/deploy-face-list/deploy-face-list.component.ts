@@ -1,8 +1,16 @@
-import { AfterViewInit, Component, EventEmitter, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
+import { PictureArgs } from 'src/app/models/args/picture.args';
+import { VideoArgs } from 'src/app/models/args/video.args';
+import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.model';
 import { Page, PagedList } from 'src/app/models/page-list.model';
-import { DateTimeTool } from 'src/app/tools/datetime.tool';
 import { DeployFaceTableArgs } from '../../tables/deploy/deploy-face-table/deploy-face-table.model';
 
 @Component({
@@ -11,6 +19,13 @@ import { DeployFaceTableArgs } from '../../tables/deploy/deploy-face-table/deplo
   styleUrls: ['./deploy-face-list.component.less'],
 })
 export class DeployFaceListComponent implements OnInit, AfterViewInit {
+  @Output()
+  picture: EventEmitter<PictureArgs> = new EventEmitter();
+  @Output()
+  playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  details: EventEmitter<FaceDeployControlTask> = new EventEmitter();
+
   constructor() {}
 
   args = new DeployFaceTableArgs();
@@ -39,5 +54,14 @@ export class DeployFaceListComponent implements OnInit, AfterViewInit {
   }
   onsearch() {
     this.load.emit(this.args);
+  }
+  onplayback(args: VideoArgs) {
+    this.playback.emit(args);
+  }
+  onpicture(args: PictureArgs) {
+    this.picture.emit(args);
+  }
+  ondetails(args: FaceDeployControlTask) {
+    this.details.emit(args);
   }
 }

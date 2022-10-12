@@ -16,6 +16,8 @@ import { BodyRecord } from 'src/app/models/body-record.model';
 import { FaceRecord } from 'src/app/models/face-record.model';
 import { MuckCarEventRecord } from 'src/app/models/event-record/muck-car-event.record';
 import { VehicleRecord } from 'src/app/models/vehicle-record.model';
+import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
+import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +36,10 @@ export class CommonDetailConverter {
       return this._fromFaceRecord(source);
     } else if (source instanceof VehicleRecord) {
       return this._fromVehicleRecord(source);
+    } else if (source instanceof FaceDeployControlTask) {
+      return this._fromFaceTask(source);
+    } else if (source instanceof VehicleDeployControlTask) {
+      return this._fromVehicleTask(source);
     }
     throw new Error('Error');
   }
@@ -438,6 +444,99 @@ export class CommonDetailConverter {
         Icon: 'howell-icon-phone',
         PropertyDes: '是否打电话',
         PropertyValue: item.UsePhoneName ?? '未知',
+      },
+    ];
+
+    return model;
+  }
+
+  private _fromFaceTask(item: FaceDeployControlTask) {
+    let model = new CommonDetailModel();
+    model.Title = '人脸布控任务';
+    model.ContainerWidth = 655;
+    model.ContainerHeight = 310;
+    model.LeftWidth = 180;
+    model.LinePerRecord = LinePerRecord.One;
+
+    model.ImageUrl = item.ImageData;
+    model.Records = [
+      {
+        Icon: 'howell-icon-details',
+        PropertyDes: '任务名称',
+        PropertyValue: item.TaskName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-time',
+        PropertyDes: '开始时间',
+        PropertyValue:
+          formatDate(item.BeginTime, 'yyyy-MM-dd HH:mm:ss', 'en') ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-time',
+        PropertyDes: '结束时间',
+        PropertyValue:
+          formatDate(item.EndTime, 'yyyy-MM-dd HH:mm:ss', 'en') ?? '未知',
+      },
+      {
+        Icon: 'mdi mdi-note-outline',
+        PropertyDes: '备注',
+        PropertyValue: item.Remark ?? '',
+      },
+    ];
+
+    return model;
+  }
+
+  private _fromVehicleTask(item: VehicleDeployControlTask) {
+    let model = new CommonDetailModel();
+    model.Title = '车辆布控任务';
+    model.ContainerWidth = 520;
+    model.ContainerHeight = 520;
+    model.LeftWidth = 0;
+    model.LinePerRecord = LinePerRecord.One;
+
+    model.Records = [
+      {
+        Icon: 'howell-icon-details',
+        PropertyDes: '任务名称',
+        PropertyValue: item.TaskName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-time',
+        PropertyDes: '开始时间',
+        PropertyValue:
+          formatDate(item.BeginTime, 'yyyy-MM-dd HH:mm:ss', 'en') ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-time',
+        PropertyDes: '结束时间',
+        PropertyValue:
+          formatDate(item.EndTime, 'yyyy-MM-dd HH:mm:ss', 'en') ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-license_plate',
+        PropertyDes: '车牌号码',
+        PropertyValue: item.PlateNo ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-color',
+        PropertyDes: '车身颜色',
+        PropertyValue: item.VehicleColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-color',
+        PropertyDes: '车牌颜色',
+        PropertyValue: item.PlateColorName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-car2',
+        PropertyDes: '车辆类型',
+        PropertyValue: item.VehicleTypeName ?? '未知',
+      },
+      {
+        Icon: 'howell-icon-car2',
+        PropertyDes: '车辆主品牌',
+        PropertyValue: item.VehicleLogoName ?? '未知',
       },
     ];
 

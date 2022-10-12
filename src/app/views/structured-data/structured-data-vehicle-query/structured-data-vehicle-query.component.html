@@ -75,7 +75,9 @@
       />
     </div>
     <div class="form-item">
-      <button class="hw-blue-btn" (click)="onimagechoose()">选择照片</button>
+      <button [disabled]="!image" class="hw-blue-btn" (click)="onimagechoose()">
+        选择照片
+      </button>
     </div>
     <div class="form-group">
       <div class="form-item short">

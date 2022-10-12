@@ -1,7 +1,6 @@
-import { Transform } from 'class-transformer';
-import { DeployReason } from 'src/app/enums/deploy-reason.enum';
-import { Gender } from 'src/app/enums/gender.enum';
+import { Transform, Type } from 'class-transformer';
 import { OrderType } from 'src/app/enums/order-type.enum';
+import { VehicleReason } from 'src/app/enums/vehicle-reason.enum';
 import { DeployDetails } from 'src/app/models/deploy-details.model';
 import { transformParams } from 'src/app/models/transform.model';
 import {
@@ -84,6 +83,7 @@ export class CreateFaceDeployControlParams extends DurationParams {
   /**	String	描述备注	O */
   Remark?: string;
   /**	DeployDetails[]	布控报警时间段和阈值	M */
+  @Type(() => DeployDetails)
   Details?: DeployDetails[];
 }
 export class SetFaceDeployControlParams extends DurationParams {
@@ -220,7 +220,7 @@ export class CreateVehicleDeployControlParams extends DurationParams {
   @Transform(transformParams)
   PlateColor!: string;
   /**	Int32	布控原因（1-被盗车，2-被抢车，3-嫌疑车）	M */
-  Reason!: DeployReason;
+  Reason!: VehicleReason;
   /**	String	描述	O */
   Remark?: string;
   /**	String	车辆品牌	O */
@@ -247,7 +247,7 @@ export class SetVehicleDeployControlParams extends DurationParams {
   @Transform(transformParams)
   PlateColor!: string;
   /**	Int32	布控原因（1-被盗车，2-被抢车，3-嫌疑车）	M */
-  Reason!: DeployReason;
+  Reason!: VehicleReason;
   /**	String	描述	O */
   Remark?: string;
   /**	String	车辆品牌	O */

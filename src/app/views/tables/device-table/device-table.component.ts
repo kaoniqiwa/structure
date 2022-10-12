@@ -1,0 +1,52 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
+import { OnlineStatus } from 'src/app/enums/online-status.enum';
+import { IBusiness } from 'src/app/interfaces/business.interface';
+import { IComponent } from 'src/app/interfaces/component.interfact';
+import { VideoArgs } from 'src/app/models/args/video.args';
+import { IModel } from 'src/app/models/model.interface';
+import { RegionNode } from 'src/app/models/region-node.model';
+import { DeviceTableBusiness } from './device-table.business';
+import { DeviceTableModel } from './device-table.model';
+
+@Component({
+  selector: 'app-device-table',
+  templateUrl: './device-table.component.html',
+  styleUrls: ['../table.less', './device-table.component.less'],
+  providers: [DeviceTableBusiness],
+})
+export class DeviceTableComponent
+  implements IComponent<IModel[], DeviceTableModel[]>, OnInit
+{
+  @Input()
+  status?: OnlineStatus;
+  @Input()
+  business: IBusiness<IModel[], DeviceTableModel[]>;
+
+  @Output()
+  video: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  position: EventEmitter<RegionNode> = new EventEmitter();
+
+  constructor(business: DeviceTableBusiness) {
+    this.business = business;
+  }
+  OnlineStatus = OnlineStatus;
+  widths = ['23%', '23%', '23%', '23%', '8%'];
+  datas: DeviceTableModel[] = [];
+  ngOnInit(): void {
+    this.loadData();
+  }
+  async loadData() {
+    this.datas = await this.business.load(this.status);
+  }
+  onvideo(e: Event, item: DeviceTableModel) {
+    let args = VideoArgsConverter.Convert(item.data);
+    this.video.emit(args);
+    e.stopPropagation();
+  }
+  onposition(e: Event, item: RegionNode) {
+    this.position.emit(item);
+    e.stopPropagation();
+  }
+}

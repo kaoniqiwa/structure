@@ -22,7 +22,7 @@ export class DateTimePickerDirective
 {
   private ele: HTMLInputElement;
   @Input('format') format = 'yyyy-MM-dd';
-  @Input('date') date: Date = new Date();
+  @Input('date') date?: Date = new Date();
   // @Input('changeDate') changeDate: (val: any) => void;
   @Input('startView') startView: DateTimePickerView = DateTimePickerView.month;
   @Input('minView') minView: DateTimePickerView = DateTimePickerView.month;
@@ -44,7 +44,7 @@ export class DateTimePickerDirective
         this.startView,
         this.minView,
         this.format,
-        this.date,
+        this.date ?? new Date(),
         this.week
       );
     }

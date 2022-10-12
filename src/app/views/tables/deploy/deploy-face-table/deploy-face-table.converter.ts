@@ -34,6 +34,7 @@ class DeployFaceTableItemConverter
   ): DeployFaceTableModel<FaceDeployControlTask> {
     let model = new DeployFaceTableModel<FaceDeployControlTask>();
     model.data = source;
+    Object.assign(model, source);
     return model;
   }
 }

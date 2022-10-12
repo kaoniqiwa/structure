@@ -78,5 +78,9 @@
   </div> -->
 </app-window>
 <app-window [Model]="window.deploy" [style]="style" *ngIf="window.deploy.show">
-  <app-deploy-form *ngIf="!!selected" [data]="selected.data"></app-deploy-form>
+  <app-deploy-form-face
+    *ngIf="!!selected"
+    [data]="selected.data"
+    (close)="ondeployclose()"
+  ></app-deploy-form-face>
 </app-window>

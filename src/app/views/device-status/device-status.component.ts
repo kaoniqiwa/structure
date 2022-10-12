@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import * as echarts from 'echarts/core';
@@ -33,11 +35,12 @@ export class DeviceStatusComponent
   business: IBusiness<IModel, DeviceStatusModel>;
   @Input()
   status?: OnlineStatus;
-
+  @Output()
+  device: EventEmitter<OnlineStatus | undefined> = new EventEmitter();
   constructor(business: DeviceStatusBusiness) {
     this.business = business;
   }
-
+  OnlineStatus = OnlineStatus;
   model: DeviceStatusModel = new DeviceStatusModel();
   @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLElement>;
   myChart: echarts.ECharts | null = null;
@@ -129,5 +132,9 @@ export class DeviceStatusComponent
     this.model = await this.business.load(this.status);
     (this.option.series as any)[0].data[0].value = this.model.ratio;
     if (this.myChart) this.myChart.setOption(this.option);
+  }
+
+  onstatus(status?: OnlineStatus) {
+    this.device.emit(status);
   }
 }

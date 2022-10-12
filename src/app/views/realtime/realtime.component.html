@@ -15,7 +15,9 @@
 
     <div class="box-wrapper" style="height: 248px">
       <div class="box-item">
-        <howell-device-status></howell-device-status>
+        <howell-device-status
+          (device)="ondevice($event)"
+        ></howell-device-status>
       </div>
     </div>
   </div>

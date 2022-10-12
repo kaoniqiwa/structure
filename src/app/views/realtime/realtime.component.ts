@@ -1,11 +1,13 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
+import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
@@ -24,15 +26,17 @@ import { RealTimeBusiness } from './realtime.business';
 export class RealtimeComponent implements OnInit {
   @Output()
   video: EventEmitter<Camera> = new EventEmitter();
+  @Input()
+  position: EventEmitter<RegionNode> = new EventEmitter();
 
   @Output()
   details: EventEmitter<EventRecord> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  device: EventEmitter<OnlineStatus> = new EventEmitter();
 
   constructor(private _business: RealTimeBusiness) {}
-
-  position: EventEmitter<RegionNode> = new EventEmitter();
 
   alarmModels: AlarmModel[] = [];
   @ViewChild(DeployInfoComponent) deployFace!: DeployInfoComponent;
@@ -70,5 +74,8 @@ export class RealtimeComponent implements OnInit {
   }
   onButtonIconClicked(e: CommonFlatNode) {
     console.log(e);
+  }
+  ondevice(status?: OnlineStatus | undefined) {
+    this.device.emit(status);
   }
 }

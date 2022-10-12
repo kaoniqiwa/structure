@@ -24,10 +24,20 @@
   </div>
   <div class="deploy-list-content">
     <ng-container *ngIf="path === DeployType.face">
-      <app-deploy-face-list> </app-deploy-face-list>
+      <app-deploy-face-list
+        (picture)="onpicture($event)"
+        (details)="ondetails($event)"
+        (playback)="onplayback($event)"
+      >
+      </app-deploy-face-list>
     </ng-container>
     <ng-container *ngIf="path === DeployType.vehicle">
-      <app-deploy-vehicle-list> </app-deploy-vehicle-list>
+      <app-deploy-vehicle-list
+        (picture)="onpicture($event)"
+        (details)="ondetails($event)"
+        (playback)="onplayback($event)"
+      >
+      </app-deploy-vehicle-list>
     </ng-container>
   </div>
 </div>

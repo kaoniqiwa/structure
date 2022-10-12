@@ -45,7 +45,6 @@ export class EventRecordMuckCarComponent
     this.args.page = new Page();
     this.args.page.PageIndex = 1;
     let date = new Date();
-    date.setMonth(7);
     this.args.duration = DateTimeTool.allMonth(date);
 
     this.handle = this.onWindowClicked.bind(this);

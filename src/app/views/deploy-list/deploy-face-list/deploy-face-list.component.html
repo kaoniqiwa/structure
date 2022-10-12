@@ -3,6 +3,9 @@
     <app-deploy-face-table
       [load]="load"
       (loaded)="onloaded($event)"
+      (picture)="onpicture($event)"
+      (details)="ondetails($event)"
+      (playback)="onplayback($event)"
     ></app-deploy-face-table>
   </div>
   <div class="deploy-face-foot" *ngIf="page">
