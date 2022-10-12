@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { IBusiness } from 'src/app/interfaces/business.interface';
@@ -7,7 +16,7 @@ import { VideoArgs } from 'src/app/models/args/video.args';
 import { IModel } from 'src/app/models/model.interface';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { DeviceTableBusiness } from './device-table.business';
-import { DeviceTableModel } from './device-table.model';
+import { DeviceTabelArgs, DeviceTableModel } from './device-table.model';
 
 @Component({
   selector: 'app-device-table',
@@ -16,10 +25,14 @@ import { DeviceTableModel } from './device-table.model';
   providers: [DeviceTableBusiness],
 })
 export class DeviceTableComponent
-  implements IComponent<IModel[], DeviceTableModel[]>, OnInit
+  implements IComponent<IModel[], DeviceTableModel[]>, OnInit, OnChanges
 {
   @Input()
   status?: OnlineStatus;
+  @Input()
+  name?: string;
+  @Input()
+  load?: EventEmitter<DeviceTabelArgs>;
   @Input()
   business: IBusiness<IModel[], DeviceTableModel[]>;
 
@@ -31,14 +44,23 @@ export class DeviceTableComponent
   constructor(business: DeviceTableBusiness) {
     this.business = business;
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['load']) {
+      if (this.load) {
+        this.load.subscribe((x) => {
+          this.status = x.status;
+          this.name = x.name;
+          this.loadData();
+        });
+      }
+    }
+  }
   OnlineStatus = OnlineStatus;
   widths = ['23%', '23%', '23%', '23%', '8%'];
   datas: DeviceTableModel[] = [];
-  ngOnInit(): void {
-    this.loadData();
-  }
+  ngOnInit(): void {}
   async loadData() {
-    this.datas = await this.business.load(this.status);
+    this.datas = await this.business.load(this.status, this.name);
   }
   onvideo(e: Event, item: DeviceTableModel) {
     let args = VideoArgsConverter.Convert(item.data);

@@ -39,7 +39,7 @@ class DeviceTableItemConverter
     model.status = source.OnlineStatus ?? OnlineStatus.offline;
 
     model.node = getter.node(source.Id);
-
+    model.type = source.ResourceType;
     return model;
   }
 }

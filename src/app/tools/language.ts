@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { EventType } from '../enums/event-type.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
+import { ResourceType } from '../enums/resource-type.enum';
 import { VehicleReason } from '../enums/vehicle-reason.enum';
 
 export class Language {
@@ -49,6 +50,22 @@ export class Language {
         return '被抢车';
       case VehicleReason.suspect:
         return '嫌疑车';
+      default:
+        return '';
+    }
+  }
+  static ResourceType(type: ResourceType) {
+    switch (type) {
+      case ResourceType.Camera:
+        return '监控点';
+      case ResourceType.EncodeDevice:
+        return '编码设备';
+      case ResourceType.IoTSensor:
+        return '物联网传感器';
+      case ResourceType.Crossing:
+        return '卡口';
+      case ResourceType.ResourceCollection:
+        return '资源集合';
       default:
         return '';
     }

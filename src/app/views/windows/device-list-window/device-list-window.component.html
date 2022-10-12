@@ -3,10 +3,13 @@
     <div class="device-list-window">
       <div class="device-list-window-head">
         <div class="hw-second-title">摄像机</div>
+        <app-input-search (search)="onsearch($event)"> </app-input-search>
       </div>
       <div class="device-list-window-content">
         <app-device-table
           [status]="status"
+          [name]="name"
+          [load]="load"
           (video)="onvideo($event)"
           (position)="onposition($event)"
         ></app-device-table>

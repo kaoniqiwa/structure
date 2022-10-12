@@ -9,7 +9,7 @@
           <th>图片</th>
           <th>名称</th>
           <th>状态</th>
-          <th>位置</th>
+          <th>类型</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -39,8 +39,11 @@
           >
             {{ item.status | online_status_pipe }}
           </td>
-          <td>
+          <!-- <td>
             <div *ngIf="item.node">{{ item.node | name_pipe }}</div>
+          </td> -->
+          <td>
+            {{ item.type | resource_type_pipe }}
           </td>
           <td>
             <span (click)="onvideo($event, item)">

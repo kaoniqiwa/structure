@@ -18,8 +18,11 @@ export class DeviceTableBusiness
   ) {}
   Converter = new DeviceTableConverter();
   loading?: EventEmitter<void> | undefined;
-  async load(status?: OnlineStatus): Promise<DeviceTableModel[]> {
-    let data = await this.getData(status);
+  async load(
+    status?: OnlineStatus,
+    name?: string
+  ): Promise<DeviceTableModel[]> {
+    let data = await this.getData(status, name);
     let nodes = await this.getNodes();
     let model = this.Converter.Convert(data, {
       node: (id: string) => {
@@ -33,9 +36,10 @@ export class DeviceTableBusiness
     return this.region.node.all();
   }
 
-  async getData(status?: OnlineStatus): Promise<Camera[]> {
+  async getData(status?: OnlineStatus, name?: string): Promise<Camera[]> {
     let params = new GetCamerasParams();
     params.OnlineStatus = status;
+    params.Name = name;
     let paged = await this.service.list(params);
     return paged.Data;
   }

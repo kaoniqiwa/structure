@@ -4,6 +4,7 @@ import { EventTypePipe } from './event-type.pipe';
 import { NamePipe } from './name.pipe';
 import { OnlineStatusPipe } from './online-status.pipe';
 import { PercentagePipe } from './percentage.pipe';
+import { ResourceTypePipe } from './resource-type.pipe';
 import { StyleUrlPipe } from './style-url.pipe';
 
 export const Pipes = [
@@ -14,4 +15,5 @@ export const Pipes = [
   StyleUrlPipe,
   OnlineStatusPipe,
   NamePipe,
+  ResourceTypePipe,
 ];

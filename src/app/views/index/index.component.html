@@ -57,6 +57,7 @@
   ></app-common-detail>
 </app-window>
 <app-device-list-window
+  *ngIf="window.device.show"
   [Model]="window.device"
   [style]="window.device.style"
   [title]="window.device.title"
@@ -67,6 +68,7 @@
 </app-device-list-window>
 
 <app-video-window
+  *ngIf="video.show"
   [model]="video.model"
   [window]="video"
   [title]="video.title"

@@ -17,6 +17,7 @@ import { IBusiness } from 'src/app/interfaces/business.interface';
 import { DeviceStatusBusiness } from './device-status.business';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { SeriesOption } from 'echarts';
+import { StoreService } from 'src/app/tools/service/store.service';
 
 echarts.use([GaugeChart]);
 
@@ -37,7 +38,7 @@ export class DeviceStatusComponent
   status?: OnlineStatus;
   @Output()
   device: EventEmitter<OnlineStatus | undefined> = new EventEmitter();
-  constructor(business: DeviceStatusBusiness) {
+  constructor(business: DeviceStatusBusiness, private store: StoreService) {
     this.business = business;
   }
   OnlineStatus = OnlineStatus;
@@ -116,7 +117,14 @@ export class DeviceStatusComponent
   };
   //#endregion
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.interval.subscribe((x) => {
+      this.loadData();
+    });
+    this.store.refresh.subscribe((x) => {
+      this.loadData();
+    });
+  }
   ngAfterViewInit(): void {
     if (this.chartContainer) {
       this.myChart = echarts.init(this.chartContainer.nativeElement, 'light');

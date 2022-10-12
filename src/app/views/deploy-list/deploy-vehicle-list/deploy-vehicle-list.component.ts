@@ -30,7 +30,7 @@ export class DeployVehicleListComponent implements OnInit, AfterViewInit {
 
   args = new DeployVehicleTableArgs();
   load: EventEmitter<DeployVehicleTableArgs> = new EventEmitter();
-  page?: Page;
+  page: Page = new Page();
   DateTimePickerView = DateTimePickerView;
 
   ngOnInit(): void {

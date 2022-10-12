@@ -42,7 +42,7 @@ export class EventRecordVehicleComponent implements OnInit, AfterViewInit {
     this.args.page = new Page();
     this.args.page.PageIndex = 1;
     let date = new Date();
-    this.args.duration = DateTimeTool.allMonth(date);
+    this.args.duration = DateTimeTool.allDay(date);
 
     this.handle = this.onWindowClicked.bind(this);
     window.addEventListener('click', this.handle);

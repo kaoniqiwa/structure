@@ -20,6 +20,7 @@ export class StoreService {
   constructor() {}
 
   interval = new EventEmitter();
+  refresh = new EventEmitter();
   private subscription?: Subscription;
   runInterval() {
     this.subscription = interval(1000 * 60).subscribe(() => {
@@ -30,5 +31,15 @@ export class StoreService {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  clear() {
+    this.stopInterval();
+    this._regionId = '';
+    this.interval.unsubscribe();
+    this.interval = new EventEmitter();
+
+    this.refresh.unsubscribe();
+    this.refresh = new EventEmitter();
   }
 }
