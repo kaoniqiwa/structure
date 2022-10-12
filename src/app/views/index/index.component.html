@@ -13,9 +13,11 @@
   <div class="aiop-body">
     <ng-container *ngIf="path == NavigationPath.realtime">
       <app-realtime
+        [position]="window.device.position"
         (video)="trigger.realtime.onvideo($event)"
         (details)="trigger.realtime.ondetails($event)"
         (playback)="trigger.realtime.onplayback($event)"
+        (device)="trigger.realtime.ondevice($event)"
       ></app-realtime>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.structured_data">
@@ -31,39 +33,18 @@
       ></app-event-record>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.deploy_list">
-      <app-deploy-list></app-deploy-list>
+      <app-deploy-list
+        (picture)="trigger.deploy.onpicture($event)"
+        (details)="trigger.deploy.ondetails($event)"
+        (playback)="trigger.deploy.onplayback($event)"
+      ></app-deploy-list>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.config_setting">
       <app-config-setting></app-config-setting>
     </ng-container>
   </div>
 </div>
-<app-video-window
-  [model]="video.model"
-  [window]="video"
-  [title]="video.title"
-  (download)="video.ondownload($event)"
->
-</app-video-window>
-<howell-video-player-window
-  *ngIf="window.video.show"
-  [Model]="window.video"
-  [style]="window.video.style"
-  [autoplay]="window.video.autoplay"
-  [cameraId]="window.video.cameraId"
-  [title]="window.video.title"
-  [mode]="window.video.mode"
-  [time]="window.video.time"
-></howell-video-player-window>
 
-<app-picture-window
-  *ngIf="window.picture.show"
-  [Model]="window.picture"
-  [style]="window.picture.style"
-  [title]="window.picture.title"
-  [picture]="window.picture.image"
->
-</app-picture-window>
 <app-window
   *ngIf="window.details.show"
   [Model]="window.details"
@@ -75,3 +56,41 @@
     (closeEvent)="window.details.onclose($event)"
   ></app-common-detail>
 </app-window>
+<app-device-list-window
+  *ngIf="window.device.show"
+  [Model]="window.device"
+  [style]="window.device.style"
+  [title]="window.device.title"
+  [status]="window.device.status"
+  (video)="window.device.onvideo($event)"
+  (position)="window.device.onposition($event)"
+>
+</app-device-list-window>
+
+<app-video-window
+  *ngIf="video.show"
+  [model]="video.model"
+  [window]="video"
+  [title]="video.title"
+  (download)="video.ondownload($event)"
+>
+</app-video-window>
+
+<app-picture-window
+  *ngIf="window.picture.show"
+  [Model]="window.picture"
+  [style]="window.picture.style"
+  [title]="window.picture.title"
+  [picture]="window.picture.image"
+>
+</app-picture-window>
+<howell-video-player-window
+  *ngIf="window.video.show"
+  [Model]="window.video"
+  [style]="window.video.style"
+  [autoplay]="window.video.autoplay"
+  [cameraId]="window.video.cameraId"
+  [title]="window.video.title"
+  [mode]="window.video.mode"
+  [time]="window.video.time"
+></howell-video-player-window>

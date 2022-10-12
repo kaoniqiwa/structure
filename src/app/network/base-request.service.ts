@@ -36,8 +36,12 @@ export class BaseRequestService {
     return ServiceHelper.ResponseProcess(response, type);
   }
   async postReturnString(url: string, params?: IParams) {
+    let data: IParams | undefined;
+    if (params) {
+      data = classToPlain(params) as IParams;
+    }
     let response = await this.http
-      .post<IParams, HowellResponse<string>>(url, params)
+      .post<IParams, HowellResponse<string>>(url, data)
       .toPromise();
     return ServiceHelper.ResponseProcess(response, true);
   }

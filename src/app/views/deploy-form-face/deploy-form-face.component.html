@@ -1,0 +1,123 @@
+<div class="deploy-form">
+  <div class="hw-simple-title">创建布控对象</div>
+  <div class="deploy-form-content">
+    <div class="deploy-form-content-img">
+      <img [src]="params.ImageData" alt="" />
+    </div>
+    <div class="deploy-form-content-list">
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">布控名称</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.TaskName" />
+        </div>
+      </div>
+
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">开始时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="text"
+            DateTimePicker
+            [format]="'yyyy年MM月dd日'"
+            [startView]="DateTimePickerView.month"
+            [minView]="DateTimePickerView.month"
+            [date]="params.BeginTime"
+            (change)="changeBeginTime($event)"
+            class=""
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">结束时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="text"
+            DateTimePicker
+            [format]="'yyyy年MM月dd日'"
+            [startView]="DateTimePickerView.month"
+            [minView]="DateTimePickerView.month"
+            [date]="params.EndTime"
+            (change)="changeEndTime($event)"
+            class=""
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">姓名</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.Name" />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">性别</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.Gender">
+            <option [value]="item.Value" *ngFor="let item of genders">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">生日</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="text"
+            DateTimePicker
+            [format]="'yyyy年MM月dd日'"
+            [startView]="DateTimePickerView.month"
+            [minView]="DateTimePickerView.month"
+            [date]="params.BornTime"
+            (change)="changeBornTime($event)"
+            class=""
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">证件类型</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.CertificateType">
+            <option [value]="item.Value" *ngFor="let item of certificateTypes">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">证件号码</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.CertificateNumber" />
+        </div>
+      </div>
+      <div
+        class="deploy-form-content-list-item"
+        *ngIf="params.Details && params.Details.length > 0"
+      >
+        <div class="deploy-form-content-list-item-title">报警阈值</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="number"
+            (touchSpinChange)="touchSpinChange($event)"
+            [options]="{
+              max: 100,
+              min: 0,
+              verticalbuttons: true
+            }"
+            appTouchSpin
+            [(ngModel)]="thresholdMin"
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">备注</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.Remark" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deploy-form-foot">
+    <button class="hw-green-btn" (click)="ok()">确定</button>
+    <button class="hw-blue-btn" (click)="cancel()">取消</button>
+  </div>
+</div>

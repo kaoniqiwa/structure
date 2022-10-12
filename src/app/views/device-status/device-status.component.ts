@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import * as echarts from 'echarts/core';
@@ -15,6 +17,7 @@ import { IBusiness } from 'src/app/interfaces/business.interface';
 import { DeviceStatusBusiness } from './device-status.business';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { SeriesOption } from 'echarts';
+import { StoreService } from 'src/app/tools/service/store.service';
 
 echarts.use([GaugeChart]);
 
@@ -33,11 +36,12 @@ export class DeviceStatusComponent
   business: IBusiness<IModel, DeviceStatusModel>;
   @Input()
   status?: OnlineStatus;
-
-  constructor(business: DeviceStatusBusiness) {
+  @Output()
+  device: EventEmitter<OnlineStatus | undefined> = new EventEmitter();
+  constructor(business: DeviceStatusBusiness, private store: StoreService) {
     this.business = business;
   }
-
+  OnlineStatus = OnlineStatus;
   model: DeviceStatusModel = new DeviceStatusModel();
   @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLElement>;
   myChart: echarts.ECharts | null = null;
@@ -113,7 +117,14 @@ export class DeviceStatusComponent
   };
   //#endregion
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.interval.subscribe((x) => {
+      this.loadData();
+    });
+    this.store.refresh.subscribe((x) => {
+      this.loadData();
+    });
+  }
   ngAfterViewInit(): void {
     if (this.chartContainer) {
       this.myChart = echarts.init(this.chartContainer.nativeElement, 'light');
@@ -129,5 +140,9 @@ export class DeviceStatusComponent
     this.model = await this.business.load(this.status);
     (this.option.series as any)[0].data[0].value = this.model.ratio;
     if (this.myChart) this.myChart.setOption(this.option);
+  }
+
+  onstatus(status?: OnlineStatus) {
+    this.device.emit(status);
   }
 }

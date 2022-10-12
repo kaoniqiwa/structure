@@ -46,7 +46,11 @@
     </div>
   </div>
 </div>
-<app-window [Model]="window" [style]="style" *ngIf="window.show">
+<app-window
+  [Model]="window.details"
+  [style]="style"
+  *ngIf="window.details.show"
+>
   <!-- <app-face-detail
     *ngIf="!!selected"
     [eventRecord]="selected.data"
@@ -61,7 +65,8 @@
     *ngIf="!!selected"
     [dataSource]="selected.data"
     [config]="{
-      btnPlayback: true
+      btnPlayback: true,
+      btnDeploy: true
     }"
     (playback)="onplayback($event)"
     (closeEvent)="onclosewindow()"
@@ -71,4 +76,11 @@
   <!-- <div class="window-foot">
     <div class="hw-blue-btn">布控</div>
   </div> -->
+</app-window>
+<app-window [Model]="window.deploy" [style]="style" *ngIf="window.deploy.show">
+  <app-deploy-form-face
+    *ngIf="!!selected"
+    [data]="selected.data"
+    (close)="ondeployclose()"
+  ></app-deploy-form-face>
 </app-window>

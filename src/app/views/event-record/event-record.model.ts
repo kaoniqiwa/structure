@@ -1,5 +1,5 @@
 export enum EventRecordType {
-  face,
-  vehicle,
-  muckcar,
+  face = 'Faces',
+  vehicle = 'Vehicles',
+  muckcar = 'MuckCar',
 }

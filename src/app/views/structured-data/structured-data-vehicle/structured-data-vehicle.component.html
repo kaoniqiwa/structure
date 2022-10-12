@@ -48,21 +48,29 @@
     </div>
   </div>
 </div>
-<app-window [Model]="window" [style]="style" *ngIf="window.show">
-  <!-- <app-vehicle-detail
-    *ngIf="!!selected"
-    [eventRecord]="selected.data"
-    (closeEvent)="onclosewindow()"
-  >
-  </app-vehicle-detail> -->
-
+<app-window
+  [Model]="window.details"
+  [style]="style"
+  *ngIf="window.details.show"
+>
   <app-common-detail
     *ngIf="!!selected"
     [dataSource]="selected.data"
     [config]="{
-      btnPlayback: true
+      btnPlayback: true,
+      btnDeploy: true
     }"
     (playback)="onplayback($event)"
     (closeEvent)="onclosewindow()"
+    (magnifyEvent)="onmagnify($event)"
+    (deploy)="ondeploy($event)"
   ></app-common-detail>
+</app-window>
+
+<app-window [Model]="window.deploy" [style]="style" *ngIf="window.deploy.show">
+  <app-deploy-form-vehicle
+    *ngIf="!!selected"
+    [data]="selected.data"
+    (close)="ondeployclose()"
+  ></app-deploy-form-vehicle>
 </app-window>

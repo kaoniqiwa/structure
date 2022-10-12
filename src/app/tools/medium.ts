@@ -19,6 +19,26 @@ export class Medium {
     return MediumUrl.picture().data(id);
   }
 
+  static base64(url?: string): Promise<string> {
+    return new Promise((resolve) => {
+      let img = url ? Medium.jpg(url) : '';
+      var image = new Image();
+      image.src = img;
+      image.onerror = () => {
+        resolve('/assets/img/timg-pic.png');
+      };
+      image.onload = () => {
+        var canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var ctx = canvas.getContext('2d')!;
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        var dataURL = canvas.toDataURL();
+        resolve(dataURL);
+      };
+    });
+  }
+
   static img(url?: string): Promise<string> {
     return new Promise((resolve) => {
       let img = url ? Medium.jpg(url) : '';

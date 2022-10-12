@@ -26,7 +26,6 @@ import { MuckCarDetailComponent } from './muckcar-detail/muckcar-detail.componen
 import { CommonDetailComponent } from './common-detail/common-detail.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CoordinateManageComponent } from './coordinate-manage/coordinate-manage.component';
-import { TableSelectComponent } from './table-select/table-select.component';
 
 export const components = [
   AccountInfoComponent,
@@ -57,5 +56,4 @@ export const components = [
   CommonDetailComponent,
   ConfirmDialogComponent,
   CoordinateManageComponent,
-  TableSelectComponent,
 ];

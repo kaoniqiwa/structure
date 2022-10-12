@@ -6,6 +6,7 @@
       </colgroup>
       <thead>
         <tr>
+          <th>照片</th>
           <th>布控名称</th>
           <th>人员姓名</th>
           <th>性别</th>
@@ -24,7 +25,10 @@
       <tbody>
         <tr *ngFor="let item of datas" (click)="onitemclicked(item)">
           <td>
-            <div [ngStyle]="{ backgroundImage: 'url(' + item + ')' }"></div>
+            <div
+              (click)="onpicture($event, item)"
+              [ngStyle]="{ backgroundImage: 'url(' + item.ImageData + ')' }"
+            ></div>
           </td>
           <td>{{ item.TaskName }}</td>
           <td>{{ item.Name }}</td>
@@ -32,12 +36,12 @@
           <td>{{ item.BeginTime | date_time_pipe }}</td>
           <td>{{ item.EndTime | date_time_pipe }}</td>
           <td>
-            <span (click)="onpicture($event, item)">
+            <span (click)="ondetails($event, item)">
               <i class="howell-icon-picture"></i
             ></span>
-            <span (click)="onplayback($event, item)">
+            <!-- <span (click)="onplayback($event, item)">
               <i class="howell-icon-video-playback1"></i
-            ></span>
+            ></span> -->
           </td>
         </tr>
       </tbody>

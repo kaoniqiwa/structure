@@ -28,7 +28,7 @@ export function transformTime(params: TransformFnParams) {
   if (params.type === TransformationType.PLAIN_TO_CLASS) {
     return new Date(params.value);
   } else if (params.type === TransformationType.CLASS_TO_PLAIN) {
-    return formatDate(params.value as Date, 'HH!:mm!:ss', 'en');
+    return formatDate(params.value as Date, 'HH:mm:ss', 'en');
   } else if (params.type === TransformationType.CLASS_TO_CLASS) {
     return new Date(params.value);
   } else {
@@ -75,6 +75,7 @@ export function transformRecordName(params: TransformFnParams) {
     switch (params.value) {
       case undefined:
       case 'unknown':
+      case '':
         return '未知';
       default:
         return params.value;

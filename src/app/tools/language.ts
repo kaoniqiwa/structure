@@ -1,9 +1,7 @@
 import { formatDate } from '@angular/common';
-import { CameraUsage } from '../enums/camera-usage.enum';
 import { EventType } from '../enums/event-type.enum';
-import { Gender } from '../enums/gender.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
-import { RegionNodeType } from '../enums/region-node-type.enum';
+import { VehicleReason } from '../enums/vehicle-reason.enum';
 
 export class Language {
   static Week(day: number, format: string = '周') {
@@ -39,18 +37,37 @@ export class Language {
         return '';
     }
   }
-  static GenderType(type: Gender) {
-    switch (type) {
-      case Gender.Male:
-        return '男';
-      case Gender.Female:
-        return '女';
+  static YesOrNo(yes: Boolean) {
+    return yes ? '是' : '否';
+  }
+
+  static VehicleReason(reason: VehicleReason) {
+    switch (reason) {
+      case VehicleReason.robbed:
+        return '被盗车';
+      case VehicleReason.stolen:
+        return '被抢车';
+      case VehicleReason.suspect:
+        return '嫌疑车';
       default:
         return '';
     }
   }
-  static YesOrNo(yes: Boolean) {
-    return yes ? '是' : '否';
+  static ResourceType(type: ResourceType) {
+    switch (type) {
+      case ResourceType.Camera:
+        return '监控点';
+      case ResourceType.EncodeDevice:
+        return '编码设备';
+      case ResourceType.IoTSensor:
+        return '物联网传感器';
+      case ResourceType.Crossing:
+        return '卡口';
+      case ResourceType.ResourceCollection:
+        return '资源集合';
+      default:
+        return '';
+    }
   }
   static RegionNodeType(type: RegionNodeType) {
     switch (type) {

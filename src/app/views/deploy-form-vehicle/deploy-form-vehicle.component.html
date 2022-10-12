@@ -1,0 +1,106 @@
+<div class="deploy-form">
+  <div class="hw-simple-title">创建布控对象</div>
+  <div class="deploy-form-content">
+    <div class="deploy-form-content-list">
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">布控名称</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.TaskName" />
+        </div>
+      </div>
+
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">开始时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="text"
+            DateTimePicker
+            [format]="'yyyy年MM月dd日'"
+            [startView]="DateTimePickerView.month"
+            [minView]="DateTimePickerView.month"
+            [date]="params.BeginTime"
+            (change)="changeBeginTime($event)"
+            class=""
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">结束时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="text"
+            DateTimePicker
+            [format]="'yyyy年MM月dd日'"
+            [startView]="DateTimePickerView.month"
+            [minView]="DateTimePickerView.month"
+            [date]="params.EndTime"
+            (change)="changeEndTime($event)"
+            class=""
+          />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">车牌号</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.PlateNo" />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">车牌颜色</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.PlateColor">
+            <option [value]="item.Value" *ngFor="let item of plateColors">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">布控原因</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.Reason">
+            <option [value]="item.Value" *ngFor="let item of reasons">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">车辆品牌</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.VehicleLogo" />
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">车辆类型</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.VehicleType">
+            <option [value]="item.Value" *ngFor="let item of vehicleTypes">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">车辆颜色</div>
+        <div class="deploy-form-content-list-item-value">
+          <select [(ngModel)]="params.VehicleColor">
+            <option [value]="item.Value" *ngFor="let item of vehicleColors">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">描述</div>
+        <div class="deploy-form-content-list-item-value">
+          <input type="text" [(ngModel)]="params.Remark" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deploy-form-foot">
+    <button class="hw-green-btn" (click)="ok()">确定</button>
+    <button class="hw-blue-btn" (click)="cancel()">取消</button>
+  </div>
+</div>

@@ -59,4 +59,9 @@ export class StructuredDataVehicleComponent
     args.title = record.CameraName ?? '';
     this.playback.emit(args);
   }
+  async onmagnify(src: string) {
+    let args = new PictureArgs();
+    args.url = await src;
+    this.image.emit(args);
+  }
 }

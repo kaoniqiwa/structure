@@ -15,6 +15,7 @@ import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { IModel } from 'src/app/models/model.interface';
 import { PagedList } from 'src/app/models/page-list.model';
+import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
 import { DeployVehicleTableBusiness } from './deploy-vehicle-table.business';
 import {
   DeployVehicleTableModel,
@@ -44,13 +45,15 @@ export class DeployVehicleTableComponent
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  details: EventEmitter<VehicleDeployControlTask> = new EventEmitter();
 
   constructor(business: DeployVehicleTableBusiness) {
     this.business = business;
   }
 
   datas: DeployVehicleTableModel[] = [];
-  widths = ['20%', '16%', '16%', '16%', '16%', '16%'];
+  widths = ['20%', '15%', '15%', '15%', '15%', '15%', '5%'];
   ngOnInit(): void {
     if (!this.load) {
       this.loadData(new DeployVehicleTableArgs());
@@ -81,6 +84,10 @@ export class DeployVehicleTableComponent
   onplayback(e: Event, item: DeployVehicleTableModel) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
+    e.stopPropagation();
+  }
+  ondetails(e: Event, item: DeployVehicleTableModel) {
+    this.details.emit(item.data);
     e.stopPropagation();
   }
   onitemclicked(item: DeployVehicleTableModel) {}

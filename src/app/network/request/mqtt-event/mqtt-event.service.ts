@@ -5,6 +5,7 @@ import { ConfigRequestService } from '../config/config-request.service';
 import { wait } from 'src/app/tools/tools';
 import { EventType } from 'src/app/enums/event-type.enum';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { EventRecordType } from 'src/app/views/event-record/event-record.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,7 @@ export class MQTTEventService {
     });
   }
 
-  listenerStationEvent(divisionsId?: string, ...types: EventType[]) {
+  listenerResourcesEvent(cameraId?: string, ...types: EventRecordType[]) {
     wait(
       () => {
         return this.loaded;
@@ -42,50 +43,25 @@ export class MQTTEventService {
           if (types && types.length > 0) {
             for (let i = 0; i < types.length; i++) {
               const type = types[i];
-              let topic = `AIOP/Garbage/Counties/${
-                divisionsId ?? '+'
-              }/Committees/+/GarbageStations/+/Events/${type}`;
+              let topic = `AIOP/Resources/Cameras/${
+                cameraId ?? '+'
+              }/Infovision/${type}`;
               this.mqtt.subscription(
                 topic,
                 (topic: string, message: string) => {
-                  const msg = JSON.parse(message) as EventRecord;
+                  const msg = JSON.parse(message) as EventRecordType;
                   this.pushService.pushEvent.emit(msg);
                 }
               );
             }
           } else {
-            let topic = 'AIOP/Garbage/Counties/';
-            topic +=
-              (divisionsId ? divisionsId : '+') +
-              '/Committees/+/GarbageStations/+/Events/+';
+            let topic = 'AIOP/Resources/Cameras/';
+            topic += (cameraId ? cameraId : '+') + '/Infovision/+';
             this.mqtt.subscription(topic, (topic: string, message: string) => {
-              const msg = JSON.parse(message) as EventRecord;
+              const msg = JSON.parse(message) as EventRecordType;
               this.pushService.pushEvent.emit(msg);
             });
           }
-        }
-      }
-    );
-  }
-
-  smokeEventListener() {
-    let topic = `AIOP/Resources/Cameras/+/Artemis/IOStatus/+`;
-
-    wait(
-      () => {
-        return this.loaded;
-      },
-      () => {
-        if (this.mqtt) {
-          this.mqtt.subscription(topic, (topic: string, message: string) => {
-            const msg = JSON.parse(message) as EventRecord;
-            //console.log(msg);
-            this.pushService.pushEvent.emit(msg);
-          });
-          // this.mqtt.connectionState.subscribe((x) => {
-          //   const state = x != MqttConnectionState.CLOSED;
-          //   this.pushService.connectionState.emit(state);
-          // });
         }
       }
     );

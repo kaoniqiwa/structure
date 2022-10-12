@@ -33,7 +33,7 @@ export class FaceDetailConverter
     model.resourceName = item.ResourceName ?? '';
     model.eventTime = item.EventTime;
     if (item.Data.RegisterGender) {
-      model.registerGender = Language.GenderType(item.Data.RegisterGender);
+      model.registerGender = item.Data.RegisterGender;
     }
 
     return model;

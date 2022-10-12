@@ -1,6 +1,7 @@
 import { IConverter } from 'src/app/interfaces/converter.interface';
 import { PagedList } from 'src/app/models/page-list.model';
 import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
+import { Language } from 'src/app/tools/language';
 import { Medium } from 'src/app/tools/medium';
 import { DeployVehicleTableModel } from './deploy-vehicle-table.model';
 
@@ -36,6 +37,8 @@ class DeployVehicleTableItemConverter
   ): DeployVehicleTableModel<VehicleDeployControlTask> {
     let model = new DeployVehicleTableModel<VehicleDeployControlTask>();
     model.data = source;
+    Object.assign(model, source);
+    model.ReasonName = Language.VehicleReason(source.Reason);
     return model;
   }
 }

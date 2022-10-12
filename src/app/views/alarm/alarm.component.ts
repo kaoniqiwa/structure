@@ -5,6 +5,7 @@ import { IComponent } from 'src/app/interfaces/component.interfact';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 import { IModel } from 'src/app/models/model.interface';
+import { StoreService } from 'src/app/tools/service/store.service';
 import { AlarmBusiness } from './alarm.business';
 import { AlarmModel } from './alarm.model';
 import { AlarmFaceBusiness } from './business/alarm-face.business';
@@ -34,7 +35,7 @@ export class AlarmComponent
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
 
-  constructor(business: AlarmBusiness) {
+  constructor(business: AlarmBusiness, private store: StoreService) {
     this.business = business;
   }
 
@@ -42,6 +43,12 @@ export class AlarmComponent
 
   ngOnInit(): void {
     this.loadData();
+    this.store.interval.subscribe((x) => {
+      this.loadData();
+    });
+    this.store.refresh.subscribe((x) => {
+      this.loadData();
+    });
   }
 
   async loadData() {

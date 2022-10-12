@@ -10,11 +10,13 @@
   <div class="common-detail-main vertical-main">
     <div class="left-wrapper" [style.width.px]="model.LeftWidth">
       <div
+        *ngIf="model.ImageUrl"
         class="left-item"
         [style.backgroundImage]="'url(' + (model.ImageUrl | async) + ')'"
         (click)="magnify(model.ImageUrl)"
       ></div>
       <div
+        *ngIf="model.BackgroundImageUrl"
         class="left-item"
         [style.backgroundImage]="
           'url(' + (model.BackgroundImageUrl | async) + ')'

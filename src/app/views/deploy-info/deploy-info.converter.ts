@@ -38,8 +38,8 @@ export class DeployInfoConverter
     model.title = item.EventDescription ?? '';
     model.content = [];
     item.Data.PersonName && model.content.push(item.Data.PersonName);
-    item.Data.RegisterGender &&
-      model.content.push(Language.GenderType(item.Data.RegisterGender));
+    item.Data.RegisterGenderName &&
+      model.content.push(item.Data.RegisterGenderName);
     model.eventTime = item.EventTime;
 
     return model;

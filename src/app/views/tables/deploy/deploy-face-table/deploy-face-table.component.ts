@@ -13,6 +13,8 @@ import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
+import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.model';
+import { FaceRecord } from 'src/app/models/face-record.model';
 import { IModel } from 'src/app/models/model.interface';
 import { PagedList } from 'src/app/models/page-list.model';
 import { DeployFaceTableBusiness } from './deploy-face-table.business';
@@ -44,13 +46,15 @@ export class DeployFaceTableComponent
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  details: EventEmitter<FaceDeployControlTask> = new EventEmitter();
 
   constructor(business: DeployFaceTableBusiness) {
     this.business = business;
   }
 
   datas: DeployFaceTableModel[] = [];
-  widths = ['20%', '16%', '16%', '16%', '16%', '16%'];
+  widths = ['25%', '14%', '14%', '14%', '14%', '14%', '5%'];
   ngOnInit(): void {
     if (!this.load) {
       this.loadData(new DeployFaceTableArgs());
@@ -81,6 +85,10 @@ export class DeployFaceTableComponent
   onplayback(e: Event, item: DeployFaceTableModel) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
+    e.stopPropagation();
+  }
+  ondetails(e: Event, item: DeployFaceTableModel) {
+    this.details.emit(item.data);
     e.stopPropagation();
   }
   onitemclicked(item: DeployFaceTableModel) {}
