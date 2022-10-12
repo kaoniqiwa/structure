@@ -4,7 +4,50 @@
   </div>
 </div>
 
-<ul class="map-bar status" *ngIf="display.status">
+<div class="map-bar btn-list">
+  <div
+    class="btn"
+    (click)="btnToFilterClicked()"
+    [ngStyle]="{
+      'background-color': bar.filter.selected.value ? '#2bcf38' : '#2d76ce'
+    }"
+    title="筛选"
+  >
+    <div class="inner">
+      <i class="mdi mdi-filter-outline"></i>
+    </div>
+  </div>
+
+  <div
+    class="btn"
+    *ngIf="bar.face.display.value"
+    (click)="btnFaceFilterClicked()"
+    [ngStyle]="{
+      'background-color': bar.face.selected.value ? '#2bcf38' : '#2d76ce'
+    }"
+    title="人脸"
+  >
+    <div class="inner">
+      <i class="howell-icon-face-recognition"></i>
+    </div>
+  </div>
+
+  <div
+    class="btn"
+    *ngIf="bar.vehicle.display.value"
+    (click)="btnVehicleFilterClicked()"
+    [ngStyle]="{
+      'background-color': bar.vehicle.selected.value ? '#2bcf38' : '#2d76ce'
+    }"
+    title="车辆"
+  >
+    <div class="inner">
+      <i class="howell-icon-vehicle"></i>
+    </div>
+  </div>
+</div>
+
+<ul class="map-bar status" *ngIf="bar.status">
   <li class="normal">
     <div></div>
     在线

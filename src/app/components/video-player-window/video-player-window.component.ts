@@ -19,6 +19,7 @@ import { DateTimeTool } from 'src/app/tools/datetime.tool';
 import { PlayMode, VideoModel } from '../video-player/video.model';
 import { WindowViewModel } from '../window-control/window.model';
 import { VideoPlayerWindowBusiness } from './video-player-window.business';
+import config from 'src/assets/configs/config.json';
 
 @Component({
   selector: 'howell-video-player-window',
@@ -44,7 +45,11 @@ export class VideoPlayerWindowComponent
   constructor(business: VideoPlayerWindowBusiness) {
     super();
     this.business = business;
-    let duration = DateTimeTool.beforeAndAfter(this.date, 15);
+    let duration = DateTimeTool.second(
+      this.date,
+      config.playback.begin,
+      config.playback.end
+    );
     this.duration = new TimeDurationModel(duration.begin, duration.end);
   }
   ngOnDestroy(): void {
@@ -60,7 +65,11 @@ export class VideoPlayerWindowComponent
   ngOnChanges(changes: SimpleChanges): void {
     if (this.time) {
       this.date = this.time;
-      let duration = DateTimeTool.beforeAndAfter(this.time, 30);
+      let duration = DateTimeTool.second(
+        this.date,
+        config.playback.begin,
+        config.playback.end
+      );
       this.duration = {
         begin: new TimeModel(duration.begin),
         end: new TimeModel(duration.end),

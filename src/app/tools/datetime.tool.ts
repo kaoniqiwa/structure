@@ -79,4 +79,13 @@ export class DateTimeTool {
 
     return duration;
   }
+  static second(date: Date, before: number, after: number): Duration {
+    let duration = {
+      begin: new Date(date.getTime()),
+      end: new Date(date.getTime()),
+    };
+    duration.begin.setSeconds(duration.begin.getSeconds() + before);
+    duration.end.setSeconds(duration.end.getSeconds() + after);
+    return duration;
+  }
 }

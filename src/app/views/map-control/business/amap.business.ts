@@ -173,6 +173,16 @@ export class AMapBusiness {
     this.mapClicked.emit();
   }
 
+  filter(visibility: boolean, type?: RegionNodeType) {
+    if (!this.mapClient) return;
+    for (let i = 0; i < this.source.all.length; i++) {
+      const node = this.source.all[i];
+      if (type === undefined || type == node.NodeType) {
+        this.mapClient.Point.SetVisibility(node.Id, visibility);
+      }
+    }
+  }
+
   setPointStatus(nodes: RegionNode[]) {
     console.log('setPointStatus');
     if (!this.mapClient || !nodes || nodes.length === 0) return;

@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImageControlArrayConverter } from 'src/app/converters/image-control-array.converter';
+import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { ImageControlModel } from 'src/app/models/image-control.model';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
@@ -50,6 +51,36 @@ export class MapControlComponent
   ) {}
 
   src?: SafeResourceUrl;
+  bar: MapControlBar = new MapControlBar();
+
+  images: ImageControlModel[] = [];
+
+  imageConverter = new ImageControlArrayConverter();
+
+  selected: Selected = {};
+
+  initBar() {
+    this.bar.filter.selected.event.subscribe((x) => {
+      this.bar.face.display.value = x;
+      this.bar.vehicle.display.value = x;
+    });
+    this.bar.face.display.event.subscribe((x) => {
+      if (!x) {
+        this.bar.face.selected.value = true;
+      }
+    });
+    this.bar.vehicle.display.event.subscribe((x) => {
+      if (!x) {
+        this.bar.vehicle.selected.value = true;
+      }
+    });
+    this.bar.face.selected.event.subscribe((x) => {
+      this.amap.filter(x, RegionNodeType.face);
+    });
+    this.bar.vehicle.selected.event.subscribe((x) => {
+      this.amap.filter(x, RegionNodeType.vehicle);
+    });
+  }
 
   private get iframe(): HTMLIFrameElement | undefined {
     if (this.element && this.element.nativeElement.contentWindow) {
@@ -102,22 +133,15 @@ export class MapControlComponent
     });
     this.amap.menuEvents.nodeInformationClicked.subscribe((x) => {
       this.info.node = x;
-      this.display.status = false;
+      this.bar.status = false;
     });
+    this.initBar();
   }
   ngOnDestroy(): void {
     if (this.loadHandle) {
       clearTimeout(this.loadHandle);
     }
   }
-
-  display: MapControlDisplay = new MapControlDisplay();
-
-  images: ImageControlModel[] = [];
-
-  imageConverter = new ImageControlArrayConverter();
-
-  selected: Selected = {};
 
   //#region template event
   onLoad(event: Event) {
@@ -134,26 +158,70 @@ export class MapControlComponent
     this.video.emit(camera);
   }
   onMapClicked() {
-    this.display.status = true;
-    this.display.videoList = false;
+    this.bar.status = true;
   }
   //#endregion
+
+  btnToFilterClicked() {
+    this.bar.filter.selected.value = !this.bar.filter.selected.value;
+  }
+  btnFaceFilterClicked() {
+    this.bar.face.selected.value = !this.bar.face.selected.value;
+  }
+  btnVehicleFilterClicked() {
+    this.bar.vehicle.selected.value = !this.bar.vehicle.selected.value;
+  }
 
   Button1Clicked() {
     this.patrol.emit();
   }
-  Button2Clicked() {}
-  Button3Clicked() {}
-  Button4Clicked() {}
-}
-
-class MapControlDisplay {
-  constructor() {}
-  status = true;
-  videoList = false;
-  videoControl = false;
 }
 
 interface Selected {
   node?: RegionNode;
+}
+class MapControlBar {
+  constructor() {}
+  filter = new MapControlBarButton(true, false);
+  face = new MapControlBarButton(false, true);
+  vehicle = new MapControlBarButton(false, true);
+  status: boolean = true;
+}
+class MapControlBarButton {
+  constructor(display: boolean, selected: boolean) {
+    this._display = new EventTrigger(display);
+    this._selected = new EventTrigger(selected);
+  }
+  private _display: EventTrigger<boolean>;
+  public get display(): EventTrigger<boolean> {
+    return this._display;
+  }
+  public set display(v: EventTrigger<boolean>) {
+    this._display = v;
+    if (!this._display) {
+      this.selected.value = true;
+    }
+  }
+
+  private _selected: EventTrigger<boolean>;
+  public get selected(): EventTrigger<boolean> {
+    return this._selected;
+  }
+  public set selected(v: EventTrigger<boolean>) {
+    this._selected = v;
+  }
+}
+class EventTrigger<T> {
+  constructor(t: T) {
+    this._value = t;
+  }
+  event: EventEmitter<T> = new EventEmitter();
+  private _value: T;
+  public get value(): T {
+    return this._value;
+  }
+  public set value(v: T) {
+    this._value = v;
+    this.event.emit(this._value);
+  }
 }
