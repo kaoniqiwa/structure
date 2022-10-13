@@ -59,8 +59,8 @@
         <common-table
           #addTable="commonTable"
           [dataSubject]="addDataSubject"
-          [columnModel]="columnModel"
-          [displayedColumns]="displayedColumns"
+          [columnModel]="addColumnModel"
+          [displayedColumns]="addDisplayedColumns"
           [selectStrategy]="selectStrategy"
           (selectTableRow)="selectAddTableRow($event)"
         ></common-table>
@@ -72,8 +72,8 @@
         <common-table
           #editTable="commonTable"
           [dataSubject]="editDataSubject"
-          [columnModel]="columnModel"
-          [displayedColumns]="displayedColumns"
+          [columnModel]="editColumnModel"
+          [displayedColumns]="editDisplayedColumns"
           [selectStrategy]="selectStrategy"
           (selectTableRow)="selectEditTableRow($event)"
         ></common-table>

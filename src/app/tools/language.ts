@@ -1,4 +1,5 @@
 import { formatDate } from '@angular/common';
+import { CameraType } from '../enums/camera-type.enum';
 import { EventType } from '../enums/event-type.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
 import { RegionNodeType } from '../enums/region-node-type.enum';
@@ -76,6 +77,19 @@ export class Language {
       case RegionNodeType.face:
         return '人脸、人体相机';
       case RegionNodeType.vehicle:
+        return '车辆卡口相机';
+      default:
+        return '';
+    }
+  }
+
+  static CameraType(type: CameraType) {
+    switch (type) {
+      case CameraType.Common:
+        return '普通相机';
+      case CameraType.Face:
+        return '人脸相机';
+      case CameraType.Bayonet:
         return '车辆卡口相机';
       default:
         return '';

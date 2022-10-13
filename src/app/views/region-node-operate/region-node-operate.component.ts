@@ -19,7 +19,7 @@ import { RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { RegionNodeOperateBusiness } from './region-node-operate.business';
-import { CameraConf } from './region-node-operate.config';
+import { AddCameraConf, EditCameraConf } from './region-node-operate.config';
 
 @Component({
   selector: 'region-node-operate',
@@ -54,14 +54,20 @@ export class RegionNodeOperateComponent implements OnInit {
   regionNode: RegionNode | null = null;
 
   selectStrategy = SelectStrategy.Single;
-  columnModel: TableColumnModel[] = [...CameraConf]; // 表格列配置详情
-  displayedColumns: string[] = this.columnModel.map((model) => model.columnDef);
 
   addSelectedRows: Camera[] = [];
   addDataSubject = new BehaviorSubject<Camera[]>([]);
+  addColumnModel: TableColumnModel[] = [...AddCameraConf]; // 表格列配置详情
+  addDisplayedColumns: string[] = this.addColumnModel.map(
+    (model) => model.columnDef
+  );
 
   editSelectedRows: Camera[] = [];
   editDataSubject = new BehaviorSubject<Camera[]>([]);
+  editColumnModel: TableColumnModel[] = [...EditCameraConf]; // 表格列配置详情
+  editDisplayedColumns: string[] = this.editColumnModel.map(
+    (model) => model.columnDef
+  );
 
   get title() {
     if (this.state == FormState.add) {
@@ -97,7 +103,7 @@ export class RegionNodeOperateComponent implements OnInit {
       this.regionNodeType = res.NodeType ?? RegionNodeType.face;
 
       let camera = await this._business.getCamera(res.ResourceId);
-      this.editDataSubject.next([camera]);
+      this.editDataSubject.next(this.allCameras);
     }
   }
 
