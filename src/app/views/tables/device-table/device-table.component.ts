@@ -56,7 +56,7 @@ export class DeviceTableComponent
     }
   }
   OnlineStatus = OnlineStatus;
-  widths = ['23%', '23%', '23%', '23%', '8%'];
+  widths = ['18%', '18%', '18%', '18%', '18%', '10%'];
   datas: DeviceTableModel[] = [];
   ngOnInit(): void {}
   async loadData() {

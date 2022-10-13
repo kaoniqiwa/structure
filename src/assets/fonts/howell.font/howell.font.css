@@ -2507,3 +2507,7 @@ a .howell-icon-flip-vertical:before {
 .howell-icon-sunglasses:before {
     content: "\f382";
 }
+
+.howell-icon-car_recognition:before {
+    content: "\f383";
+}

@@ -24,7 +24,7 @@ export class RegionTreeBusiness {
     private _converter: RegionTreeConverter
   ) {}
 
-  async init(condition: string = '') {
+  async init(condition: string = '', setting: boolean) {
     this.nestedNodeMap.clear();
 
     // 拉取所有区域
@@ -33,12 +33,15 @@ export class RegionTreeBusiness {
 
     let regionRes = await this._listRegion(params);
     this._regions = regionRes.Data;
-    let nodes = await this._converter.iterateToNestNode(regionRes.Data);
+    let nodes = await this._converter.iterateToNestNode(
+      regionRes.Data,
+      setting
+    );
     this._registerArray(nodes);
     for (let node of nodes) {
       if (node.ParentId) {
         if (!this.nestedNodeMap.has(node.ParentId)) {
-          await this._getAncestors(node);
+          await this._getAncestors(node, setting);
         }
       }
     }
@@ -51,13 +54,16 @@ export class RegionTreeBusiness {
 
       console.log(regionNodeRes);
       this._regionNodes = regionNodeRes.Data;
-      let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
+      let nodes2 = await this._converter.iterateToNestNode(
+        regionNodeRes.Data,
+        setting
+      );
       this._registerArray(nodes2);
 
       for (let node of nodes2) {
         if (node.ParentId) {
           if (!this.nestedNodeMap.has(node.ParentId)) {
-            await this._getAncestors(node);
+            await this._getAncestors(node, setting);
           }
         }
       }
@@ -72,8 +78,8 @@ export class RegionTreeBusiness {
     return res;
   }
 
-  searchNode(condition: string) {
-    return this.init(condition);
+  searchNode(condition: string, setting: boolean) {
+    return this.init(condition, setting);
   }
 
   private _listRegion(params: GetRegionsParams) {
@@ -101,13 +107,13 @@ export class RegionTreeBusiness {
     }
   }
 
-  private async _getAncestors(node: CommonNestNode) {
+  private async _getAncestors(node: CommonNestNode, setting: boolean) {
     if (node.ParentId && !this.nestedNodeMap.has(node.ParentId)) {
       let region = await this._regionRequest.get(node.ParentId);
-      let parentNode = await this._converter.Convert(region);
+      let parentNode = await this._converter.Convert(region, setting);
       this._registerArray([parentNode]);
       // 一定要await
-      await this._getAncestors(parentNode);
+      await this._getAncestors(parentNode, setting);
     }
   }
   private _getLocalAncestors(item: Region, res: Region[]) {

@@ -36,6 +36,7 @@
 
         <div class="tree" *ngIf="expand">
           <howell-region-tree
+            [showRegionNode]="true"
             (selectTreeNode)="onNodeSelected($event)"
           ></howell-region-tree>
         </div>

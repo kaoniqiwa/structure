@@ -49,15 +49,19 @@
 
           <div class="tree" *ngIf="expand">
             <howell-region-tree
+              [showRegionNode]="true"
               (selectTreeNode)="onNodeSelected($event)"
             ></howell-region-tree>
           </div>
         </div>
       </div>
+      <div class="event-record-item-head-filter-item">
+        <button class="hw-blue-btn" (click)="onsearch()">搜索</button>
+      </div>
     </div>
-    <div class="event-record-item-head-search">
+    <!-- <div class="event-record-item-head-search">
       <button class="hw-blue-btn" (click)="onsearch()">搜索</button>
-    </div>
+    </div> -->
   </div>
   <div class="event-record-item-content">
     <app-event-record-face-table

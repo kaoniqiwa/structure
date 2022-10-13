@@ -8,6 +8,7 @@
         <tr>
           <th>图片</th>
           <th>名称</th>
+          <th>监控点</th>
           <th>状态</th>
           <th>类型</th>
           <th>操作</th>
@@ -31,6 +32,10 @@
             ></div>
           </td>
           <td>{{ item.name }}</td>
+
+          <td>
+            <div *ngIf="item.node">{{ item.node | name_pipe }}</div>
+          </td>
           <td
             [ngClass]="{
               'green-text': item.status === OnlineStatus.online,
@@ -39,9 +44,6 @@
           >
             {{ item.status | online_status_pipe }}
           </td>
-          <!-- <td>
-            <div *ngIf="item.node">{{ item.node | name_pipe }}</div>
-          </td> -->
           <td>
             {{ item.type | resource_type_pipe }}
           </td>

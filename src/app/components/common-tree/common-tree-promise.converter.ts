@@ -9,12 +9,13 @@ export abstract class CommonTreePromiseConverter {
 
   // 数据以数组形式
   async iterateToNestNode<T extends Array<CommonTreeModel>>(
-    data: T
+    data: T,
+    setting: boolean
   ): Promise<CommonNestNode[]> {
     let res: CommonNestNode[] = new Array<CommonNestNode>();
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
-      const node = await this.Convert(item);
+      const node = await this.Convert(item, setting);
       res.push(node);
     }
     return res;
@@ -23,7 +24,7 @@ export abstract class CommonTreePromiseConverter {
   // 数据以递归形式
   async recurseToNestNode<T extends CommonTreeModel>(
     data: T[],
-    parentId: string | null = null
+    parentId?: string
   ) {
     let res: CommonNestNode[] = [];
     for (let i = 0; i < data.length; i++) {

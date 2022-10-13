@@ -24,11 +24,11 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
   constructor(private resourceRequest: ResourceRequestSerivce) {
     super();
   }
-  Convert(source: RegionTreeSource, ...res: any[]) {
+  Convert(source: RegionTreeSource, setting: boolean) {
     if (source instanceof Region) {
       return this._fromRegion(source);
     } else if (source instanceof RegionNode) {
-      return this._fromRegionNode(source);
+      return this._fromRegionNode(source, setting);
     }
 
     throw new Error('Method not implemented.');
@@ -39,7 +39,7 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     node.Id = item.Id;
     node.Name = item.Name;
     node.HasChildren = false;
-    node.ParentId = item.ParentId ?? null;
+    node.ParentId = item.ParentId;
     node.ChildrenLoaded = true;
     node.ParentNode = null;
     node.IconClass = item.ParentId ? 'howell-icon-map5' : 'howell-icon-earth';
@@ -47,7 +47,8 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     return node;
   }
   private async _fromRegionNode(
-    item: RegionNode
+    item: RegionNode,
+    setting: boolean
   ): Promise<CommonNestNode<CameraRegionNode>> {
     const node = new CommonNestNode();
     node.Id = item.Id;
@@ -64,10 +65,13 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
 
     node.RawData = cameraRegionNode;
 
-    if (camera.GisPoint) {
-      node.ButtonIconClasses = [IconTypeEnum.unlink];
+    if (setting) {
+      if (camera.GisPoint) {
+        node.ButtonIconClasses = [IconTypeEnum.unlink];
+      } else {
+        node.ButtonIconClasses = [IconTypeEnum.link];
+      }
     } else {
-      node.ButtonIconClasses = [IconTypeEnum.link];
     }
 
     return node;

@@ -160,7 +160,7 @@ export class RegionManageComponent implements OnInit {
       if (res) {
         console.log(res);
         this._toastrService.success('添加成功');
-        const node = await this._converter.Convert(res);
+        const node = await this._converter.Convert(res, true);
         this.tree.addNode(node);
         this.onReset();
       }
@@ -176,7 +176,7 @@ export class RegionManageComponent implements OnInit {
       let res = await this._business.editRegion(id, model);
       if (res) {
         this._toastrService.success('编辑成功');
-        const node = await this._converter.Convert(res);
+        const node = await this._converter.Convert(res, true);
         this.tree.editNode(node);
         this.onReset();
       }

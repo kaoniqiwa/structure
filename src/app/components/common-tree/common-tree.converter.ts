@@ -18,10 +18,7 @@ export abstract class CommonTreeConverter {
   }
 
   // 数据以递归形式
-  recurseToNestNode<T extends CommonTreeModel>(
-    data: T[],
-    parentId: string | null = null
-  ) {
+  recurseToNestNode<T extends CommonTreeModel>(data: T[], parentId?: string) {
     let res: CommonNestNode[] = [];
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
