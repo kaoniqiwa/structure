@@ -8,6 +8,7 @@ import { CommonTreePromiseConverter } from '../common-tree/common-tree-promise.c
 import { ResourceRequestSerivce } from 'src/app/network/request/resources/resources.service';
 import { IconTypeEnum } from 'src/app/enums/icon-type.enum';
 import { classToClass, classToPlain, plainToClass } from 'class-transformer';
+import { OnlineStatus } from 'src/app/enums/online-status.enum';
 
 const RegionNodeIconType = new Map([
   [RegionType.None, 'howell-icon-earth'],
@@ -72,6 +73,13 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
         node.ButtonIconClasses = [IconTypeEnum.link];
       }
     } else {
+      node.ButtonIconClasses = [
+        item.OnlineStatus === OnlineStatus.online
+          ? `${IconTypeEnum.online} green-text`
+          : `${IconTypeEnum.offline} powder-red-text`,
+        IconTypeEnum.play,
+        IconTypeEnum.position,
+      ];
     }
 
     return node;
