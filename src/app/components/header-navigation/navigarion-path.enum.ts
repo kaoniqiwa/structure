@@ -7,6 +7,5 @@ export enum NavigationPath {
   depoly_map = 'depoly_map',
   region_manage = 'region_manage',
   region_node_manage = 'region_node_manage',
-  sync_sr_server = 'sync_sr_server',
-  sync_passenger_server = 'sync_passenger_server',
+  sync_server = 'sync_server',
 }

@@ -26,18 +26,10 @@
         </div>
         <div
           class="tab"
-          [class.active]="path == NavigationPath.sync_sr_server"
-          (click)="path = NavigationPath.sync_sr_server"
+          [class.active]="path == NavigationPath.sync_server"
+          (click)="path = NavigationPath.sync_server"
         >
-          同步流转服务器
-        </div>
-
-        <div
-          class="tab"
-          [class.active]="path == NavigationPath.sync_passenger_server"
-          (click)="path = NavigationPath.sync_passenger_server"
-        >
-          同步客流服务器
+          数据同步
         </div>
       </div>
     </div>
@@ -48,5 +40,9 @@
     <region-node-manage
       *ngIf="path == NavigationPath.region_node_manage"
     ></region-node-manage>
+    <div class="sync" *ngIf="path == NavigationPath.sync_server">
+      <button class="hw-green-btn">同步流转服务器</button>
+      <button class="hw-green-btn">同步平台信息</button>
+    </div>
   </div>
 </div>
