@@ -74,10 +74,12 @@ export class Language {
   }
   static RegionNodeType(type: RegionNodeType) {
     switch (type) {
+      case RegionNodeType.camera:
+        return '普通摄像机';
       case RegionNodeType.face:
-        return '人脸、人体相机';
+        return '人脸、人体摄像机';
       case RegionNodeType.vehicle:
-        return '车辆卡口相机';
+        return '车辆卡口摄像机';
       default:
         return '';
     }
@@ -86,11 +88,11 @@ export class Language {
   static CameraType(type: CameraType) {
     switch (type) {
       case CameraType.Common:
-        return '普通相机';
+        return '普通摄像机';
       case CameraType.Face:
-        return '人脸相机';
+        return '人脸摄像机';
       case CameraType.Bayonet:
-        return '车辆卡口相机';
+        return '车辆卡口摄像机';
       default:
         return '';
     }

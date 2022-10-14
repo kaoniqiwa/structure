@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationPath } from 'src/app/components/header-navigation/navigarion-path.enum';
 import { DeployMapComponent } from '../deploy-map/deploy-map.component';
 
 @Component({
@@ -7,7 +8,9 @@ import { DeployMapComponent } from '../deploy-map/deploy-map.component';
   styleUrls: ['./config-setting.component.less'],
 })
 export class ConfigSettingComponent implements OnInit {
-  path = 'region_node_manage';
+  NavigationPath = NavigationPath;
+
+  path = NavigationPath.depoly_map;
   constructor() {}
 
   ngOnInit(): void {}

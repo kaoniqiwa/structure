@@ -73,4 +73,25 @@ export class SRServerRequestService {
     let url = SRServersUrl.playback();
     return this.basic.post(url, VideoUrl, data);
   }
+
+  create(item: SRServer) {
+    return this.type.post(SRServersUrl.basic(), item);
+  }
+  get(id: string) {
+    return this.type.get(SRServersUrl.item(id));
+  }
+  set(item: SRServer) {
+    return this.type.post(SRServersUrl.item(item.Id), item);
+  }
+
+  array() {
+    return this.type.getArray(SRServersUrl.basic());
+  }
+
+  sync(id: string) {
+    return this.type.post(SRServersUrl.sync(id));
+  }
+  delete(id: string) {
+    return this.type.delete(SRServersUrl.item(id));
+  }
 }

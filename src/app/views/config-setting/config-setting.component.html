@@ -5,33 +5,48 @@
       <div class="tab-labels">
         <div
           class="tab"
-          [class.active]="path == 'depoly_map'"
-          (click)="path = 'depoly_map'"
+          [class.active]="path == NavigationPath.depoly_map"
+          (click)="path = NavigationPath.depoly_map"
         >
           地图布控
         </div>
         <div
           class="tab"
-          [class.active]="path == 'region_manage'"
-          (click)="path = 'region_manage'"
+          [class.active]="path == NavigationPath.region_manage"
+          (click)="path = NavigationPath.region_manage"
         >
           区域管理
         </div>
         <div
           class="tab"
-          [class.active]="path == 'region_node_manage'"
-          (click)="path = 'region_node_manage'"
+          [class.active]="path == NavigationPath.region_node_manage"
+          (click)="path = NavigationPath.region_node_manage"
         >
           监控点管理
+        </div>
+        <div
+          class="tab"
+          [class.active]="path == NavigationPath.sync_sr_server"
+          (click)="path = NavigationPath.sync_sr_server"
+        >
+          同步流转服务器
+        </div>
+
+        <div
+          class="tab"
+          [class.active]="path == NavigationPath.sync_passenger_server"
+          (click)="path = NavigationPath.sync_passenger_server"
+        >
+          同步客流服务器
         </div>
       </div>
     </div>
   </div>
   <div class="vertical-main">
-    <deploy-map *ngIf="path == 'depoly_map'"></deploy-map>
-    <region-manage *ngIf="path == 'region_manage'"></region-manage>
+    <deploy-map *ngIf="path == NavigationPath.depoly_map"></deploy-map>
+    <region-manage *ngIf="path == NavigationPath.region_manage"></region-manage>
     <region-node-manage
-      *ngIf="path == 'region_node_manage'"
+      *ngIf="path == NavigationPath.region_node_manage"
     ></region-node-manage>
   </div>
 </div>
