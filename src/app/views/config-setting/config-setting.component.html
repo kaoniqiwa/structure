@@ -41,8 +41,12 @@
       *ngIf="path == NavigationPath.region_node_manage"
     ></region-node-manage>
     <div class="sync" *ngIf="path == NavigationPath.sync_server">
-      <button class="hw-green-btn">同步流转服务器</button>
-      <button class="hw-green-btn">同步平台信息</button>
+      <button class="hw-green-btn" (click)="syncSRServer()">
+        同步流转服务器
+      </button>
+      <button class="hw-green-btn" (click)="syncPlatform()">
+        同步平台信息
+      </button>
     </div>
   </div>
 </div>
