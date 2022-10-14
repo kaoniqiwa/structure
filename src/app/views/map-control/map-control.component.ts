@@ -11,7 +11,6 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImageControlArrayConverter } from 'src/app/converters/image-control-array.converter';
@@ -44,7 +43,6 @@ export class MapControlComponent
 
   constructor(
     private sanitizer: DomSanitizer,
-    private changeDetectorRef: ChangeDetectorRef,
     public amap: AMapBusiness,
     public info: PointInfoPanelBusiness,
     private business: MapControlBusiness
@@ -61,8 +59,14 @@ export class MapControlComponent
 
   initBar() {
     this.bar.filter.selected.event.subscribe((x) => {
+      this.bar.camera.display.value = x;
       this.bar.face.display.value = x;
       this.bar.vehicle.display.value = x;
+    });
+    this.bar.camera.display.event.subscribe((x) => {
+      if (!x) {
+        this.bar.camera.selected.value = true;
+      }
     });
     this.bar.face.display.event.subscribe((x) => {
       if (!x) {
@@ -73,6 +77,9 @@ export class MapControlComponent
       if (!x) {
         this.bar.vehicle.selected.value = true;
       }
+    });
+    this.bar.camera.selected.event.subscribe((x) => {
+      this.amap.filter(x, RegionNodeType.camera);
     });
     this.bar.face.selected.event.subscribe((x) => {
       this.amap.filter(x, RegionNodeType.face);
@@ -183,6 +190,7 @@ interface Selected {
 class MapControlBar {
   constructor() {}
   filter = new MapControlBarButton(true, false);
+  camera = new MapControlBarButton(false, true);
   face = new MapControlBarButton(false, true);
   vehicle = new MapControlBarButton(false, true);
   status: boolean = true;

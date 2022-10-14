@@ -112,6 +112,13 @@ export class AMapBusiness {
         }
         if (this.source.all[i].NodeType != undefined) {
           switch (this.source.all[i].NodeType) {
+            case RegionNodeType.camera:
+              if (point.type != CesiumDataController.ElementType.Camera) {
+                point.type = CesiumDataController.ElementType.Camera;
+                point.url = 'img/camera.png';
+                changed = true;
+              }
+              break;
             case RegionNodeType.face:
               if (point.type != CesiumDataController.ElementType.Face) {
                 point.type = CesiumDataController.ElementType.Face;

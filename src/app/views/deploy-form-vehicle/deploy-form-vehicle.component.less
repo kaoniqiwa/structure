@@ -1,6 +1,6 @@
 .deploy-form {
   width: 500px;
-  height: 550px;
+  height: 600px;
 
   &-content {
     display: flex;
@@ -56,7 +56,11 @@
         }
 
         &-value {
-          width: calc(100% - @title-width)
+          width: calc(100% - @title-width);
+
+          &.panel-outer {
+            position: relative;
+          }
         }
       }
     }
@@ -67,4 +71,12 @@
     justify-content: center;
     padding: 10px;
   }
+}
+
+.panel {
+  position: absolute;
+  background-color: #0e1027;
+  border: 1px solid #5e6ebf;
+  width: 100%;
+  z-index: 1;
 }

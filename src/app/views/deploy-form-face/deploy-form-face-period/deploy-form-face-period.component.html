@@ -1,0 +1,39 @@
+<div class="deploy-form" (click)="onclick($event)">
+  <div class="deploy-form-content">
+    <div class="deploy-form-content-list">
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">报警阈值</div>
+        <div class="deploy-form-content-list-item-value">
+          <input
+            type="number"
+            (touchSpinChange)="touchSpinChange($event)"
+            [options]="{
+              max: 100,
+              min: 0,
+              verticalbuttons: true
+            }"
+            appTouchSpin
+            [(ngModel)]="thresholdMin"
+          />
+        </div>
+      </div>
+
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">开始时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <app-time-control [time]="start"></app-time-control>
+        </div>
+      </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">结束时间</div>
+        <div class="deploy-form-content-list-item-value">
+          <app-time-control [time]="stop"></app-time-control>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deploy-form-foot">
+    <button class="hw-green-btn" (click)="onok()">确定</button>
+    <button class="hw-blue-btn" (click)="oncancel()">取消</button>
+  </div>
+</div>

@@ -1,8 +1,22 @@
 <div class="deploy-form">
   <div class="hw-simple-title">创建布控对象</div>
   <div class="deploy-form-content">
-    <div class="deploy-form-content-img">
-      <img [src]="params.ImageData" alt="" />
+    <div
+      class="deploy-form-content-picture"
+      (click)="onupload()"
+      [ngStyle]="{
+        backgroundImage: 'url(' + params.ImageData + ')'
+      }"
+    >
+      <div *ngIf="!params.ImageData">点击上传图片</div>
+      <input
+        type="file"
+        (change)="fileChange()"
+        accept="*.png|*.jpg|*.jpeg|*.bmp"
+        #file
+        style="display: none"
+      />
+      <!-- <img [src]="params.ImageData" alt="" /> -->
     </div>
     <div class="deploy-form-content-list">
       <div class="deploy-form-content-list-item">
@@ -11,7 +25,36 @@
           <input type="text" [(ngModel)]="params.TaskName" />
         </div>
       </div>
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">摄像机</div>
+        <div class="deploy-form-content-list-item-value panel-outer">
+          <mat-chip-list
+            #chipList
+            aria-label="Fruit selection"
+            [aria-orientation]="'horizontal'"
+            (click)="node.onclick($event)"
+          >
+            <span *ngIf="!node.datas || node.datas.length == 0">请选择</span>
+            <mat-chip
+              *ngFor="let item of node.datas"
+              (removed)="node.onremove(item)"
+            >
+              {{ item.Name }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-list>
 
+          <div class="panel" *ngIf="node.expand">
+            <howell-region-tree
+              [nodeType]="RegionNodeType.face"
+              [showRegionNode]="true"
+              (selectTreeNode)="node.onselect($event)"
+            ></howell-region-tree>
+          </div>
+        </div>
+      </div>
       <div class="deploy-form-content-list-item">
         <div class="deploy-form-content-list-item-title">开始时间</div>
         <div class="deploy-form-content-list-item-value">
@@ -40,6 +83,40 @@
             (change)="changeEndTime($event)"
             class=""
           />
+        </div>
+      </div>
+
+      <div class="deploy-form-content-list-item">
+        <div class="deploy-form-content-list-item-title">时间段</div>
+        <div class="deploy-form-content-list-item-value panel-outer">
+          <mat-chip-list
+            #chipList
+            aria-label="Fruit selection"
+            [aria-orientation]="'horizontal'"
+            (click)="details.onclick($event)"
+          >
+            <span *ngIf="!details.datas || details.datas.length == 0"
+              >请选择</span
+            >
+            <mat-chip
+              *ngFor="let item of details.datas; let i = index"
+              (removed)="details.onremove(item)"
+              (click)="details.onselect($event, item)"
+            >
+              {{ "时间段" + (i + 1) }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-list>
+
+          <div class="panel" *ngIf="details.expand">
+            <app-deploy-form-face-period
+              [data]="details.selected"
+              (ok)="details.onok($event)"
+              (cancel)="details.onclose()"
+            ></app-deploy-form-face-period>
+          </div>
         </div>
       </div>
       <div class="deploy-form-content-list-item">
@@ -87,25 +164,6 @@
         <div class="deploy-form-content-list-item-title">证件号码</div>
         <div class="deploy-form-content-list-item-value">
           <input type="text" [(ngModel)]="params.CertificateNumber" />
-        </div>
-      </div>
-      <div
-        class="deploy-form-content-list-item"
-        *ngIf="params.Details && params.Details.length > 0"
-      >
-        <div class="deploy-form-content-list-item-title">报警阈值</div>
-        <div class="deploy-form-content-list-item-value">
-          <input
-            type="number"
-            (touchSpinChange)="touchSpinChange($event)"
-            [options]="{
-              max: 100,
-              min: 0,
-              verticalbuttons: true
-            }"
-            appTouchSpin
-            [(ngModel)]="thresholdMin"
-          />
         </div>
       </div>
       <div class="deploy-form-content-list-item">

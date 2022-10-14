@@ -62,18 +62,29 @@ export class RealtimeComponent implements OnInit {
     this.deployFace.subject.next(args[0]?.data);
   }
   onNodeSelected(nodes: CommonFlatNode[]) {
-    if (nodes) {
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        if (node.RawData instanceof RegionNode) {
-          this.position.emit(node.RawData);
-          return;
-        }
-      }
-    }
+    // if (nodes) {
+    //   for (let i = 0; i < nodes.length; i++) {
+    //     const node = nodes[i];
+    //     if (node.RawData instanceof RegionNode) {
+    //       this.position.emit(node.RawData);
+    //       return;
+    //     }
+    //   }
+    // }
   }
   onButtonIconClicked(e: CommonFlatNode) {
     console.log(e);
+    switch (e.CurrentButtonIcon) {
+      case 1:
+        this.video.emit(e.RawData.Camera);
+        break;
+      case 2:
+        this.position.emit(e.RawData);
+        break;
+
+      default:
+        break;
+    }
   }
   ondevice(status?: OnlineStatus | undefined) {
     this.device.emit(status);

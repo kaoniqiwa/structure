@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   NavigationPath = NavigationPath;
 
   title: string = '';
-  path = NavigationPath.realtime;
+  path = NavigationPath.deploy_list;
 
   constructor(
     public video: VideoControlWindowBusiness,

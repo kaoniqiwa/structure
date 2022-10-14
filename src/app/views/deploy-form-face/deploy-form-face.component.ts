@@ -1,12 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
-import { DeployDetails } from 'src/app/models/deploy-details.model';
-import { EventRecord } from 'src/app/models/event-record/event.record';
+import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
+
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
 import { IModel } from 'src/app/models/model.interface';
-import { CreateFaceDeployControlParams } from 'src/app/network/request/commands/commands.params';
-import { DateTimeTool } from 'src/app/tools/datetime.tool';
-import { DeployFormFaceBusiness } from './deploy-form-face.business';
+import { CreateFaceDeployControlParams } from 'src/app/network/request/commands/params/create-face-deploy-control.params';
+import { DeployFormFaceControlDetailsBusiness } from './business/deploy-form-face-details.business';
+import { DeployFormFaceControlRegionNodeTreeBusiness } from './business/deploy-form-face-node.business';
+
+import { DeployFormFaceBusiness } from './business/deploy-form-face.business';
 import {
   IDeployFormFaceBusiness,
   IDeployFormFaceComponent,
@@ -16,23 +27,41 @@ import {
   selector: 'app-deploy-form-face',
   templateUrl: './deploy-form-face.component.html',
   styleUrls: ['./deploy-form-face.component.less'],
-  providers: [DeployFormFaceBusiness],
+  providers: [
+    DeployFormFaceBusiness,
+    DeployFormFaceControlDetailsBusiness,
+    DeployFormFaceControlRegionNodeTreeBusiness,
+  ],
 })
 export class DeployFormFaceComponent
-  implements IDeployFormFaceComponent, OnInit
+  implements IDeployFormFaceComponent, OnInit, OnDestroy
 {
   @Input()
   business: IDeployFormFaceBusiness;
   @Input()
   data?: IModel;
   @Output()
-  close: EventEmitter<void> = new EventEmitter();
+  close: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(business: DeployFormFaceBusiness) {
+  constructor(
+    business: DeployFormFaceBusiness,
+    public details: DeployFormFaceControlDetailsBusiness,
+    public node: DeployFormFaceControlRegionNodeTreeBusiness
+  ) {
     this.business = business;
   }
+  RegionNodeType = RegionNodeType;
   DateTimePickerView = DateTimePickerView;
-  params: CreateFaceDeployControlParams = new CreateFaceDeployControlParams();
+  params: CreateFaceDeployControlParams =
+    CreateFaceDeployControlParams.Create();
+
+  genders: KeyValueItem[] = [];
+  certificateTypes: KeyValueItem[] = [];
+
+  detailsHandle: any;
+  nodeHandle: any;
+  @ViewChild('file')
+  file?: ElementRef;
 
   ngOnInit(): void {
     this.init();
@@ -41,56 +70,82 @@ export class DeployFormFaceComponent
     }
   }
 
-  genders: KeyValueItem[] = [];
-  certificateTypes: KeyValueItem[] = [];
-  thresholdMin: number = 80;
-
   async init() {
     this.genders = await this.business.dictionary.people.Gender();
 
     this.certificateTypes =
       await this.business.dictionary.people.CertificateType();
+    this.detailsHandle = this.details.onclose.bind(this.details);
+    window.addEventListener('click', this.detailsHandle);
+    this.nodeHandle = this.node.onclose.bind(this.node);
+    window.addEventListener('click', this.nodeHandle);
   }
-  touchSpinChange(num: any) {
-    if (this.params.Details && this.params.Details.length > 0) {
-      this.thresholdMin = num;
-    }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('click', this.detailsHandle);
+    window.removeEventListener('click', this.nodeHandle);
   }
   changeBornTime(date: Date) {
     this.params.BeginTime = date;
   }
   changeBeginTime(date: Date) {
     this.params.BeginTime = date;
-    if (this.params.Details && this.params.Details.length > 0) {
-      this.params.Details[0].StartPeriod = date;
-    }
   }
   changeEndTime(date: Date) {
     this.params.EndTime = date;
-    if (this.params.Details && this.params.Details.length > 0) {
-      this.params.Details[0].StopPeriod = date;
-    }
   }
   async loadData(data: IModel) {
     this.params = await this.business.load(data);
     if (this.genders && this.genders.length > 0) {
       this.params.Gender = this.genders[0].Value;
     }
+    this.node.load(this.params.CameraIds);
     if (this.certificateTypes && this.certificateTypes.length > 0) {
       this.params.CertificateType = this.certificateTypes[0].Value;
     }
   }
 
   async ok() {
-    if (this.params.Details && this.params.Details.length > 0) {
-      this.params.Details[0].ThresholdMin = this.thresholdMin / 100;
-    }
     console.log(this.params);
+    if (this.details.datas && this.details.datas.length > 0) {
+      this.params.Details = this.details.datas;
+    }
+    if (this.node.datas && this.node.datas.length > 0) {
+      this.params.CameraIds = this.node.datas.map((x) => x.ResourceId);
+    }
+
     let result = await this.business.create(this.params);
     console.log(result);
-    this.close.emit();
+    this.close.emit(true);
   }
   cancel() {
-    this.close.emit();
+    this.close.emit(false);
   }
+
+  //#region update
+  onupload() {
+    if (this.file) {
+      this.file.nativeElement.click();
+    }
+  }
+  fileChange() {
+    if (this.file) {
+      const t_files = this.file.nativeElement.files;
+      if (t_files.length > 0) {
+        this.uploadFile(t_files[0]);
+        this.file.nativeElement.value = null;
+      }
+    }
+  }
+  async uploadFile(file: any) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('loadend', () => {
+      let str = reader.result as string;
+
+      this.params.ImageData = str;
+      // this.onimage();
+    });
+  }
+  //#endregion
 }

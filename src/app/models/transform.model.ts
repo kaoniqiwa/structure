@@ -83,3 +83,13 @@ export function transformRecordName(params: TransformFnParams) {
   }
   return params.value;
 }
+export function transformImageData(params: TransformFnParams) {
+  if (params.type === TransformationType.CLASS_TO_PLAIN) {
+    if (params.value) {
+      let str = params.value as string;
+      let index = str.indexOf('base64,') + 7;
+      return str.substring(index);
+    }
+  }
+  return params.value;
+}

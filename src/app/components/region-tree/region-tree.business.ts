@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RegionTreeConverter } from 'src/app/components/region-tree/region-tree.converter';
+import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import {
@@ -24,7 +25,11 @@ export class RegionTreeBusiness {
     private _converter: RegionTreeConverter
   ) {}
 
-  async init(condition: string = '', setting: boolean) {
+  async init(
+    condition: string = '',
+    setting: boolean,
+    nodeType?: RegionNodeType
+  ) {
     this.nestedNodeMap.clear();
 
     // 拉取所有区域
@@ -50,6 +55,7 @@ export class RegionTreeBusiness {
       // 拉取所有区域节点
       let params = new GetRegionNodesParams();
       params.Name = condition;
+      params.NodeType = nodeType;
       let regionNodeRes = await this._listRegionNode(params);
 
       console.log(regionNodeRes);

@@ -14,7 +14,6 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   selected?: TModel;
   window = {
     details: new WindowViewModel(),
-    deploy: new WindowViewModel(),
   };
   async onImageClicked(item: StructuredDataItemImageArgs) {
     if (item.model && item.index != undefined) {
@@ -43,12 +42,5 @@ export abstract class StructuredDataAbstractComponent<TModel> {
   }
   onclosewindow() {
     this.window.details.show = false;
-  }
-
-  ondeploy(item: any) {
-    this.window.deploy.show = true;
-  }
-  ondeployclose() {
-    this.window.deploy.show = false;
   }
 }

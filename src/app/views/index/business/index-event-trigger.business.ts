@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { PlayMode } from 'src/app/components/video-player/video.model';
 import { VideoControlConverter } from 'src/app/converters/video-control.converter';
+import { DeployType } from 'src/app/enums/deploy-type.enum';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { FaceRecord } from 'src/app/models/face-record.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
+import { VehicleRecord } from 'src/app/models/vehicle-record.model';
 import { Medium } from 'src/app/tools/medium';
 import { IndexWindowBusiness } from './windows/index-window.business';
 import { VideoControlWindowBusiness } from './windows/video-control-window.business';
@@ -78,6 +81,17 @@ class StructuredDataTrigger {
     this.window.video.time = args.time;
     this.window.video.show = true;
   }
+
+  ondeploy(record: FaceRecord | VehicleRecord) {
+    if (record instanceof FaceRecord) {
+      this.window.deploy.face.record = record;
+      this.window.deploy.face.show = true;
+    } else if (record instanceof VehicleRecord) {
+      this.window.deploy.vehicle.record = record;
+      this.window.deploy.vehicle.show = true;
+    } else {
+    }
+  }
 }
 class EventRecordTrigger {
   constructor(private window: IndexWindowBusiness) {}
@@ -113,6 +127,20 @@ class DeployListTrigger {
     this.window.video.autoplay = args.autoplay;
     this.window.video.time = args.time;
     this.window.video.show = true;
+  }
+  ondeploy(type: DeployType) {
+    switch (type) {
+      case DeployType.face:
+        this.window.deploy.face.record = undefined;
+        this.window.deploy.face.show = true;
+        break;
+      case DeployType.vehicle:
+        this.window.deploy.vehicle.record = undefined;
+        this.window.deploy.vehicle.show = true;
+        break;
+      default:
+        break;
+    }
   }
 }
 // class RecordTrigger {

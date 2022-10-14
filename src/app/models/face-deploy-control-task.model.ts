@@ -1,7 +1,11 @@
 import { Transform } from 'class-transformer';
 import { DeployDetails } from './deploy-details.model';
 import { IModel } from './model.interface';
-import { transformDateTime, transformDate } from './transform.model';
+import {
+  transformDateTime,
+  transformDate,
+  transformImageData,
+} from './transform.model';
 
 /** FaceDeployControlTask (人脸布控任务) */
 export class FaceDeployControlTask implements IModel {
@@ -18,6 +22,7 @@ export class FaceDeployControlTask implements IModel {
   @Transform(transformDateTime)
   EndTime!: Date;
   /**	String	图片base64数据	O	*/
+  @Transform(transformImageData)
   ImageData?: string;
   /**	String	姓名	O	*/
   Name?: string;

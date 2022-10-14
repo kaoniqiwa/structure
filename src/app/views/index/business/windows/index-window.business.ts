@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IndexDeployWindow } from './index-deploy-window.business';
 import { IndexDetailsWindow } from './index-details-window.business';
 import { IndexDeviceWindow } from './index-device-window.business';
 import { IndexPictureWindow } from './index-picture-window.business';
@@ -10,4 +11,5 @@ export class IndexWindowBusiness {
   picture: IndexPictureWindow = new IndexPictureWindow();
   details: IndexDetailsWindow = new IndexDetailsWindow();
   device: IndexDeviceWindow = new IndexDeviceWindow(this);
+  deploy: IndexDeployWindow = new IndexDeployWindow(this);
 }

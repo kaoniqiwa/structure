@@ -46,6 +46,7 @@
       <app-structured-data-face
         (image)="onimage($event)"
         (playback)="onplayback($event)"
+        (deploy)="ondeploy($event)"
       ></app-structured-data-face>
     </ng-container>
     <ng-container *ngIf="path === DeployType.body">
@@ -58,6 +59,7 @@
       <app-structured-data-vehicle
         (image)="onimage($event)"
         (playback)="onplayback($event)"
+        (deploy)="ondeploy($event)"
       ></app-structured-data-vehicle>
     </ng-container>
   </div>

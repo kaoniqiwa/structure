@@ -1,12 +1,9 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IBusiness } from 'src/app/interfaces/business.interface';
-import {
-  IConverter,
-  IPromiseConverter,
-} from 'src/app/interfaces/converter.interface';
+import { IConverter } from 'src/app/interfaces/converter.interface';
 import { BodyModelingResult } from 'src/app/models/body-modeling-result.model';
-import { BodyImageModelingParams } from 'src/app/network/request/commands/commands.params';
 import { CommandRequestSerivce } from 'src/app/network/request/commands/commands.service';
+import { BodyImageModelingParams } from 'src/app/network/request/commands/params/body-image-modeling.params';
 import { DictionaryRequestSerivce } from 'src/app/network/request/dictionaries/dictionaries.service';
 import { StructuredDataBodyQueryConverter } from './structured-data-body-query.converter';
 import { StructuredDataBodyQueryModel } from './structured-data-body-query.model';

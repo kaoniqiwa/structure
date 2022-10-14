@@ -1,7 +1,10 @@
 import { Transform } from 'class-transformer';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { Duration } from '../models/duration.model';
-import { transformDateTime } from '../models/transform.model';
+import {
+  transformDateTime,
+  transformImageData,
+} from '../models/transform.model';
 
 export interface IParams {}
 export class PagedParams implements IParams {
@@ -117,5 +120,6 @@ export class PagedDurationParams extends PagedParams {
 }
 export class ImageParams {
   /**	String	图片数据通过Base64编码后的字符串（图片像素在256*256-900w内，文件大小在128字节-4M内。图片类型限制为：png、jpg/jpeg、bmp）	M */
+  @Transform(transformImageData)
   ImageData!: string;
 }

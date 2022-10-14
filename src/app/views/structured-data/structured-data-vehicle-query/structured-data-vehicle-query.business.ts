@@ -1,12 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { IBusiness } from 'src/app/interfaces/business.interface';
-import {
-  IConverter,
-  IPromiseConverter,
-} from 'src/app/interfaces/converter.interface';
+import { IConverter } from 'src/app/interfaces/converter.interface';
 import { VehicleModelingResult } from 'src/app/models/vehicle-modeling-result.model';
-import { VehicleImageModelingParams } from 'src/app/network/request/commands/commands.params';
 import { CommandRequestSerivce } from 'src/app/network/request/commands/commands.service';
+import { VehicleImageModelingParams } from 'src/app/network/request/commands/params/vehicle-image-modeling.params';
 import { DictionaryRequestSerivce } from 'src/app/network/request/dictionaries/dictionaries.service';
 import { StructuredDataVehicleQueryConverter } from './structured-data-vehicle-query.converter';
 import { StructuredDataVehicleQueryModel } from './structured-data-vehicle-query.model';

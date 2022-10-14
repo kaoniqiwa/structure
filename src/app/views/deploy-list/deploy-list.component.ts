@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DeployType } from 'src/app/enums/deploy-type.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
@@ -12,6 +12,9 @@ import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-
   styleUrls: ['./deploy-list.component.less'],
 })
 export class DeployListComponent implements OnInit {
+  @Input()
+  load?: EventEmitter<void>;
+
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
@@ -19,6 +22,8 @@ export class DeployListComponent implements OnInit {
   @Output()
   details: EventEmitter<FaceDeployControlTask | VehicleDeployControlTask> =
     new EventEmitter();
+  @Output()
+  deploy: EventEmitter<DeployType> = new EventEmitter();
 
   constructor() {}
   path: DeployType = DeployType.face;
@@ -37,5 +42,8 @@ export class DeployListComponent implements OnInit {
   }
   ondetails(args: FaceDeployControlTask | VehicleDeployControlTask) {
     this.details.emit(args);
+  }
+  oncreateclicked() {
+    this.deploy.emit(this.path);
   }
 }

@@ -8,27 +8,22 @@ import { PagedList } from 'src/app/models/page-list.model';
 import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
 import { VehicleModelingResult } from 'src/app/models/vehicle-modeling-result.model';
 import { VehicleRecord } from 'src/app/models/vehicle-record.model';
-import {
-  BaseRequestService,
-  BaseTypeRequestService,
-} from '../../base-request.service';
+import { BaseRequestService } from '../../base-request.service';
 import { HowellAuthHttpService } from '../../howell-auth-http.service';
 import { CommandsUrl } from '../../url/commands/commands.url';
-import {
-  BodyImageModelingParams,
-  CreateFaceDeployControlParams,
-  CreateVehicleDeployControlParams,
-  FaceImageModelingParams,
-  GetBodyRecordsByAttributeParams,
-  GetFaceDeployControlTasksParams,
-  GetFaceRecordsByAttributeParams,
-  GetFaceRecordsByImageParams,
-  GetVehicleDeployControlTasksParams,
-  GetVehicleRecordsByAttributeParams,
-  SetFaceDeployControlParams,
-  SetVehicleDeployControlParams,
-  VehicleImageModelingParams,
-} from './commands.params';
+import { BodyImageModelingParams } from './params/body-image-modeling.params';
+import { CreateFaceDeployControlParams } from './params/create-face-deploy-control.params';
+import { CreateVehicleDeployControlParams } from './params/create-vehicle-deploy-control.params';
+import { FaceImageModelingParams } from './params/face-image-modeling.params';
+import { GetBodyRecordsByAttributeParams } from './params/get-body-records-by-attribute.params';
+import { GetFaceDeployControlTasksParams } from './params/get-face-deploy-control-tasks.params';
+import { GetFaceRecordsByAttributeParams } from './params/get-face-records-by-attribute.params';
+import { GetFaceRecordsByImageParams } from './params/get-face-records-by-image.params';
+import { GetVehicleDeployControlTasksParams } from './params/get-vehicle-deploy-control-tasks.params';
+import { GetVehicleRecordsByAttributeParams } from './params/get-vehicle-records-by-attribute.params';
+import { SetFaceDeployControlParams } from './params/set-face-deploy-control.params';
+import { SetVehicleDeployControlParams } from './params/set-vehicle-deploy-control.params';
+import { VehicleImageModelingParams } from './params/vehicle-image-modeling.params';
 
 @Injectable({
   providedIn: 'root',

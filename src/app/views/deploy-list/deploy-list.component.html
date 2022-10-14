@@ -1,25 +1,30 @@
 <div class="deploy-list">
   <div class="deploy-list-head">
-    <div class="hw-second-title">布防列表</div>
-    <div class="tab-labels">
-      <div
-        class="tab"
-        [ngClass]="{
-          active: path === DeployType.face
-        }"
-        (click)="navigation(DeployType.face)"
-      >
-        人脸
+    <div class="deploy-list-head-left">
+      <div class="hw-second-title">布防列表</div>
+      <div class="tab-labels">
+        <div
+          class="tab"
+          [ngClass]="{
+            active: path === DeployType.face
+          }"
+          (click)="navigation(DeployType.face)"
+        >
+          人脸
+        </div>
+        <div
+          class="tab"
+          [ngClass]="{
+            active: path === DeployType.vehicle
+          }"
+          (click)="navigation(DeployType.vehicle)"
+        >
+          车辆
+        </div>
       </div>
-      <div
-        class="tab"
-        [ngClass]="{
-          active: path === DeployType.vehicle
-        }"
-        (click)="navigation(DeployType.vehicle)"
-      >
-        车辆
-      </div>
+    </div>
+    <div class="deploy-list-head-operation">
+      <button class="hw-green-btn" (click)="oncreateclicked()">添加</button>
     </div>
   </div>
   <div class="deploy-list-content">

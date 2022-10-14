@@ -24,6 +24,8 @@ export class StructuredDataVehicleComponent
 {
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
+  @Output()
+  deploy: EventEmitter<VehicleRecord> = new EventEmitter();
   constructor(private business: StructuredDataVehicleBusiness) {
     super();
   }
@@ -63,5 +65,10 @@ export class StructuredDataVehicleComponent
     let args = new PictureArgs();
     args.url = await src;
     this.image.emit(args);
+  }
+  ondeploy(item: any) {
+    if (this.selected) {
+      this.deploy.emit(this.selected.data);
+    }
   }
 }

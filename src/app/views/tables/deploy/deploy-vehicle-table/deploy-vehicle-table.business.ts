@@ -1,11 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { IBusiness } from 'src/app/interfaces/business.interface';
-import { Duration } from 'src/app/models/duration.model';
-import { Page, PagedList } from 'src/app/models/page-list.model';
+import { PagedList } from 'src/app/models/page-list.model';
 import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
-import { GetVehicleDeployControlTasksParams } from 'src/app/network/request/commands/commands.params';
 import { CommandRequestSerivce } from 'src/app/network/request/commands/commands.service';
-import { DateTimeTool } from 'src/app/tools/datetime.tool';
+import { GetVehicleDeployControlTasksParams } from 'src/app/network/request/commands/params/get-vehicle-deploy-control-tasks.params';
+
 import { DeployVehicleTableConverter } from './deploy-vehicle-table.converter';
 import { DeployVehicleTableModel } from './deploy-vehicle-table.model';
 

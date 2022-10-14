@@ -33,6 +33,8 @@ export class StructuredDataFaceComponent
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
   picture: EventEmitter<EventRecord> = new EventEmitter();
+  @Output()
+  deploy: EventEmitter<EventRecord> = new EventEmitter();
 
   constructor(private business: StructuredDataFaceBusiness) {
     super();
@@ -72,5 +74,10 @@ export class StructuredDataFaceComponent
     args.time = record.CaptureTime;
     args.title = record.CameraName ?? '';
     this.playback.emit(args);
+  }
+  ondeploy(item: any) {
+    if (this.selected) {
+      this.deploy.emit(this.selected.data);
+    }
   }
 }

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -19,6 +20,9 @@ import { DeployFaceTableArgs } from '../../tables/deploy/deploy-face-table/deplo
   styleUrls: ['./deploy-face-list.component.less'],
 })
 export class DeployFaceListComponent implements OnInit, AfterViewInit {
+  @Input('load')
+  toload?: EventEmitter<void>;
+
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()

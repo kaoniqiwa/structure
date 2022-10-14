@@ -171,10 +171,10 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
     let plain = classToPlain(this.model);
     let model = plainToClass(StructuredDataFaceQueryModel, plain);
     model.cameraIds = this.nodes.map((x) => x.ResourceId);
-    if (model.image && model.image.image) {
-      let index = model.image.image.indexOf(',') + 1;
-      model.image.image = model.image.image.substring(index);
-    }
+    // if (model.image && model.image.image) {
+    //   let index = model.image.image.indexOf(',') + 1;
+    //   model.image.image = model.image.image.substring(index);
+    // }
     this.query.emit(model);
   }
 }

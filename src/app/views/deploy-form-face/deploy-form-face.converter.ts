@@ -1,6 +1,7 @@
 import { IPromiseConverter } from 'src/app/interfaces/converter.interface';
 import { FaceRecord } from 'src/app/models/face-record.model';
-import { CreateFaceDeployControlParams } from 'src/app/network/request/commands/commands.params';
+import { CreateFaceDeployControlParams } from 'src/app/network/request/commands/params/create-face-deploy-control.params';
+
 import { DateTimeTool } from 'src/app/tools/datetime.tool';
 import { Medium } from 'src/app/tools/medium';
 
@@ -11,7 +12,7 @@ export class DeployFormFaceConverter
     source: FaceRecord,
     ...res: any[]
   ): Promise<CreateFaceDeployControlParams> {
-    let params = new CreateFaceDeployControlParams();
+    let params = CreateFaceDeployControlParams.Create();
     params.Name = source.Name;
 
     params.TaskName = `人脸布控${source.Name ? ':' + source.Name : ''}`;
@@ -22,17 +23,7 @@ export class DeployFormFaceConverter
     params.CertificateNumber = source.CertificateNumber;
     params.Gender = source.Gender;
     params.ImageData = await Medium.base64(source.FacePictureUrl);
-    let duration = DateTimeTool.allDay(new Date());
-    duration.end.setDate(duration.end.getDate() + 1);
-    params.BeginTime = duration.begin;
-    params.EndTime = duration.end;
-    params.Details = [
-      {
-        ThresholdMin: 0.8,
-        StartPeriod: duration.begin,
-        StopPeriod: duration.end,
-      },
-    ];
+
     return params;
   }
 }

@@ -24,6 +24,7 @@
       <app-structured-data
         (image)="trigger.structured.onimage($event)"
         (playback)="trigger.structured.onplayback($event)"
+        (deploy)="trigger.structured.ondeploy($event)"
       ></app-structured-data>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.event_record">
@@ -34,9 +35,11 @@
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.deploy_list">
       <app-deploy-list
+        [load]="window.deploy.load"
         (picture)="trigger.deploy.onpicture($event)"
         (details)="trigger.deploy.ondetails($event)"
         (playback)="trigger.deploy.onplayback($event)"
+        (deploy)="trigger.deploy.ondeploy($event)"
       ></app-deploy-list>
     </ng-container>
     <ng-container *ngIf="path == NavigationPath.config_setting">
@@ -94,3 +97,23 @@
   [mode]="window.video.mode"
   [time]="window.video.time"
 ></howell-video-player-window>
+<app-window
+  [Model]="window.deploy.face"
+  [style]="window.deploy.face.style"
+  *ngIf="window.deploy.face.show"
+>
+  <app-deploy-form-face
+    [data]="window.deploy.face.record"
+    (close)="window.deploy.face.onclose($event)"
+  ></app-deploy-form-face>
+</app-window>
+<app-window
+  [Model]="window.deploy.vehicle"
+  [style]="window.deploy.vehicle.style"
+  *ngIf="window.deploy.vehicle.show"
+>
+  <app-deploy-form-vehicle
+    [data]="window.deploy.vehicle.record"
+    (close)="window.deploy.vehicle.onclose($event)"
+  ></app-deploy-form-vehicle>
+</app-window>

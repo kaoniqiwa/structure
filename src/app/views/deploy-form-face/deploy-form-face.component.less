@@ -1,10 +1,28 @@
 .deploy-form {
   width: 764px;
-  height: 550px;
+  height: 600px;
 
   &-content {
     display: flex;
     padding: 10px 0;
+
+    &-picture {
+      width: calc(50% - 10px);
+      border: 1px solid #5e6ebf;
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: contain;
+
+      &:hover {
+        background-color: rgba(71, 84, 148, 0.4);
+        ;
+      }
+    }
+
 
     &-img {
       width: calc(50% - 10px);
@@ -56,7 +74,16 @@
         }
 
         &-value {
-          width: calc(100% - @title-width)
+          width: calc(100% - @title-width);
+
+          &.panel-outer {
+            position: relative;
+          }
+
+          .mat-standard-chip.mat-chip-with-trailing-icon {
+            padding-left: 10px;
+            padding-right: 6px;
+          }
         }
       }
     }
@@ -67,4 +94,12 @@
     justify-content: center;
     padding: 10px;
   }
+}
+
+.panel {
+  position: absolute;
+  background-color: #0e1027;
+  border: 1px solid #5e6ebf;
+  width: 100%;
+  z-index: 1;
 }

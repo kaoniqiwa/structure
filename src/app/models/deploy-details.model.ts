@@ -1,4 +1,5 @@
 import { Transform } from 'class-transformer';
+import { DateTimeTool } from '../tools/datetime.tool';
 import { IModel } from './model.interface';
 import { transformTime } from './transform.model';
 
@@ -12,4 +13,13 @@ export class DeployDetails implements IModel {
   /**	Time	报警时段开始时刻点（格式：HH:mm）	M	*/
   @Transform(transformTime)
   StopPeriod!: Date;
+
+  static Create() {
+    let details = new DeployDetails();
+    details.ThresholdMin = 0.8;
+    let duration = DateTimeTool.allDay(new Date());
+    details.StartPeriod = duration.begin;
+    details.StopPeriod = duration.end;
+    return details;
+  }
 }

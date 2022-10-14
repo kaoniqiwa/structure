@@ -1,7 +1,7 @@
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { VehicleRecord } from 'src/app/models/vehicle-record.model';
-import { CreateVehicleDeployControlParams } from 'src/app/network/request/commands/commands.params';
+import { CreateVehicleDeployControlParams } from 'src/app/network/request/commands/params/create-vehicle-deploy-control.params';
 import { DictionaryRequestSerivce } from 'src/app/network/request/dictionaries/dictionaries.service';
 
 export interface IDeployFormVehicleComponent

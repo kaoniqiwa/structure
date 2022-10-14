@@ -10,6 +10,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
+import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { Deduplication } from 'src/app/tools/deduplication';
 import { CommonFlatNode } from '../common-tree/common-flat-node.model';
 import { CommonTree } from '../common-tree/common-tree';
@@ -37,6 +38,7 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
 
   @Input() showSearchBar = true;
   @Input() setting = false;
+  @Input() nodeType?: RegionNodeType;
 
   // 默认选中列表
   private _defaultIds: string[] = [];
@@ -75,7 +77,11 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
     this._nestedNodeMap = this._business.nestedNodeMap;
     this._business.showRegionNode = this.showRegionNode;
 
-    let res = await this._business.init(this._condition, this.setting);
+    let res = await this._business.init(
+      this._condition,
+      this.setting,
+      this.nodeType
+    );
     this.dataSubject.next(res);
 
     this.tree?.expandAll();

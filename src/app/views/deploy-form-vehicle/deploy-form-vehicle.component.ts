@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
+import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { VehicleReason } from 'src/app/enums/vehicle-reason.enum';
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
 import { IModel } from 'src/app/models/model.interface';
-import { CreateVehicleDeployControlParams } from 'src/app/network/request/commands/commands.params';
+import { CreateVehicleDeployControlParams } from 'src/app/network/request/commands/params/create-vehicle-deploy-control.params';
 import { Language } from 'src/app/tools/language';
-import { DeployFormVehicleBusiness } from './deploy-form-vehicle.business';
+import { DeployFormVehicleControlRegionNodeTreeBusiness } from './business.ts/deploy-form-face-node.business';
+import { DeployFormVehicleBusiness } from './business.ts/deploy-form-vehicle.business';
 
 import {
   IDeployFormVehicleBusiness,
@@ -16,7 +18,10 @@ import {
   selector: 'app-deploy-form-vehicle',
   templateUrl: './deploy-form-vehicle.component.html',
   styleUrls: ['./deploy-form-vehicle.component.less'],
-  providers: [DeployFormVehicleBusiness],
+  providers: [
+    DeployFormVehicleBusiness,
+    DeployFormVehicleControlRegionNodeTreeBusiness,
+  ],
 })
 export class DeployFormVehicleComponent
   implements IDeployFormVehicleComponent, OnInit
@@ -26,27 +31,30 @@ export class DeployFormVehicleComponent
   @Input()
   data?: IModel;
   @Output()
-  close: EventEmitter<void> = new EventEmitter();
+  close: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(business: DeployFormVehicleBusiness) {
+  constructor(
+    business: DeployFormVehicleBusiness,
+    public node: DeployFormVehicleControlRegionNodeTreeBusiness
+  ) {
     this.business = business;
   }
 
   DateTimePickerView = DateTimePickerView;
   params: CreateVehicleDeployControlParams =
-    new CreateVehicleDeployControlParams();
+    CreateVehicleDeployControlParams.Create();
 
   ngOnInit(): void {
     this.init();
     this.reasons.push({
-      Key: VehicleReason.robbed,
-      Value: VehicleReason.robbed,
-      Name: Language.VehicleReason(VehicleReason.robbed),
-    });
-    this.reasons.push({
       Key: VehicleReason.stolen,
       Value: VehicleReason.stolen,
       Name: Language.VehicleReason(VehicleReason.stolen),
+    });
+    this.reasons.push({
+      Key: VehicleReason.robbed,
+      Value: VehicleReason.robbed,
+      Name: Language.VehicleReason(VehicleReason.robbed),
     });
     this.reasons.push({
       Key: VehicleReason.suspect,
@@ -62,7 +70,7 @@ export class DeployFormVehicleComponent
   vehicleTypes: KeyValueItem[] = [];
   vehicleColors: KeyValueItem[] = [];
   reasons: KeyValueItem[] = [];
-
+  RegionNodeType = RegionNodeType;
   async init() {
     this.plateColors = await this.business.dictionary.vehicle.PlateColor();
     this.vehicleTypes = await this.business.dictionary.vehicle.VehicleType();
@@ -98,9 +106,9 @@ export class DeployFormVehicleComponent
     console.log(this.params);
     let result = await this.business.create(this.params);
     console.log(result);
-    this.close.emit();
+    this.close.emit(true);
   }
   cancel() {
-    this.close.emit();
+    this.close.emit(false);
   }
 }

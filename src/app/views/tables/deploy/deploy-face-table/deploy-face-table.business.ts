@@ -1,10 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.model';
-import { Page, PagedList } from 'src/app/models/page-list.model';
-import { GetFaceDeployControlTasksParams } from 'src/app/network/request/commands/commands.params';
+import { PagedList } from 'src/app/models/page-list.model';
 import { CommandRequestSerivce } from 'src/app/network/request/commands/commands.service';
-import { DateTimeTool } from 'src/app/tools/datetime.tool';
+import { GetFaceDeployControlTasksParams } from 'src/app/network/request/commands/params/get-face-deploy-control-tasks.params';
 import { DeployFaceTableConverter } from './deploy-face-table.converter';
 import { DeployFaceTableModel } from './deploy-face-table.model';
 

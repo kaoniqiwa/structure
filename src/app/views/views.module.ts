@@ -33,6 +33,7 @@ import { RegionNodeOperateComponent } from './region-node-operate/region-node-op
 import { RegionManageComponent } from './region-manage/region-manage.component';
 import { DeployFormFaceComponent } from './deploy-form-face/deploy-form-face.component';
 import { DeployFormVehicleComponent } from './deploy-form-vehicle/deploy-form-vehicle.component';
+import { DeployFormFacePeriodComponent } from './deploy-form-face/deploy-form-face-period/deploy-form-face-period.component';
 
 echarts.registerTheme('adsame', Adsame);
 
@@ -48,6 +49,7 @@ const ViewComponents = [
   DeployInfoComponent,
   DeployMapComponent,
   DeployFormFaceComponent,
+  DeployFormFacePeriodComponent,
   RegionNodeOperateComponent,
   RegionNodeManageComponent,
   RegionManageComponent,

@@ -88,7 +88,7 @@ export class TimeControlComponent implements OnInit, AfterViewInit {
           let value = 0;
 
           // Increment or decrement numeric based on scroll distance
-          if (event.deltaY > 0) {
+          if (event.deltaY < 0) {
             if ($currVal + $inc <= $max) {
               value = $currVal + $inc;
             }
