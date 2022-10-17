@@ -16,12 +16,14 @@ export class Language {
     return formatDate(date, format, 'en');
   }
 
-  static OnlineStatus(status: OnlineStatus) {
+  static OnlineStatus(status?: OnlineStatus) {
     switch (status) {
       case OnlineStatus.online:
         return '在线';
       case OnlineStatus.offline:
         return '离线';
+      case undefined:
+        return '未知';
       default:
         return '';
     }
@@ -72,7 +74,7 @@ export class Language {
         return '';
     }
   }
-  static RegionNodeType(type: RegionNodeType) {
+  static RegionNodeType(type?: RegionNodeType) {
     switch (type) {
       case RegionNodeType.camera:
         return '普通摄像机';
@@ -80,6 +82,8 @@ export class Language {
         return '人脸、人体摄像机';
       case RegionNodeType.vehicle:
         return '车辆卡口摄像机';
+      case undefined:
+        return '未知';
       default:
         return '';
     }

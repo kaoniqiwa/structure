@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { param } from 'jquery';
+import { data, param } from 'jquery';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { PagedList } from 'src/app/models/page-list.model';
 import { RegionNode } from 'src/app/models/region-node.model';
@@ -13,6 +13,7 @@ import {
   RegionNodeResource,
   RegionNodeOperateModel,
   RegionNodeOperateSearch,
+  RegionNodeOperateModel2,
 } from './region-node-operate.model';
 
 @Injectable()
@@ -24,43 +25,51 @@ export class RegionNodeOperateBusiness {
   ) {}
 
   async init(searchInfo: RegionNodeOperateSearch) {
-    // let { Data: allCameras } = await this.listAllCameras();
-    // let existCameras: Camera[] = [];
-    // let model = new RegionNodeOperateModel();
-    // if (regionId && regionNodeId) {
-    //   let regionNode = await this.getRegionNode(regionId, regionNodeId);
-    //   console.log(regionNode);
-    //   model.Id = regionNode.Id;
-    //   model.Name = regionNode.Name;
-    //   model.RegionNodeType = regionNode.NodeType ?? RegionNodeType.camera;
-    //   let camera = await this.getCamera(regionNode.ResourceId);
-    //   console.log(camera);
-    //   existCameras.push(camera);
-    // }
-    // allCameras.map((camera) => {
-    //   let operateCamera = new RegionNodeOperateCamera();
-    // });
-    // model.ResourceList = allCameras;
-    // return model;
+    let model = new RegionNodeOperateModel();
+    let model2 = new RegionNodeOperateModel2();
 
-    let params = new GetCamerasParams();
-    params.PageIndex = searchInfo.PageIndex;
-    params.PageSize = searchInfo.PageSize;
+    if (searchInfo.RegionId && searchInfo.RegionNodeId) {
+      let regionNode = await this.getRegionNode(
+        searchInfo.RegionId,
+        searchInfo.RegionNodeId
+      );
+      model.Id = regionNode.Id;
+      model.Name = regionNode.Name;
+      model.RegionNodeType = regionNode.NodeType ?? RegionNodeType.camera;
+      model.ResourceId = regionNode.ResourceId;
 
-    let { Data, Page } = await this._listResource(params);
+      model2.RegionNode = regionNode;
+    }
 
-    console.log(Data);
+    let { Data: allResources, Page } = await this._listResource(
+      searchInfo.Name,
+      searchInfo.PageIndex,
+      searchInfo.PageSize
+    );
 
-    this._converter.iterateToModel(Data);
+    console.log(allResources);
+    let resourceData = this._converter.iterateToModel(allResources);
+
+    resourceData.forEach((resource) => {
+      resource.IsBind = '';
+      if (resource.Id == model.ResourceId) {
+        resource.IsBind = '已绑定';
+      }
+    });
 
     let res: PagedList<RegionNodeResource> = {
       Page: Page,
-      Data: Data,
+      Data: resourceData,
     };
+    model.ResourceList = res;
 
-    return res;
+    return model;
   }
-  private _listResource(params: GetCamerasParams = new GetCamerasParams()) {
+  private _listResource(name: string, pageIndex: number = 1, pageSize = 9) {
+    let params: GetCamerasParams = new GetCamerasParams();
+    params.Name = name;
+    params.PageIndex = pageIndex;
+    params.PageSize = pageSize;
     return this._resourceRequest.list(params);
   }
   getRegionNode(regionId: string, regionNodeId: string) {
@@ -75,7 +84,5 @@ export class RegionNodeOperateBusiness {
   getCamera(id: string) {
     return this._resourceRequest.get(id);
   }
-  async listAvailableCameras() {
-    let { Data: allCameras } = await this._listResource();
-  }
+  async listAvailableCameras() {}
 }

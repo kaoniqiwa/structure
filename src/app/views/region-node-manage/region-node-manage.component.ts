@@ -155,7 +155,7 @@ export class RegionNodeManageComponent implements OnInit {
   closeEvent(update: boolean) {
     this.showOperate = false;
     this.state = FormState.none;
-
+    this.regionNodeId = '';
     if (update) {
       this.pageIndex = 1;
       this._init();

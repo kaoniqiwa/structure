@@ -32,12 +32,10 @@ export class RegionNodeOperateConverter extends CommonModelConverter<RegionNodeR
     const model = new RegionNodeResource();
     model.Id = item.Id;
     model.Name = item.Name;
-    // model.RegionNodeType = item.NodeType
-    //   ? Language.RegionNodeType(item.NodeType)
-    //   : '';
-    // model.UpdateTime = item.UpdateTime
-    //   ? formatDate(item.UpdateTime, 'yyyy-MM-dd HH:mm:ss', 'en')
-    //   : '';
+    model.ResourceType = item.ResourceType;
+    model.DetailType = item.CameraType;
+    model.DetailTypeName = Language.CameraType(item.CameraType);
+    model.OnlineStatus = Language.OnlineStatus(item.OnlineStatus);
     return model;
   }
 }

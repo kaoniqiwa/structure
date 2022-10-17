@@ -28,9 +28,7 @@ export class RegionNodeManageConverter extends CommonModelConverter<RegionNodeMa
     const model = new RegionNodeManageModel();
     model.Id = item.Id;
     model.Name = item.Name;
-    model.RegionNodeType = item.NodeType
-      ? Language.RegionNodeType(item.NodeType)
-      : '';
+    model.RegionNodeType = Language.RegionNodeType(item.NodeType);
     model.UpdateTime = item.UpdateTime
       ? formatDate(item.UpdateTime, 'yyyy-MM-dd HH:mm:ss', 'en')
       : '';

@@ -1,37 +1,30 @@
 import { TableColumnModel } from 'src/app/components/common-table/table.model';
-import { Camera } from 'src/app/models/resource/camera.resource';
-import { Language } from 'src/app/tools/language';
 import { RegionNodeResource } from './region-node-operate.model';
 
-export const AddCameraConf: TableColumnModel[] = [
+export const REGION_NODE_TABLE: TableColumnModel[] = [
   {
     columnDef: 'CameraName',
     header: '名称',
     cell: (element: RegionNodeResource) => `${element.Name}`,
-    flexBasis: '12%',
+    flexBasis: '35%',
   },
-];
 
-export const EditCameraConf: TableColumnModel[] = [
   {
-    columnDef: 'CameraName',
-    header: '名称',
-    cell: (element: Camera) => `${element.Name}`,
-    flexBasis: '12%',
-  },
-  {
-    columnDef: 'CameraType',
+    columnDef: 'DetailTypeName',
     header: '类型',
-    cell: (element: Camera) => `${Language.CameraType(element.CameraType)}`,
+    cell: (element: RegionNodeResource) => `${element.DetailTypeName}`,
+    flexBasis: '25%',
   },
   {
     columnDef: 'OnlineStatus',
     header: '在线状态',
-    cell: (element: Camera) =>
-      `${
-        element.OnlineStatus == undefined
-          ? ''
-          : Language.OnlineStatus(element.OnlineStatus)
-      }`,
+    cell: (element: RegionNodeResource) => `${element.OnlineStatus}`,
+    flexBasis: '10%',
+  },
+  {
+    columnDef: 'IsBind',
+    header: '',
+    cell: (element: RegionNodeResource) => `${element.IsBind}`,
+    flexBasis: '1%',
   },
 ];
