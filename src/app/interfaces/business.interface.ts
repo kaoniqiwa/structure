@@ -10,3 +10,8 @@ export interface IBusiness<IModel, IViewModel> {
   load(...args: any): Promise<IViewModel>;
   getData(...args: any): Promise<IModel>;
 }
+
+export interface IRemoveBusiness<IModel, IViewModel>
+  extends IBusiness<IModel, IViewModel> {
+  remove(id: string): Promise<any>;
+}

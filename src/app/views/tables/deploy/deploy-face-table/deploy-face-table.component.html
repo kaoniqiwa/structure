@@ -23,7 +23,11 @@
         <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
       </colgroup>
       <tbody>
-        <tr *ngFor="let item of datas" (click)="onitemclicked(item)">
+        <tr
+          *ngFor="let item of datas"
+          (click)="onitemclicked(item)"
+          [ngClass]="{ selected: selected === item }"
+        >
           <td>
             <div
               (click)="onpicture($event, item)"
@@ -37,7 +41,7 @@
           <td>{{ item.EndTime | date_time_pipe }}</td>
           <td>
             <span (click)="ondetails($event, item)">
-              <i class="howell-icon-picture"></i
+              <i class="howell-icon-details"></i
             ></span>
             <!-- <span (click)="onplayback($event, item)">
               <i class="howell-icon-video-playback1"></i

@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { PictureArgsConverter } from 'src/app/converters/args/picture-args.converter';
 import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
-import { IBusiness } from 'src/app/interfaces/business.interface';
+import {
+  IBusiness,
+  IRemoveBusiness,
+} from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
@@ -36,9 +39,11 @@ export class DeployFaceTableComponent
     OnChanges
 {
   @Input()
-  business: IBusiness<IModel, PagedList<DeployFaceTableModel>>;
+  business: IRemoveBusiness<IModel, PagedList<DeployFaceTableModel>>;
   @Input()
   load?: EventEmitter<DeployFaceTableArgs>;
+  @Input()
+  remove?: EventEmitter<FaceDeployControlTask>;
 
   @Output()
   loaded: EventEmitter<PagedList<DeployFaceTableModel>> = new EventEmitter();
@@ -48,23 +53,37 @@ export class DeployFaceTableComponent
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
   details: EventEmitter<FaceDeployControlTask> = new EventEmitter();
+  @Output()
+  select: EventEmitter<FaceDeployControlTask> = new EventEmitter();
 
   constructor(business: DeployFaceTableBusiness) {
     this.business = business;
   }
-
-  datas: DeployFaceTableModel[] = [];
+  selected?: DeployFaceTableModel<FaceDeployControlTask>;
+  datas: DeployFaceTableModel<FaceDeployControlTask>[] = [];
   widths = ['25%', '14%', '14%', '14%', '14%', '14%', '5%'];
+  args: DeployFaceTableArgs = new DeployFaceTableArgs();
   ngOnInit(): void {
     if (!this.load) {
-      this.loadData(new DeployFaceTableArgs());
+      this.loadData(this.args);
     }
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['load']) {
       if (this.load) {
         this.load.subscribe((x) => {
-          this.loadData(x);
+          this.args = x;
+          this.loadData(this.args);
+        });
+      }
+    }
+    if (changes['remove']) {
+      if (this.remove) {
+        this.remove.subscribe((x) => {
+          this.business.remove(x.TaskId).then((x) => {
+            this.loadData(this.args);
+          });
         });
       }
     }
@@ -91,5 +110,8 @@ export class DeployFaceTableComponent
     this.details.emit(item.data);
     e.stopPropagation();
   }
-  onitemclicked(item: DeployFaceTableModel) {}
+  onitemclicked(item: DeployFaceTableModel) {
+    this.selected = item;
+    this.select.emit(this.selected.data);
+  }
 }

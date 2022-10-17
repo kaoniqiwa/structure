@@ -2,7 +2,7 @@ import { AbstractUrl } from '../abstract.url';
 import { BasicUrl } from '../basic.url';
 
 export class SRServersUrl extends AbstractUrl {
-  private static url = new SRServersUrl(`${BasicUrl.struct}/SRServers`);
+  private static url = new SRServersUrl(`${BasicUrl.aiop}/SRServers`);
 
   static basic() {
     return this.url.basic();

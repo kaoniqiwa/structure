@@ -20,6 +20,25 @@
 
     &-head {
       height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-operation {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        &>* {
+          margin-left: 10px;
+        }
+
+        .mdi-set.select {
+
+          min-width: 60px;
+
+        }
+      }
     }
 
     &-list {

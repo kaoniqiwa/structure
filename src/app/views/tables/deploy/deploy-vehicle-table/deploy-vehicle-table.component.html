@@ -23,7 +23,11 @@
         <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
       </colgroup>
       <tbody>
-        <tr *ngFor="let item of datas" (click)="onitemclicked(item)">
+        <tr
+          *ngFor="let item of datas"
+          (click)="onitemclicked(item)"
+          [ngClass]="{ selected: selected === item }"
+        >
           <td>{{ item.TaskName }}</td>
           <td>{{ item.PlateNo }}</td>
           <td>{{ item.PlateColorName }}</td>

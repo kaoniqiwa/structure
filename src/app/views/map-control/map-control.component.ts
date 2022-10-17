@@ -172,6 +172,9 @@ export class MapControlComponent
   btnToFilterClicked() {
     this.bar.filter.selected.value = !this.bar.filter.selected.value;
   }
+  btnCameraFilterClicked() {
+    this.bar.camera.selected.value = !this.bar.camera.selected.value;
+  }
   btnFaceFilterClicked() {
     this.bar.face.selected.value = !this.bar.face.selected.value;
   }

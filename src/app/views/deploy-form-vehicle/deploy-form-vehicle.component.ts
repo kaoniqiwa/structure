@@ -88,16 +88,28 @@ export class DeployFormVehicleComponent
   }
   async loadData(data: IModel) {
     this.params = await this.business.load(data);
-    if (this.plateColors && this.plateColors.length > 0) {
+    if (
+      this.plateColors &&
+      this.plateColors.length > 0 &&
+      !this.params.PlateColor
+    ) {
       this.params.PlateColor = this.plateColors[0].Value;
     }
-    if (this.vehicleTypes && this.vehicleTypes.length > 0) {
+    if (
+      this.vehicleTypes &&
+      this.vehicleTypes.length > 0 &&
+      !this.params.VehicleType
+    ) {
       this.params.VehicleType = this.vehicleTypes[0].Value;
     }
-    if (this.vehicleColors && this.vehicleColors.length > 0) {
+    if (
+      this.vehicleColors &&
+      this.vehicleColors.length > 0 &&
+      !this.params.VehicleColor
+    ) {
       this.params.VehicleColor = this.vehicleColors[0].Value;
     }
-    if (this.reasons && this.reasons.length > 0) {
+    if (this.reasons && this.reasons.length > 0 && !this.params.Reason) {
       this.params.Reason = this.reasons[0].Value;
     }
   }

@@ -7,14 +7,14 @@
 // export const basic_struct_url = api_aiop_service_url + '';
 
 export class BasicUrl {
+  static get basic() {
+    return '/howell/ver10';
+  }
   static get api() {
     return `/api${this.basic}`;
   }
   static get aiop() {
     return `${this.api}/aiop_service`;
-  }
-  static get basic() {
-    return '/howell/ver10';
   }
   static get data() {
     return `${this.basic}/data_service`;

@@ -4,8 +4,19 @@
     </app-structured-data-vehicle-query>
   </div>
   <div class="structured-data-vehicle-result">
-    <div class="structured-data-vehicle-result-head hw-simple-title">
-      搜索结果
+    <div class="structured-data-vehicle-result-head">
+      <div class="hw-simple-title">搜索结果</div>
+      <div
+        class="structured-data-face-result-head-operation"
+        *ngIf="datas && datas.length > 0"
+      >
+        <select class="mdi-set select">
+          <option value="">&#xF03B;&nbsp;</option>
+        </select>
+        <select>
+          <option value="">按时间排序</option>
+        </select>
+      </div>
     </div>
     <div
       class="structured-data-vehicle-result-none"

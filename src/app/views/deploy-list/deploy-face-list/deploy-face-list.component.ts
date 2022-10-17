@@ -3,8 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
@@ -22,6 +24,8 @@ import { DeployFaceTableArgs } from '../../tables/deploy/deploy-face-table/deplo
 export class DeployFaceListComponent implements OnInit, AfterViewInit {
   @Input('load')
   toload?: EventEmitter<void>;
+  @Input()
+  remove?: EventEmitter<FaceDeployControlTask>;
 
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
@@ -29,6 +33,8 @@ export class DeployFaceListComponent implements OnInit, AfterViewInit {
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
   details: EventEmitter<FaceDeployControlTask> = new EventEmitter();
+  @Output()
+  select: EventEmitter<FaceDeployControlTask> = new EventEmitter();
 
   constructor() {}
 
@@ -67,5 +73,8 @@ export class DeployFaceListComponent implements OnInit, AfterViewInit {
   }
   ondetails(args: FaceDeployControlTask) {
     this.details.emit(args);
+  }
+  onselect(item: FaceDeployControlTask) {
+    this.select.emit(item);
   }
 }

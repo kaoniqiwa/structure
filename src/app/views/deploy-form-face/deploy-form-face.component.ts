@@ -96,11 +96,15 @@ export class DeployFormFaceComponent
   }
   async loadData(data: IModel) {
     this.params = await this.business.load(data);
-    if (this.genders && this.genders.length > 0) {
+    if (this.genders && this.genders.length > 0 && !this.params.Gender) {
       this.params.Gender = this.genders[0].Value;
     }
     this.node.load(this.params.CameraIds);
-    if (this.certificateTypes && this.certificateTypes.length > 0) {
+    if (
+      this.certificateTypes &&
+      this.certificateTypes.length > 0 &&
+      !this.params.CertificateType
+    ) {
       this.params.CertificateType = this.certificateTypes[0].Value;
     }
   }

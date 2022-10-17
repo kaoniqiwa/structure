@@ -23,13 +23,13 @@ export class ConfigSettingBusiness {
   //   }
 
   async syncSRServer(serverId: string) {
-    this.srService.sync(serverId);
+    return this.srService.sync(serverId);
   }
   async getSRserver() {
     return await this.srService.array();
   }
   async syncPlatform(id: string) {
-    this.platform.sync(id);
+    return this.platform.sync(id);
   }
   async getPlatform() {
     let paged = await this.platform.list();

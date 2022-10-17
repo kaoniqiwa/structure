@@ -2,10 +2,12 @@
   <div class="deploy-face-content">
     <app-deploy-face-table
       [load]="load"
+      [remove]="remove"
       (loaded)="onloaded($event)"
       (picture)="onpicture($event)"
       (details)="ondetails($event)"
       (playback)="onplayback($event)"
+      (select)="onselect($event)"
     ></app-deploy-face-table>
   </div>
   <div class="deploy-face-foot" *ngIf="page">

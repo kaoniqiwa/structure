@@ -3,8 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +25,10 @@ import { RegionTreeBusiness } from './region-tree.business';
   styleUrls: ['./region-tree.component.less'],
   providers: [RegionTreeBusiness],
 })
-export class RegionTreeComponent extends CommonTree implements OnInit {
+export class RegionTreeComponent
+  extends CommonTree
+  implements OnInit, OnChanges
+{
   private _condition: string = '';
   private _searchGuards: string[] = ['街道', '路居委会'];
 
@@ -39,6 +44,7 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
   @Input() showSearchBar = true;
   @Input() setting = false;
   @Input() nodeType?: RegionNodeType;
+  @Input() load?: EventEmitter<void>;
 
   // 默认选中列表
   private _defaultIds: string[] = [];
@@ -67,6 +73,15 @@ export class RegionTreeComponent extends CommonTree implements OnInit {
     this._excludeGuards = Deduplication.generateExcludeArray(
       this._searchGuards
     );
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['load']) {
+      if (this.load) {
+        this.load.subscribe((x) => {
+          this._init();
+        });
+      }
+    }
   }
 
   ngOnInit(): void {

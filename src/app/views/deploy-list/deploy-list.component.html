@@ -24,23 +24,32 @@
       </div>
     </div>
     <div class="deploy-list-head-operation">
-      <button class="hw-green-btn" (click)="oncreateclicked()">添加</button>
+      <button *ngIf="selected" class="hw-red-btn" (click)="onremoveclicked()">
+        <i class="howell-icon-delete-bin"></i> 删除
+      </button>
+      <button class="hw-green-btn" (click)="oncreateclicked()">
+        <i class="howell-icon-plus"></i> 添加
+      </button>
     </div>
   </div>
   <div class="deploy-list-content">
     <ng-container *ngIf="path === DeployType.face">
       <app-deploy-face-list
+        [remove]="remove"
         (picture)="onpicture($event)"
         (details)="ondetails($event)"
         (playback)="onplayback($event)"
+        (select)="onselect($event)"
       >
       </app-deploy-face-list>
     </ng-container>
     <ng-container *ngIf="path === DeployType.vehicle">
       <app-deploy-vehicle-list
+        [remove]="remove"
         (picture)="onpicture($event)"
         (details)="ondetails($event)"
         (playback)="onplayback($event)"
+        (select)="onselect($event)"
       >
       </app-deploy-vehicle-list>
     </ng-container>

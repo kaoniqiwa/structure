@@ -6,6 +6,8 @@ import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.m
 import { Page, PagedList } from 'src/app/models/page-list.model';
 import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
 
+type DeployControlTask = FaceDeployControlTask | VehicleDeployControlTask;
+
 @Component({
   selector: 'app-deploy-list',
   templateUrl: './deploy-list.component.html',
@@ -20,18 +22,20 @@ export class DeployListComponent implements OnInit {
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
-  details: EventEmitter<FaceDeployControlTask | VehicleDeployControlTask> =
-    new EventEmitter();
+  details: EventEmitter<DeployControlTask> = new EventEmitter();
   @Output()
   deploy: EventEmitter<DeployType> = new EventEmitter();
 
   constructor() {}
   path: DeployType = DeployType.face;
   DeployType = DeployType;
+  selected?: DeployControlTask;
+  remove: EventEmitter<any> = new EventEmitter();
 
   ngOnInit(): void {}
   navigation(type: DeployType) {
     this.path = type;
+    this.selected = undefined;
   }
 
   onplayback(args: VideoArgs) {
@@ -40,10 +44,18 @@ export class DeployListComponent implements OnInit {
   onpicture(args: PictureArgs) {
     this.picture.emit(args);
   }
-  ondetails(args: FaceDeployControlTask | VehicleDeployControlTask) {
+  ondetails(args: DeployControlTask) {
     this.details.emit(args);
   }
   oncreateclicked() {
     this.deploy.emit(this.path);
+  }
+  onselect(args: DeployControlTask) {
+    this.selected = args;
+  }
+  onremoveclicked() {
+    if (this.selected) {
+      this.remove.emit(this.selected);
+    }
   }
 }

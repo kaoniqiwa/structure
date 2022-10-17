@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -19,13 +20,16 @@ import { DeployVehicleTableArgs } from '../../tables/deploy/deploy-vehicle-table
   styleUrls: ['./deploy-vehicle-list.component.less'],
 })
 export class DeployVehicleListComponent implements OnInit, AfterViewInit {
+  @Input()
+  remove?: EventEmitter<VehicleDeployControlTask>;
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
   details: EventEmitter<VehicleDeployControlTask> = new EventEmitter();
-
+  @Output()
+  select: EventEmitter<VehicleDeployControlTask> = new EventEmitter();
   constructor() {}
 
   args = new DeployVehicleTableArgs();
@@ -63,5 +67,8 @@ export class DeployVehicleListComponent implements OnInit, AfterViewInit {
   }
   ondetails(args: VehicleDeployControlTask) {
     this.details.emit(args);
+  }
+  onselect(item: VehicleDeployControlTask) {
+    this.select.emit(item);
   }
 }

@@ -17,7 +17,19 @@
       <i class="mdi mdi-filter-outline"></i>
     </div>
   </div>
-
+  <div
+    class="btn"
+    *ngIf="bar.camera.display.value"
+    (click)="btnCameraFilterClicked()"
+    [ngStyle]="{
+      'background-color': bar.camera.selected.value ? '#2bcf38' : '#2d76ce'
+    }"
+    title="人脸"
+  >
+    <div class="inner">
+      <i class="howell-icon-video"></i>
+    </div>
+  </div>
   <div
     class="btn"
     *ngIf="bar.face.display.value"
