@@ -7,5 +7,5 @@ export enum CameraType {
   Face = 1,
 
   // 车辆卡口摄像机
-  Bayonet = 2,
+  Vehicle = 2,
 }

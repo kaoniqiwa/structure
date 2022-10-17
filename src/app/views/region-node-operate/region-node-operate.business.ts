@@ -24,35 +24,18 @@ export class RegionNodeOperateBusiness {
     private _converter: RegionNodeOperateConverter
   ) {}
 
-  async init(searchInfo: RegionNodeOperateSearch) {
-    let model = new RegionNodeOperateModel();
-    let model2 = new RegionNodeOperateModel2();
-
-    if (searchInfo.RegionId && searchInfo.RegionNodeId) {
-      let regionNode = await this.getRegionNode(
-        searchInfo.RegionId,
-        searchInfo.RegionNodeId
-      );
-      model.Id = regionNode.Id;
-      model.Name = regionNode.Name;
-      model.RegionNodeType = regionNode.NodeType ?? RegionNodeType.camera;
-      model.ResourceId = regionNode.ResourceId;
-
-      model2.RegionNode = regionNode;
-    }
-
+  async init(searchInfo: RegionNodeOperateSearch, regionNode: RegionNode) {
     let { Data: allResources, Page } = await this._listResource(
       searchInfo.Name,
       searchInfo.PageIndex,
       searchInfo.PageSize
     );
 
-    console.log(allResources);
     let resourceData = this._converter.iterateToModel(allResources);
 
     resourceData.forEach((resource) => {
       resource.IsBind = '';
-      if (resource.Id == model.ResourceId) {
+      if (resource.Id == regionNode.ResourceId) {
         resource.IsBind = '已绑定';
       }
     });
@@ -61,9 +44,8 @@ export class RegionNodeOperateBusiness {
       Page: Page,
       Data: resourceData,
     };
-    model.ResourceList = res;
 
-    return model;
+    return res;
   }
   private _listResource(name: string, pageIndex: number = 1, pageSize = 9) {
     let params: GetCamerasParams = new GetCamerasParams();

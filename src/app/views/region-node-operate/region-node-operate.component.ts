@@ -12,11 +12,14 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { CommonTableComponent } from 'src/app/components/common-table/common.component';
 import { TableColumnModel } from 'src/app/components/common-table/table.model';
+import { EnumHelper } from 'src/app/enums/enum-helper';
 import { FormState } from 'src/app/enums/form-state.enum';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
+import { ResourceType } from 'src/app/enums/resource-type.enum';
 import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { Page } from 'src/app/models/page-list.model';
 import { RegionNode } from 'src/app/models/region-node.model';
+import { Region } from 'src/app/models/region.model';
 import { Language } from 'src/app/tools/language';
 import { RegionNodeOperateBusiness } from './region-node-operate.business';
 import { REGION_NODE_TABLE } from './region-node-operate.config';
@@ -76,6 +79,8 @@ export class RegionNodeOperateComponent implements OnInit {
 
   model: RegionNodeOperateModel = new RegionNodeOperateModel();
 
+  regionNode: RegionNode;
+
   get title() {
     if (this.state == FormState.add) {
       return '添加监控点';
@@ -87,19 +92,34 @@ export class RegionNodeOperateComponent implements OnInit {
 
   constructor(
     private _business: RegionNodeOperateBusiness,
-    private _fb: FormBuilder,
     private _toastrService: ToastrService
-  ) {}
+  ) {
+    this.regionNode = new RegionNode();
+    this.regionNode.Id = '';
+    this.regionNode.Name = '';
+    this.regionNode.NodeType = RegionNodeType.camera;
+
+    this.regionNode.ResourceId = '';
+    this.regionNode.ResourceType = ResourceType.Camera;
+  }
   async ngOnInit() {
-    this.searchInfo.RegionId = this.regionId;
-    this.searchInfo.RegionNodeId = this.regionNodeId;
+    if (this.state == FormState.add) {
+      this.regionNode.RegionId = this.regionId;
+    } else if (this.state == FormState.edit) {
+      this.regionNode = await this._business.getRegionNode(
+        this.regionId,
+        this.regionNodeId
+      );
+    }
+    // console.log('regionNode', this.regionNode);
+
     this._init();
   }
   private async _init() {
-    this.model = await this._business.init(this.searchInfo);
-    console.log(this.model);
-    this.dataSource.next(this.model.ResourceList.Data);
-    this.page = this.model.ResourceList.Page;
+    let res = await this._business.init(this.searchInfo, this.regionNode);
+    // console.log(res);
+    this.dataSource.next(res.Data);
+    this.page = res.Page;
   }
   pageEvent(pageInfo: PageEvent) {
     if (this.searchInfo.PageIndex == pageInfo.pageIndex + 1) return;
@@ -108,6 +128,15 @@ export class RegionNodeOperateComponent implements OnInit {
   }
   selectAddTableRow(rows: RegionNodeResource[]) {
     this.selectedRows = rows;
+    if (this.state == FormState.add) {
+      if (this.selectedRows.length) {
+        let row = this.selectedRows[0];
+        this.regionNode.Name = row.Name;
+        this.regionNode.NodeType = EnumHelper.ConvertCameraTypeToNodeType(
+          row.DetailType
+        );
+      }
+    }
   }
 
   search() {
@@ -122,32 +151,30 @@ export class RegionNodeOperateComponent implements OnInit {
       }
       let regionNodeResource = this.selectedRows[0];
 
-      console.log(regionNodeResource);
-      let regionNode = new RegionNode();
-      regionNode.Id = '';
-      regionNode.Name = this.model.Name;
-      regionNode.NodeType = this.model.RegionNodeType;
-      regionNode.RegionId = this.searchInfo.RegionId;
-      regionNode.ResourceId = regionNodeResource.Id;
-      regionNode.ResourceType = regionNodeResource.ResourceType;
+      this.regionNode.ResourceId = regionNodeResource.Id;
+      this.regionNode.ResourceType = regionNodeResource.ResourceType;
 
-      let res = await this._business.addRegionNode(regionNode);
+      let res = await this._business.addRegionNode(this.regionNode);
 
       if (res) {
+        // console.log(res);
         this._toastrService.success('操作成功');
         this.closeEvent.emit(true);
       }
     } else if (this.state == FormState.edit) {
-      // if (this.regionNode) {
-      //   this.regionNode.Name = this.regionNodeName;
-      //   this.regionNode.NodeType = this.regionNodeType;
-      //   let res = await this._business.updateRegionNode(this.regionNode);
-      //   console.log(res);
-      //   if (res) {
-      //     this._toastrService.success('操作成功');
-      //     this.closeEvent.emit(true);
-      //   }
-      // }
+      if (this.selectedRows.length != 0) {
+        let regionNodeResource = this.selectedRows[0];
+
+        this.regionNode.ResourceId = regionNodeResource.Id;
+        this.regionNode.ResourceType = regionNodeResource.ResourceType;
+      }
+
+      let res = await this._business.updateRegionNode(this.regionNode);
+      // console.log(res);
+      if (res) {
+        this._toastrService.success('操作成功');
+        this.closeEvent.emit(true);
+      }
     }
   }
   onReset() {

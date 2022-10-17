@@ -13,7 +13,7 @@ export const REGION_NODE_TABLE: TableColumnModel[] = [
     columnDef: 'DetailTypeName',
     header: '类型',
     cell: (element: RegionNodeResource) => `${element.DetailTypeName}`,
-    flexBasis: '25%',
+    flexBasis: '30%',
   },
   {
     columnDef: 'OnlineStatus',

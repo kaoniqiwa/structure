@@ -12,7 +12,11 @@
               <span class="hw-form-icon">*</span>
             </div>
             <div class="content">
-              <input type="text" name="stationName" [(ngModel)]="model.Name" />
+              <input
+                type="text"
+                name="stationName"
+                [(ngModel)]="regionNode.Name"
+              />
             </div>
           </div>
           <div class="operate-item" style="flex-basis: 45%">
@@ -21,7 +25,7 @@
               <span class="hw-form-icon"></span>
             </div>
             <div class="content">
-              <select name="regionNodeType" [(ngModel)]="model.RegionNodeType">
+              <select name="regionNodeType" [(ngModel)]="regionNode.NodeType">
                 <option [value]="RegionNodeType.camera">
                   {{ Language.RegionNodeType(RegionNodeType.camera) }}
                 </option>

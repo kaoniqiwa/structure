@@ -1,4 +1,6 @@
+import { CameraType } from './camera-type.enum';
 import { OnlineStatus } from './online-status.enum';
+import { RegionNodeType } from './region-node-type.enum';
 import { StationState } from './station-state.enum';
 import { UserResourceType } from './user-resource-type.enum';
 
@@ -12,6 +14,19 @@ export class EnumHelper {
       case OnlineStatus.offline:
       default:
         return StationState.Error;
+    }
+  }
+
+  static ConvertCameraTypeToNodeType(type: CameraType) {
+    switch (type) {
+      case CameraType.Common:
+        return RegionNodeType.camera;
+      case CameraType.Face:
+        return RegionNodeType.face;
+      case CameraType.Vehicle:
+        return RegionNodeType.vehicle;
+      default:
+        return RegionNodeType.camera;
     }
   }
 }
