@@ -95,7 +95,7 @@ export class Language {
         return '普通摄像机';
       case CameraType.Face:
         return '人脸摄像机';
-      case CameraType.Bayonet:
+      case CameraType.Vehicle:
         return '车辆卡口摄像机';
       default:
         return '';
