@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
+import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { Deduplication } from 'src/app/tools/deduplication';
 import { CommonFlatNode } from '../common-tree/common-flat-node.model';
 import { CommonTree } from '../common-tree/common-tree';
@@ -45,6 +46,9 @@ export class RegionTreeComponent
   @Input() setting = false;
   @Input() nodeType?: RegionNodeType;
   @Input() load?: EventEmitter<void>;
+
+  @Input('selectStrategy')
+  selectStrategy = SelectStrategy.Single; // 单选或多选
 
   // 默认选中列表
   private _defaultIds: string[] = [];
@@ -92,6 +96,7 @@ export class RegionTreeComponent
     this._nestedNodeMap = this._business.nestedNodeMap;
     this._business.showRegionNode = this.showRegionNode;
 
+    
     let res = await this._business.init(
       this._condition,
       this.setting,

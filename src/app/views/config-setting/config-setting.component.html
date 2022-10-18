@@ -26,6 +26,13 @@
         </div>
         <div
           class="tab"
+          [class.active]="path == NavigationPath.region_node_match"
+          (click)="path = NavigationPath.region_node_match"
+        >
+          监控点配对
+        </div>
+        <div
+          class="tab"
           [class.active]="path == NavigationPath.sync_server"
           (click)="path = NavigationPath.sync_server"
         >
@@ -40,6 +47,11 @@
     <region-node-manage
       *ngIf="path == NavigationPath.region_node_manage"
     ></region-node-manage>
+
+    <region-node-match
+      *ngIf="path == NavigationPath.region_node_match"
+    ></region-node-match>
+
     <div class="sync" *ngIf="path == NavigationPath.sync_server">
       <button class="hw-green-btn" (click)="syncSRServer()">
         同步流转服务器

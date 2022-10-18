@@ -13,7 +13,7 @@ import { ConfigSettingBusiness } from './config-setting.business';
 export class ConfigSettingComponent implements OnInit {
   NavigationPath = NavigationPath;
 
-  path = NavigationPath.depoly_map;
+  path = NavigationPath.region_node_match;
   constructor(
     private business: ConfigSettingBusiness,
     private toast: ToastrService

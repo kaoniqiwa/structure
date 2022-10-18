@@ -1,0 +1,23 @@
+<div class="region-node-match">
+  <div class="left-wrapper box-wrapper">
+    <div class="box-item">
+      <div class="hw-simple-title">区域列表</div>
+      <div class="tree-container">
+        <howell-region-tree
+          #tree
+          [holdStatus]="false"
+          [showRegionNode]="true"
+          [selectStrategy]="selectStrategy"
+          (selectTreeNode)="selectTreeNode($event)"
+        ></howell-region-tree>
+      </div>
+    </div>
+  </div>
+  <div>sdfsdf</div>
+  <div class="right-wrapper box-wrapper">
+    <div class="box-item">
+      <div class="simple-title">摄像机列表</div>
+      <div class="tree-container"></div>
+    </div>
+  </div>
+</div>
