@@ -17,7 +17,7 @@ export class ConfigRequestService {
       'assets/configs/mqtt.json'
     );
   }
-  config?: Config;
+  private config?: Config;
   async getConfig() {
     if (this.config) {
       return this.config;

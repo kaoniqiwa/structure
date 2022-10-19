@@ -6,9 +6,12 @@ import { ConfigRequestService } from 'src/app/network/request/config/config-requ
   providedIn: 'root',
 })
 export class StoreService {
-  async getRegionId() {
-    let config = await this.config.getConfig();
-    return config.regionId;
+  get regionId(): Promise<string> {
+    return new Promise((got) => {
+      this.config.getConfig().then((config) => {
+        got(config.regionId);
+      });
+    });
   }
 
   constructor(private config: ConfigRequestService) {}

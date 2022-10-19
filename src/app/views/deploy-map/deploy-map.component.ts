@@ -130,7 +130,7 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
           let village = this.client.DataController.Village.Get(rawData.Id);
           this.client.Viewer.MoveTo(village.center);
         } catch (e) {
-          this._toastrService.error('还未部署该点位');
+          this._toastrService.error('还未部署该区域');
         }
       } else if (rawData instanceof RegionNode) {
         if (rawData.RegionId) {
