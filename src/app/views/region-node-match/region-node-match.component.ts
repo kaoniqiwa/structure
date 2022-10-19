@@ -45,6 +45,8 @@ export class RegionNodeMatchComponent implements OnInit {
   // 禁用节点类型
   disableItemType = RegionTreeItemType.RegionNode;
 
+  condition: string = '';
+
   highLight = (model: RegionNodeResourceModel) => {
     return this.selection.isSelected(model);
   };
@@ -56,8 +58,12 @@ export class RegionNodeMatchComponent implements OnInit {
   searchInfo: RegionNodeMatchSearch = {
     Name: '',
   };
-  dataSource: RegionNodeResourceModel[] = [];
+
+  //  拉取到的所有 Resource
   allResource: RegionNodeResourceModel[] = [];
+
+  // 根据
+  dataSource: RegionNodeResourceModel[] = [];
 
   load: EventEmitter<void> = new EventEmitter();
   loaded: EventEmitter<void> = new EventEmitter();
@@ -69,14 +75,14 @@ export class RegionNodeMatchComponent implements OnInit {
     private _toastrService: ToastrService
   ) {}
 
-  async ngOnInit() {
-    this.allResource = await this._business.listResource();
+  ngOnInit() {
+    this._init();
   }
 
   private async _init() {
-    // let res = await this._business.init(this.searchInfo);
-    // this.dataSource = res.Data;
-    // console.log(res);
+    this.allResource = await this._business.listResource(this.searchInfo);
+
+    this._updateDataSource();
   }
   changeToDelete() {
     this.state = MatchState.Delete;
@@ -121,6 +127,9 @@ export class RegionNodeMatchComponent implements OnInit {
   }
   searchEventHandler(condition: string) {
     console.log(condition);
+    this.searchInfo.Name = condition;
+
+    this._init();
   }
 
   async createRegionNode() {

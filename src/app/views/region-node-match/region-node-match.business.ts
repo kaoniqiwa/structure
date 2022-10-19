@@ -27,8 +27,9 @@ export class RegionNodeMatchBusiness {
     // };
     // return res;
   }
-  async listResource() {
+  async listResource(searchInfo: RegionNodeMatchSearch) {
     let params: GetCamerasParams = new GetCamerasParams();
+    params.Name = searchInfo.Name;
     let { Data: allResources } = await this._resourceRequest.list(params);
 
     let res = this._converter.iterateToModel(allResources);
