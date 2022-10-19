@@ -59,7 +59,7 @@
         />
       </div>
     </div>
-    <div
+    <!-- <div
       class="form-item picture"
       (click)="onupload()"
       [ngStyle]="{
@@ -74,6 +74,9 @@
         #file
         style="display: none"
       />
+    </div> -->
+    <div class="form-item picture">
+      <app-image-upload (upload)="onimage($event)"> </app-image-upload>
     </div>
     <div class="form-item">
       <button [disabled]="!image" class="hw-blue-btn" (click)="onimagechoose()">

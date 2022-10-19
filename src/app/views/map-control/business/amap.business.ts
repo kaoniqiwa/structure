@@ -89,8 +89,8 @@ export class AMapBusiness {
       this.mapClient!.Events.OnMouseClick = () => {
         this.onMapClicked();
       };
-
-      this.loadDivision(this.store.regionId);
+      let regionId = await this.store.getRegionId();
+      this.loadDivision(regionId);
 
       this.setContentMenu();
     };
@@ -229,10 +229,8 @@ export class AMapBusiness {
 
         let node = this.source.all.find((x) => x.Id === id);
         if (!node) {
-          const node = await this.regionService.node.get(
-            this.store.regionId,
-            id
-          );
+          let regionId = await this.store.getRegionId();
+          const node = await this.regionService.node.get(regionId, id);
           this.source.all.push(node);
         }
         this.menuEvents.nodeRecordClicked.emit(node);
@@ -252,10 +250,8 @@ export class AMapBusiness {
         }
         let node = this.source.all.find((x) => x.Id === id);
         if (!node) {
-          const node = await this.regionService.node.get(
-            this.store.regionId,
-            id
-          );
+          let regionId = await this.store.getRegionId();
+          const node = await this.regionService.node.get(regionId, id);
           this.source.all.push(node);
         }
         this.menuEvents.nodeInformationClicked.emit(node);
@@ -267,10 +263,8 @@ export class AMapBusiness {
       async (id: string) => {
         let node = this.source.all.find((x) => x.Id === id);
         if (!node) {
-          const node = await this.regionService.node.get(
-            this.store.regionId,
-            id
-          );
+          let regionId = await this.store.getRegionId();
+          const node = await this.regionService.node.get(regionId, id);
           this.source.all.push(node);
         }
         this.pointDoubleClicked.emit(node);

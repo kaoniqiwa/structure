@@ -1,23 +1,17 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import config from 'src/assets/configs/config.json';
+import { ConfigRequestService } from 'src/app/network/request/config/config-request.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
-  private _regionId?: string;
-  public get regionId(): string {
-    if (!this._regionId) {
-      this._regionId = config.regionId;
-    }
-    return this._regionId;
-  }
-  public set regionId(v: string) {
-    this._regionId = v;
+  async getRegionId() {
+    let config = await this.config.getConfig();
+    return config.regionId;
   }
 
-  constructor() {}
+  constructor(private config: ConfigRequestService) {}
 
   interval = new EventEmitter();
   refresh = new EventEmitter();
@@ -35,7 +29,6 @@ export class StoreService {
 
   clear() {
     this.stopInterval();
-    this._regionId = '';
     this.interval.unsubscribe();
     this.interval = new EventEmitter();
 

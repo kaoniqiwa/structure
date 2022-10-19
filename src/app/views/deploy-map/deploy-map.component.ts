@@ -8,7 +8,9 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
+import { CommonNestNode } from 'src/app/components/common-tree/common-nest-node.model';
 import { ConfirmDialogModel } from 'src/app/components/confirm-dialog/confirm-dialog.model';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { DialogEnum } from 'src/app/enums/dialog.enum';
@@ -384,6 +386,11 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
     const port = this._location.port;
     const date = formatDate(new Date(), 'yyyyMMddHHmmss', 'zh-CN');
     return `http://${host}:${port}/amap/map_ts_offline.html?v=${date}`;
+  }
+
+  onloaded(data: any) {
+    console.log('deploy-map.component', data);
+    console.log(data.childrenChange);
   }
 }
 

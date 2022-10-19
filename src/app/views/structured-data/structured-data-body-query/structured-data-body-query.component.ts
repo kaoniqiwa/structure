@@ -33,8 +33,6 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
 
   model: StructuredDataBodyQueryModel = new StructuredDataBodyQueryModel();
   handle: any;
-  @ViewChild('file')
-  file?: ElementRef;
   expand = false;
   image?: string;
   window: WindowModel = new WindowModel();
@@ -165,36 +163,8 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
-  //#region update
-  onupload() {
-    this.models = undefined;
-    this.image = undefined;
-    if (this.file) {
-      this.file.nativeElement.click();
-    }
-  }
-  fileChange() {
-    if (this.file) {
-      const t_files = this.file.nativeElement.files;
-      if (t_files.length > 0) {
-        this.uploadFile(t_files[0]);
-        this.file.nativeElement.value = null;
-      }
-    }
-  }
-  async uploadFile(file: any) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener('loadend', () => {
-      let str = reader.result as string;
-
-      this.image = str;
-      this.onimage();
-    });
-  }
-  //#endregion
-
-  async onimage() {
+  async onimage(image: string) {
+    this.image = image;
     if (this.image) {
       this.models = await this.business.load(this.image);
       if (this.models && this.models.length > 0) {

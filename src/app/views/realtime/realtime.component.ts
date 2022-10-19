@@ -14,6 +14,7 @@ import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
+import { StoreService } from 'src/app/tools/service/store.service';
 import { AlarmModel } from '../alarm/alarm.model';
 import { DeployInfoComponent } from '../deploy-info/deploy-info.component';
 import { RealTimeBusiness } from './realtime.business';
@@ -37,15 +38,27 @@ export class RealtimeComponent implements OnInit {
   @Output()
   device: EventEmitter<OnlineStatus> = new EventEmitter();
 
+<<<<<<< HEAD
   // 后缀图标类型
   suffixIconType = SuffixIconType.Status;
 
   constructor(private _business: RealTimeBusiness) {}
 
+=======
+  constructor(
+    private _business: RealTimeBusiness,
+    private store: StoreService
+  ) {}
+  load: EventEmitter<void> = new EventEmitter();
+>>>>>>> f0e960f0e4273ff9d4943aa3ac826618d30abc27
   alarmModels: AlarmModel[] = [];
   @ViewChild(DeployInfoComponent) deployFace!: DeployInfoComponent;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.interval.subscribe((x) => {
+      this.load.emit();
+    });
+  }
 
   onvideo(camera: Camera) {
     this.video.emit(camera);

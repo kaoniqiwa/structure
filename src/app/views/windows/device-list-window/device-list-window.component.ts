@@ -27,13 +27,13 @@ export class DeviceListWindowComponent
   constructor() {
     super();
   }
+  ngOnInit(): void {}
   ngAfterViewInit(): void {
     this.onload();
   }
   load: EventEmitter<DeviceTabelArgs> = new EventEmitter();
   name?: string;
 
-  override ngOnInit(): void {}
   onvideo(args: VideoArgs) {
     this.video.emit(args);
   }

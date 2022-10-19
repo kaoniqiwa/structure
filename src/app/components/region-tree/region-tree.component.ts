@@ -79,6 +79,9 @@ export class RegionTreeComponent
 
   @Output() buttonIconClickEvent = new EventEmitter<CommonFlatNode>();
 
+  @Output()
+  loaded: EventEmitter<any> = new EventEmitter();
+
   @ViewChild(CommonTreeComponent) override tree?: CommonTreeComponent;
 
   searchInfo: RegionTreeSearch = {
@@ -116,6 +119,7 @@ export class RegionTreeComponent
 
     let res = await this._business.init(this.searchInfo);
     this.dataSubject.next(res);
+    this.loaded.emit(res);
 
     this.tree?.expandAll();
   }

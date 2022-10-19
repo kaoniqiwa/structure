@@ -28,7 +28,12 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { CoordinateManageComponent } from './coordinate-manage/coordinate-manage.component';
 import { TableSelectComponent } from './table-select/table-select.component';
 import { InputSearchComponent } from './input-search/input-search.component';
+<<<<<<< HEAD
 import { ResourceTreeComponent } from './resource-tree/resource-tree.component';
+=======
+import { ChipListComponent } from './chip-list/chip-list.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+>>>>>>> f0e960f0e4273ff9d4943aa3ac826618d30abc27
 
 export const components = [
   AccountInfoComponent,
@@ -61,5 +66,10 @@ export const components = [
   CoordinateManageComponent,
   TableSelectComponent,
   InputSearchComponent,
+<<<<<<< HEAD
   ResourceTreeComponent,
+=======
+  ChipListComponent,
+  ImageUploadComponent,
+>>>>>>> f0e960f0e4273ff9d4943aa3ac826618d30abc27
 ];
