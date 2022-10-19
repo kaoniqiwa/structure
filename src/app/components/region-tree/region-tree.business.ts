@@ -55,7 +55,7 @@ export class RegionTreeBusiness {
       params.NodeType = searchInfo.RegionNodeType;
       let regionNodeRes = await this._listRegionNode(params);
 
-      console.log(regionNodeRes);
+      // console.log(regionNodeRes);
       let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
 
       if (this.suffixIconType == SuffixIconType.Status) {

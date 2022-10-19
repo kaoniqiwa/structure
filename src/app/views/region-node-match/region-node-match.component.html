@@ -5,8 +5,9 @@
       <div class="tree-container">
         <howell-region-tree
           #regionTree
+          [load]="load"
           [holdStatus]="false"
-          [selectStrategy]="regionSelectStrategy"
+          [selectStrategy]="selectStrategy"
           [showRegionNode]="true"
           [disableItemType]="disableItemType"
           (selectTreeNode)="selectRegionTreeNode($event)"
@@ -15,40 +16,70 @@
     </div>
   </div>
   <div class="middle-wrapper">
-    <div>
-      <button class="hw-blue-btn" (click)="createRegionNode()">
-        创建监控点
-      </button>
-      <button class="hw-red-btn" (click)="deleteRegionNode()">
-        删除监控点
-      </button>
-    </div>
+    <ng-container [ngSwitch]="state">
+      <ng-template [ngSwitchCase]="MatchState.Add">
+        <div style="margin-bottom: 20px">
+          <button
+            class="hw-blue-btn"
+            title="添加模式"
+            (click)="changeToDelete()"
+          >
+            <i class="howell-icon-arrowleftbold"> </i>
+          </button>
+        </div>
+        <div>
+          <button class="hw-green-btn" (click)="createRegionNode()">
+            <i class="howell-icon-Link"> </i>
+          </button>
+        </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="MatchState.Delete">
+        <div style="margin-bottom: 20px">
+          <button
+            class="hw-blue-btn"
+            title="删除模式"
+            (click)="changeToCreate()"
+          >
+            <i class="howell-icon-arrowrightbold"> </i>
+          </button>
+        </div>
+        <div>
+          <button class="hw-red-btn" (click)="deleteRegionNode()">
+            <i class="howell-icon-Unlink"> </i>
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
   </div>
   <div class="right-wrapper box-wrapper">
-    <div class="box-item">
-      <div class="hw-simple-title">摄像机列表</div>
-      <div class="tree-container">
-        <!-- <resource-tree
-          #resourceTree
-          [selectStrategy]="resourceSelectStrategy"
-          (selectTreeNode)="selectResourceTreeNode($event)"
-        ></resource-tree> -->
+    <div class="box-item vertical-layout">
+      <div class="vertical-header">
+        <div class="hw-simple-title">摄像机列表</div>
+      </div>
 
-        <label *ngFor="let data of dataSource">
-          <input type="checkbox" />
-          <i [class]="data.DetailIcon"></i>
-          {{ data.Name }}
-        </label>
-
-        <label class="checkbox-layout">
-          <span class="checkbox-wrapper">
-            <input type="checkbox" class="checkbox-input" />
-            <span class="checkbox-frame"></span>
-          </span>
-          <span class="checkbox-label">
-            <i class="howell-icon-earth"></i> 泥城镇
-          </span></label
+      <div class="vertical-main">
+        <div
+          class="resource-item"
+          *ngFor="let model of dataSource"
+          [class.high-light]="highLight(model)"
         >
+          <mat-checkbox
+            (change)="selectResource(model)"
+            [checked]="selection.isSelected(model)"
+          >
+            <i [class]="model.DetailIcon"></i>
+            {{ model.Name }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="vertical-footer">
+        <div class="left-wrapper">
+          <div class="footer-item">
+            <app-table-select (tableSelect)="tableSelect($event)">
+            </app-table-select>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { EnumHelper } from 'src/app/enums/enum-helper';
 import { RegionTreeItemType } from 'src/app/enums/region-tree.enum';
 import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
+import { TableSelectStateEnum } from 'src/app/enums/table-select-state.enum';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
@@ -24,12 +26,24 @@ import {
   providers: [RegionNodeMatchBusiness],
 })
 export class RegionNodeMatchComponent implements OnInit {
-  regionSelectStrategy = SelectStrategy.Single;
+  selection = new SelectionModel<RegionNodeResourceModel>(true);
+
+  highLight = (model: RegionNodeResourceModel) => {
+    return this.selection.isSelected(model);
+  };
+
+  load: EventEmitter<void> = new EventEmitter();
+
+  MatchState = MatchState;
+
+  state = MatchState.Add;
+
+  selectStrategy = SelectStrategy.Single;
   resourceSelectStrategy = SelectStrategy.Multiple;
   disableItemType = RegionTreeItemType.RegionNode;
 
   // 区域池
-  selectedRegionTreeResource: RegionTreeSource | null = null;
+  treeNodes: CommonFlatNode<RegionTreeSource>[] = [];
 
   // 摄像机池
   selectedResources: Resource[] = [];
@@ -50,61 +64,103 @@ export class RegionNodeMatchComponent implements OnInit {
   private async _init() {
     let res = await this._business.init(this.searchInfo);
     this.dataSource = res.Data;
+    // console.log(res);
+  }
+  changeToDelete() {
+    this.state = MatchState.Delete;
+    this.selectStrategy = SelectStrategy.Multiple;
+  }
+  changeToCreate() {
+    this.state = MatchState.Add;
+
+    this.selectStrategy = SelectStrategy.Single;
+  }
+  selectResource(model: RegionNodeResourceModel) {
+    this.selection.toggle(model);
+  }
+
+  tableSelect(type: TableSelectStateEnum) {
+    switch (type) {
+      case TableSelectStateEnum.All:
+        this.selection.select(...this.dataSource);
+        break;
+      case TableSelectStateEnum.Reverse:
+        this.dataSource.forEach((model) => this.selection.toggle(model));
+
+        break;
+      case TableSelectStateEnum.Cancel:
+        this.selection.clear();
+
+        break;
+      default:
+        throw new TypeError('类型错误');
+    }
   }
 
   selectRegionTreeNode(nodes: CommonFlatNode<RegionTreeSource>[]) {
     console.log('区域树', nodes);
-    if (nodes.length) this.selectedRegionTreeResource = nodes[0].RawData;
-  }
-  selectResourceTreeNode(nodes: CommonFlatNode<Resource>[]) {
-    console.log('摄像机树', nodes);
-    this.selectedResources = nodes.map((node) => node.RawData);
+    this.treeNodes = nodes;
   }
 
-  createRegionNode() {
-    if (this.selectedResources.length == 0) {
+  async createRegionNode() {
+    if (this.selection.isEmpty()) {
       this._toastrService.error('请选择摄像机');
       return;
     }
-    if (
-      !this.selectedRegionTreeResource ||
-      this.selectedRegionTreeResource instanceof RegionNode
-    ) {
+    if (!this.treeNodes.length) {
       this._toastrService.error('请选择一个区域');
       return;
     }
-
-    console.log(this.selectedRegionTreeResource);
-
-    for (let i = 0; i < this.selectedResources.length; i++) {
-      let resource = this.selectedResources[i] as Camera;
-
+    let region = this.treeNodes[0];
+    let promiseArr: Promise<any>[] = [];
+    for (let i = 0; i < this.selection.selected.length; i++) {
+      let resource = this.selection.selected[i];
       let regionNode = new RegionNode();
       regionNode.Id = '';
       regionNode.Name = resource.Name;
-      regionNode.NodeType = EnumHelper.ConvertCameraTypeToNodeType(
-        resource.CameraType
-      );
-      regionNode.RegionId = this.selectedRegionTreeResource.Id;
+      regionNode.RegionId = region.Id;
       regionNode.ResourceId = resource.Id;
       regionNode.ResourceType = resource.ResourceType;
-
-      this._business.addRegionNode(regionNode);
+      if (resource instanceof Camera) {
+        regionNode.NodeType = EnumHelper.ConvertCameraTypeToNodeType(
+          resource.CameraType
+        );
+      }
+      promiseArr.push(this._business.addRegionNode(regionNode));
+    }
+    let res = await Promise.all(promiseArr);
+    console.log(res);
+    if (res) {
+      this._toastrService.success('创建成功');
+      this.selection.clear();
+      this.load.emit();
     }
   }
-  deleteRegionNode() {
-    console.log(this.selectedRegionTreeResource);
+  async deleteRegionNode() {
+    console.log(this.treeNodes);
+    let regionNodes: RegionNode[] = [];
+    let promiseArr: Promise<any>[] = [];
 
-    if (!this.selectedRegionTreeResource) {
-      this._toastrService.error('请选择节点');
-      return;
+    for (let i = 0; i < this.treeNodes.length; i++) {
+      let node = this.treeNodes[i];
+      let rawData = node.RawData;
+
+      if (rawData instanceof RegionNode) {
+        regionNodes.push(rawData);
+        promiseArr.push(
+          this._business.deleteRegionNode(rawData.RegionId, rawData.Id)
+        );
+      }
     }
-    if (this.selectedRegionTreeResource instanceof Region) {
-    } else if (this.selectedRegionTreeResource instanceof RegionNode) {
-      this._business.deleteRegionNode(
-        this.selectedRegionTreeResource.RegionId,
-        this.selectedRegionTreeResource.Id
-      );
+    let res = await Promise.all(promiseArr);
+    if (res) {
+      this._toastrService.success('删除成功');
+      this.load.emit();
     }
   }
+}
+
+enum MatchState {
+  Add = 0,
+  Delete = 1,
 }

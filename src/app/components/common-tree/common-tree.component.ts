@@ -138,7 +138,6 @@ export class CommonTreeComponent implements OnInit, OnChanges {
     this.selection.changed.subscribe((change) => {
       this.selectTreeNode.emit(change);
     });
-
     this.dataSubject.subscribe((data) => {
       // console.log('树数据', data)
       this.dataSource.data = data;
@@ -148,6 +147,17 @@ export class CommonTreeComponent implements OnInit, OnChanges {
     // 动态设置默认Id时
     if ('defaultIds' in changes) {
       this.setDefaultNodes();
+    }
+
+    if ('selectStrategy' in changes) {
+      if (this.selectStrategy == SelectStrategy.Single) {
+        this.selection = new SelectionModel<CommonFlatNode>();
+      } else {
+        this.selection = new SelectionModel<CommonFlatNode>(true);
+      }
+      this.selection.changed.subscribe((change) => {
+        this.selectTreeNode.emit(change);
+      });
     }
   }
   buttonIconClick(node: CommonFlatNode, index: number, e: Event) {
