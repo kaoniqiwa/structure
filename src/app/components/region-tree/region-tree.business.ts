@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RegionTreeConverter } from 'src/app/components/region-tree/region-tree.converter';
+import { IconTypeEnum } from 'src/app/enums/icon-type.enum';
+import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
+import {
+  RegionTreeItemType,
+  SuffixIconType,
+} from 'src/app/enums/region-tree.enum';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import {
@@ -9,44 +15,35 @@ import {
 } from 'src/app/network/request/regions/regions.params';
 import { RegionRequestSerivce } from 'src/app/network/request/regions/regions.service';
 import { CommonNestNode } from '../common-tree/common-nest-node.model';
+import { RegionTreeSearch } from './region-tree.model';
 
 @Injectable()
 export class RegionTreeBusiness {
   public nestedNodeMap = new Map<string, CommonNestNode<Region>>();
   public showRegionNode = false;
+  public suffixIconType = SuffixIconType.None;
 
-  private _nodes: CommonNestNode[] = [];
-
-  private _regions: Region[] = [];
-  private _regionNodes: RegionNode[] = [];
+  public disableItemType = RegionTreeItemType.None;
 
   constructor(
     private _regionRequest: RegionRequestSerivce,
     private _converter: RegionTreeConverter
   ) {}
 
-  async init(
-    condition: string = '',
-    setting: boolean,
-    nodeType?: RegionNodeType
-  ) {
+  async init(searchInfo: RegionTreeSearch) {
     this.nestedNodeMap.clear();
 
     // 拉取所有区域
     let params = new GetRegionsParams();
-    params.Name = condition;
+    params.Name = searchInfo.Name;
 
     let regionRes = await this._listRegion(params);
-    this._regions = regionRes.Data;
-    let nodes = await this._converter.iterateToNestNode(
-      regionRes.Data,
-      setting
-    );
+    let nodes = await this._converter.iterateToNestNode(regionRes.Data);
     this._registerArray(nodes);
     for (let node of nodes) {
       if (node.ParentId) {
         if (!this.nestedNodeMap.has(node.ParentId)) {
-          await this._getAncestors(node, setting);
+          await this._getAncestors(node);
         }
       }
     }
@@ -54,22 +51,41 @@ export class RegionTreeBusiness {
     if (this.showRegionNode) {
       // 拉取所有区域节点
       let params = new GetRegionNodesParams();
-      params.Name = condition;
-      params.NodeType = nodeType;
+      params.Name = searchInfo.Name;
+      params.NodeType = searchInfo.RegionNodeType;
       let regionNodeRes = await this._listRegionNode(params);
 
       console.log(regionNodeRes);
-      this._regionNodes = regionNodeRes.Data;
-      let nodes2 = await this._converter.iterateToNestNode(
-        regionNodeRes.Data,
-        setting
-      );
+      let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
+
+      if (this.suffixIconType == SuffixIconType.Status) {
+        nodes2.forEach((node) => {
+          let item = node.RawData;
+          node.ButtonIconClasses = [
+            item.OnlineStatus === OnlineStatus.online
+              ? `${IconTypeEnum.online} green-text`
+              : `${IconTypeEnum.offline} powder-red-text`,
+            IconTypeEnum.play,
+            IconTypeEnum.position,
+          ];
+        });
+      } else if (this.suffixIconType == SuffixIconType.Bind) {
+        nodes2.forEach((node) => {
+          let camera = node.RawData.Camera;
+          if (camera.GisPoint) {
+            node.ButtonIconClasses = [IconTypeEnum.unlink];
+          } else {
+            node.ButtonIconClasses = [IconTypeEnum.link];
+          }
+        });
+      }
+
       this._registerArray(nodes2);
 
       for (let node of nodes2) {
         if (node.ParentId) {
           if (!this.nestedNodeMap.has(node.ParentId)) {
-            await this._getAncestors(node, setting);
+            await this._getAncestors(node);
           }
         }
       }
@@ -77,15 +93,32 @@ export class RegionTreeBusiness {
 
     let allNodes = Array.from(this.nestedNodeMap.values());
 
-    // console.log(allNodes);
-    this._nodes = allNodes;
+    allNodes.forEach((node) => {
+      switch (this.disableItemType) {
+        case RegionTreeItemType.All:
+          node.Clickable = false;
+          break;
+        case RegionTreeItemType.Region:
+          if (node.RawData instanceof Region) {
+            node.Clickable = false;
+          }
+          break;
+        case RegionTreeItemType.RegionNode:
+          if (node.RawData instanceof RegionNode) {
+            node.Clickable = false;
+          }
+          break;
+        default:
+          break;
+      }
+    });
 
     let res = this._converter.buildNestTree(allNodes);
     return res;
   }
 
-  searchNode(condition: string, setting: boolean) {
-    return this.init(condition, setting);
+  searchNode(searchInfo: RegionTreeSearch) {
+    return this.init(searchInfo);
   }
 
   private _listRegion(params: GetRegionsParams) {
@@ -113,22 +146,13 @@ export class RegionTreeBusiness {
     }
   }
 
-  private async _getAncestors(node: CommonNestNode, setting: boolean) {
+  private async _getAncestors(node: CommonNestNode) {
     if (node.ParentId && !this.nestedNodeMap.has(node.ParentId)) {
       let region = await this._regionRequest.get(node.ParentId);
-      let parentNode = await this._converter.Convert(region, setting);
+      let parentNode = await this._converter.Convert(region);
       this._registerArray([parentNode]);
       // 一定要await
-      await this._getAncestors(parentNode, setting);
-    }
-  }
-  private _getLocalAncestors(item: Region, res: Region[]) {
-    if (item.ParentId) {
-      let parent = this._regions.find((v) => v.Id == item.ParentId);
-      if (parent) {
-        if (!res.includes(parent)) res.push(parent);
-        this._getLocalAncestors(parent, res);
-      }
+      await this._getAncestors(parentNode);
     }
   }
 }

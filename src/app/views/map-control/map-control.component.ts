@@ -79,13 +79,13 @@ export class MapControlComponent
       }
     });
     this.bar.camera.selected.event.subscribe((x) => {
-      this.amap.filter(x, RegionNodeType.camera);
+      this.amap.filter(x, RegionNodeType.Camera);
     });
     this.bar.face.selected.event.subscribe((x) => {
-      this.amap.filter(x, RegionNodeType.face);
+      this.amap.filter(x, RegionNodeType.Face);
     });
     this.bar.vehicle.selected.event.subscribe((x) => {
-      this.amap.filter(x, RegionNodeType.vehicle);
+      this.amap.filter(x, RegionNodeType.Vehicle);
     });
   }
 

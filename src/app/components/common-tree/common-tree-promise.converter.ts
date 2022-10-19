@@ -2,20 +2,16 @@ import { CommonNestNode } from './common-nest-node.model';
 import { CommonTreeModel } from './common-tree.model';
 
 export abstract class CommonTreePromiseConverter {
-  abstract Convert(
-    source: CommonTreeModel,
-    ...res: any[]
-  ): Promise<CommonNestNode>;
+  abstract Convert(source: CommonTreeModel): Promise<CommonNestNode>;
 
   // 数据以数组形式
   async iterateToNestNode<T extends Array<CommonTreeModel>>(
-    data: T,
-    setting: boolean
+    data: T
   ): Promise<CommonNestNode[]> {
     let res: CommonNestNode[] = new Array<CommonNestNode>();
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
-      const node = await this.Convert(item, setting);
+      const node = await this.Convert(item);
       res.push(node);
     }
     return res;

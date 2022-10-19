@@ -12,4 +12,5 @@ export class CommonFlatNode<T = any> implements CommonTreeModel {
   hideArrow?: boolean;
   ButtonIconClasses: string[] = [];
   CurrentButtonIcon?: number;
+  Clickable = true;
 }

@@ -53,6 +53,7 @@ export class CommonTreeComponent implements OnInit, OnChanges {
     flatNode.RawData = nestNode.RawData;
     flatNode.hideArrow = nestNode.hideArrow;
     flatNode.ButtonIconClasses = nestNode.ButtonIconClasses;
+    flatNode.Clickable = nestNode.Clickable;
 
     if (nestNode.ParentId) {
       let ParentNode = this._flatNodeMap.get(nestNode.ParentId);
@@ -154,6 +155,7 @@ export class CommonTreeComponent implements OnInit, OnChanges {
     this.buttonIconClickEvent.emit(node);
   }
   singleSelectNode(node: CommonFlatNode) {
+    if (!node.Clickable) return;
     // 如果当前节点正被选中，则再次点击当前节点，不会取消选中，一般用于编辑节点状态时
     if (this.holdStatus) {
       if (this.selection.isSelected(node)) {

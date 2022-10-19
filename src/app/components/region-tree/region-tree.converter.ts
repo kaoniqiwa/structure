@@ -10,6 +10,7 @@ import { IconTypeEnum } from 'src/app/enums/icon-type.enum';
 import { classToClass, classToPlain, plainToClass } from 'class-transformer';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
+import { Language } from 'src/app/tools/language';
 
 const RegionNodeIconType = new Map([
   [RegionType.None, 'howell-icon-earth'],
@@ -26,11 +27,11 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
   constructor(private resourceRequest: ResourceRequestSerivce) {
     super();
   }
-  Convert(source: RegionTreeSource, setting: boolean) {
+  Convert(source: RegionTreeSource) {
     if (source instanceof Region) {
       return this._fromRegion(source);
     } else if (source instanceof RegionNode) {
-      return this._fromRegionNode(source, setting);
+      return this._fromRegionNode(source);
     }
 
     throw new Error('Method not implemented.');
@@ -49,8 +50,7 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     return node;
   }
   private async _fromRegionNode(
-    item: RegionNode,
-    setting: boolean
+    item: RegionNode
   ): Promise<CommonNestNode<CameraRegionNode>> {
     const node = new CommonNestNode();
     node.Id = item.Id;
@@ -58,42 +58,33 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     node.ParentId = item.RegionId;
     node.ChildrenLoaded = true;
     node.ParentNode = null;
-
     let plain = classToPlain(item);
     let cameraRegionNode = plainToClass(CameraRegionNode, plain);
     let camera = await this.resourceRequest.get(item.ResourceId);
     cameraRegionNode.Camera = camera;
 
-    switch (cameraRegionNode.NodeType) {
-      case RegionNodeType.face:
-        node.IconClass = 'howell-icon-face-recognition blue-text';
-        break;
-      case RegionNodeType.vehicle:
-        node.IconClass = 'howell-icon-car_recognition blue-text';
-        break;
-      case RegionNodeType.camera:
-      default:
-        node.IconClass = 'howell-icon-video blue-text';
-        break;
-    }
+    // node.Clickable = false;
+
+    node.IconClass =
+      'blue-text ' + Language.RegionNodeIcon(cameraRegionNode.NodeType);
 
     node.RawData = cameraRegionNode;
 
-    if (setting) {
-      if (camera.GisPoint) {
-        node.ButtonIconClasses = [IconTypeEnum.unlink];
-      } else {
-        node.ButtonIconClasses = [IconTypeEnum.link];
-      }
-    } else {
-      node.ButtonIconClasses = [
-        item.OnlineStatus === OnlineStatus.online
-          ? `${IconTypeEnum.online} green-text`
-          : `${IconTypeEnum.offline} powder-red-text`,
-        IconTypeEnum.play,
-        IconTypeEnum.position,
-      ];
-    }
+    // if (setting) {
+    //   if (camera.GisPoint) {
+    //     node.ButtonIconClasses = [IconTypeEnum.unlink];
+    //   } else {
+    //     node.ButtonIconClasses = [IconTypeEnum.link];
+    //   }
+    // } else {
+    //   node.ButtonIconClasses = [
+    //     item.OnlineStatus === OnlineStatus.online
+    //       ? `${IconTypeEnum.online} green-text`
+    //       : `${IconTypeEnum.offline} powder-red-text`,
+    //     IconTypeEnum.play,
+    //     IconTypeEnum.position,
+    //   ];
+    // }
 
     return node;
   }

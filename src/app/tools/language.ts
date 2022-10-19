@@ -76,11 +76,11 @@ export class Language {
   }
   static RegionNodeType(type?: RegionNodeType) {
     switch (type) {
-      case RegionNodeType.camera:
+      case RegionNodeType.Camera:
         return '普通摄像机';
-      case RegionNodeType.face:
+      case RegionNodeType.Face:
         return '人脸、人体摄像机';
-      case RegionNodeType.vehicle:
+      case RegionNodeType.Vehicle:
         return '车辆卡口摄像机';
       case undefined:
         return '未知';
@@ -97,6 +97,33 @@ export class Language {
         return '人脸摄像机';
       case CameraType.Vehicle:
         return '车辆卡口摄像机';
+      default:
+        return '';
+    }
+  }
+
+  static CameraIcon(type: CameraType) {
+    switch (type) {
+      case CameraType.Common:
+        return 'howell-icon-video';
+      case CameraType.Face:
+        return 'howell-icon-face-recognition';
+      case CameraType.Vehicle:
+        return 'howell-icon-car_recognition';
+      default:
+        return '';
+    }
+  }
+
+  static RegionNodeIcon(type?: RegionNodeType) {
+    switch (type) {
+      case RegionNodeType.Camera:
+        return 'howell-icon-video';
+      case RegionNodeType.Face:
+        return 'howell-icon-face-recognition';
+      case RegionNodeType.Vehicle:
+        return 'howell-icon-car_recognition';
+      case undefined:
       default:
         return '';
     }

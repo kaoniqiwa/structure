@@ -1,0 +1,15 @@
+<div class="region-tree hw-tree">
+  <div class="search-wrapper" *ngIf="showSearchBar">
+    <howell-simple-search
+      placeHolder="名称"
+      (searchEvent)="searchEventHandler($event)"
+    ></howell-simple-search>
+  </div>
+  <div class="tree-container">
+    <howell-common-tree
+      [selectStrategy]="selectStrategy"
+      [dataSubject]="dataSubject"
+      (selectTreeNode)="selectTreeNodeHandler($event)"
+    ></howell-common-tree>
+  </div>
+</div>

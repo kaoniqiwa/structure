@@ -112,21 +112,21 @@ export class AMapBusiness {
         }
         if (this.source.all[i].NodeType != undefined) {
           switch (this.source.all[i].NodeType) {
-            case RegionNodeType.camera:
+            case RegionNodeType.Camera:
               if (point.type != CesiumDataController.ElementType.Camera) {
                 point.type = CesiumDataController.ElementType.Camera;
                 point.url = 'img/camera.png';
                 changed = true;
               }
               break;
-            case RegionNodeType.face:
+            case RegionNodeType.Face:
               if (point.type != CesiumDataController.ElementType.Face) {
                 point.type = CesiumDataController.ElementType.Face;
                 point.url = 'img/face.png';
                 changed = true;
               }
               break;
-            case RegionNodeType.vehicle:
+            case RegionNodeType.Vehicle:
               if (point.type != CesiumDataController.ElementType.Vehicle) {
                 point.type = CesiumDataController.ElementType.Vehicle;
                 point.url = 'img/vehicle.png';

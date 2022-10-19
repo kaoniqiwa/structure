@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
+import { SuffixIconType } from 'src/app/enums/region-tree.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
@@ -35,6 +36,9 @@ export class RealtimeComponent implements OnInit {
   playback: EventEmitter<VideoArgs> = new EventEmitter();
   @Output()
   device: EventEmitter<OnlineStatus> = new EventEmitter();
+
+  // 后缀图标类型
+  suffixIconType = SuffixIconType.Status;
 
   constructor(private _business: RealTimeBusiness) {}
 

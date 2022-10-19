@@ -1,41 +1,35 @@
-import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { mode } from 'crypto-js';
 import {
   CommonModelConverter,
   CommonModelSource,
 } from 'src/app/converters/common-model.converter';
-import { RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
-import { RegionRequestSerivce } from 'src/app/network/request/regions/regions.service';
+import { Resource } from 'src/app/models/resource/resource.model';
 import { Language } from 'src/app/tools/language';
-import {
-  RegionNodeOperateModel,
-  RegionNodeResource,
-} from './region-node-operate.model';
+import { RegionNodeResourceModel } from './region-node-match.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RegionNodeOperateConverter extends CommonModelConverter<RegionNodeResource> {
-  constructor() {
-    super();
-  }
-
+export class RegionNodeResourceConverter extends CommonModelConverter<
+  RegionNodeResourceModel,
+  Resource
+> {
   Convert(source: CommonModelSource, ...res: any[]) {
     if (source instanceof Camera) {
       return this._fromCamera(source);
     }
-    throw new Error('Error');
+    throw new Error('Method not implemented.');
   }
-
   private _fromCamera(item: Camera) {
-    const model = new RegionNodeResource();
+    let model = new RegionNodeResourceModel();
     model.Id = item.Id;
     model.Name = item.Name;
     model.ResourceType = item.ResourceType;
     model.DetailType = item.CameraType;
     model.DetailTypeName = Language.CameraType(item.CameraType);
-    model.OnlineStatus = Language.OnlineStatus(item.OnlineStatus);
+    model.DetailIcon = Language.CameraIcon(item.CameraType);
     return model;
   }
 }

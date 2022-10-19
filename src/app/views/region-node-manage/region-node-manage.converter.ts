@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   CommonModelConverter,
   CommonModelSource,
-} from 'src/app/interfaces/common-model.converter';
+} from 'src/app/converters/common-model.converter';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { RegionRequestSerivce } from 'src/app/network/request/regions/regions.service';
 import { Language } from 'src/app/tools/language';

@@ -28,6 +28,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { CoordinateManageComponent } from './coordinate-manage/coordinate-manage.component';
 import { TableSelectComponent } from './table-select/table-select.component';
 import { InputSearchComponent } from './input-search/input-search.component';
+import { ResourceTreeComponent } from './resource-tree/resource-tree.component';
 
 export const components = [
   AccountInfoComponent,
@@ -60,4 +61,5 @@ export const components = [
   CoordinateManageComponent,
   TableSelectComponent,
   InputSearchComponent,
+  ResourceTreeComponent,
 ];

@@ -20,13 +20,13 @@ export class EnumHelper {
   static ConvertCameraTypeToNodeType(type: CameraType) {
     switch (type) {
       case CameraType.Common:
-        return RegionNodeType.camera;
+        return RegionNodeType.Camera;
       case CameraType.Face:
-        return RegionNodeType.face;
+        return RegionNodeType.Face;
       case CameraType.Vehicle:
-        return RegionNodeType.vehicle;
+        return RegionNodeType.Vehicle;
       default:
-        return RegionNodeType.camera;
+        return RegionNodeType.Camera;
     }
   }
 }

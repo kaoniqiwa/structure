@@ -97,7 +97,7 @@ export class RegionNodeOperateComponent implements OnInit {
     this.regionNode = new RegionNode();
     this.regionNode.Id = '';
     this.regionNode.Name = '';
-    this.regionNode.NodeType = RegionNodeType.camera;
+    this.regionNode.NodeType = RegionNodeType.Camera;
 
     this.regionNode.ResourceId = '';
     this.regionNode.ResourceType = ResourceType.Camera;

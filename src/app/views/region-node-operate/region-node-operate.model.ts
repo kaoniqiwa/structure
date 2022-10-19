@@ -10,7 +10,7 @@ export class RegionNodeOperateModel {
   Id: string = '';
   Name: string = '';
   ResourceId: string = '';
-  RegionNodeType: RegionNodeType = RegionNodeType.camera;
+  RegionNodeType: RegionNodeType = RegionNodeType.Camera;
   ResourceList!: PagedList<RegionNodeResource>;
 }
 
