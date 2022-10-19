@@ -5,6 +5,7 @@ import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { EnumHelper } from 'src/app/enums/enum-helper';
 import { RegionTreeItemType } from 'src/app/enums/region-tree.enum';
+import { ResourceType } from 'src/app/enums/resource-type.enum';
 import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { TableSelectStateEnum } from 'src/app/enums/table-select-state.enum';
 import { RegionNode } from 'src/app/models/region-node.model';
@@ -121,9 +122,9 @@ export class RegionNodeMatchComponent implements OnInit {
       regionNode.RegionId = region.Id;
       regionNode.ResourceId = resource.Id;
       regionNode.ResourceType = resource.ResourceType;
-      if (resource instanceof Camera) {
+      if (resource.ResourceType == ResourceType.Camera) {
         regionNode.NodeType = EnumHelper.ConvertCameraTypeToNodeType(
-          resource.CameraType
+          resource.DetailType
         );
       }
       promiseArr.push(this._business.addRegionNode(regionNode));
@@ -141,6 +142,7 @@ export class RegionNodeMatchComponent implements OnInit {
     let regionNodes: RegionNode[] = [];
     let promiseArr: Promise<any>[] = [];
 
+    if (!this.treeNodes.length) return;
     for (let i = 0; i < this.treeNodes.length; i++) {
       let node = this.treeNodes[i];
       let rawData = node.RawData;
@@ -156,6 +158,7 @@ export class RegionNodeMatchComponent implements OnInit {
     if (res) {
       this._toastrService.success('删除成功');
       this.load.emit();
+      this.treeNodes = [];
     }
   }
 }
