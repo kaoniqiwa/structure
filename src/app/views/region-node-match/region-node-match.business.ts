@@ -19,22 +19,21 @@ export class RegionNodeMatchBusiness {
   ) {}
 
   async init(searchInfo: RegionNodeMatchSearch) {
-    let { Data: allResources, Page } = await this._listResource(
-      searchInfo.Name
-    );
-    let resourceData = this._converter.iterateToModel(allResources);
+    // let { Data: allResources, Page } = await this.listResource();
+    // let resourceData = this._converter.iterateToModel(allResources);
+    // let res: PagedList<RegionNodeResourceModel> = {
+    //   Page: Page,
+    //   Data: resourceData,
+    // };
+    // return res;
+  }
+  async listResource() {
+    let params: GetCamerasParams = new GetCamerasParams();
+    let { Data: allResources } = await this._resourceRequest.list(params);
 
-    let res: PagedList<RegionNodeResourceModel> = {
-      Page: Page,
-      Data: resourceData,
-    };
+    let res = this._converter.iterateToModel(allResources);
 
     return res;
-  }
-  private _listResource(name: string) {
-    let params: GetCamerasParams = new GetCamerasParams();
-    params.Name = name;
-    return this._resourceRequest.list(params);
   }
 
   addRegionNode(regionNode: RegionNode) {

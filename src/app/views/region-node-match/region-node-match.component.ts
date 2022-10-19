@@ -1,14 +1,17 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
+import { CommonNestNode } from 'src/app/components/common-tree/common-nest-node.model';
+import { RegionTreeComponent } from 'src/app/components/region-tree/region-tree.component';
 import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.converter';
 import { EnumHelper } from 'src/app/enums/enum-helper';
 import { RegionTreeItemType } from 'src/app/enums/region-tree.enum';
 import { ResourceType } from 'src/app/enums/resource-type.enum';
 import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { TableSelectStateEnum } from 'src/app/enums/table-select-state.enum';
-import { RegionNode } from 'src/app/models/region-node.model';
+import { CameraRegionNode, RegionNode } from 'src/app/models/region-node.model';
+import { RegionTree } from 'src/app/models/region-tree.model';
 import { Region } from 'src/app/models/region.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { Resource } from 'src/app/models/resource/resource.model';
@@ -27,44 +30,52 @@ import {
   providers: [RegionNodeMatchBusiness],
 })
 export class RegionNodeMatchComponent implements OnInit {
+  // 摄像机选中池
   selection = new SelectionModel<RegionNodeResourceModel>(true);
+
+  // 区域选中池
+  treeNodes: CommonFlatNode<RegionTreeSource>[] = [];
+
+  // 区域原始数据
+  rawNodes: CommonNestNode[] = [];
+
+  // 区域树单选、多选
+  selectStrategy = SelectStrategy.Single;
+
+  // 禁用节点类型
+  disableItemType = RegionTreeItemType.RegionNode;
 
   highLight = (model: RegionNodeResourceModel) => {
     return this.selection.isSelected(model);
   };
 
-  load: EventEmitter<void> = new EventEmitter();
-
   MatchState = MatchState;
 
   state = MatchState.Add;
-
-  selectStrategy = SelectStrategy.Single;
-  resourceSelectStrategy = SelectStrategy.Multiple;
-  disableItemType = RegionTreeItemType.RegionNode;
-
-  // 区域池
-  treeNodes: CommonFlatNode<RegionTreeSource>[] = [];
-
-  // 摄像机池
-  selectedResources: Resource[] = [];
 
   searchInfo: RegionNodeMatchSearch = {
     Name: '',
   };
   dataSource: RegionNodeResourceModel[] = [];
+  allResource: RegionNodeResourceModel[] = [];
+
+  load: EventEmitter<void> = new EventEmitter();
+  loaded: EventEmitter<void> = new EventEmitter();
+
+  @ViewChild('regionTree') regionTree!: RegionTreeComponent;
+
   constructor(
     private _business: RegionNodeMatchBusiness,
     private _toastrService: ToastrService
   ) {}
 
-  ngOnInit(): void {
-    this._init();
+  async ngOnInit() {
+    this.allResource = await this._business.listResource();
   }
 
   private async _init() {
-    let res = await this._business.init(this.searchInfo);
-    this.dataSource = res.Data;
+    // let res = await this._business.init(this.searchInfo);
+    // this.dataSource = res.Data;
     // console.log(res);
   }
   changeToDelete() {
@@ -73,7 +84,7 @@ export class RegionNodeMatchComponent implements OnInit {
   }
   changeToCreate() {
     this.state = MatchState.Add;
-
+    this.treeNodes = [];
     this.selectStrategy = SelectStrategy.Single;
   }
   selectResource(model: RegionNodeResourceModel) {
@@ -98,9 +109,18 @@ export class RegionNodeMatchComponent implements OnInit {
     }
   }
 
+  onTreeLoaded(nodes: CommonNestNode[]) {
+    this.rawNodes = nodes;
+    // console.log(this.rawNodes);
+
+    this._updateDataSource();
+  }
   selectRegionTreeNode(nodes: CommonFlatNode<RegionTreeSource>[]) {
     console.log('区域树', nodes);
     this.treeNodes = nodes;
+  }
+  searchEventHandler(condition: string) {
+    console.log(condition);
   }
 
   async createRegionNode() {
@@ -133,32 +153,64 @@ export class RegionNodeMatchComponent implements OnInit {
     console.log(res);
     if (res) {
       this._toastrService.success('创建成功');
+
+      let chunked = [];
+      for (let i = 0; i < this.dataSource.length; i++) {
+        let data = this.dataSource[i];
+        if (!this.selection.isSelected(data)) {
+          chunked.push(data);
+        }
+      }
+      this.dataSource = chunked;
+
       this.selection.clear();
+
       this.load.emit();
     }
   }
   async deleteRegionNode() {
-    console.log(this.treeNodes);
-    let regionNodes: RegionNode[] = [];
     let promiseArr: Promise<any>[] = [];
 
-    if (!this.treeNodes.length) return;
+    if (!this.treeNodes.length) {
+      this._toastrService.error('无监控点可删除');
+      return;
+    }
     for (let i = 0; i < this.treeNodes.length; i++) {
       let node = this.treeNodes[i];
       let rawData = node.RawData;
 
       if (rawData instanceof RegionNode) {
-        regionNodes.push(rawData);
         promiseArr.push(
           this._business.deleteRegionNode(rawData.RegionId, rawData.Id)
         );
       }
     }
-    let res = await Promise.all(promiseArr);
-    if (res) {
-      this._toastrService.success('删除成功');
-      this.load.emit();
-      this.treeNodes = [];
+    if (promiseArr.length) {
+      let res = await Promise.all(promiseArr);
+      if (res) {
+        this._toastrService.success('删除成功');
+        this.treeNodes = [];
+        this.load.emit();
+      }
+    } else {
+      this._toastrService.error('无监控点可删除');
+    }
+  }
+
+  private _updateDataSource() {
+    this.dataSource = Array.from(this.allResource);
+    for (let i = 0; i < this.rawNodes.length; i++) {
+      let node = this.rawNodes[i];
+      if (node.RawData instanceof CameraRegionNode) {
+        let camera = node.RawData.Camera;
+
+        let index = this.dataSource.findIndex(
+          (resource) => resource.Id == camera.Id
+        );
+        if (index != -1) {
+          this.dataSource.splice(index, 1);
+        }
+      }
     }
   }
 }

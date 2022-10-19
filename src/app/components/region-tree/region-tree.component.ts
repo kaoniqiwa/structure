@@ -100,6 +100,8 @@ export class RegionTreeComponent
     if (changes['load']) {
       if (this.load) {
         this.load.subscribe((x) => {
+          console.log('重新请求数据');
+          this.reset();
           this._init();
         });
       }
@@ -119,7 +121,7 @@ export class RegionTreeComponent
 
     let res = await this._business.init(this.searchInfo);
     this.dataSubject.next(res);
-    this.loaded.emit(res);
+    this.loaded.emit(this.getRawNodes());
 
     this.tree?.expandAll();
   }
@@ -138,7 +140,6 @@ export class RegionTreeComponent
     this.searchInfo.Name = condition;
     this.searchInfo.Name = condition;
     let res = await this._business.searchNode(this.searchInfo);
-    // console.log(res)
     if (res && res.length) {
       this._toastrService.success('操作成功');
       this.dataSubject.next(res);
@@ -154,5 +155,8 @@ export class RegionTreeComponent
   setDefault() {
     if (this.dataSubject.value.length)
       this.defaultIds = [this.dataSubject.value[0].Id];
+  }
+  getRawNodes() {
+    return this._business.rawNodes;
   }
 }

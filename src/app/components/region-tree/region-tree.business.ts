@@ -25,6 +25,8 @@ export class RegionTreeBusiness {
 
   public disableItemType = RegionTreeItemType.None;
 
+  public rawNodes: CommonNestNode[] = [];
+
   constructor(
     private _regionRequest: RegionRequestSerivce,
     private _converter: RegionTreeConverter
@@ -32,6 +34,7 @@ export class RegionTreeBusiness {
 
   async init(searchInfo: RegionTreeSearch) {
     this.nestedNodeMap.clear();
+    this.rawNodes = [];
 
     // 拉取所有区域
     let params = new GetRegionsParams();
@@ -91,9 +94,9 @@ export class RegionTreeBusiness {
       }
     }
 
-    let allNodes = Array.from(this.nestedNodeMap.values());
+    this.rawNodes = Array.from(this.nestedNodeMap.values());
 
-    allNodes.forEach((node) => {
+    this.rawNodes.forEach((node) => {
       switch (this.disableItemType) {
         case RegionTreeItemType.All:
           node.Clickable = false;
@@ -113,7 +116,8 @@ export class RegionTreeBusiness {
       }
     });
 
-    let res = this._converter.buildNestTree(allNodes);
+    // console.log('rawNodes', this.rawNodes);
+    let res = this._converter.buildNestTree(this.rawNodes);
     return res;
   }
 
