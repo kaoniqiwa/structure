@@ -14,5 +14,5 @@ export class PictureWindowComponent extends WindowComponent implements OnInit {
     super();
   }
 
-  override ngOnInit(): void {}
+  ngOnInit(): void {}
 }

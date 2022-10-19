@@ -15,11 +15,10 @@ import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-tim
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { IComponent } from 'src/app/interfaces/component.interfact';
 import { IModel } from 'src/app/models/model.interface';
+import { ConfigRequestService } from 'src/app/network/request/config/config-request.service';
 import { DateTimeTool } from 'src/app/tools/datetime.tool';
 import { PlayMode, VideoModel } from '../video-player/video.model';
-import { WindowViewModel } from '../window-control/window.model';
 import { VideoPlayerWindowBusiness } from './video-player-window.business';
-import config from 'src/assets/configs/config.json';
 
 @Component({
   selector: 'howell-video-player-window',
@@ -42,15 +41,12 @@ export class VideoPlayerWindowComponent
   @Input()
   autoplay: boolean = false;
 
-  constructor(business: VideoPlayerWindowBusiness) {
+  constructor(
+    business: VideoPlayerWindowBusiness,
+    private config: ConfigRequestService
+  ) {
     super();
     this.business = business;
-    let duration = DateTimeTool.second(
-      this.date,
-      config.playback.begin,
-      config.playback.end
-    );
-    this.duration = new TimeDurationModel(duration.begin, duration.end);
   }
   ngOnDestroy(): void {
     this.data = undefined;
@@ -58,22 +54,43 @@ export class VideoPlayerWindowComponent
 
   PlayMode = PlayMode;
   date: Date = new Date();
-  duration: TimeDurationModel;
+  duration!: Promise<TimeDurationModel>;
   data?: VideoModel;
   DateTimePickerView = DateTimePickerView;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.time) {
-      this.date = this.time;
+  ngOnInit() {
+    this.duration = this.config.getConfig().then((config) => {
+      if (this.time) {
+        this.date = this.time;
+      }
       let duration = DateTimeTool.second(
         this.date,
         config.playback.begin,
         config.playback.end
       );
-      this.duration = {
+      return {
         begin: new TimeModel(duration.begin),
         end: new TimeModel(duration.end),
       };
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.time) {
+      this.duration = this.config.getConfig().then((config) => {
+        if (this.time) {
+          this.date = this.time;
+        }
+        let duration = DateTimeTool.second(
+          this.date,
+          config.playback.begin,
+          config.playback.end
+        );
+        return {
+          begin: new TimeModel(duration.begin),
+          end: new TimeModel(duration.end),
+        };
+      });
     }
     if (this.mode === PlayMode.live) {
       this.autoplay = true;
@@ -108,10 +125,14 @@ export class VideoPlayerWindowComponent
   webUrl?: string;
   async playback() {
     this.mode = PlayMode.vod;
-    let duration = {
-      begin: this.duration.begin.toDate(this.date),
-      end: this.duration.end.toDate(this.date),
-    };
-    this.data = await this.business.load(this.cameraId, this.mode, duration);
+    this.duration.then((x) => {
+      let duration = {
+        begin: x.begin.toDate(this.date),
+        end: x.end.toDate(this.date),
+      };
+      this.business.load(this.cameraId, this.mode, duration).then((data) => {
+        this.data = data;
+      });
+    });
   }
 }

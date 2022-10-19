@@ -13,7 +13,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "howell",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -24,9 +24,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/configs/config.json","src/web.config"],
             "styles": ["src/styles.less"],
-            "scripts": []
+            "scripts": [],
+            "sourceMap": true 
           },
           "configurations": {
             "production": {
@@ -93,7 +94,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/configs/config.json","src/web.config"],
             "styles": ["src/styles.less"],
             "scripts": []
           }

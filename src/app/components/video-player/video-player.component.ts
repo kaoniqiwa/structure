@@ -14,12 +14,12 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StreamType } from 'src/app/enums/stream-type.enum';
 import { UserConfigType } from 'src/app/enums/user-config-type.enum';
+import { ConfigRequestService } from 'src/app/network/request/config/config-request.service';
 import { UserRequestService } from 'src/app/network/request/user/user-request.service';
 import { base64encode, utf16to8 } from 'src/app/tools/base64';
 import { LocalStorageService } from 'src/app/tools/service/local-storage.service';
 import { wait } from 'src/app/tools/tools';
 import { VideoModel } from './video.model';
-import config from 'src/assets/configs/config.json';
 
 @Component({
   selector: 'app-video-player',
@@ -36,7 +36,7 @@ export class VideoPlayerComponent
   model?: VideoModel;
 
   @Input()
-  webUrl: string = config.videoUrl;
+  webUrl!: Promise<string>;
 
   @Input()
   name: string = '';
@@ -83,8 +83,10 @@ export class VideoPlayerComponent
   constructor(
     private sanitizer: DomSanitizer,
     private local: LocalStorageService,
-    private userService: UserRequestService
+    private userService: UserRequestService,
+    private config: ConfigRequestService
   ) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['model'] && !changes['model'].firstChange) {
       this.loaded = false;
@@ -100,15 +102,15 @@ export class VideoPlayerComponent
 
   loaded = false;
 
-  load() {
+  async load() {
     if (!this.loaded) {
-      this.initWebUrl();
+      let webUrl = await this.initWebUrl();
       if (this.model) {
         this.url = this.model.toString();
       }
 
       if (this.url) {
-        let src = this.getSrc(this.webUrl, this.url, this.name);
+        let src = this.getSrc(webUrl, this.url, this.name);
         this.src = this.sanitizer.bypassSecurityTrustResourceUrl(src);
         this.loaded = true;
       }
@@ -116,7 +118,10 @@ export class VideoPlayerComponent
   }
 
   initWebUrl() {
-    this.webUrl = this.webUrl.replace('127.0.0.1', location.hostname);
+    this.webUrl = this.config.getConfig().then((x) => {
+      return x.videoUrl.replace('127.0.0.1', location.hostname);
+    });
+    return this.webUrl;
   }
 
   onLoad(event: Event) {

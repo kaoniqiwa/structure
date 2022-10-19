@@ -28,6 +28,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { CoordinateManageComponent } from './coordinate-manage/coordinate-manage.component';
 import { TableSelectComponent } from './table-select/table-select.component';
 import { InputSearchComponent } from './input-search/input-search.component';
+import { ChipListComponent } from './chip-list/chip-list.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 export const components = [
   AccountInfoComponent,
@@ -60,4 +62,6 @@ export const components = [
   CoordinateManageComponent,
   TableSelectComponent,
   InputSearchComponent,
+  ChipListComponent,
+  ImageUploadComponent,
 ];

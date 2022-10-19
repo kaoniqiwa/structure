@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LocalStorageService } from 'src/app/tools/service/local-storage.service';
 import { SessionStorageService } from 'src/app/tools/service/session-storage.service';
 import { AccountOperationDisplay } from './account-operation.model';
+import { ConfigRequestService } from 'src/app/network/request/config/config-request.service';
 
 @Component({
   selector: 'app-account-operation',
@@ -21,8 +22,9 @@ export class AccountOperationComponent implements OnInit {
     private _localStorageService: LocalStorageService,
     private _store: LocalStorageService,
     private _cookieService: CookieService,
-    private _router: Router
-  ) { }
+    private _router: Router,
+    private config: ConfigRequestService
+  ) {}
 
   userName: string = '';
   display = new AccountOperationDisplay();
@@ -38,7 +40,6 @@ export class AccountOperationComponent implements OnInit {
     userName = res.groups!['userName'];
 
     this.userName = userName;
-
   }
   logoutHandler() {
     this._sessionStorageService.clear();
@@ -53,8 +54,9 @@ export class AccountOperationComponent implements OnInit {
     //   }
     // }
   }
-  navigateToHelp() {
-    window.open('http://garbage01.51hws.com/help/help.html');
+  async navigateToHelp() {
+    let config = await this.config.getConfig();
+    window.open(config.help);
   }
   onpasswordchang(event: Event) {
     this.changePassword.emit();

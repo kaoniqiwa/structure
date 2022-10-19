@@ -63,6 +63,9 @@ export class RegionTreeComponent
 
   @Output() buttonIconClickEvent = new EventEmitter<CommonFlatNode>();
 
+  @Output()
+  loaded: EventEmitter<any> = new EventEmitter();
+
   @ViewChild(CommonTreeComponent) override tree?: CommonTreeComponent;
 
   constructor(
@@ -98,6 +101,7 @@ export class RegionTreeComponent
       this.nodeType
     );
     this.dataSubject.next(res);
+    this.loaded.emit(res);
 
     this.tree?.expandAll();
   }

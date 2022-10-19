@@ -9,7 +9,7 @@ import { WindowViewModel } from './window.model';
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.css'],
 })
-export class WindowComponent implements OnInit {
+export class WindowComponent {
   Language = Language;
   @Input()
   Model: WindowViewModel = {
@@ -50,8 +50,6 @@ export class WindowComponent implements OnInit {
   manualClose = false;
 
   constructor() {}
-
-  ngOnInit() {}
 
   closeButtonClick() {
     if (this.manualClose === false) {

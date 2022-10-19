@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Config } from 'src/app/models/config.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,15 @@ export class ConfigRequestService {
     return this.http.get<{ Port: number; Username: string; Password: string }>(
       'assets/configs/mqtt.json'
     );
+  }
+  config?: Config;
+  async getConfig() {
+    if (this.config) {
+      return this.config;
+    }
+    let observable = this.http.get<Config>('assets/configs/config.json');
+    this.config = await observable.toPromise();
+    return this.config;
   }
 
   getVideo() {
