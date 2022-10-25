@@ -67,6 +67,12 @@
         <div class="right-wrapper">
           <input type="text" [value]="mouseLon" />
           <input type="text" [value]="mouseLat" />
+
+          <select [(ngModel)]="gisType">
+            <option [ngValue]="GisType.GCJ02">火星坐标系</option>
+            <option [ngValue]="GisType.BD09">百度坐标系</option>
+            <option [ngValue]="GisType.WGS84">地心坐标系</option>
+          </select>
         </div>
       </div>
     </div>

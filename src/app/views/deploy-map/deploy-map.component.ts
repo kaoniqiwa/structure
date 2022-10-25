@@ -31,6 +31,9 @@ import { DeployMapBusiness } from './deploy-map.business';
   providers: [DeployMapBusiness],
 })
 export class DeployMapComponent implements OnInit, AfterViewInit {
+  gisType = GisType.BD09;
+  GisType = GisType;
+
   mouseLon = 0;
   mouseLat = 0;
 
@@ -273,7 +276,18 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
       if (data && this.currentNode) {
         let rawData = this.currentNode.RawData;
         if (rawData instanceof RegionNode) {
-          let gcj02 = CoordinateTransform.bd09togcj02(data.lon, data.lat);
+          let gcj02 = [data.lon, data.lat];
+
+          switch (this.gisType) {
+            case GisType.BD09:
+              gcj02 = CoordinateTransform.bd09togcj02(data.lon, data.lat);
+              break;
+            case GisType.WGS84:
+              gcj02 = CoordinateTransform.wgs84togcj02(data.lon, data.lat);
+              break;
+            default:
+              break;
+          }
           let position = new CesiumDataController.Position(
             gcj02[0],
             gcj02[1],
