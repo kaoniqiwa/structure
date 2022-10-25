@@ -19,17 +19,17 @@
         </div>
         <div
           class="tab"
+          [class.active]="path == NavigationPath.region_node_match"
+          (click)="path = NavigationPath.region_node_match"
+        >
+          监控点配置
+        </div>
+        <div
+          class="tab"
           [class.active]="path == NavigationPath.region_node_manage"
           (click)="path = NavigationPath.region_node_manage"
         >
           监控点管理
-        </div>
-        <div
-          class="tab"
-          [class.active]="path == NavigationPath.region_node_match"
-          (click)="path = NavigationPath.region_node_match"
-        >
-          监控点配对
         </div>
         <div
           class="tab"
