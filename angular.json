@@ -25,10 +25,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets", "src/assets/configs/config.json","src/web.config"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/assets/configs/config.json",
+              "src/web.config"
+            ],
             "styles": ["src/styles.less"],
             "scripts": [],
-            "sourceMap": true 
+            "sourceMap": true
           },
           "configurations": {
             "production": {
@@ -95,7 +100,12 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets", "src/assets/configs/config.json","src/web.config"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/assets/configs/config.json",
+              "src/web.config"
+            ],
             "styles": ["src/styles.less"],
             "scripts": []
           }
@@ -104,6 +114,11 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "cache": {
+      "enabled": false,
+      "environment": "local",
+      "path": ".angular/cache"
+    }
   }
 }
