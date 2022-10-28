@@ -41,6 +41,9 @@ export class RegionTreeBusiness {
     params.Name = searchInfo.Name;
 
     let regionRes = await this._listRegion(params);
+    regionRes.Data = regionRes.Data.sort((a, b) => {
+      return a.Name.localeCompare(b.Name) || a.Name.length - b.Name.length;
+    });
     let nodes = await this._converter.iterateToNestNode(regionRes.Data);
     this._registerArray(nodes);
     for (let node of nodes) {
@@ -57,6 +60,10 @@ export class RegionTreeBusiness {
       params.Name = searchInfo.Name;
       params.NodeType = searchInfo.RegionNodeType;
       let regionNodeRes = await this._listRegionNode(params);
+
+      regionNodeRes.Data = regionNodeRes.Data.sort((a, b) => {
+        return a.Name.localeCompare(b.Name) || a.Name.length - b.Name.length;
+      });
 
       // console.log(regionNodeRes);
       let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);

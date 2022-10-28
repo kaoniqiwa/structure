@@ -37,5 +37,5 @@ export class RegionNode implements IModel {
   OnlineStatus?: OnlineStatus;
 }
 export class CameraRegionNode extends RegionNode {
-  Camera!: Camera;
+  getCamera!: (camera: string) => Promise<Camera>;
 }

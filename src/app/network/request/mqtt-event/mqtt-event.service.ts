@@ -18,17 +18,8 @@ export class MQTTEventService {
     configService: ConfigRequestService
   ) {
     // this.mqtt = new MqttComponent('192.168.21.241', 15883);
-    let hostname = document.location.hostname;
-    if (hostname == '127.0.0.1' || hostname == 'localhost') {
-      hostname = 'iebs.51hws.cn';
-    }
     configService.getMQTT().subscribe((x) => {
-      this.mqtt = new HowellMqttService(
-        hostname,
-        x.Port,
-        x.Username,
-        x.Password
-      );
+      this.mqtt = new HowellMqttService(x.host, x.port, x.username, x.password);
       this.loaded = true;
     });
   }

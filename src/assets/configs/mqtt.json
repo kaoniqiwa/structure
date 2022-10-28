@@ -1,5 +1,6 @@
 {
-  "Port": 15883,
-"Username":"admin",
-"Password":"howell.net.cn"
+  "host":"127.0.0.1",
+  "port": 15883,
+  "username":"admin",
+  "password":"howell.net.cn"
 }

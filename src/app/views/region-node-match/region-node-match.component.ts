@@ -206,12 +206,12 @@ export class RegionNodeMatchComponent implements OnInit {
     }
   }
 
-  private _updateDataSource() {
+  private async _updateDataSource() {
     this.dataSource = Array.from(this.allResource);
     for (let i = 0; i < this.rawNodes.length; i++) {
       let node = this.rawNodes[i];
       if (node.RawData instanceof CameraRegionNode) {
-        let camera = node.RawData.Camera;
+        let camera = await node.RawData.getCamera(node.RawData.ResourceId);
 
         let index = this.dataSource.findIndex(
           (resource) => resource.Id == camera.Id

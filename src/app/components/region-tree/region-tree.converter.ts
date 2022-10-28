@@ -11,6 +11,7 @@ import { classToClass, classToPlain, plainToClass } from 'class-transformer';
 import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { Language } from 'src/app/tools/language';
+import { SuffixIconType } from 'src/app/enums/region-tree.enum';
 
 const RegionNodeIconType = new Map([
   [RegionType.None, 'howell-icon-earth'],
@@ -58,15 +59,17 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     node.ParentId = item.RegionId;
     node.ChildrenLoaded = true;
     node.ParentNode = null;
+
+    node.IconClass = 'blue-text ' + Language.RegionNodeIcon(item.NodeType);
+
     let plain = classToPlain(item);
     let cameraRegionNode = plainToClass(CameraRegionNode, plain);
-    let camera = await this.resourceRequest.get(item.ResourceId);
-    cameraRegionNode.Camera = camera;
+
+    cameraRegionNode.getCamera = (cameraId: string) => {
+      return this.resourceRequest.get(cameraId);
+    };
 
     // node.Clickable = false;
-
-    node.IconClass =
-      'blue-text ' + Language.RegionNodeIcon(cameraRegionNode.NodeType);
 
     node.RawData = cameraRegionNode;
 
