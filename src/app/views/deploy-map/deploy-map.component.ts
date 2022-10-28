@@ -16,6 +16,7 @@ import { RegionTreeSource } from 'src/app/components/region-tree/region-tree.con
 import { DialogEnum } from 'src/app/enums/dialog.enum';
 import { GisType } from 'src/app/enums/gis-type.enum';
 import { IconTypeEnum } from 'src/app/enums/icon-type.enum';
+import { SuffixIconType } from 'src/app/enums/region-tree.enum';
 import { ICoordinate } from 'src/app/interfaces/coordinate.interface';
 import { IDialogMessage } from 'src/app/interfaces/dialog-message.interface';
 import { GisPoint } from 'src/app/models/gis-point.model';
@@ -62,7 +63,7 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
   mapLoaded = false;
 
   @ViewChild('iframe') iframe!: ElementRef<HTMLIFrameElement>;
-
+  SuffixIconType = SuffixIconType;
   constructor(
     private _sanitizer: DomSanitizer,
     private _location: PlatformLocation,
@@ -102,7 +103,7 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
       this.point = objs[0] as unknown as CesiumDataController.Point;
       this.client.Viewer.MoveTo(this.point!.position);
     };
-    this.client.Events.OnMouseDoubleClick = (position) => {
+    this.client.Events.OnMouseDoubleClick = async (position) => {
       console.log('双击: ', position);
 
       this.bindDialog = true;
@@ -110,7 +111,8 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
       if (this.currentNode) {
         let rawData = this.currentNode.RawData;
         if (rawData instanceof CameraRegionNode) {
-          if (rawData.Camera.GisPoint) return;
+          let camera = await rawData.getCamera(rawData.ResourceId);
+          if (camera.GisPoint) return;
           else {
             this.position = position;
             this.bindDialog = true;
@@ -236,12 +238,13 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  bindDialogMsg(status: DialogEnum) {
+  async bindDialogMsg(status: DialogEnum) {
     if (status == DialogEnum.confirm) {
       if (this.currentNode && this.position) {
         let rawData = this.currentNode.RawData;
         if (rawData instanceof CameraRegionNode) {
-          if (rawData.Camera.GisPoint) return;
+          let camera = await rawData.getCamera(rawData.ResourceId);
+          if (camera.GisPoint) return;
           this._createPoint(this.position, rawData);
           // 更新垃圾厢房点位信息
           this._updateRegionNode(this.position.lon, this.position.lat);
@@ -360,7 +363,7 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
     if (this.currentNode) {
       let rawData = this.currentNode.RawData;
       if (rawData instanceof CameraRegionNode) {
-        let camera = rawData.Camera;
+        let camera = await rawData.getCamera(rawData.ResourceId);
         if (lon && lat) {
           let gisPoint = new GisPoint();
           gisPoint.Longitude = lon;

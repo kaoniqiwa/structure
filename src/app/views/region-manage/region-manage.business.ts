@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Region } from 'src/app/models/region.model';
 import { RegionRequestSerivce } from 'src/app/network/request/regions/regions.service';
+import { RegionAMapManageBusiness } from './region-amap-manage.business';
 import { RegionManageModel } from './region-manage.model';
 
 @Injectable()

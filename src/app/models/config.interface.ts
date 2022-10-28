@@ -4,3 +4,10 @@ export interface Config {
   regionId: string;
   help: string;
 }
+
+export interface MqttConfig {
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+}

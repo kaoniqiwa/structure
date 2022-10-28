@@ -9,6 +9,7 @@ import {
 } from 'src/app/components/region-tree/region-tree.converter';
 import { DialogEnum } from 'src/app/enums/dialog.enum';
 import { FormState } from 'src/app/enums/form-state.enum';
+import { RegionAMapManageBusiness } from './region-amap-manage.business';
 import { RegionManageBusiness } from './region-manage.business';
 import { RegionManageModel } from './region-manage.model';
 
@@ -16,7 +17,7 @@ import { RegionManageModel } from './region-manage.model';
   selector: 'region-manage',
   templateUrl: './region-manage.component.html',
   styleUrls: ['./region-manage.component.less'],
-  providers: [RegionManageBusiness],
+  providers: [RegionManageBusiness, RegionAMapManageBusiness],
 })
 export class RegionManageComponent implements OnInit {
   private _currentNode?: CommonFlatNode<RegionTreeSource>;
@@ -66,7 +67,8 @@ export class RegionManageComponent implements OnInit {
     private _business: RegionManageBusiness,
     private _toastrService: ToastrService,
     private _converter: RegionTreeConverter,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private amap: RegionAMapManageBusiness
   ) {}
 
   ngOnInit(): void {}
@@ -163,6 +165,15 @@ export class RegionManageComponent implements OnInit {
         const node = await this._converter.Convert(res);
         this.tree.addNode(node);
         this.onReset();
+
+        new Promise(() => {
+          let result = this.amap.create(res);
+          if (result) {
+            this._toastrService.success('地图编辑成功');
+          } else {
+            this._toastrService.warning('地图编辑失败');
+          }
+        });
       }
     }
   }
@@ -187,6 +198,16 @@ export class RegionManageComponent implements OnInit {
       if (this._currentNode?.Id) {
         let res = await this._business.deleteRegion(this._currentNode.Id);
         if (res) {
+          new Promise(() => {
+            if (this._currentNode) {
+              let result = this.amap.remove(this._currentNode.Id);
+              if (result) {
+                this._toastrService.success('地图编辑成功');
+              } else {
+                this._toastrService.warning('地图编辑失败');
+              }
+            }
+          });
           this._toastrService.success('删除成功');
           this.tree.deleteNode(this._currentNode);
           this.tree.setDefault();

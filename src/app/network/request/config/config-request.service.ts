@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from 'src/app/models/config.interface';
+import { Config, MqttConfig } from 'src/app/models/config.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +13,7 @@ export class ConfigRequestService {
   }
 
   getMQTT() {
-    return this.http.get<{ Port: number; Username: string; Password: string }>(
-      'assets/configs/mqtt.json'
-    );
+    return this.http.get<MqttConfig>('assets/configs/mqtt.json');
   }
   private config?: Config;
   async getConfig() {
