@@ -38,4 +38,5 @@ export class RegionNode implements IModel {
 }
 export class CameraRegionNode extends RegionNode {
   getCamera!: (camera: string) => Promise<Camera>;
+  camera?: Camera;
 }

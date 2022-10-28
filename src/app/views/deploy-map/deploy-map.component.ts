@@ -111,8 +111,8 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
       if (this.currentNode) {
         let rawData = this.currentNode.RawData;
         if (rawData instanceof CameraRegionNode) {
-          let camera = await rawData.getCamera(rawData.ResourceId);
-          if (camera.GisPoint) return;
+          let camera = rawData.camera;
+          if (camera && camera.GisPoint) return;
           else {
             this.position = position;
             this.bindDialog = true;
@@ -406,7 +406,7 @@ export class DeployMapComponent implements OnInit, AfterViewInit {
   }
 
   onloaded(data: any) {
-    console.log('deploy-map.component', data);
+    // console.log('deploy-map.component', data);
     console.log(data.childrenChange);
   }
 }

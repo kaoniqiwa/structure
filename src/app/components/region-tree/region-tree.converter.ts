@@ -12,6 +12,8 @@ import { OnlineStatus } from 'src/app/enums/online-status.enum';
 import { RegionNodeType } from 'src/app/enums/region-node-type.enum';
 import { Language } from 'src/app/tools/language';
 import { SuffixIconType } from 'src/app/enums/region-tree.enum';
+import { Camera } from 'src/app/models/resource/camera.resource';
+import { GetCamerasParams } from 'src/app/network/request/resources/resources.params';
 
 const RegionNodeIconType = new Map([
   [RegionType.None, 'howell-icon-earth'],
@@ -25,8 +27,11 @@ export type RegionTreeSource = Region | RegionNode;
   providedIn: 'root',
 })
 export class RegionTreeConverter extends CommonTreePromiseConverter {
+  private _resourceMap = new Map<string, Camera>();
+
   constructor(private resourceRequest: ResourceRequestSerivce) {
     super();
+    this.listResource();
   }
   Convert(source: RegionTreeSource) {
     if (source instanceof Region) {
@@ -39,7 +44,7 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
   }
 
   private async _fromRegion(item: Region): Promise<CommonNestNode<Region>> {
-    const node = new CommonNestNode();
+    const node = new CommonNestNode<Region>();
     node.Id = item.Id;
     node.Name = item.Name;
     node.HasChildren = false;
@@ -53,7 +58,7 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
   private async _fromRegionNode(
     item: RegionNode
   ): Promise<CommonNestNode<CameraRegionNode>> {
-    const node = new CommonNestNode();
+    const node = new CommonNestNode<CameraRegionNode>();
     node.Id = item.Id;
     node.Name = item.Name;
     node.ParentId = item.RegionId;
@@ -68,27 +73,22 @@ export class RegionTreeConverter extends CommonTreePromiseConverter {
     cameraRegionNode.getCamera = (cameraId: string) => {
       return this.resourceRequest.get(cameraId);
     };
-
-    // node.Clickable = false;
+    cameraRegionNode.camera = this._resourceMap.get(item.ResourceId);
 
     node.RawData = cameraRegionNode;
 
-    // if (setting) {
-    //   if (camera.GisPoint) {
-    //     node.ButtonIconClasses = [IconTypeEnum.unlink];
-    //   } else {
-    //     node.ButtonIconClasses = [IconTypeEnum.link];
-    //   }
-    // } else {
-    //   node.ButtonIconClasses = [
-    //     item.OnlineStatus === OnlineStatus.online
-    //       ? `${IconTypeEnum.online} green-text`
-    //       : `${IconTypeEnum.offline} powder-red-text`,
-    //     IconTypeEnum.play,
-    //     IconTypeEnum.position,
-    //   ];
-    // }
-
     return node;
+  }
+
+  async listResource() {
+    this._resourceMap.clear();
+
+    let params: GetCamerasParams = new GetCamerasParams();
+    let { Data: resources } = await this.resourceRequest.list(params);
+
+    resources.map((resource) => {
+      if (!this._resourceMap.has(resource.Id))
+        this._resourceMap.set(resource.Id, resource);
+    });
   }
 }

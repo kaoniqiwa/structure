@@ -59,6 +59,8 @@ export class RegionTreeComponent
   @Input() showSearchBar = true;
   @Input() load?: EventEmitter<void>;
 
+  @Input() selectedChange?: EventEmitter<string[]>;
+
   @Input('selectStrategy')
   selectStrategy = SelectStrategy.Single; // 单选或多选
 
@@ -114,7 +116,6 @@ export class RegionTreeComponent
   }
 
   private async _init() {
-    this._nestedNodeMap = this._business.nestedNodeMap;
     this._business.showRegionNode = this.showRegionNode;
     this._business.suffixIconType = this.suffixIconType;
     this._business.disableItemType = this.disableItemType;

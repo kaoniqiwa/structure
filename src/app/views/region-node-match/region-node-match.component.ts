@@ -81,8 +81,6 @@ export class RegionNodeMatchComponent implements OnInit {
 
   private async _init() {
     this.allResource = await this._business.listResource(this.searchInfo);
-
-    this._updateDataSource();
   }
   changeToDelete() {
     this.state = MatchState.Delete;
@@ -117,7 +115,6 @@ export class RegionNodeMatchComponent implements OnInit {
 
   onTreeLoaded(nodes: CommonNestNode[]) {
     this.rawNodes = nodes;
-    // console.log(this.rawNodes);
 
     this._updateDataSource();
   }
@@ -206,21 +203,26 @@ export class RegionNodeMatchComponent implements OnInit {
     }
   }
 
-  private async _updateDataSource() {
-    this.dataSource = Array.from(this.allResource);
+  private _updateDataSource() {
+    console.time('label');
+
+    let arr = Array.from(this.allResource);
     for (let i = 0; i < this.rawNodes.length; i++) {
       let node = this.rawNodes[i];
       if (node.RawData instanceof CameraRegionNode) {
-        let camera = await node.RawData.getCamera(node.RawData.ResourceId);
-
-        let index = this.dataSource.findIndex(
-          (resource) => resource.Id == camera.Id
-        );
-        if (index != -1) {
-          this.dataSource.splice(index, 1);
+        let camera = node.RawData.camera;
+        if (camera) {
+          // console.log(camera);
+          let index = arr.findIndex((resource) => resource.Id == camera!.Id);
+          if (index != -1) {
+            arr.splice(index, 1);
+          }
         }
       }
     }
+    console.log('sdffffffffffff', arr);
+    this.dataSource = arr;
+    console.timeEnd('label');
   }
 }
 

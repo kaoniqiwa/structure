@@ -12,7 +12,7 @@ import { SuffixIconType } from 'src/app/enums/region-tree.enum';
 import { PictureArgs } from 'src/app/models/args/picture.args';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
-import { RegionNode } from 'src/app/models/region-node.model';
+import { CameraRegionNode, RegionNode } from 'src/app/models/region-node.model';
 import { Camera } from 'src/app/models/resource/camera.resource';
 import { StoreService } from 'src/app/tools/service/store.service';
 import { AlarmModel } from '../alarm/alarm.model';
@@ -85,12 +85,12 @@ export class RealtimeComponent implements OnInit {
     //   }
     // }
   }
-  async onButtonIconClicked(e: CommonFlatNode) {
+  async onButtonIconClicked(e: CommonFlatNode<CameraRegionNode>) {
     console.log(e);
     switch (e.CurrentButtonIcon) {
       case 1:
-        let camera = await e.RawData.getCamera(e.RawData.ResourceId);
-        this.video.emit(camera);
+        let camera = e.RawData.camera;
+        if (camera) this.video.emit(camera);
         break;
       case 2:
         this.position.emit(e.RawData);

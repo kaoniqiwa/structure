@@ -103,7 +103,7 @@ export class CommonTreeComponent implements OnInit, OnChanges {
   }
 
   @Input() showButtonIcon = false;
-  @Input() selectedChanged?: EventEmitter<string[]>;
+  @Input() selectedChange?: EventEmitter<string[]>;
 
   @Output() loadChildrenEvent = new EventEmitter<CommonFlatNode>();
   @Output() selectTreeNode: EventEmitter<SelectionChange<CommonFlatNode>> =
@@ -161,8 +161,8 @@ export class CommonTreeComponent implements OnInit, OnChanges {
       });
     }
     if ('selectedChanged' in changes) {
-      if (this.selectedChanged) {
-        this.selectedChanged.subscribe((x) => {
+      if (this.selectedChange) {
+        this.selectedChange.subscribe((x) => {
           this.toggleSelect(x);
         });
       }

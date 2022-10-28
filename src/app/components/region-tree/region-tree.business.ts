@@ -9,17 +9,21 @@ import {
 } from 'src/app/enums/region-tree.enum';
 import { CameraRegionNode, RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
+import { Camera } from 'src/app/models/resource/camera.resource';
 import {
   GetRegionNodesParams,
   GetRegionsParams,
 } from 'src/app/network/request/regions/regions.params';
 import { RegionRequestSerivce } from 'src/app/network/request/regions/regions.service';
+import { GetCamerasParams } from 'src/app/network/request/resources/resources.params';
+import { ResourceRequestSerivce } from 'src/app/network/request/resources/resources.service';
 import { CommonNestNode } from '../common-tree/common-nest-node.model';
 import { RegionTreeSearch } from './region-tree.model';
 
 @Injectable()
 export class RegionTreeBusiness {
-  public nestedNodeMap = new Map<string, CommonNestNode<Region>>();
+  private _nestedNodeMap = new Map<string, CommonNestNode<Region>>();
+
   public showRegionNode = false;
   public suffixIconType = SuffixIconType.None;
 
@@ -33,7 +37,7 @@ export class RegionTreeBusiness {
   ) {}
 
   async init(searchInfo: RegionTreeSearch) {
-    this.nestedNodeMap.clear();
+    this._nestedNodeMap.clear();
     this.rawNodes = [];
 
     // 拉取所有区域
@@ -46,9 +50,11 @@ export class RegionTreeBusiness {
     });
     let nodes = await this._converter.iterateToNestNode(regionRes.Data);
     this._registerArray(nodes);
+
+    // 搜索结果可能没有父节点
     for (let node of nodes) {
       if (node.ParentId) {
-        if (!this.nestedNodeMap.has(node.ParentId)) {
+        if (!this._nestedNodeMap.has(node.ParentId)) {
           await this._getAncestors(node);
         }
       }
@@ -65,8 +71,11 @@ export class RegionTreeBusiness {
         return a.Name.localeCompare(b.Name) || a.Name.length - b.Name.length;
       });
 
-      // console.log(regionNodeRes);
-      let nodes2 = await this._converter.iterateToNestNode(regionNodeRes.Data);
+      let nodes2 = await this._converter.iterateToNestNode<
+        RegionNode[],
+        CameraRegionNode
+      >(regionNodeRes.Data);
+      // console.log(nodes2);
 
       if (this.suffixIconType == SuffixIconType.Status) {
         nodes2.forEach((node) => {
@@ -82,8 +91,8 @@ export class RegionTreeBusiness {
       } else if (this.suffixIconType == SuffixIconType.Bind) {
         for (let i = 0; i < nodes2.length; i++) {
           const node = nodes2[i];
-          let camera = await node.RawData.getCamera(node.RawData.ResourceId);
-          if (camera.GisPoint) {
+          let camera = node.RawData.camera;
+          if (camera && camera.GisPoint) {
             node.ButtonIconClasses = [IconTypeEnum.unlink];
           } else {
             node.ButtonIconClasses = [IconTypeEnum.link];
@@ -95,14 +104,14 @@ export class RegionTreeBusiness {
 
       for (let node of nodes2) {
         if (node.ParentId) {
-          if (!this.nestedNodeMap.has(node.ParentId)) {
+          if (!this._nestedNodeMap.has(node.ParentId)) {
             await this._getAncestors(node);
           }
         }
       }
     }
 
-    this.rawNodes = Array.from(this.nestedNodeMap.values());
+    this.rawNodes = Array.from(this._nestedNodeMap.values());
 
     this.rawNodes.forEach((node) => {
       switch (this.disableItemType) {
@@ -144,14 +153,14 @@ export class RegionTreeBusiness {
     for (let i = 0; i < nodes.length; i++) {
       let node = nodes[i];
       // 一定要直接覆盖，保证 node 为最新
-      this.nestedNodeMap.set(node.Id, node);
+      this._nestedNodeMap.set(node.Id, node);
     }
   }
 
   private _registerRecurs(nodes: CommonNestNode[]) {
     for (let i = 0; i < nodes.length; i++) {
       let node = nodes[i];
-      this.nestedNodeMap.set(node.Id, node);
+      this._nestedNodeMap.set(node.Id, node);
       if (node.childrenChange.value.length > 0) {
         this._registerRecurs(node.childrenChange.value);
       }
@@ -159,7 +168,7 @@ export class RegionTreeBusiness {
   }
 
   private async _getAncestors(node: CommonNestNode) {
-    if (node.ParentId && !this.nestedNodeMap.has(node.ParentId)) {
+    if (node.ParentId && !this._nestedNodeMap.has(node.ParentId)) {
       let region = await this._regionRequest.get(node.ParentId);
       let parentNode = await this._converter.Convert(region);
       this._registerArray([parentNode]);

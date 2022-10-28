@@ -5,9 +5,9 @@ export abstract class CommonTreePromiseConverter {
   abstract Convert(source: CommonTreeModel): Promise<CommonNestNode>;
 
   // 数据以数组形式
-  async iterateToNestNode<T extends Array<CommonTreeModel>>(
+  async iterateToNestNode<T extends Array<CommonTreeModel>, M = any>(
     data: T
-  ): Promise<CommonNestNode[]> {
+  ): Promise<CommonNestNode<M>[]> {
     let res: CommonNestNode[] = new Array<CommonNestNode>();
     for (let i = 0; i < data.length; i++) {
       let item = data[i];

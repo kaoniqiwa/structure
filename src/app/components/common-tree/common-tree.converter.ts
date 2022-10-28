@@ -5,9 +5,9 @@ export abstract class CommonTreeConverter {
   abstract Convert(source: CommonTreeModel, ...res: any[]): CommonNestNode;
 
   // 数据以数组形式
-  iterateToNestNode<T extends Array<CommonTreeModel>>(
+  iterateToNestNode<T extends Array<CommonTreeModel>, M = any>(
     data: T
-  ): CommonNestNode[] {
+  ): CommonNestNode<M>[] {
     let res: CommonNestNode[] = new Array<CommonNestNode>();
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
