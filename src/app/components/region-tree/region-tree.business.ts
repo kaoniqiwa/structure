@@ -7,7 +7,7 @@ import {
   RegionTreeItemType,
   SuffixIconType,
 } from 'src/app/enums/region-tree.enum';
-import { RegionNode } from 'src/app/models/region-node.model';
+import { CameraRegionNode, RegionNode } from 'src/app/models/region-node.model';
 import { Region } from 'src/app/models/region.model';
 import {
   GetRegionNodesParams,
@@ -80,14 +80,15 @@ export class RegionTreeBusiness {
           ];
         });
       } else if (this.suffixIconType == SuffixIconType.Bind) {
-        nodes2.forEach((node) => {
-          let camera = node.RawData.Camera;
+        for (let i = 0; i < nodes2.length; i++) {
+          const node = nodes2[i];
+          let camera = await node.RawData.getCamera(node.RawData.ResourceId);
           if (camera.GisPoint) {
             node.ButtonIconClasses = [IconTypeEnum.unlink];
           } else {
             node.ButtonIconClasses = [IconTypeEnum.link];
           }
-        });
+        }
       }
 
       this._registerArray(nodes2);

@@ -85,11 +85,12 @@ export class RealtimeComponent implements OnInit {
     //   }
     // }
   }
-  onButtonIconClicked(e: CommonFlatNode) {
+  async onButtonIconClicked(e: CommonFlatNode) {
     console.log(e);
     switch (e.CurrentButtonIcon) {
       case 1:
-        this.video.emit(e.RawData.Camera);
+        let camera = await e.RawData.getCamera(e.RawData.ResourceId);
+        this.video.emit(camera);
         break;
       case 2:
         this.position.emit(e.RawData);

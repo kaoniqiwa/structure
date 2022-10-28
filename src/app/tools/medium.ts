@@ -21,7 +21,14 @@ export class Medium {
 
   static base64(url?: string): Promise<string> {
     return new Promise((resolve) => {
-      let img = url ? Medium.jpg(url) : '';
+      let img = '';
+      if (url) {
+        if (url.indexOf('http') < 0) {
+          img = Medium.jpg(url);
+        } else {
+          img = url;
+        }
+      }
       var image = new Image();
       image.src = img;
       image.onerror = () => {
@@ -41,7 +48,15 @@ export class Medium {
 
   static img(url?: string): Promise<string> {
     return new Promise((resolve) => {
-      let img = url ? Medium.jpg(url) : '';
+      let img = '';
+      if (url) {
+        if (url.indexOf('http') < 0) {
+          img = Medium.jpg(url);
+        } else {
+          img = url;
+        }
+      }
+
       var image = new Image();
       image.src = img;
       image.onerror = () => {
@@ -54,7 +69,15 @@ export class Medium {
   }
   static image(url?: string): Promise<ImageResult> {
     return new Promise((resolve) => {
-      let img = url ? Medium.data(url) : '';
+      let img = '';
+      if (url) {
+        if (url.indexOf('http') < 0) {
+          img = Medium.jpg(url);
+        } else {
+          img = url;
+        }
+      }
+
       var image = new Image();
       image.src = img;
       image.onerror = () => {
