@@ -10,11 +10,9 @@ import {
 import { classToPlain, plainToClass } from 'class-transformer';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
-import { Gender } from 'src/app/enums/gender.enum';
+import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
 import { RegionNode } from 'src/app/models/region-node.model';
-import { SelectItem } from 'src/app/models/select-control.model';
-import { Language } from 'src/app/tools/language';
 import { StructuredDataFaceQueryBusiness } from './structured-data-face-query.business';
 
 import {
@@ -37,6 +35,7 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
   constructor(private business: StructuredDataFaceQueryBusiness) {}
   StructuredDataFaceQueryTab = StructuredDataFaceQueryTab;
   DateTimePickerView = DateTimePickerView;
+  SelectStrategy = SelectStrategy;
 
   model: StructuredDataFaceQueryModel = new StructuredDataFaceQueryModel();
 
@@ -118,8 +117,7 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
   }
 
   onNodeSelected(nodes: CommonFlatNode[]) {
-    let changed = false;
-
+    this.nodes = [];
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       if (this.nodes.map((x) => x.Id).includes(node.Id)) {
@@ -127,11 +125,7 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
       }
       if (node.RawData instanceof RegionNode) {
         this.nodes.push(node.RawData);
-        changed = true;
       }
-    }
-    if (changed) {
-      this.expand = false;
     }
   }
   //#endregion

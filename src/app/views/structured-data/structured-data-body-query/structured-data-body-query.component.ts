@@ -11,6 +11,7 @@ import { classToPlain, plainToClass } from 'class-transformer';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { WindowViewModel } from 'src/app/components/window-control/window.model';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
+import { SelectStrategy } from 'src/app/enums/select-strategy.enum';
 import { Duration } from 'src/app/models/duration.model';
 import { KeyValueItem } from 'src/app/models/key-value-item.model';
 import { RegionNode } from 'src/app/models/region-node.model';
@@ -30,6 +31,7 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   constructor(public business: StructuredDataBodyQueryBusiness) {}
 
   DateTimePickerView = DateTimePickerView;
+  SelectStrategy = SelectStrategy;
 
   model: StructuredDataBodyQueryModel = new StructuredDataBodyQueryModel();
   handle: any;
@@ -145,8 +147,7 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   }
 
   onNodeSelected(nodes: CommonFlatNode[]) {
-    let changed = false;
-
+    this.nodes = [];
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       if (this.nodes.map((x) => x.Id).includes(node.Id)) {
@@ -154,11 +155,7 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
       }
       if (node.RawData instanceof RegionNode) {
         this.nodes.push(node.RawData);
-        changed = true;
       }
-    }
-    if (changed) {
-      this.expand = false;
     }
   }
   //#endregion

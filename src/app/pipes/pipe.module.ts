@@ -1,5 +1,6 @@
 import { CustomDateItemPipe } from './custom-date-item.pipe';
 import { DateTimePipe } from './date-time.pipe';
+import { DefaultIdArrayPipe } from './defalut-id-array.pipe';
 import { EventTypePipe } from './event-type.pipe';
 import { NamePipe } from './name.pipe';
 import { OnlineStatusPipe } from './online-status.pipe';
@@ -16,4 +17,5 @@ export const Pipes = [
   OnlineStatusPipe,
   NamePipe,
   ResourceTypePipe,
+  DefaultIdArrayPipe,
 ];

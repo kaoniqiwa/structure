@@ -16,14 +16,14 @@
     </div>
   </div>
   <div class="structured-data-face-query-content">
-    <div class="form-item">
-      <div class="form-item-title">摄像机</div>
+    <div class="form-item node">
+      <div class="high">
+        <div class="form-item-title">摄像机</div>
+      </div>
       <div class="form-item-input node">
         <mat-chip-list
-          class="mat-chip-list-stacked"
+          class="mat-chip-list-region-tree"
           #chipList
-          aria-label="Fruit selection"
-          [aria-orientation]="'vertical'"
           (click)="onchiplistclicked($event)"
         >
           <span *ngIf="!nodes || nodes.length == 0">请选择</span>
@@ -39,6 +39,9 @@
         <div class="tree" *ngIf="expand">
           <howell-region-tree
             [showRegionNode]="true"
+            [selectStrategy]="SelectStrategy.Multiple"
+            [holdStatus]="false"
+            [defaultIds]="nodes | default_id_array_pipe"
             (selectTreeNode)="onNodeSelected($event)"
           ></howell-region-tree>
         </div>
