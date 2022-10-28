@@ -57,25 +57,30 @@
         <div class="hw-simple-title">摄像机列表</div>
       </div>
 
-      <div class="vertical-main">
-        <div class="search-wrapper">
-          <howell-simple-search
-            placeHolder="名称"
-            (searchEvent)="searchEventHandler($event)"
-          ></howell-simple-search>
+      <div class="vertical-main vertical-layout">
+        <div class="vertical-header">
+          <div class="search-wrapper" style="width: 100%">
+            <howell-simple-search
+              placeHolder="名称"
+              (searchEvent)="searchEventHandler($event)"
+            ></howell-simple-search>
+          </div>
         </div>
-        <div
-          class="resource-item"
-          *ngFor="let model of dataSource"
-          [class.high-light]="highLight(model)"
-        >
-          <mat-checkbox
-            (change)="selectResource(model)"
-            [checked]="selection.isSelected(model)"
+
+        <div class="vertical-main">
+          <div
+            class="resource-item"
+            *ngFor="let model of dataSource"
+            [class.high-light]="highLight(model)"
           >
-            <i [class]="model.DetailIcon"></i>
-            {{ model.Name }}
-          </mat-checkbox>
+            <mat-checkbox
+              (change)="selectResource(model)"
+              [checked]="selection.isSelected(model)"
+            >
+              <i [class]="model.DetailIcon"></i>
+              {{ model.Name }}
+            </mat-checkbox>
+          </div>
         </div>
       </div>
       <div class="vertical-footer">
