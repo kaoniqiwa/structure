@@ -10,7 +10,7 @@
       [matTreeNodePadding]="node.Level + 1"
       [matTreeNodePaddingIndent]="15"
       [class.high-light]="highLight(node)"
-      (click)="singleSelectNode(node)"
+      (click)="clickNode(node, $event)"
     >
       <!-- 下拉箭头 -->
       <ng-container *ngIf="node.Expandable">

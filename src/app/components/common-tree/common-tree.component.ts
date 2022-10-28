@@ -1,5 +1,6 @@
 import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { ThisReceiver } from '@angular/compiler';
 import {
   Component,
   EventEmitter,
@@ -171,6 +172,14 @@ export class CommonTreeComponent implements OnInit, OnChanges {
   buttonIconClick(node: CommonFlatNode, index: number, e: Event) {
     node.CurrentButtonIcon = index;
     this.buttonIconClickEvent.emit(node);
+  }
+  clickNode(node: CommonFlatNode, e: Event) {
+    e.stopImmediatePropagation();
+    if (this.selectStrategy == SelectStrategy.Single) {
+      this.singleSelectNode(node);
+    } else {
+      this.multipleSelectNode(node);
+    }
   }
   singleSelectNode(node: CommonFlatNode) {
     if (!node.Clickable) return;
