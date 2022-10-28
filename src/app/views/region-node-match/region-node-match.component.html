@@ -2,18 +2,16 @@
   <div class="left-wrapper box-wrapper">
     <div class="box-item">
       <div class="hw-simple-title">区域列表</div>
-      <div class="tree-container">
-        <howell-region-tree
-          #regionTree
-          [load]="load"
-          (loaded)="onTreeLoaded($event)"
-          [holdStatus]="false"
-          [selectStrategy]="selectStrategy"
-          [showRegionNode]="true"
-          [disableItemType]="disableItemType"
-          (selectTreeNode)="selectRegionTreeNode($event)"
-        ></howell-region-tree>
-      </div>
+      <howell-region-tree
+        #regionTree
+        [load]="load"
+        (loaded)="onTreeLoaded($event)"
+        [holdStatus]="false"
+        [selectStrategy]="selectStrategy"
+        [showRegionNode]="true"
+        [disableItemType]="disableItemType"
+        (selectTreeNode)="selectRegionTreeNode($event)"
+      ></howell-region-tree>
     </div>
   </div>
   <div class="middle-wrapper">
