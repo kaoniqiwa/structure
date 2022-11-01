@@ -48,6 +48,8 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
   glasses: KeyValueItem<string, boolean>[] = [];
   handle: any;
 
+  nodeSelectedChange: EventEmitter<string[]> = new EventEmitter();
+
   ngOnInit(): void {
     this.model.image = new StructuredDataFaceQueryByImageModel();
     this.handle = this.onWindowClicked.bind(this);
@@ -114,6 +116,7 @@ export class StructuredDataFaceQueryComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.nodes.splice(index, 1);
     }
+    this.nodeSelectedChange.emit([item.Id]);
   }
 
   onNodeSelected(nodes: CommonFlatNode[]) {

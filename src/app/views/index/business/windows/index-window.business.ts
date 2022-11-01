@@ -9,7 +9,7 @@ import { IndexVideoPlayerWindow } from './index-video-player-window.business';
 export class IndexWindowBusiness {
   video: IndexVideoPlayerWindow = new IndexVideoPlayerWindow();
   picture: IndexPictureWindow = new IndexPictureWindow();
-  details: IndexDetailsWindow = new IndexDetailsWindow();
+  details: IndexDetailsWindow = new IndexDetailsWindow(this);
   device: IndexDeviceWindow = new IndexDeviceWindow(this);
   deploy: IndexDeployWindow = new IndexDeployWindow(this);
 }

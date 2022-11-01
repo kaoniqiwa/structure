@@ -24,12 +24,12 @@ import { AlarmVehicleBusiness } from './business/alarm-vehicle.business';
   ],
 })
 export class AlarmComponent
-  implements IComponent<IModel, AlarmModel[]>, OnInit
+  implements IComponent<IModel, AlarmModel<EventRecord>[]>, OnInit
 {
   @Input()
-  business: IBusiness<IModel, AlarmModel[]>;
+  business: IBusiness<IModel, AlarmModel<EventRecord>[]>;
   @Output()
-  loaded: EventEmitter<AlarmModel[]> = new EventEmitter();
+  loaded: EventEmitter<AlarmModel<EventRecord>[]> = new EventEmitter();
   @Output()
   picture: EventEmitter<EventRecord> = new EventEmitter();
   @Output()
@@ -39,7 +39,7 @@ export class AlarmComponent
     this.business = business;
   }
 
-  datas: AlarmModel[] = [];
+  datas: AlarmModel<EventRecord>[] = [];
 
   ngOnInit(): void {
     this.loadData();
@@ -55,17 +55,17 @@ export class AlarmComponent
     this.datas = await this.business.load(new Date());
     this.loaded.emit(this.datas);
   }
-  onpicture(e: Event, item: AlarmModel) {
+  onpicture(e: Event, item: AlarmModel<EventRecord>) {
     this.picture.emit(item.data);
     e.stopPropagation();
   }
-  onplayback(e: Event, item: AlarmModel) {
+  onplayback(e: Event, item: AlarmModel<EventRecord>) {
     let args = VideoArgsConverter.Convert(item.data);
     this.playback.emit(args);
     e.stopPropagation();
   }
 
-  onitemclicked(item: AlarmModel) {
+  onitemclicked(item: AlarmModel<EventRecord>) {
     this.loaded.emit([item]);
   }
 }

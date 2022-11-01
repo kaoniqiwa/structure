@@ -80,13 +80,16 @@ export class RegionTreeBusiness {
       if (this.suffixIconType == SuffixIconType.Status) {
         nodes2.forEach((node) => {
           let item = node.RawData;
+
           node.ButtonIconClasses = [
             item.OnlineStatus === OnlineStatus.online
               ? `${IconTypeEnum.online} green-text`
               : `${IconTypeEnum.offline} powder-red-text`,
             IconTypeEnum.play,
-            IconTypeEnum.position,
           ];
+          if (item.camera && item.camera.GisPoint) {
+            node.ButtonIconClasses.push(IconTypeEnum.position);
+          }
         });
       } else if (this.suffixIconType == SuffixIconType.Bind) {
         for (let i = 0; i < nodes2.length; i++) {

@@ -7,6 +7,7 @@ import 'reflect-metadata';
 /** MuckCarEventData (渣土车事件数据) */
 export class MuckCarEventData implements IModel {
   /**	String	车牌号码	O	*/
+  @Transform(transformRecordName)
   PlateNo?: string;
   /**	String	车牌颜色:common.plate_color	O	*/
   PlateColor?: string;

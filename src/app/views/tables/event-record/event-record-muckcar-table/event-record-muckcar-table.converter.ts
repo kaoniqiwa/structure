@@ -39,7 +39,7 @@ class EventRecordMuckCarTableItemConverter
     model.data = source;
     model.id = source.Id;
     model.cameraName = source.ResourceName ?? '';
-    model.eventName = source.Data.CrossingName ?? '';
+    model.eventName = source.Data.IntelligentTypeName ?? '';
     model.plateNo = source.Data.PlateNo ?? '';
     model.time = source.EventTime;
     model.imageUrl = Medium.img(source.Data.ThumbnailUrl);

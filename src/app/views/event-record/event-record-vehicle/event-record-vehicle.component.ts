@@ -73,6 +73,11 @@ export class EventRecordVehicleComponent implements OnInit, AfterViewInit {
     this.page = paged.Page;
   }
   onsearch() {
+    if (this.nodes.length > 0) {
+      this.args.cameraIds = this.nodes.map((x) => x.ResourceId);
+    } else {
+      this.args.cameraIds = undefined;
+    }
     this.load.emit(this.args);
   }
   ondetails(model: EventRecord) {

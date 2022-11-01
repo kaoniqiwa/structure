@@ -42,6 +42,7 @@
             [selectStrategy]="SelectStrategy.Multiple"
             [holdStatus]="false"
             [defaultIds]="nodes | default_id_array_pipe"
+            [selectedChange]="nodeSelectedChange"
             (selectTreeNode)="onNodeSelected($event)"
           ></howell-region-tree>
         </div>

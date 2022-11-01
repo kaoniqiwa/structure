@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { PlayMode } from 'src/app/components/video-player/video.model';
 import { PictureArgsConverter } from 'src/app/converters/args/picture-args.converter';
 import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
 import {
@@ -33,19 +34,27 @@ import {
 })
 export class DeployVehicleTableComponent
   implements
-    IComponent<IModel, PagedList<DeployVehicleTableModel>>,
+    IComponent<
+      IModel,
+      PagedList<DeployVehicleTableModel<VehicleDeployControlTask>>
+    >,
     OnInit,
     OnChanges
 {
   @Input()
-  business: IRemoveBusiness<IModel, PagedList<DeployVehicleTableModel>>;
+  business: IRemoveBusiness<
+    IModel,
+    PagedList<DeployVehicleTableModel<VehicleDeployControlTask>>
+  >;
   @Input()
   load?: EventEmitter<DeployVehicleTableArgs>;
   @Input()
   remove?: EventEmitter<VehicleDeployControlTask>;
 
   @Output()
-  loaded: EventEmitter<PagedList<DeployVehicleTableModel>> = new EventEmitter();
+  loaded: EventEmitter<
+    PagedList<DeployVehicleTableModel<VehicleDeployControlTask>>
+  > = new EventEmitter();
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
@@ -95,21 +104,32 @@ export class DeployVehicleTableComponent
     this.datas = paged.Data;
     this.loaded.emit(paged);
   }
-  onpicture(e: Event, item: DeployVehicleTableModel) {
-    let args = PictureArgsConverter.Convert(item.data);
+  onpicture(e: Event, item: DeployVehicleTableModel<VehicleDeployControlTask>) {
+    let args = new PictureArgs();
+    args.id = item.TaskId;
+    args.title = item.TaskName;
     this.picture.emit(args);
     e.stopPropagation();
   }
-  onplayback(e: Event, item: DeployVehicleTableModel) {
-    let args = VideoArgsConverter.Convert(item.data);
+  onplayback(
+    e: Event,
+    item: DeployVehicleTableModel<VehicleDeployControlTask>
+  ) {
+    let args = new VideoArgs();
+    args.autoplay = true;
+    if (item.CameraIds && item.CameraIds.length > 0)
+      args.cameraId = item.CameraIds[0];
+    args.data = item.data;
+    args.mode = PlayMode.live;
+    args.title = item.TaskName;
     this.playback.emit(args);
     e.stopPropagation();
   }
-  ondetails(e: Event, item: DeployVehicleTableModel) {
+  ondetails(e: Event, item: DeployVehicleTableModel<VehicleDeployControlTask>) {
     this.details.emit(item.data);
     e.stopPropagation();
   }
-  onitemclicked(item: DeployVehicleTableModel) {
+  onitemclicked(item: DeployVehicleTableModel<VehicleDeployControlTask>) {
     this.selected = item;
     this.select.emit(this.selected.data);
   }

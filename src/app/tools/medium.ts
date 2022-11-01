@@ -23,10 +23,10 @@ export class Medium {
     return new Promise((resolve) => {
       let img = '';
       if (url) {
-        if (url.indexOf('http') < 0) {
-          img = Medium.jpg(url);
-        } else {
+        if (url.includes('http') || url.includes('/')) {
           img = url;
+        } else {
+          img = Medium.jpg(url);
         }
       }
       var image = new Image();
@@ -50,10 +50,10 @@ export class Medium {
     return new Promise((resolve) => {
       let img = '';
       if (url) {
-        if (url.indexOf('http') < 0) {
-          img = Medium.jpg(url);
-        } else {
+        if (url.includes('http') || url.includes('/')) {
           img = url;
+        } else {
+          img = Medium.jpg(url);
         }
       }
 
@@ -71,10 +71,10 @@ export class Medium {
     return new Promise((resolve) => {
       let img = '';
       if (url) {
-        if (url.indexOf('http') < 0) {
-          img = Medium.jpg(url);
-        } else {
+        if (url.includes('http') || url.includes('/')) {
           img = url;
+        } else {
+          img = Medium.jpg(url);
         }
       }
 

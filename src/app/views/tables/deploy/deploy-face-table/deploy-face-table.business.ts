@@ -13,7 +13,7 @@ export class DeployFaceTableBusiness
   implements
     IRemoveBusiness<
       PagedList<FaceDeployControlTask>,
-      PagedList<DeployFaceTableModel>
+      PagedList<DeployFaceTableModel<FaceDeployControlTask>>
     >
 {
   constructor(private service: CommandRequestSerivce) {}
@@ -22,7 +22,7 @@ export class DeployFaceTableBusiness
   async load(
     index: number,
     size: number = 10
-  ): Promise<PagedList<DeployFaceTableModel>> {
+  ): Promise<PagedList<DeployFaceTableModel<FaceDeployControlTask>>> {
     let data = await this.getData(index, size);
     let model = this.Converter.Convert(data);
     return model;

@@ -52,6 +52,8 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
   vehicleColors: KeyValueItem[] = [];
   vehicleColorDepths: KeyValueItem[] = [];
 
+  nodeSelectedChange: EventEmitter<string[]> = new EventEmitter();
+
   ngOnInit(): void {
     this.handle = this.onWindowClicked.bind(this);
     window.addEventListener('click', this.handle);
@@ -106,9 +108,11 @@ export class StructuredDataVehicleQueryComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.nodes.splice(index, 1);
     }
+    this.nodeSelectedChange.emit([item.Id]);
   }
 
   onNodeSelected(nodes: CommonFlatNode[]) {
+    this.nodes = [];
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       if (this.nodes.map((x) => x.Id).includes(node.Id)) {

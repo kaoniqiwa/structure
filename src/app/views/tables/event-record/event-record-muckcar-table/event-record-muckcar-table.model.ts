@@ -1,3 +1,4 @@
+import { IntelligentType } from 'src/app/enums/intelligent-type.enum';
 import { Duration } from 'src/app/models/duration.model';
 import { Page } from 'src/app/models/page-list.model';
 
@@ -16,4 +17,5 @@ export class EventRecordMuckCarTableArgs {
   name?: string;
   duration!: Duration;
   cameraIds?: string[];
+  intelligentType?: IntelligentType;
 }

@@ -28,6 +28,7 @@ export class DeployInfoConverter
     } else if (source instanceof VehicleEventRecord) {
       return this._fromVehicleEventRecord(source);
     } else if (source instanceof MuckCarEventRecord) {
+      return this._fromMuckCarEventRecord(source);
     }
     throw new Error('Error');
   }
@@ -62,7 +63,10 @@ export class DeployInfoConverter
     model.imageUrl = (await Medium.image(item.ImageUrl)).url;
     model.title = item.EventDescription ?? '';
     model.content = [];
-
+    item.Data.CrossingName && model.content.push(item.Data.CrossingName);
+    item.Data.PlateNo && model.content.push(item.Data.PlateNo);
+    item.Data.IntelligentTypeName &&
+      model.content.push(item.Data.IntelligentTypeName);
     model.eventTime = item.EventTime;
 
     return model;

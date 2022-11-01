@@ -161,7 +161,7 @@ export class CommonTreeComponent implements OnInit, OnChanges {
         this.selectTreeNode.emit(change);
       });
     }
-    if ('selectedChanged' in changes) {
+    if ('selectedChange' in changes) {
       if (this.selectedChange) {
         this.selectedChange.subscribe((x) => {
           this.toggleSelect(x);

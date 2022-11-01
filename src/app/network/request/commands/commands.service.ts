@@ -4,11 +4,13 @@ import { BodyRecord } from 'src/app/models/body-record.model';
 import { FaceDeployControlTask } from 'src/app/models/face-deploy-control-task.model';
 import { FaceModelingResult } from 'src/app/models/face-modeling-result.model';
 import { FaceRecord } from 'src/app/models/face-record.model';
-import { PagedList } from 'src/app/models/page-list.model';
 import { VehicleDeployControlTask } from 'src/app/models/vehicle-deploy-control-task.model';
 import { VehicleModelingResult } from 'src/app/models/vehicle-modeling-result.model';
 import { VehicleRecord } from 'src/app/models/vehicle-record.model';
-import { BaseRequestService } from '../../base-request.service';
+import {
+  BaseRequestService,
+  BaseTypeRequestService,
+} from '../../base-request.service';
 import { HowellAuthHttpService } from '../../howell-auth-http.service';
 import { CommandsUrl } from '../../url/commands/commands.url';
 import { BodyImageModelingParams } from './params/body-image-modeling.params';
@@ -127,14 +129,17 @@ class CommandAIFaceDeployControlRequestService {
   }
 }
 class CommandAIFaceRecordDeployControlTaskRequestService {
-  constructor(private basic: BaseRequestService) {}
+  private type: BaseTypeRequestService<FaceDeployControlTask>;
+  constructor(private basic: BaseRequestService) {
+    this.type = basic.type(FaceDeployControlTask);
+  }
   create(params: CreateFaceDeployControlParams) {
     let url = CommandsUrl.ai().face().deployControl().task().basic();
     return this.basic.postReturnString(url, params);
   }
   set(id: string, params: SetFaceDeployControlParams) {
     let url = CommandsUrl.ai().face().deployControl().task().item(id);
-    return this.basic.put(url, FaceDeployControlTask, params);
+    return this.type.put(url, params);
   }
   delete(id: string) {
     let url = CommandsUrl.ai().face().deployControl().task().item(id);
@@ -142,7 +147,7 @@ class CommandAIFaceRecordDeployControlTaskRequestService {
   }
   list(params: GetFaceDeployControlTasksParams) {
     let url = CommandsUrl.ai().face().deployControl().task().list();
-    return this.basic.post(url, PagedList<FaceDeployControlTask>, params);
+    return this.type.paged(url, params);
   }
 }
 
@@ -177,7 +182,10 @@ class CommandAIVehicleRecordQureyRequestService {
 }
 
 class CommandAIVehicleRecordDeployControlTaskRequestService {
-  constructor(private basic: BaseRequestService) {}
+  private type: BaseTypeRequestService<VehicleDeployControlTask>;
+  constructor(private basic: BaseRequestService) {
+    this.type = basic.type(VehicleDeployControlTask);
+  }
   create(params: CreateVehicleDeployControlParams) {
     let url = CommandsUrl.ai().vehicle().deployControl().task().basic();
     return this.basic.postReturnString(url, params);
@@ -192,7 +200,7 @@ class CommandAIVehicleRecordDeployControlTaskRequestService {
   }
   list(params: GetVehicleDeployControlTasksParams) {
     let url = CommandsUrl.ai().vehicle().deployControl().task().list();
-    return this.basic.post(url, PagedList<VehicleDeployControlTask>, params);
+    return this.type.paged(url, params);
   }
 }
 

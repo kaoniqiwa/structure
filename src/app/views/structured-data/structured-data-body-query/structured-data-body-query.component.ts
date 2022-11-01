@@ -57,6 +57,8 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
   masks: KeyValueItem<string, boolean>[] = [];
   things: KeyValueItem<string, boolean>[] = [];
 
+  nodeSelectedChange: EventEmitter<string[]> = new EventEmitter();
+
   ngOnInit(): void {
     this.handle = this.onWindowClicked.bind(this);
     window.addEventListener('click', this.handle);
@@ -144,6 +146,7 @@ export class StructuredDataBodyQueryComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.nodes.splice(index, 1);
     }
+    this.nodeSelectedChange.emit([item.Id]);
   }
 
   onNodeSelected(nodes: CommonFlatNode[]) {

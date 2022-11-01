@@ -9,12 +9,16 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { CommonFlatNode } from 'src/app/components/common-tree/common-flat-node.model';
 import { DateTimePickerView } from 'src/app/directives/date-time-picker/date-time-picker.directive';
+import { IntelligentType } from 'src/app/enums/intelligent-type.enum';
 import { VideoArgs } from 'src/app/models/args/video.args';
 import { EventRecord } from 'src/app/models/event-record/event.record';
+import { KeyValueItem } from 'src/app/models/key-value-item.model';
 import { Page, PagedList } from 'src/app/models/page-list.model';
 import { RegionNode } from 'src/app/models/region-node.model';
 import { DateTimeTool } from 'src/app/tools/datetime.tool';
+import { Language } from 'src/app/tools/language';
 import { EventRecordMuckCarTableArgs } from '../../tables/event-record/event-record-muckcar-table/event-record-muckcar-table.model';
+import { EventRecordMuckcarBusiness } from './event-record-muckcar.business';
 
 @Component({
   selector: 'app-event-record-muckcar',
@@ -23,6 +27,7 @@ import { EventRecordMuckCarTableArgs } from '../../tables/event-record/event-rec
     '../event-record-item.less',
     './event-record-muckcar.component.less',
   ],
+  providers: [EventRecordMuckcarBusiness],
 })
 export class EventRecordMuckCarComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -31,7 +36,7 @@ export class EventRecordMuckCarComponent
   details: EventEmitter<EventRecord> = new EventEmitter();
   @Output()
   playback: EventEmitter<VideoArgs> = new EventEmitter();
-  constructor() {}
+  constructor(private business: EventRecordMuckcarBusiness) {}
 
   args = new EventRecordMuckCarTableArgs();
   load: EventEmitter<EventRecordMuckCarTableArgs> = new EventEmitter();
@@ -40,6 +45,7 @@ export class EventRecordMuckCarComponent
   expand = false;
   nodes: RegionNode[] = [];
   handle: any;
+  intelligentTypes: KeyValueItem<string | undefined, number | undefined>[] = [];
 
   ngOnInit(): void {
     this.args.page = new Page();
@@ -49,12 +55,36 @@ export class EventRecordMuckCarComponent
 
     this.handle = this.onWindowClicked.bind(this);
     window.addEventListener('click', this.handle);
+
+    this.init();
   }
   ngAfterViewInit(): void {
     this.load.emit(this.args);
   }
   ngOnDestroy(): void {
     window.removeEventListener('click', this.handle);
+  }
+  async init() {
+    let item = new KeyValueItem();
+    let value = undefined;
+    item.Key = value;
+    item.Value = value;
+    item.Name = Language.IntelligentType(value);
+    this.intelligentTypes.push(item);
+
+    item = new KeyValueItem();
+    value = IntelligentType.rearcover_error;
+    item.Key = value;
+    item.Value = value;
+    item.Name = Language.IntelligentType(value);
+    this.intelligentTypes.push(item);
+
+    item = new KeyValueItem();
+    value = IntelligentType.unlicensed_car;
+    item.Key = value;
+    item.Value = value;
+    item.Name = Language.IntelligentType(value);
+    this.intelligentTypes.push(item);
   }
 
   changeBegin(date: Date) {
@@ -76,6 +106,11 @@ export class EventRecordMuckCarComponent
     this.page = paged.Page;
   }
   onsearch() {
+    if (this.nodes.length > 0) {
+      this.args.cameraIds = this.nodes.map((x) => x.ResourceId);
+    } else {
+      this.args.cameraIds = undefined;
+    }
     this.load.emit(this.args);
   }
   ondetails(model: EventRecord) {

@@ -17,17 +17,17 @@ export class AlarmItemConverter implements IConverter<EventRecord, AlarmModel> {
   Convert(source: EventRecord): AlarmModel {
     let model = new AlarmModel();
     model.id = source.Id;
-    model.name = source.ResourceName ?? '';
+    model.cameraName = source.ResourceName ?? '';
     model.type = source.EventType;
     model.time = source.EventTime;
     model.data = source;
 
     if (source instanceof FaceEventRecord) {
-      model.nodeName = source.Data.PersonName ?? '';
+      model.name = source.Data.PersonName ?? source.Data.TaskName ?? '';
     } else if (source instanceof VehicleEventRecord) {
-      model.nodeName = source.Data.CrossingName ?? '';
+      model.name = source.Data.PlateNo ?? '';
     } else if (source instanceof MuckCarEventRecord) {
-      model.nodeName = source.Data.CrossingName ?? '';
+      model.name = source.Data.PlateNo ?? '';
     } else {
     }
 

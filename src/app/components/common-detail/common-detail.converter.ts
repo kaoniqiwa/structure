@@ -212,6 +212,11 @@ export class CommonDetailConverter {
         PropertyDes: '卡口名称',
         PropertyValue: item.Data.CrossingName ?? '未知',
       },
+      {
+        Icon: 'howell-icon-dustcart',
+        PropertyDes: '违规类型',
+        PropertyValue: item.Data.IntelligentTypeName ?? '未知',
+      },
     ];
 
     return model;

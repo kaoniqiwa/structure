@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { PlayMode } from 'src/app/components/video-player/video.model';
 import { PictureArgsConverter } from 'src/app/converters/args/picture-args.converter';
 import { VideoArgsConverter } from 'src/app/converters/args/video-args.converter';
 import {
@@ -34,19 +35,23 @@ import {
 })
 export class DeployFaceTableComponent
   implements
-    IComponent<IModel, PagedList<DeployFaceTableModel>>,
+    IComponent<IModel, PagedList<DeployFaceTableModel<FaceDeployControlTask>>>,
     OnInit,
     OnChanges
 {
   @Input()
-  business: IRemoveBusiness<IModel, PagedList<DeployFaceTableModel>>;
+  business: IRemoveBusiness<
+    IModel,
+    PagedList<DeployFaceTableModel<FaceDeployControlTask>>
+  >;
   @Input()
   load?: EventEmitter<DeployFaceTableArgs>;
   @Input()
   remove?: EventEmitter<FaceDeployControlTask>;
 
   @Output()
-  loaded: EventEmitter<PagedList<DeployFaceTableModel>> = new EventEmitter();
+  loaded: EventEmitter<PagedList<DeployFaceTableModel<FaceDeployControlTask>>> =
+    new EventEmitter();
   @Output()
   picture: EventEmitter<PictureArgs> = new EventEmitter();
   @Output()
@@ -96,21 +101,31 @@ export class DeployFaceTableComponent
     this.datas = paged.Data;
     this.loaded.emit(paged);
   }
-  onpicture(e: Event, item: DeployFaceTableModel) {
-    let args = PictureArgsConverter.Convert(item.data);
+  onpicture(e: Event, item: DeployFaceTableModel<FaceDeployControlTask>) {
+    let args = new PictureArgs();
+    args.id = item.TaskId;
+    args.title = item.TaskName;
+    args.url = item.ImageData;
     this.picture.emit(args);
     e.stopPropagation();
   }
-  onplayback(e: Event, item: DeployFaceTableModel) {
-    let args = VideoArgsConverter.Convert(item.data);
+  onplayback(e: Event, item: DeployFaceTableModel<FaceDeployControlTask>) {
+    let args = new VideoArgs();
+    if (item.CameraIds && item.CameraIds.length) {
+      args.cameraId = item.CameraIds[0];
+    }
+    args.autoplay = true;
+    args.data = item.data;
+    args.mode = PlayMode.live;
+    args.title = item.TaskName;
     this.playback.emit(args);
     e.stopPropagation();
   }
-  ondetails(e: Event, item: DeployFaceTableModel) {
+  ondetails(e: Event, item: DeployFaceTableModel<FaceDeployControlTask>) {
     this.details.emit(item.data);
     e.stopPropagation();
   }
-  onitemclicked(item: DeployFaceTableModel) {
+  onitemclicked(item: DeployFaceTableModel<FaceDeployControlTask>) {
     this.selected = item;
     this.select.emit(this.selected.data);
   }

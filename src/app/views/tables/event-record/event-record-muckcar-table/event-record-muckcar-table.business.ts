@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { IntelligentType } from 'src/app/enums/intelligent-type.enum';
 import { IBusiness } from 'src/app/interfaces/business.interface';
 import { Duration } from 'src/app/models/duration.model';
 import { MuckCarEventRecord } from 'src/app/models/event-record/muck-car-event.record';
@@ -30,7 +31,8 @@ export class EventRecordMuckCarTableBusiness
       args.page.PageIndex,
       args.page.PageSize,
       args.cameraIds,
-      args.name
+      args.name,
+      args.intelligentType
     );
     let model = this.Converter.Convert(data);
     return model;
@@ -40,7 +42,8 @@ export class EventRecordMuckCarTableBusiness
     index: number,
     size: number,
     cameraIds?: string[],
-    name?: string
+    name?: string,
+    intelligentType?: IntelligentType
   ): Promise<PagedList<MuckCarEventRecord>> {
     let params = new GetMuckCarEventRecordsParams();
     params.BeginTime = duration.begin;
@@ -49,6 +52,7 @@ export class EventRecordMuckCarTableBusiness
     params.PageSize = size;
     params.ResourceName = name;
     params.ResourceIds = cameraIds;
+    params.IntelligentType = intelligentType;
     return this.service.record.muckCar.list(params);
   }
 }

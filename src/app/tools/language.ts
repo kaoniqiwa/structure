@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { CameraType } from '../enums/camera-type.enum';
 import { EventType } from '../enums/event-type.enum';
+import { IntelligentType } from '../enums/intelligent-type.enum';
 import { OnlineStatus } from '../enums/online-status.enum';
 import { RegionNodeType } from '../enums/region-node-type.enum';
 import { ResourceType } from '../enums/resource-type.enum';
@@ -126,6 +127,17 @@ export class Language {
       case undefined:
       default:
         return '';
+    }
+  }
+
+  static IntelligentType(type?: IntelligentType) {
+    switch (type) {
+      case IntelligentType.rearcover_error:
+        return '后盖异常';
+      case IntelligentType.unlicensed_car:
+        return '黑车';
+      default:
+        return '未知';
     }
   }
 }
